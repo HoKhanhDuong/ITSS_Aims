@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
 import java.awt.Font;
+import javax.swing.JButton;
 
 public class DemoScreen extends JFrame {
 
@@ -45,6 +46,9 @@ public class DemoScreen extends JFrame {
 		txtpnHelloAnhp.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtpnHelloAnhp.setText("Hello anh \u0111\u1EB9p zai");
 		contentPane.add(txtpnHelloAnhp, BorderLayout.CENTER);
+		
+		JButton btnNewButton = new JButton("Bye Bye");
+		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 	}
 
 }

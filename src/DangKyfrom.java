@@ -19,7 +19,7 @@ import java.awt.Color;
 public class DangKyfrom extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
-	Image img = Toolkit.getDefaultToolkit().getImage("F:\\DemoGUI\\src\\image.jpg");
+	Image img = Toolkit.getDefaultToolkit().getImage("E:\\ITSS_Aims\\img\\Artboard 1.png");
 	private JPanel contentPane;
 	/**
 	 * Launch the application.

@@ -45,7 +45,7 @@ public class User extends JFrame {
 		label.setBounds(5, 5, 430, 0);
 		contentPane.add(label);
 		
-		JLabel lblXemThngTin = new JLabel("Xem thông tin cá nhân");
+		JLabel lblXemThngTin = new JLabel("Personal information");
 		lblXemThngTin.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 15));
 		lblXemThngTin.setBounds(127, 5, 197, 28);
 		contentPane.add(lblXemThngTin);
@@ -62,7 +62,7 @@ public class User extends JFrame {
 		lblPhone.setBounds(45, 129, 70, 15);
 		contentPane.add(lblPhone);
 		
-		JButton btnChangePassword = new JButton("Thay đổi thông tin");
+		JButton btnChangePassword = new JButton("Change");
 		btnChangePassword.setBounds(61, 176, 177, 25);
 		contentPane.add(btnChangePassword);
 		

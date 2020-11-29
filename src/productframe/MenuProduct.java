@@ -72,8 +72,8 @@ public class MenuProduct extends JPanel {
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		int status = 0;
-		if(status == 1) {
+		//int status = 0;
+		//if(status == 0) {
 		JMenuBar menuBar = new JMenuBar();
 		homePanel.add(menuBar);
 		
@@ -96,7 +96,7 @@ public class MenuProduct extends JPanel {
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
 		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		account.add(mntmNewMenuItem_2);
-		}else {
+		/*}else {
 
 			JButton signInButton = new JButton("SIGN IN");
 			signInButton.setForeground(Color.ORANGE);
@@ -105,11 +105,13 @@ public class MenuProduct extends JPanel {
 			signInButton.setBorderPainted(false);
 			homePanel.add(signInButton);
 		}
-		
+		*/
 		JButton cart = new JButton("CART");
 		cart.setBackground(Color.WHITE);
 		cart.setForeground(Color.BLACK);
 		cart.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		homePanel.add(cart);
+		
+		
 	}
 }

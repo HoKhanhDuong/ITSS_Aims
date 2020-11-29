@@ -13,9 +13,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.LineBorder;
 
 public class DetailProduct extends MenuProduct {
 	private JTextField textField;
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -44,6 +46,7 @@ public class DetailProduct extends MenuProduct {
         imgPanel.add(imgLabel);
         
         JPanel detailPanel = new JPanel();
+        detailPanel.setBorder(null);
         detailPanel.setBackground(Color.WHITE);
         detailPanel.setBounds(400, 0, 600, 530);
         detailProductPanel.add(detailPanel);
@@ -51,12 +54,12 @@ public class DetailProduct extends MenuProduct {
         
         JLabel lblNewLabel = new JLabel("NAME PRODUCT");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-        lblNewLabel.setBounds(50, 40, 500, 30);
+        lblNewLabel.setBounds(40, 40, 510, 30);
         detailPanel.add(lblNewLabel);
         
         JPanel quantityPanel = new JPanel();
         quantityPanel.setBackground(Color.WHITE);
-        quantityPanel.setBounds(40, 116, 193, 60);
+        quantityPanel.setBounds(199, 116, 186, 60);
         detailPanel.add(quantityPanel);
         quantityPanel.setLayout(null);
         
@@ -68,7 +71,7 @@ public class DetailProduct extends MenuProduct {
         textField = new JTextField();
         textField.setHorizontalAlignment(SwingConstants.CENTER);
         textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        textField.setBounds(103, 10, 62, 40);
+        textField.setBounds(102, 17, 62, 26);
         quantityPanel.add(textField);
         textField.setColumns(10);
         
@@ -80,25 +83,63 @@ public class DetailProduct extends MenuProduct {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        buyNowButton.setBounds(288, 125, 180, 40);
+        buyNowButton.setBounds(40, 208, 138, 40);
         detailPanel.add(buyNowButton);
         
         JPanel informationPanel = new JPanel();
+        informationPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
         informationPanel.setBackground(Color.WHITE);
-        informationPanel.setBounds(40, 220, 560, 232);
+        informationPanel.setBounds(40, 272, 550, 168);
         detailPanel.add(informationPanel);
         informationPanel.setLayout(null);
         
         JLabel lblNewLabel_2 = new JLabel("The detail information of product");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 18));
-        lblNewLabel_2.setBounds(10, 10, 540, 34);
+        lblNewLabel_2.setBounds(10, 10, 480, 34);
         informationPanel.add(lblNewLabel_2);
         
-        JLabel lblNewLabel_3 = new JLabel("Thong tin san pham");
-        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_3.setVerticalAlignment(SwingConstants.TOP);
-        lblNewLabel_3.setBounds(10, 54, 524, 168);
-        informationPanel.add(lblNewLabel_3);
+        JPanel panel = new JPanel();
+        panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+        panel.setBackground(Color.WHITE);
+        panel.setBounds(0, 54, 550, 114);
+        informationPanel.add(panel);
+        panel.setLayout(null);
+        
+        table = new JTable();
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(false);
+        table.setShowGrid(false);
+        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        table.setModel(new DefaultTableModel(
+        	new Object[][] {
+        		{"Author :", "Nguyen Nhat Anh"},
+        		{"Publication date :", "July 7, 2020"},
+        		{"Print length :", "320 pages"},
+        		{"Publisher :", "Penguin Press"},
+        		{"Language :", "English"},
+        	},
+        	new String[] {
+        		"DETAIL", "INFORMATION"
+        	}
+        ));
+        table.getColumnModel().getColumn(0).setPreferredWidth(106);
+        table.getColumnModel().getColumn(1).setPreferredWidth(369);
+        table.setBounds(10, 10, 530, 94);
+        panel.add(table);
+        
+        JButton btnNewButton = new JButton("Add to Cart");
+        btnNewButton.setBackground(Color.WHITE);
+        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        btnNewButton.setBounds(199, 208, 152, 40);
+        detailPanel.add(btnNewButton);
+        
+        JLabel lblNewLabel_3 = new JLabel("120.000 \u0111");
+        lblNewLabel_3.setForeground(Color.BLACK);
+        lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
+        lblNewLabel_3.setBounds(40, 116, 152, 60);
+        detailPanel.add(lblNewLabel_3);
         
         
 	}

@@ -39,6 +39,7 @@ public class Information extends MyAccount {
 		panel.add(lblNewLabel_1);
 		
 		txtNguyenPhuong = new JTextField();
+		txtNguyenPhuong.setEnabled(false);
 		txtNguyenPhuong.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNguyenPhuong.setText("Nguyen Phuong");
 		txtNguyenPhuong.setBounds(115, 10, 450, 30);
@@ -51,6 +52,7 @@ public class Information extends MyAccount {
 		panel.add(lblNewLabel_2);
 		
 		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
 		textField_1.setText("0382140588");
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textField_1.setBounds(115, 50, 450, 30);
@@ -63,6 +65,7 @@ public class Information extends MyAccount {
 		panel.add(lblNewLabel_3);
 		
 		txtNguyenphuonggmailcom = new JTextField();
+		txtNguyenphuonggmailcom.setEnabled(false);
 		txtNguyenphuonggmailcom.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNguyenphuonggmailcom.setText("nguyenphuong4899@gmail.com");
 		txtNguyenphuonggmailcom.setBounds(115, 90, 450, 30);

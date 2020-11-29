@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import user.CancelOrder;
 import user.Information;
 import user.MyAccount;
 import user.OrderHisrory;
+import user.Pay;
 
 
 
@@ -27,9 +29,6 @@ public class main {
 		mainFrame.setVisible(true);
 		
 		
-		DetailProduct detailProduct = new DetailProduct();
-		mainFrame.add(detailProduct);
-		mainFrame.setVisible(true);
 		
 		
 		
@@ -37,16 +36,34 @@ public class main {
 		mainFrame.add(myAccount);
 		mainFrame.setVisible(true);
 		
+		CancelOrder cancelOrder = new CancelOrder();
+		mainFrame.add(cancelOrder);
+		mainFrame.setVisible(true);
+		
 		
 		Information information = new Information();
 		mainFrame.add(information);
 		mainFrame.setVisible(true);
-		*/
+		
+		Pay pay = new Pay();
+        mainFrame.add(pay);
+        mainFrame.setVisible(true);
 		
 		OrderHisrory order = new OrderHisrory();
 		mainFrame.add(order);
 		mainFrame.setVisible(true);
 		
+		Cart cart = new Cart();
+		mainFrame.add(cart);
+		mainFrame.setVisible(true);
+		*/
+		
+		DetailProduct detailProduct = new DetailProduct();
+		mainFrame.add(detailProduct);
+		mainFrame.setVisible(true);
+		
+		
+        
 		
 	}
 

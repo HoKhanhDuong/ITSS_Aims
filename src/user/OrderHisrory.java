@@ -8,12 +8,28 @@ import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JComboBox;
+import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
 
 public class OrderHisrory extends MyAccount {
 
 	/**
 	 * Create the panel.
 	 */
+	String data[][] = { { "101", "Tran Van Minh", "6000" }, 
+            { "102", "Phan Van Tai", "8000" }, 
+            { "101", "Do Cao Hoc", "7000" } };
+    String column[] = { "ID", "NAME", "SALARY" };
+    private JTable table;
 	public OrderHisrory() {
 		
 		JPanel panel = new JPanel();
@@ -23,6 +39,7 @@ public class OrderHisrory extends MyAccount {
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.control);
 		panel_1.setBounds(10, 0, 670, 530);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
@@ -32,39 +49,30 @@ public class OrderHisrory extends MyAccount {
 		lblNewLabel.setBounds(25, 25, 615, 30);
 		panel_1.add(lblNewLabel);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(10, 72, 650, 384);
-		panel_1.add(panel_2);
-		panel_2.setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setEnabled(false);
+		scrollPane.setViewportBorder(new LineBorder(SystemColor.control));
+		scrollPane.setBounds(10, 69, 650, 451);
+		panel_1.add(scrollPane);
 		
-		JButton btnNewButton = new JButton("ID");
-		btnNewButton.setBounds(0, 0, 85, 30);
-		panel_2.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("date buy");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		table = new JTable();
+		table.setEnabled(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"012345", "11/11/2020", "Hoa cuc dai, Toi thay hoa vang tren co xanh, Shin cau be but chi", "210.000", ""},
+				{"064578", "09/11/2019", "Tuoi tre dang gia bao nhieu", "99.000", "cancel"},
+			},
+			new String[] {
+				"ID", "Date purchase", "Product", "Total", "Status"
 			}
-		});
-		btnNewButton_1.setBounds(84, 0, 137, 30);
-		panel_2.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("product name");
-		btnNewButton_2.setBounds(221, 0, 220, 30);
-		panel_2.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("total");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_3.setBounds(439, 0, 91, 30);
-		panel_2.add(btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("status");
-		btnNewButton_4.setBounds(528, 0, 122, 30);
-		panel_2.add(btnNewButton_4);
+		));
+		table.getColumnModel().getColumn(2).setPreferredWidth(262);
+		table.getColumnModel().getColumn(3).setPreferredWidth(84);
+		table.getColumnModel().getColumn(4).setPreferredWidth(125);
+		scrollPane.setViewportView(table);
 
 	}
 }

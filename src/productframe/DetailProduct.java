@@ -56,7 +56,7 @@ public class DetailProduct extends MenuProduct {
         
         JPanel quantityPanel = new JPanel();
         quantityPanel.setBackground(Color.WHITE);
-        quantityPanel.setBounds(40, 116, 193, 60);
+        quantityPanel.setBounds(40, 143, 193, 60);
         detailPanel.add(quantityPanel);
         quantityPanel.setLayout(null);
         
@@ -99,6 +99,11 @@ public class DetailProduct extends MenuProduct {
         lblNewLabel_3.setVerticalAlignment(SwingConstants.TOP);
         lblNewLabel_3.setBounds(10, 54, 524, 168);
         informationPanel.add(lblNewLabel_3);
+        
+        JLabel lblNewLabel_4 = new JLabel("Price");
+        lblNewLabel_4.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        lblNewLabel_4.setBounds(102, 85, 84, 23);
+        detailPanel.add(lblNewLabel_4);
         
         
 	}

@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Manager.Application;
+
 import javax.swing.border.LineBorder;
 
 public class DetailProduct extends MenuProduct {
@@ -22,7 +25,8 @@ public class DetailProduct extends MenuProduct {
 	/**
 	 * Create the panel.
 	 */
-	public DetailProduct() {
+	public DetailProduct(Application application) {
+		super(application);
         setSize(1100, 600);
         setLayout(null);
         

@@ -58,11 +58,13 @@ public class main {
 		mainFrame.setVisible(true);
 		*/
 		
-		DetailProduct detailProduct = new DetailProduct();
-		mainFrame.add(detailProduct);
+//		DetailProduct detailProduct = new DetailProduct();
+//		mainFrame.add(detailProduct);
+//		mainFrame.setVisible(true);
+		
+		Pay pay = new Pay();
+		mainFrame.add(pay);
 		mainFrame.setVisible(true);
-		
-		
         
 		
 	}

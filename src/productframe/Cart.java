@@ -6,6 +6,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
+
+import Manager.Application;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,8 +22,8 @@ public class Cart extends MenuProduct {
 	/**
 	 * Create the panel.
 	 */
-	public Cart() {
-		
+	public Cart(Application application) {
+		super(application);
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.control);
 		panel.setBounds(0, 70, 1100, 530);

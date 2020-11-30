@@ -7,6 +7,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import Manager.Application;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -26,7 +28,8 @@ public class Product extends MenuProduct {
 	/**
 	 * Create the panel.
 	 */
-	public Product() {
+	public Product( Application application) {
+		super(application);
 		setBorder(new EmptyBorder(3,3,3,3));
 		setSize(1100, 900);
 		setLayout(null);

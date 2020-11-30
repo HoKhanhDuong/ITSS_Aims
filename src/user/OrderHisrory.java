@@ -12,6 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Manager.Application;
+
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JDesktopPane;
@@ -30,8 +33,8 @@ public class OrderHisrory extends MyAccount {
             { "101", "Do Cao Hoc", "7000" } };
     String column[] = { "ID", "NAME", "SALARY" };
     private JTable table;
-	public OrderHisrory() {
-		
+	public OrderHisrory( Application application) {
+		super(application);
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(320, 70, 780, 530);

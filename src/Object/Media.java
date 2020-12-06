@@ -2,11 +2,15 @@ package Object;
 
 public class Media {
 	String nameString;
-	Float priceFloat;
-	public Media(String name, Float price) {
+	int priceFloat;
+	String categoryString;
+	public Media() {
+	}
+	public Media(String name, int price, String category) {
 		// TODO Auto-generated constructor stub
-		nameString = name;
-		priceFloat = price;
+		this.nameString = name;
+		this.priceFloat = price;
+		this.categoryString=category;
 	}
 	public String getNameString() {
 		return nameString;
@@ -14,11 +18,18 @@ public class Media {
 	public void setNameString(String nameString) {
 		this.nameString = nameString;
 	}
-	public Float getPriceFloat() {
+	public int getPriceFloat() {
 		return priceFloat;
 	}
-	public void setPriceFloat(Float priceFloat) {
+	public void setPriceFloat(int priceFloat) {
 		this.priceFloat = priceFloat;
 	}
+	public String getCategoryString() {
+		return categoryString;
+	}
+	public void setCategoryString(String categoryString) {
+		this.categoryString = categoryString;
+	}
+	
 
 }

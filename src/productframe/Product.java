@@ -134,12 +134,12 @@ public class Product extends MenuProduct {
 		nameProductButton.setBorderPainted(false);
 		nameProductButton.setHorizontalAlignment(SwingConstants.LEADING);
 		nameProductButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		nameProductButton.setBounds(10, 240, 230, 21);
+		nameProductButton.setBounds(0, 252, 230, 21);
 		productPanel_1.add(nameProductButton);
 		
 		JLabel priceLabel = new JLabel("Price");
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		priceLabel.setBounds(27, 271, 104, 21);
+		priceLabel.setBounds(10, 271, 104, 21);
 		productPanel_1.add(priceLabel);
 		
 		JButton btnNewButton = new JButton("BUY ");

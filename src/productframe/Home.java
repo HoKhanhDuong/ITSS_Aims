@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Manager.Application;
+
 import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -29,8 +32,10 @@ import javax.swing.JSeparator;
 import java.awt.SystemColor;
 
 public class Home extends MenuProduct {
-
-	public Home() {
+	Application application;
+	public Home(Application application) {
+		super(application);
+		this.application = application;		
 		
 		setForeground(new Color(102, 204, 255));
 		setBackground(Color.WHITE);

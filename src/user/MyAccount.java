@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Manager.Application;
+
 import java.awt.Color;
 
 public class MyAccount extends MenuProduct {
@@ -16,8 +19,8 @@ public class MyAccount extends MenuProduct {
 	/**
 	 * Create the panel.
 	 */
-	public MyAccount() {
-		
+	public MyAccount( Application application) {
+		super(application);
 		JPanel accountPanel = new JPanel();
 		accountPanel.setBackground(Color.LIGHT_GRAY);
 		accountPanel.setBounds(100, 70, 220, 530);

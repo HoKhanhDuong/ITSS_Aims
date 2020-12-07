@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Manager.Application;
+
 import javax.swing.border.LineBorder;
 
 public class DetailProduct extends MenuProduct {
@@ -22,7 +25,8 @@ public class DetailProduct extends MenuProduct {
 	/**
 	 * Create the panel.
 	 */
-	public DetailProduct() {
+	public DetailProduct(Application application) {
+		super(application);
         setSize(1100, 600);
         setLayout(null);
         
@@ -59,7 +63,7 @@ public class DetailProduct extends MenuProduct {
         
         JPanel quantityPanel = new JPanel();
         quantityPanel.setBackground(Color.WHITE);
-        quantityPanel.setBounds(199, 116, 186, 60);
+        quantityPanel.setBounds(40, 143, 193, 60);
         detailPanel.add(quantityPanel);
         quantityPanel.setLayout(null);
         
@@ -140,6 +144,11 @@ public class DetailProduct extends MenuProduct {
         lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
         lblNewLabel_3.setBounds(40, 116, 152, 60);
         detailPanel.add(lblNewLabel_3);
+        
+        JLabel lblNewLabel_4 = new JLabel("Price");
+        lblNewLabel_4.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        lblNewLabel_4.setBounds(102, 85, 84, 23);
+        detailPanel.add(lblNewLabel_4);
         
         
 	}

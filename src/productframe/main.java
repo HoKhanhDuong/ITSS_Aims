@@ -65,9 +65,20 @@ public class main {
 //		mainFrame.add(information);
 //		mainFrame.setVisible(true);
 		
+
 //		UserManagement userManagement = new UserManagement();
 //		mainFrame.add(userManagement);
 //		mainFrame.setVisible(true);
+
+//		DetailProduct detailProduct = new DetailProduct();
+//		mainFrame.add(detailProduct);
+//		mainFrame.setVisible(true);
+		
+		Pay pay = new Pay();
+		mainFrame.add(pay);
+		mainFrame.setVisible(true);
+        
+
 		
 		ProductManagement productManagement = new ProductManagement();
 		mainFrame.add(productManagement);

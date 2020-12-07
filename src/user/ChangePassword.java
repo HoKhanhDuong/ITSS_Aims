@@ -7,6 +7,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import Manager.Application;
+
 public class ChangePassword extends MyAccount {
 	private JTextField textField;
 	private JTextField textField_1;
@@ -15,6 +17,7 @@ public class ChangePassword extends MyAccount {
 	/**
 	 * Create the panel.
 	 */
+
 	public ChangePassword() {
 		
 		JPanel panel = new JPanel();

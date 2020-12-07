@@ -5,6 +5,9 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Manager.Application;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
@@ -20,8 +23,8 @@ public class Information extends MyAccount {
 	/**
 	 * Create the panel.
 	 */
-	public Information() {
-		
+	public Information(Application application) {
+		super(application);
 		JPanel InformationPanel = new JPanel();
 		InformationPanel.setBackground(Color.WHITE);
 		InformationPanel.setBounds(320, 70, 780, 530);

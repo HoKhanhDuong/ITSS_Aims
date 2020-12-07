@@ -7,6 +7,11 @@ import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+
+import Manager.Application;
+
+
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -27,8 +32,8 @@ public class CancelOrder extends MyAccount {
 	/**
 	 * Create the panel.
 	 */
-	public CancelOrder() {
-		
+	public CancelOrder(Application application) {
+		super(application);
 		JPanel panel = new JPanel();
 		panel.setBounds(320, 70, 780, 530);
 		add(panel);

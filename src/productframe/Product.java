@@ -111,7 +111,7 @@ public class Product extends MenuProduct {
 		SortProduct.add(sortComboBox);
 		
 		JPanel productPanel = new JPanel();
-		productPanel.setBounds(220, 130, 880, 348);
+		productPanel.setBounds(220, 130, 666, 348);
 		add(productPanel);
 		productPanel.setLayout(null);
 		

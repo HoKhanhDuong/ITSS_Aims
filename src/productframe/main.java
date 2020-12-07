@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import admin.AddProduct;
 import admin.InformationAddmin;
 import admin.ProductManagement;
 import admin.UserManagement;
@@ -69,10 +70,13 @@ public class main {
 //		mainFrame.add(userManagement);
 //		mainFrame.setVisible(true);
 		
-		ProductManagement productManagement = new ProductManagement();
-		mainFrame.add(productManagement);
-		mainFrame.setVisible(true);
-
+//		ProductManagement productManagement = new ProductManagement();
+//		mainFrame.add(productManagement);
+//		mainFrame.setVisible(true);
+		
+        Product product = new Product();
+        mainFrame.add(product);
+        mainFrame.setVisible(true);
 	}
 
 

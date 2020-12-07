@@ -3,9 +3,15 @@ package productframe;
 
 import java.util.ArrayList;
 
+
+
 import javax.swing.JFrame;
 
+import admin.InformationAddmin;
+import admin.ProductManagement;
+import admin.UserManagement;
 import user.CancelOrder;
+import user.ChangePassword;
 import user.Information;
 import user.MyAccount;
 import user.OrderHisrory;
@@ -23,31 +29,16 @@ public class main {
 		mainFrame.add(home);
 		mainFrame.setVisible(true);
 		
-		
-		Product product = new Product();
-		mainFrame.add(product);
+		DetailProduct detailProduct = new DetailProduct();
+		mainFrame.add(detailProduct);
 		mainFrame.setVisible(true);
 		
-		
-		
-		
-		
-		MyAccount myAccount = new MyAccount();
-		mainFrame.add(myAccount);
-		mainFrame.setVisible(true);
-		
-		CancelOrder cancelOrder = new CancelOrder();
-		mainFrame.add(cancelOrder);
-		mainFrame.setVisible(true);
-		
-		
-		Information information = new Information();
-		mainFrame.add(information);
-		mainFrame.setVisible(true);
 		
 		Pay pay = new Pay();
         mainFrame.add(pay);
         mainFrame.setVisible(true);
+		
+		
 		
 		OrderHisrory order = new OrderHisrory();
 		mainFrame.add(order);
@@ -57,7 +48,28 @@ public class main {
 		mainFrame.add(cart);
 		mainFrame.setVisible(true);
 		*/
+//		ChangePassword changePassword = new ChangePassword();
+//		mainFrame.add(changePassword);
+//		mainFrame.setVisible(true);
 		
+//		MyAccount myAccount = new MyAccount();
+//		mainFrame.add(myAccount);
+//		mainFrame.setVisible(true);
+//		
+	
+//		InformationAddmin informationAddmin = new InformationAddmin();
+//		mainFrame.add(informationAddmin);
+//		mainFrame.setVisible(true);
+
+//		Information information = new Information();
+//		mainFrame.add(information);
+//		mainFrame.setVisible(true);
+		
+
+//		UserManagement userManagement = new UserManagement();
+//		mainFrame.add(userManagement);
+//		mainFrame.setVisible(true);
+
 //		DetailProduct detailProduct = new DetailProduct();
 //		mainFrame.add(detailProduct);
 //		mainFrame.setVisible(true);
@@ -66,7 +78,13 @@ public class main {
 		mainFrame.add(pay);
 		mainFrame.setVisible(true);
         
+
 		
+		ProductManagement productManagement = new ProductManagement();
+		mainFrame.add(productManagement);
+		mainFrame.setVisible(true);
+
 	}
+
 
 }

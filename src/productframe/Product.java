@@ -22,6 +22,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JInternalFrame;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class Product extends MenuProduct {
 
@@ -31,7 +36,7 @@ public class Product extends MenuProduct {
 	public Product( Application application) {
 		super(application);
 		setBorder(new EmptyBorder(3,3,3,3));
-		setSize(1100, 900);
+		setSize(1100, 1500);
 		setLayout(null);
 		
 		JPanel ProductPortfolioPanel = new JPanel();
@@ -109,7 +114,7 @@ public class Product extends MenuProduct {
 		SortProduct.add(sortComboBox);
 		
 		JPanel productPanel = new JPanel();
-		productPanel.setBounds(220, 130, 880, 470);
+		productPanel.setBounds(220, 130, 880, 348);
 		add(productPanel);
 		productPanel.setLayout(null);
 		
@@ -157,7 +162,7 @@ public class Product extends MenuProduct {
 		JPanel productPanel_3 = new JPanel();
 		productPanel_3.setBackground(Color.WHITE);
 		productPanel_3.setBounds(595, 35, 250, 300);
-		productPanel.add(productPanel_3);
-
+		
+		
 	}
 }

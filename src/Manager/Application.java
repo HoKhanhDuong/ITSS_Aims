@@ -6,6 +6,8 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import user.Address;
+
 import productframe.Cart;
 import productframe.DetailProduct;
 import productframe.Home;
@@ -28,6 +30,7 @@ public class Application extends JFrame {
 	public Information information;
 	public Pay pay;
 	public OrderHisrory orderHisrory;
+	public Address address;
 	ArrayList<JPanel> list;
 	public Application() {
 		// TODO Auto-generated constructor stub
@@ -40,8 +43,9 @@ public class Application extends JFrame {
 		cancelOrder = new CancelOrder(this);
 		changePassword = new ChangePassword(this);
 		information = new Information(this);
-		pay = new Pay();
+		//pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
+		address = new user.Address(this);
 		//add(home);
 		list = new ArrayList<JPanel>();
 		list.add(home);
@@ -50,9 +54,10 @@ public class Application extends JFrame {
 		list.add(detailProduct);
 		list.add(cancelOrder);
 		list.add(changePassword);
-		list.add(pay);
+		//list.add(pay);
 		list.add(information);
 		list.add(orderHisrory);
+		list.add(address);
 		Iterator<JPanel> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			add(iterator.next());

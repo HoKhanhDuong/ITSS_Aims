@@ -49,7 +49,7 @@ public class Cart extends MenuProduct {
 		lblNewLabel.setBounds(10, 5, 73, 30);
 		panel_2.add(lblNewLabel);
 		
-		int cart = 1;
+		int cart = 0;
 		
 		if(cart == 0) {
 		
@@ -77,6 +77,11 @@ public class Cart extends MenuProduct {
 		panel_3.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Continue shopping");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.switchPanel(application.product);
+			}
+		});
 		btnNewButton.setBackground(new Color(255, 153, 51));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setBounds(321, 218, 219, 36);
@@ -142,10 +147,6 @@ public class Cart extends MenuProduct {
 		btnNewButton_3.setForeground(new Color(255, 0, 0));
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton_3.setBorderPainted(false);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNewButton_3.setBounds(-13, 68, 88, 19);
 		panel_8.add(btnNewButton_3);
 		
@@ -216,12 +217,17 @@ public class Cart extends MenuProduct {
 		lblNewLabel_6.setBounds(10, 45, 285, 35);
 		panel_6.add(lblNewLabel_6);
 		
-		JButton btnNewButton_1 = new JButton("ORDER");
-		btnNewButton_1.setForeground(Color.WHITE);
-		btnNewButton_1.setBackground(new Color(255, 0, 0));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_1.setBounds(10, 234, 305, 35);
-		panel_4.add(btnNewButton_1);
+		JButton orderButton = new JButton("ORDER");
+		orderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//application.switchPanel(application.pay);
+			}
+		});
+		orderButton.setForeground(Color.WHITE);
+		orderButton.setBackground(new Color(255, 0, 0));
+		orderButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		orderButton.setBounds(10, 234, 305, 35);
+		panel_4.add(orderButton);
 		
 	    }
 		

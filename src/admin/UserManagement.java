@@ -7,6 +7,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Manager.AdminApplication;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -15,11 +18,10 @@ import java.awt.Color;
 public class UserManagement extends AddminHome {
 	private JTable table;
 	private JTextField textField;
+	AdminApplication adminApplication;
 
-	/**
-	 * Create the panel.
-	 */
-	public UserManagement() {
+	public UserManagement(AdminApplication adminApplication) {
+		super(adminApplication);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(250, 70, 850, 530);

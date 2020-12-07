@@ -5,6 +5,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+
+import Manager.AdminApplication;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
@@ -16,11 +19,11 @@ public class AddCD_LP extends AddProduct {
 	private JTextField textField_6;
 	private JTextField textField_3;
 
-	/**
-	 * Create the panel.
-	 */
-	public AddCD_LP() {
+	AdminApplication adminApplication;
+
+	public AddCD_LP(AdminApplication adminApplication) {
 		
+		super(adminApplication);
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBounds(10, 120, 830, 400);

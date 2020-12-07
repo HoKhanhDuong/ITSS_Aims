@@ -4,8 +4,9 @@ public class Media {
 	String nameString;
 	int priceFloat;
 	String categoryString;
-	public Media() {
-	}
+	
+	public Media() {}
+	
 	public Media(String name, int price, String category) {
 		// TODO Auto-generated constructor stub
 		this.nameString = name;

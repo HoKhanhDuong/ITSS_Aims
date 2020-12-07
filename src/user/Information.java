@@ -15,13 +15,15 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class Information extends MyAccount {
-	private JTextField txtNguyenPhuong;
-	private JTextField textField_1;
-	private JTextField txtNguyenphuonggmailcom;
+	private JTextField txtName;
+	private JTextField txtPhone;
+	private JTextField txtMail;
+	private JTextField txtCard;
 
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Information(Application application) {
 		super(application);
 		JPanel InformationPanel = new JPanel();
@@ -41,39 +43,39 @@ public class Information extends MyAccount {
 		lblNewLabel_1.setBounds(10, 10, 85, 30);
 		panel.add(lblNewLabel_1);
 		
-		txtNguyenPhuong = new JTextField();
-		txtNguyenPhuong.setEnabled(false);
-		txtNguyenPhuong.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtNguyenPhuong.setText("Nguyen Phuong");
-		txtNguyenPhuong.setBounds(115, 10, 450, 30);
-		panel.add(txtNguyenPhuong);
-		txtNguyenPhuong.setColumns(10);
+		txtName = new JTextField();
+		txtName.setEnabled(false);
+		txtName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtName.setText("Nguyen Phuong");
+		txtName.setBounds(115, 10, 450, 30);
+		panel.add(txtName);
+		txtName.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Phone");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2.setBounds(10, 50, 85, 30);
 		panel.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setText("0382140588");
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_1.setBounds(115, 50, 450, 30);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		txtPhone = new JTextField();
+		txtPhone.setEnabled(false);
+		txtPhone.setText("0382140588");
+		txtPhone.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtPhone.setBounds(115, 50, 450, 30);
+		panel.add(txtPhone);
+		txtPhone.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Email");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_3.setBounds(10, 90, 85, 35);
 		panel.add(lblNewLabel_3);
 		
-		txtNguyenphuonggmailcom = new JTextField();
-		txtNguyenphuonggmailcom.setEnabled(false);
-		txtNguyenphuonggmailcom.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtNguyenphuonggmailcom.setText("nguyenphuong4899@gmail.com");
-		txtNguyenphuonggmailcom.setBounds(115, 90, 450, 30);
-		panel.add(txtNguyenphuonggmailcom);
-		txtNguyenphuonggmailcom.setColumns(10);
+		txtMail = new JTextField();
+		txtMail.setEnabled(false);
+		txtMail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtMail.setText("nguyenphuong4899@gmail.com");
+		txtMail.setBounds(115, 90, 450, 30);
+		panel.add(txtMail);
+		txtMail.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Gender");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -106,7 +108,7 @@ public class Information extends MyAccount {
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"2", "1", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		comboBox_1.setBounds(215, 180, 90, 30);
 		panel.add(comboBox_1);
 		
@@ -115,6 +117,19 @@ public class Information extends MyAccount {
 		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboBox_2.setBounds(315, 180, 90, 30);
 		panel.add(comboBox_2);
+		
+		JLabel lblCard = new JLabel("Card");
+		lblCard.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCard.setBounds(10, 10, 85, 30);
+		panel.add(lblCard);
+		
+		txtCard = new JTextField();
+		txtCard.setEnabled(true);
+		txtCard.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtCard.setText("abcbabcajbsjb");
+		txtCard.setBounds(115, 90, 450, 30);
+		panel.add(txtCard);
+		txtCard.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Update");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));

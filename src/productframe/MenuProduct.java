@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import Controller.MediaController;
 import Manager.Application;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,8 @@ public class MenuProduct extends JPanel {
 	 */
 	private JPanel contentPane;
 	private JTextField searchTextField;
+	
+	private MediaController mediaControl;
 	
 	public Application application;
 	public MenuProduct(Application application ) {
@@ -81,6 +84,7 @@ public class MenuProduct extends JPanel {
 		JButton shoppingButton = new JButton("SHOPPING");
 		shoppingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mediaControl = application.mediaControl;
 				application.switchPanel(application.product);
 			}
 		});

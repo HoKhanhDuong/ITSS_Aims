@@ -8,26 +8,41 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import Manager.Application;
+import Object.Media;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JList;
 
 public class Product extends MenuProduct {
 
 	/**
 	 * Create the panel.
 	 */
+	public JScrollPane scrollPane;
+	public JList list;
+	private JPanel panel_1;
+	
 	public Product( Application application) {
 		super(application);
 		setBorder(new EmptyBorder(3,3,3,3));
@@ -35,8 +50,8 @@ public class Product extends MenuProduct {
 		setLayout(null);
 		
 		JPanel ProductPortfolioPanel = new JPanel();
-		ProductPortfolioPanel.setBackground(Color.WHITE);
 		ProductPortfolioPanel.setBounds(0, 70, 220, 770);
+		ProductPortfolioPanel.setBackground(Color.WHITE);
 		add(ProductPortfolioPanel);
 		ProductPortfolioPanel.setLayout(null);
 		
@@ -90,8 +105,8 @@ public class Product extends MenuProduct {
 		panel.add(dvdButton);
 		
 		JPanel SortProduct = new JPanel();
-		SortProduct.setBackground(Color.WHITE);
 		SortProduct.setBounds(220, 70, 880, 60);
+		SortProduct.setBackground(Color.WHITE);
 		add(SortProduct);
 		SortProduct.setLayout(null);
 		
@@ -108,60 +123,25 @@ public class Product extends MenuProduct {
 		sortComboBox.setBounds(724, 15, 128, 30);
 		SortProduct.add(sortComboBox);
 		
-		JPanel productPanel = new JPanel();
-		productPanel.setBounds(220, 130, 880, 470);
-		add(productPanel);
-		productPanel.setLayout(null);
+		scrollPane = new JScrollPane();
+		//scrollPane.setBounds(230, 140, 860, 230);
+		scrollPane.setLocation(230, 140);
+		scrollPane.setSize(new Dimension(860, 230));
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		add(scrollPane);
 		
-//		JPanel productPanel_1 = new JPanel();
-//		productPanel_1.setBackground(Color.WHITE);
-//		productPanel_1.setBounds(35, 35, 250, 300);
-//		productPanel.add(productPanel_1);
-//		productPanel_1.setLayout(null);
-//		
-//		JLabel imgProduct = new JLabel("img1");
-//		imgProduct.setBackground(Color.WHITE);
-//		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
-//		imgProduct.setBounds(10, 10, 230, 220);
-//		productPanel_1.add(imgProduct);
-//		
-//		JButton nameProductButton = new JButton("Name Product");
-//		nameProductButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//			}
-//		});
-//		nameProductButton.setBackground(Color.WHITE);
-//		nameProductButton.setBorderPainted(false);
-//		nameProductButton.setHorizontalAlignment(SwingConstants.LEADING);
-//		nameProductButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		nameProductButton.setBounds(0, 252, 230, 21);
-//		productPanel_1.add(nameProductButton);
-//		
-//		JLabel priceLabel = new JLabel("Price");
-//		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		priceLabel.setBounds(10, 271, 104, 21);
-//		productPanel_1.add(priceLabel);
-//		
-//		JButton btnNewButton = new JButton("BUY ");
-//		btnNewButton.setForeground(Color.ORANGE);
-//		btnNewButton.setBackground(Color.WHITE);
-//		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		btnNewButton.setBounds(141, 269, 99, 23);
-//		productPanel_1.add(btnNewButton);
+		list = new JList();
+		list.setSelectedIndex(0);  
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scrollPane.setViewportView(list);
+	}
+	
+	public void addListProduct(List<ProductPanel> listProduct) {
+		ListIterator<ProductPanel> itr = listProduct.listIterator();
+		while(itr.hasNext()) {
+			ProductPanel element =itr.next();
+			list.add(element);
+		}
 		
-//		JPanel productPanel_2 = new JPanel();
-//		productPanel_2.setBackground(Color.WHITE);
-//		productPanel_2.setBounds(315, 35, 250, 300);
-//		productPanel.add(productPanel_2);
-//		
-//		JPanel productPanel_3 = new JPanel();
-//		productPanel_3.setBackground(Color.WHITE);
-//		productPanel_3.setBounds(595, 35, 250, 300);
-//		productPanel.add(productPanel_3);
-		
-		ProductPanel product_1 = new ProductPanel();
-		
-		productPanel.add(product_1);
-
 	}
 }

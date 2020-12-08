@@ -18,11 +18,13 @@ public class ProductPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	public ProductPanel() {}
+	private final int WIDTH = 240;
+	private final int HEIGHT = 300;
 	
 	public ProductPanel(Media media, int x, int y) {
 		setBackground(Color.WHITE);
-		setBounds(35, 35, 250, 300);
+//		setBounds(35, 35, 240, 300);
+		setBounds(35+x*WIDTH, 35+y*HEIGHT, WIDTH, HEIGHT);
 		setLayout(null);
 		JLabel imgProduct = new JLabel("img1");
 		imgProduct.setBackground(Color.WHITE);
@@ -30,7 +32,7 @@ public class ProductPanel extends JPanel {
 		imgProduct.setBounds(10, 10, 230, 220);
 		add(imgProduct);
 		
-		JButton nameProductButton = new JButton("Name Product");
+		JButton nameProductButton = new JButton(media.getNameString());
 		nameProductButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -39,10 +41,10 @@ public class ProductPanel extends JPanel {
 		nameProductButton.setBorderPainted(false);
 		nameProductButton.setHorizontalAlignment(SwingConstants.LEADING);
 		nameProductButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		nameProductButton.setBounds(0, 252, 230, 21);
+		nameProductButton.setBounds(0, 240, 230, 21);
 		add(nameProductButton);
 		
-		JLabel priceLabel = new JLabel("Price");
+		JLabel priceLabel = new JLabel(media.getPriceFloat()+"");
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		priceLabel.setBounds(10, 271, 104, 21);
 		add(priceLabel);

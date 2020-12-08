@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import Controller.MediaController;
 import Manager.Application;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class MenuProduct extends JPanel {
@@ -25,11 +27,18 @@ public class MenuProduct extends JPanel {
 	private JPanel contentPane;
 	private JTextField searchTextField;
 	
-	private MediaController mediaControl;
+	protected int page;
+	public JButton shoppingButton;
+	
+	protected List<ProductPanel> listProduct;
 	
 	public Application application;
+	
 	public MenuProduct(Application application ) {
 		this.application = application;
+		
+		this.page = 0;
+		this.listProduct = new ArrayList<ProductPanel>();
 		
 		setSize(1100, 600);
 		setLayout(null);
@@ -72,7 +81,9 @@ public class MenuProduct extends JPanel {
 		JButton homeButton = new JButton("HOME");
 		homeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.home.setVisible(true);
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				page = 0;
+				application.switchPanel(application.home);
 			}
 		});
 		homeButton.setForeground(Color.BLACK);
@@ -81,11 +92,16 @@ public class MenuProduct extends JPanel {
 		homeButton.setBorderPainted(false);
 		homePanel.add(homeButton);
 		
-		JButton shoppingButton = new JButton("SHOPPING");
+		shoppingButton = new JButton("SHOPPING");
+		
 		shoppingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mediaControl = application.mediaControl;
-				application.switchPanel(application.product);
+				
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				setListProduct( application.mediaControl.get_ListProduct(0));
+				page = 0;
+				application.mediaControl.screen_ListProduct(listProduct);
+				
 			}
 		});
 		shoppingButton.setForeground(Color.BLACK);
@@ -156,6 +172,14 @@ public class MenuProduct extends JPanel {
 		cart.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		homePanel.add(cart);
 		
-		
 	}
+
+	public List<ProductPanel> getListProduct() {
+		return listProduct;
+	}
+
+	public void setListProduct(List<ProductPanel> listProduct) {
+		this.listProduct = listProduct;
+	}
+	
 }

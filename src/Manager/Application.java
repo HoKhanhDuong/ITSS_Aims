@@ -32,7 +32,6 @@ public class Application extends JFrame {
 	public Pay pay;
 	public OrderHisrory orderHisrory;
 	public Connect connect;
-	
 	public MediaController mediaControl;
 	ArrayList<JPanel> list;
 	

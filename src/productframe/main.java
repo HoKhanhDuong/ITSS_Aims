@@ -75,11 +75,18 @@ public class main {
 //		mainFrame.add(detailProduct);
 //		mainFrame.setVisible(true);
 		
+<<<<<<< HEAD
 		Pay pay = new Pay();
 		mainFrame.add(pay);
 		mainFrame.setVisible(true);
         
 
+=======
+//		Pay pay = new Pay();
+//		mainFrame.add(pay);
+//		mainFrame.setVisible(true);
+//        
+>>>>>>> 458630ed50c0970e02bf7e809013bf671f4ecf18
 		
 //		ProductManagement productManagement = new ProductManagement();
 //		mainFrame.add(productManagement);

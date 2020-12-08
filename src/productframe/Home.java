@@ -50,7 +50,7 @@ public class Home extends MenuProduct {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setForeground(Color.BLACK);
-		lblNewLabel_1.setIcon(new ImageIcon("img\\home.png"));
+		lblNewLabel_1.setIcon(new ImageIcon("img/home.png"));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(0, 0, 680, 380);
 		imgPanel.add(lblNewLabel_1);

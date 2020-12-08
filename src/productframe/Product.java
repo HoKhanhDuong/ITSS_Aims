@@ -8,31 +8,49 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import Manager.Application;
+import Object.Media;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
 import javax.swing.DefaultComboBoxModel;
+<<<<<<< HEAD
 import javax.swing.JInternalFrame;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+=======
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JList;
+>>>>>>> 458630ed50c0970e02bf7e809013bf671f4ecf18
 
 public class Product extends MenuProduct {
 
 	/**
 	 * Create the panel.
 	 */
+	public JScrollPane scrollPane;
+	public JList list;
+	private JPanel panel_1;
+	
 	public Product( Application application) {
 		super(application);
 		setBorder(new EmptyBorder(3,3,3,3));
@@ -40,8 +58,8 @@ public class Product extends MenuProduct {
 		setLayout(null);
 		
 		JPanel ProductPortfolioPanel = new JPanel();
-		ProductPortfolioPanel.setBackground(Color.WHITE);
 		ProductPortfolioPanel.setBounds(0, 70, 220, 770);
+		ProductPortfolioPanel.setBackground(Color.WHITE);
 		add(ProductPortfolioPanel);
 		ProductPortfolioPanel.setLayout(null);
 		
@@ -95,8 +113,8 @@ public class Product extends MenuProduct {
 		panel.add(dvdButton);
 		
 		JPanel SortProduct = new JPanel();
-		SortProduct.setBackground(Color.WHITE);
 		SortProduct.setBounds(220, 70, 880, 60);
+		SortProduct.setBackground(Color.WHITE);
 		add(SortProduct);
 		SortProduct.setLayout(null);
 		
@@ -113,6 +131,7 @@ public class Product extends MenuProduct {
 		sortComboBox.setBounds(724, 15, 128, 30);
 		SortProduct.add(sortComboBox);
 		
+<<<<<<< HEAD
 		JPanel productPanel = new JPanel();
 		productPanel.setBounds(220, 130, 666, 348);
 		add(productPanel);
@@ -164,5 +183,27 @@ public class Product extends MenuProduct {
 		productPanel_3.setBounds(595, 35, 250, 300);
 		
 		
+=======
+		scrollPane = new JScrollPane();
+		//scrollPane.setBounds(230, 140, 860, 230);
+		scrollPane.setLocation(230, 140);
+		scrollPane.setSize(new Dimension(860, 230));
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		add(scrollPane);
+		
+		list = new JList();
+		list.setSelectedIndex(0);  
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scrollPane.setViewportView(list);
+	}
+	
+	public void addListProduct(List<ProductPanel> listProduct) {
+		ListIterator<ProductPanel> itr = listProduct.listIterator();
+		while(itr.hasNext()) {
+			ProductPanel element =itr.next();
+			list.add(element);
+		}
+		
+>>>>>>> 458630ed50c0970e02bf7e809013bf671f4ecf18
 	}
 }

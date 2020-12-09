@@ -39,7 +39,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 
-
 public class Product extends MenuProduct {
 
 	/**
@@ -152,6 +151,7 @@ public class Product extends MenuProduct {
 		panel_2.add(backBtn);
 		
 		nextBtn.addActionListener(new ActionListener() {
+      
 			public void actionPerformed(ActionEvent e) {
 				if(page != -1 && page < Math.ceil((double)list.size()/3)-1) {
 					page++;
@@ -159,7 +159,6 @@ public class Product extends MenuProduct {
 				}
 			}
 		});
-
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if((page-1) != -1) {

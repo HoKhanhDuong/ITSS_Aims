@@ -12,12 +12,16 @@ import Object.Media;
 
 public class Connect {
 	private Connection conn;
+	private ResultSet rSet;
+	private List<Media> listMedia;
+	private Media media;
+	private Statement statement;
 	public Connect() throws SQLException {
 		// TODO Auto-generated constructor stub
 		String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
-	     String userName = "SA";
+	     String userName = "sa";
 	     String password = "123456";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -25,20 +29,33 @@ public class Connect {
 	     conn = DriverManager.getConnection(connectionURL, userName,
 	             password);
 	     Statement statement = conn.createStatement();
-	     ResultSet rSet = statement.executeQuery("SELECT * FROM Users");
-	     while(rSet.next()) {
-	    	 System.out.println(rSet.getString("Email") + " " + rSet.getString("Pass") + " " + rSet.getString("isAdmin") );
-	     }
+//	     ResultSet rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+//	    		 + "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
+//	     while(rSet.next()) {
+//	    	 System.out.println(rSet.getString("Ten") + " " + rSet.getString("GiaCa") + " " + rSet.getString("TenLoai") );
+//	     }
 	     System.out.println("Connect ok");
 	}
-	public List<Media> getListMedia() {
-		List<Media> listMedia=new ArrayList<Media>();
-		Media media;
-		 Statement statement;
+	public List<Media> getListMedia(int type) {
 		try {
 			statement = conn.createStatement();
-			ResultSet rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
-					+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
+			switch (type) {
+			case 1: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='Book'");
+				listMedia = new ArrayList<Media>();
+				
+				break;
+			}
+			default:
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
+				
+				listMedia = new ArrayList<Media>();
+				break;
+			}
+			
 			while(rSet.next()) {
 				media = new Media();
 				media.setCategoryString(rSet.getString("TenLoai"));
@@ -53,13 +70,5 @@ public class Connect {
 		}
 		return listMedia;
 	}
-	public static void main(String args[]) {
-		try {
-			Connect connect = new Connect();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 }

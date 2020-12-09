@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Connect.Connect;
+import Controller.MediaController;
 import productframe.Cart;
 import productframe.DetailProduct;
 import productframe.Home;
@@ -31,7 +32,9 @@ public class Application extends JFrame {
 	public Pay pay;
 	public OrderHisrory orderHisrory;
 	public Connect connect;
+	public MediaController mediaControl;
 	ArrayList<JPanel> list;
+	
 	public Application() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);
@@ -45,8 +48,9 @@ public class Application extends JFrame {
 		information = new Information(this);
 		pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
-		//connect = new Connect();
-		//add(home);
+		connect = new Connect();
+		mediaControl = new MediaController(this);
+//		add(home);
 		list = new ArrayList<JPanel>();
 		list.add(home);
 		list.add(cart);

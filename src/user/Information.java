@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class Information extends MyAccount {
+
 	private JTextField txtName;
 	private JTextField txtPhone;
 	private JTextField txtMail;
@@ -34,7 +35,7 @@ public class Information extends MyAccount {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(35, 75, 620, 286);
+		panel.setBounds(35, 75, 620, 332);
 		InformationPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -133,8 +134,20 @@ public class Information extends MyAccount {
 		
 		JButton btnNewButton = new JButton("Update");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(115, 240, 124, 35);
+		btnNewButton.setBounds(115, 287, 124, 35);
 		panel.add(btnNewButton);
+		
+		JLabel lblNewLabel_6 = new JLabel("CARD");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_6.setBounds(10, 225, 93, 35);
+		panel.add(lblNewLabel_6);
+		
+		textField = new JTextField();
+		textField.setText("111110000011111");
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField.setColumns(10);
+		textField.setBounds(115, 225, 450, 35);
+		panel.add(textField);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 0, 670, 530);

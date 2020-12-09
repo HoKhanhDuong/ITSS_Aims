@@ -35,6 +35,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 
+import javax.swing.JInternalFrame;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+
+
 public class Product extends MenuProduct {
 
 	/**
@@ -51,7 +56,7 @@ public class Product extends MenuProduct {
 		//this.page = 0;
 		
 		setBorder(new EmptyBorder(3,3,3,3));
-		setSize(1100, 900);
+		setSize(1100, 1500);
 		setLayout(null);
 		
 		JPanel ProductPortfolioPanel = new JPanel();
@@ -154,6 +159,7 @@ public class Product extends MenuProduct {
 				}
 			}
 		});
+
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if((page-1) != -1) {

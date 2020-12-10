@@ -18,7 +18,9 @@ public class ChangePassword extends MyAccount {
 	 * Create the panel.
 	 */
 
-	public ChangePassword() {
+	public ChangePassword(Application application) {
+		
+		super(application);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

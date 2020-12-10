@@ -50,6 +50,11 @@ public class MenuProduct extends JPanel {
 		logoPanel.setLayout(null);
 		
 		JButton logoButton = new JButton("S2");
+		logoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.switchPanel(application.home);
+			}
+		});
 		logoButton.setBackground(Color.WHITE);
 		logoButton.setFont(new Font("Harrington", Font.BOLD, 40));
 		logoButton.setBounds(0, 0, 80, 70);

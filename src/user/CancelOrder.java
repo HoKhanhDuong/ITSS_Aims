@@ -90,7 +90,7 @@ public class CancelOrder extends MyAccount {
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("RECEIVER'S ADDRESS");
+		JLabel lblNewLabel_1_1 = new JLabel("TRANSPORT FEE");
 		lblNewLabel_1_1.setBounds(10, 10, 300, 20);
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		panel_4.add(lblNewLabel_1_1);

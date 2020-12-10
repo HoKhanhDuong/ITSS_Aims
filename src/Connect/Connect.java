@@ -44,12 +44,14 @@ public class Connect {
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
 					+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
-			while(rSet.next()) {
+			int i = 0;
+			while(i<5) {
 				media = new Media();
-				media.setCategoryString(rSet.getString("TenLoai"));
-				media.setNameString(rSet.getString("Ten"));
-				media.setPriceFloat(rSet.getInt("GiaCa"));
+				media.setCategoryString("TenLoai");
+				media.setNameString("Ten");
+				media.setPriceFloat(i);
 				listMedia.add(media);
+				i++;
 			}
 			
 		} catch (SQLException e) {

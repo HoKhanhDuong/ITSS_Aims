@@ -123,25 +123,27 @@ public class Product extends MenuProduct {
 		sortComboBox.setBounds(724, 15, 128, 30);
 		SortProduct.add(sortComboBox);
 		
-		scrollPane = new JScrollPane();
-		//scrollPane.setBounds(230, 140, 860, 230);
-		scrollPane.setLocation(230, 140);
-		scrollPane.setSize(new Dimension(860, 230));
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		add(scrollPane);
 		
-		list = new JList();
-		list.setSelectedIndex(0);  
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        scrollPane.setViewportView(list);
+		
+//		list = new JList();
+//		list.setSelectedIndex(0);  
+//        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        scrollPane.setViewportView(list);
 	}
 	
 	public void addListProduct(List<ProductPanel> listProduct) {
 		ListIterator<ProductPanel> itr = listProduct.listIterator();
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 2000, 2000);
+		panel.setLayout(null);
 		while(itr.hasNext()) {
 			ProductPanel element =itr.next();
-			list.add(element);
+			panel.add(element);
 		}
-		
+		scrollPane = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//scrollPane.setBounds(230, 140, 860, 230);
+		scrollPane.setLocation(230, 140);
+		scrollPane.setSize(new Dimension(860, 230));
+		add(scrollPane);
 	}
 }

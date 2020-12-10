@@ -7,6 +7,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import Controller.MediaController;
 import Manager.Application;
 import Object.Media;
 
@@ -34,19 +35,27 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 
+import javax.swing.JInternalFrame;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+
 public class Product extends MenuProduct {
 
 	/**
 	 * Create the panel.
 	 */
 	public JScrollPane scrollPane;
-	public JList list;
+	public List<ProductPanel> list;
 	private JPanel panel_1;
+	private JPanel panel_2;
+	
 	
 	public Product( Application application) {
 		super(application);
+		//this.page = 0;
+		
 		setBorder(new EmptyBorder(3,3,3,3));
-		setSize(1100, 900);
+		setSize(1100, 1500);
 		setLayout(null);
 		
 		JPanel ProductPortfolioPanel = new JPanel();
@@ -70,6 +79,11 @@ public class Product extends MenuProduct {
 		JButton bookButton = new JButton("BOOK");
 		bookButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProduct(1));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
 			}
 		});
 		bookButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -123,6 +137,7 @@ public class Product extends MenuProduct {
 		sortComboBox.setBounds(724, 15, 128, 30);
 		SortProduct.add(sortComboBox);
 		
+<<<<<<< HEAD
 		
 		
 //		list = new JList();
@@ -139,6 +154,76 @@ public class Product extends MenuProduct {
 		while(itr.hasNext()) {
 			ProductPanel element =itr.next();
 			panel.add(element);
+=======
+		panel_2 = new JPanel();
+		panel_2.setBounds(230, 140, 795, 454);
+		panel_2.setLayout(null);
+		add(panel_2);
+		
+		JButton nextBtn = new JButton("Next");
+		nextBtn.setBounds(653,362,74,21);
+		panel_2.add(nextBtn);
+		
+		JButton backBtn = new JButton("Prev");
+		backBtn.setBounds(577, 363, 69, 21);
+		panel_2.add(backBtn);
+		
+		nextBtn.addActionListener(new ActionListener() {
+      
+			public void actionPerformed(ActionEvent e) {
+				if(page != -1 && page < Math.ceil((double)list.size()/3)-1) {
+					page++;
+					next(page);
+				}
+			}
+		});
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if((page-1) != -1) {
+					page--;
+					back(page);
+				}
+				
+			}
+		});
+		
+	}
+	
+	public void addListProduct(List<ProductPanel> listProduct) {
+		this.list = listProduct;
+		next(page);
+	}
+	
+	
+	public void next(int page) {
+		
+		int i=0;
+		
+		if(3*page > list.size()) {
+			page = -1;
+			return;
+		}
+		if(page > 0) {
+			list.get((page-1)*3).setVisible(false);
+			list.get((page-1)*3+1).setVisible(false);
+			list.get((page-1)*3+2).setVisible(false);
+		}
+		for(i=3*page;i<=(3*page+2) && i<list.size();i++) {
+			list.get(i).setVisible(true);
+			panel_2.add(list.get(i));	
+			
+		}
+	}
+	public void back(int page) {
+		
+		for(int i=3*(page+1);i<=(3*(page+1)+2) && i<list.size();i++) {
+			list.get(i).setVisible(false);
+		}
+		if(page >= 0) {
+			list.get(page*3).setVisible(true);
+			list.get(page*3+1).setVisible(true);
+			list.get(page*3+2).setVisible(true);
+>>>>>>> b83a38103d2cd661cdaa55b9a427142bf9710ea0
 		}
 		scrollPane = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		//scrollPane.setBounds(230, 140, 860, 230);
@@ -146,4 +231,16 @@ public class Product extends MenuProduct {
 		scrollPane.setSize(new Dimension(860, 230));
 		add(scrollPane);
 	}
+
+	public List<ProductPanel> getList() {
+		return list;
+	}
+
+	public void setList(List<ProductPanel> list) {
+		this.list = list;
+	}
+	
+	
+	
+	
 }

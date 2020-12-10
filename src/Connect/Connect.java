@@ -36,16 +36,34 @@ public class Connect {
 //	     }
 	     System.out.println("Connect ok");
 	}
-	public List<Media> getListMedia() {
-		listMedia=new ArrayList<Media>();
-//		Media media;
-//		Statement statement;
+	public List<Media> getListMedia(int type) {
 		try {
 			statement = conn.createStatement();
+<<<<<<< HEAD
 			rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
 					+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
 			int i = 0;
 			while(i<5) {
+=======
+			switch (type) {
+			case 1: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='Book'");
+				listMedia = new ArrayList<Media>();
+				
+				break;
+			}
+			default:
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
+				
+				listMedia = new ArrayList<Media>();
+				break;
+			}
+			
+			while(rSet.next()) {
+>>>>>>> b83a38103d2cd661cdaa55b9a427142bf9710ea0
 				media = new Media();
 				media.setCategoryString("TenLoai");
 				media.setNameString("Ten");
@@ -60,13 +78,5 @@ public class Connect {
 		}
 		return listMedia;
 	}
-//	public static void main(String args[]) {
-//		try {
-//			Connect connect = new Connect();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
+	
 }

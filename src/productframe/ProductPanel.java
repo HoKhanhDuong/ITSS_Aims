@@ -21,10 +21,10 @@ public class ProductPanel extends JPanel {
 	private final int WIDTH = 240;
 	private final int HEIGHT = 300;
 	
-	public ProductPanel(Media media, int x, int y) {
+	public ProductPanel(Media media, int x) {
 		setBackground(Color.WHITE);
-//		setBounds(35, 35, 240, 300);
-		setBounds(35+x*WIDTH, 35+y*HEIGHT, WIDTH, HEIGHT);
+		
+		setBounds(35+x*(WIDTH+15), 35, WIDTH, HEIGHT);
 		setLayout(null);
 		JLabel imgProduct = new JLabel("img1");
 		imgProduct.setBackground(Color.WHITE);

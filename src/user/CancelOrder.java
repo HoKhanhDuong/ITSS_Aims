@@ -3,16 +3,31 @@ package user;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
 
 import Manager.Application;
 
+
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
 
 public class CancelOrder extends MyAccount {
+	private JTable table;
+	private JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -75,7 +90,7 @@ public class CancelOrder extends MyAccount {
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("RECEIVER'S ADDRESS");
+		JLabel lblNewLabel_1_1 = new JLabel("TRANSPORT FEE");
 		lblNewLabel_1_1.setBounds(10, 10, 300, 20);
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		panel_4.add(lblNewLabel_1_1);
@@ -92,85 +107,20 @@ public class CancelOrder extends MyAccount {
 		panel_5_1.add(lblNewLabel_3_2);
 		
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(10, 226, 660, 294);
+		panel_6.setBackground(SystemColor.control);
+		panel_6.setBounds(10, 226, 660, 304);
 		panel_1.add(panel_6);
 		panel_6.setLayout(null);
 		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(Color.WHITE);
-		panel_7.setBounds(10, 10, 640, 50);
-		panel_6.add(panel_7);
-		panel_7.setLayout(null);
-		
-		JLabel lblNewLabel_4 = new JLabel("Product");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(10, 10, 227, 30);
-		panel_7.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Price");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_5.setBounds(247, 10, 79, 30);
-		panel_7.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("Quantity");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_6.setBounds(336, 10, 74, 30);
-		panel_7.add(lblNewLabel_6);
-		
-		JLabel lblNewLabel_7 = new JLabel("Discount");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_7.setBounds(420, 10, 85, 30);
-		panel_7.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_8 = new JLabel("Into money");
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_8.setBounds(515, 10, 115, 30);
-		panel_7.add(lblNewLabel_8);
-		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBounds(10, 70, 640, 50);
-		panel_6.add(panel_8);
-		panel_8.setLayout(null);
-		
-		JLabel lblNewLabel_4_1 = new JLabel("Cho toi xi 1 ve di tuoi tho");
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_4_1.setBounds(10, 10, 220, 30);
-		panel_8.add(lblNewLabel_4_1);
-		
-		JLabel lblNewLabel_5_1 = new JLabel(" 67.000 d");
-		lblNewLabel_5_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_5_1.setBounds(240, 10, 78, 30);
-		panel_8.add(lblNewLabel_5_1);
-		
-		JLabel lblNewLabel_6_1 = new JLabel("1");
-		lblNewLabel_6_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_6_1.setBounds(328, 10, 74, 30);
-		panel_8.add(lblNewLabel_6_1);
-		
-		JLabel lblNewLabel_7_1 = new JLabel("0 d");
-		lblNewLabel_7_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_7_1.setBounds(412, 10, 85, 30);
-		panel_8.add(lblNewLabel_7_1);
-		
-		JLabel lblNewLabel_8_1 = new JLabel("67.000 d");
-		lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_8_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_8_1.setBounds(507, 10, 123, 30);
-		panel_8.add(lblNewLabel_8_1);
-		
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(Color.WHITE);
-		panel_9.setBounds(10, 120, 640, 122);
+		panel_9.setBounds(10, 111, 640, 119);
 		panel_6.add(panel_9);
 		panel_9.setLayout(null);
 		
 		JPanel panel_10 = new JPanel();
 		panel_10.setBackground(Color.WHITE);
-		panel_10.setBounds(288, 10, 352, 101);
+		panel_10.setBounds(283, 0, 357, 101);
 		panel_9.add(panel_10);
 		panel_10.setLayout(null);
 		
@@ -183,7 +133,7 @@ public class CancelOrder extends MyAccount {
 		JLabel lblNewLabel_10 = new JLabel("67.000 d");
 		lblNewLabel_10.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_10.setBounds(149, 10, 193, 20);
+		lblNewLabel_10.setBounds(204, 10, 138, 20);
 		panel_10.add(lblNewLabel_10);
 		
 		JLabel lblNewLabel_9_1 = new JLabel("Transport fee");
@@ -201,20 +151,96 @@ public class CancelOrder extends MyAccount {
 		JLabel lblNewLabel_10_1 = new JLabel("0 d");
 		lblNewLabel_10_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_10_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_10_1.setBounds(149, 40, 193, 20);
+		lblNewLabel_10_1.setBounds(204, 40, 138, 20);
 		panel_10.add(lblNewLabel_10_1);
 		
 		JLabel lblNewLabel_10_1_1 = new JLabel("67.000 d");
 		lblNewLabel_10_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_10_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_10_1_1.setBounds(149, 70, 193, 20);
+		lblNewLabel_10_1_1.setBounds(204, 70, 138, 20);
 		panel_10.add(lblNewLabel_10_1_1);
 		
 		JButton btnNewButton = new JButton("Cancel order");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setBackground(new Color(255, 204, 0));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(456, 252, 176, 32);
+		btnNewButton.setBounds(504, 250, 146, 32);
 		panel_6.add(btnNewButton);
+		
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(Color.WHITE);
+		panel_7.setBounds(10, 10, 640, 95);
+		panel_6.add(panel_7);
+		panel_7.setLayout(null);
+		
+//		table = new JTable();
+//		table.setColumnSelectionAllowed(true);
+//		table.setSurrendersFocusOnKeystroke(true);
+//		table.setCellSelectionEnabled(true);
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"asdfg", "asdfg", "asdfg", "asdfg", "asdfg"},
+//			},
+//			new String[] {
+//				"Product", "Price", "Quantity", "Discount", "Into Money"
+//			}
+//		));
+//		table.getColumnModel().getColumn(0).setPreferredWidth(240);
+//		table.getColumnModel().getColumn(1).setPreferredWidth(90);
+//		table.getColumnModel().getColumn(3).setPreferredWidth(110);
+//		table.getColumnModel().getColumn(4).setPreferredWidth(103);
+//		table.setBounds(0, 0, 640, 100);
+//		panel_7.add(table);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setEnabled(false);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setViewportBorder(new LineBorder(new Color(240, 240, 240)));
+		scrollPane.setBounds(0, 0, 640, 96);
+		panel_7.add(scrollPane);
+		
+		table = new JTable();
+		table.setEnabled(false);
+		table.setCellSelectionEnabled(true);
+		table.setShowVerticalLines(false);
+		table.setRowHeight(table.getRowHeight() + 20);
+		table.setForeground(new Color(0, 0, 0));
+		table.setBackground(new Color(255, 255, 255));
+		table.setToolTipText("");
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Toi thay hoa vang tren co xanh", "65.000 d", "1", "0", "65.000 d"},
+				{"Co hai con meo ngoi ben cua so", "120.000 d", "1", "0", "120.000 d"},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"Product", "Price", "Quantity", "Discount", "Into Money"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(212);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setMinWidth(70);
+		table.getColumnModel().getColumn(2).setPreferredWidth(71);
+		table.getColumnModel().getColumn(3).setPreferredWidth(84);
+		table.getColumnModel().getColumn(4).setPreferredWidth(125);
+		scrollPane.setViewportView(table);
+		
+		textField = new JTextField();
+		textField.setBounds(103, 250, 379, 30);
+		panel_6.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("REASON :");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(12, 250, 81, 30);
+		panel_6.add(lblNewLabel_4);
 
 	}
 }

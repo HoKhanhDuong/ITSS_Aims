@@ -12,7 +12,7 @@ import productframe.ProductPanel;
 
 public class MediaController {
 	
-	private int i = 0, j = 0;
+	private Application application;
 	
 	private List<Media> listMedia;
 	private List<ProductPanel> listProduct;
@@ -20,27 +20,45 @@ public class MediaController {
 	public MediaController(Application application) {
 		// TODO Auto-generated constructor stub
 		
+		this.application = application;
+	}
+	
+	public void screen_ListProduct(List<ProductPanel> listProduct) {
+		application.product.addListProduct(listProduct);
+		application.switchPanel(application.product);
+	}
+	
+	public List<ProductPanel> get_ListProduct(int type) {
+		
+		int j = 0;
+		
+		listMedia = application.connect.getListMedia(type);
 		listProduct = new ArrayList<ProductPanel>();
-		listMedia = application.connect.getListMedia();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
 		while (itr.hasNext()) {
 			if (j > 2) {
 				j = 0;
-				i++;
-				System.out.println(i);
 				continue;
 			}
 			Media e = itr.next();
-			ProductPanel productPanel= new ProductPanel(e, j, i);
+			ProductPanel productPanel= new ProductPanel(e, j);
+			
 			listProduct.add(productPanel);
 			j++;
 		}
 		
-		application.product.addListProduct(listProduct);
+		return listProduct;
 	}
 	
-	
+	public void hiddenCurrentPanel(List<ProductPanel> list, int page) {
+		
+		if (list != null && list.size() != 0) {
+			for(int i=0 ; i < list.size(); i++) {
+				list.get(i).setVisible(false);
+			}
+		}
+	}
 	
 
 }

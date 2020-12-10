@@ -61,8 +61,12 @@ public class OrderHisrory extends MyAccount {
 		panel_1.add(scrollPane);
 		
 		table = new JTable();
-		table.setEnabled(false);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		table.setRowHeight(table.getRowHeight() + 20);
+		table.setForeground(new Color(0, 0, 0));
+		table.setCellSelectionEnabled(true);
+		table.setBackground(new Color(255, 255, 255));
+		table.setToolTipText("");
+		table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"012345", "11/11/2020", "Hoa cuc dai, Toi thay hoa vang tren co xanh, Shin cau be but chi", "210.000", ""},
@@ -72,6 +76,8 @@ public class OrderHisrory extends MyAccount {
 				"ID", "Date purchase", "Product", "Total", "Status"
 			}
 		));
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setMinWidth(70);
 		table.getColumnModel().getColumn(2).setPreferredWidth(262);
 		table.getColumnModel().getColumn(3).setPreferredWidth(84);
 		table.getColumnModel().getColumn(4).setPreferredWidth(125);

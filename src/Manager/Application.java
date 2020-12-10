@@ -1,5 +1,6 @@
 package Manager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -7,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import user.Address;
+import Connect.Connect;
+import Controller.MediaController;
 
 import productframe.Cart;
 import productframe.DetailProduct;
@@ -30,9 +33,14 @@ public class Application extends JFrame {
 	public Information information;
 	public Pay pay;
 	public OrderHisrory orderHisrory;
+
 	public Address address;
+	public Connect connect;
+	public MediaController mediaControl;
+
 	ArrayList<JPanel> list;
-	public Application() {
+	
+	public Application() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -45,8 +53,12 @@ public class Application extends JFrame {
 		information = new Information(this);
 		//pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
+    
 		address = new user.Address(this);
 		//add(home);
+		connect = new Connect();
+		mediaControl = new MediaController(this);
+
 		list = new ArrayList<JPanel>();
 		list.add(home);
 		list.add(cart);

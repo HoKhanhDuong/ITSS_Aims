@@ -90,8 +90,9 @@ public class MenuProduct extends JPanel {
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		//int status = 0;
-		//if(status == 0) {
+		int status = 0;
+		
+		if(status == 0) {
 		JMenuBar menuBar = new JMenuBar();
 		homePanel.add(menuBar);
 		
@@ -111,7 +112,7 @@ public class MenuProduct extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				application.switchPanel(application.information);
+				application.userController.screenInfo(2);
 			}
 		});
 		
@@ -131,7 +132,7 @@ public class MenuProduct extends JPanel {
 		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		account.add(mntmNewMenuItem_2);
 		
-		/*}else {
+		} else {
 
 			JButton signInButton = new JButton("SIGN IN");
 			signInButton.setForeground(Color.ORANGE);
@@ -140,7 +141,7 @@ public class MenuProduct extends JPanel {
 			signInButton.setBorderPainted(false);
 			homePanel.add(signInButton);
 		}
-		*/
+		
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

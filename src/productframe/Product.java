@@ -113,15 +113,18 @@ public class Product extends MenuProduct {
 		sortComboBox.setBounds(724, 15, 128, 30);
 		SortProduct.add(sortComboBox);
 		
+		
+		
 		JPanel productPanel = new JPanel();
-		productPanel.setBounds(220, 130, 666, 348);
-		add(productPanel);
+		productPanel.setBounds(244, 796, 635, 1000);
 		productPanel.setLayout(null);
 		
+		
+		
 		JPanel productPanel_1 = new JPanel();
-		productPanel_1.setBackground(Color.WHITE);
 		productPanel_1.setBounds(35, 35, 250, 300);
 		productPanel.add(productPanel_1);
+		productPanel_1.setBackground(Color.WHITE);
 		productPanel_1.setLayout(null);
 		
 		JLabel imgProduct = new JLabel("img1");
@@ -154,15 +157,80 @@ public class Product extends MenuProduct {
 		btnNewButton.setBounds(141, 269, 99, 23);
 		productPanel_1.add(btnNewButton);
 		
+		JPanel productPanel_1_1 = new JPanel();
+		productPanel_1_1.setBounds(290, 35, 250, 300);
+		productPanel.add(productPanel_1_1);
+		productPanel_1_1.setLayout(null);
+		productPanel_1_1.setBackground(Color.WHITE);
+		
+		JLabel imgProduct_1 = new JLabel("img1");
+		imgProduct_1.setHorizontalAlignment(SwingConstants.CENTER);
+		imgProduct_1.setBackground(Color.WHITE);
+		imgProduct_1.setBounds(10, 10, 230, 220);
+		productPanel_1_1.add(imgProduct_1);
+		
+		JButton nameProductButton_1 = new JButton("Name Product");
+		nameProductButton_1.setHorizontalAlignment(SwingConstants.LEADING);
+		nameProductButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		nameProductButton_1.setBorderPainted(false);
+		nameProductButton_1.setBackground(Color.WHITE);
+		nameProductButton_1.setBounds(10, 240, 230, 21);
+		productPanel_1_1.add(nameProductButton_1);
+		
+		JLabel priceLabel_1 = new JLabel("Price");
+		priceLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		priceLabel_1.setBounds(27, 271, 104, 21);
+		productPanel_1_1.add(priceLabel_1);
+		
+		JButton btnNewButton_1 = new JButton("BUY ");
+		btnNewButton_1.setForeground(Color.ORANGE);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_1.setBackground(Color.WHITE);
+		btnNewButton_1.setBounds(141, 269, 99, 23);
+		productPanel_1_1.add(btnNewButton_1);
+		
 		JPanel productPanel_2 = new JPanel();
-		productPanel_2.setBackground(Color.WHITE);
-		productPanel_2.setBounds(315, 35, 250, 300);
+		productPanel_2.setBounds(35, 345, 250, 300);
 		productPanel.add(productPanel_2);
+		productPanel_2.setBackground(Color.WHITE);
+		productPanel_2.setLayout(null);
+		
+		JLabel imgProduct_1_1 = new JLabel("img1");
+		imgProduct_1_1.setBackground(Color.WHITE);
+		imgProduct_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		imgProduct_1_1.setBounds(10, 10, 230, 220);
+		productPanel_2.add(imgProduct_1_1);
+		
+		JButton nameProductButton_2 = new JButton("Name Product");
+		nameProductButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		nameProductButton_2.setBackground(Color.WHITE);
+		nameProductButton_2.setBorderPainted(false);
+		nameProductButton_2.setHorizontalAlignment(SwingConstants.LEADING);
+		nameProductButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		nameProductButton_2.setBounds(10, 240, 230, 21);
+		productPanel_2.add(nameProductButton_2);
+		
+		JLabel priceLabel_2 = new JLabel("Price");
+		priceLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		priceLabel_2.setBounds(27, 271, 104, 21);
+		productPanel_2.add(priceLabel_2);
+		
+		JButton btnNewButton_2 = new JButton("BUY ");
+		btnNewButton_2.setForeground(Color.ORANGE);
+		btnNewButton_2.setBackground(Color.WHITE);
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton_2.setBounds(141, 269, 99, 23);
+		productPanel_2.add(btnNewButton_2);
 		
 		JPanel productPanel_3 = new JPanel();
 		productPanel_3.setBackground(Color.WHITE);
 		productPanel_3.setBounds(595, 35, 250, 300);
 		
-		
+		JScrollPane scrollPane = new JScrollPane(productPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(230, 142, 864, 652);
+		add(scrollPane);
 	}
 }

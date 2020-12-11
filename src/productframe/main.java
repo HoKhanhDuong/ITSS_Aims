@@ -85,9 +85,9 @@ public class main {
 //		mainFrame.add(productManagement);
 //		mainFrame.setVisible(true);
 		
-        Product product = new Product();
-        mainFrame.add(product);
-        mainFrame.setVisible(true);
+//        Product product = new Product();
+//        mainFrame.add(product);
+//        mainFrame.setVisible(true);
 	}
 
 

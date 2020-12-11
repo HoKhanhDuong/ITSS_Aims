@@ -13,8 +13,11 @@ import javax.swing.SwingConstants;
 import Manager.Application;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MyAccount extends MenuProduct {
+	private JButton btnNewButton_2;
 
 	/**
 	 * Create the panel.
@@ -33,6 +36,7 @@ public class MyAccount extends MenuProduct {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				application.userController.screenInfo(2);
+				application.switchPanel(application.information);
 			}
 		});
 		btnNewButton.setBounds(10, 25, 200, 35);
@@ -44,6 +48,7 @@ public class MyAccount extends MenuProduct {
 				application.switchPanel(application.changePassword);
 			}
 		});
+		
 		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEADING);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_1.setBounds(10, 70, 200, 35);

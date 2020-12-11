@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import Connect.Connect;
 import Controller.OrderController;
 import Controller.UserController;
+import user.Address;
+import Controller.MediaController;
+
 import productframe.Cart;
 import productframe.DetailProduct;
 import productframe.Home;
@@ -32,12 +35,16 @@ public class Application extends JFrame {
 	public Information information;
 	public Pay pay;
 	public OrderHisrory orderHisrory;
+
 	public OrderController orderController;
 	
 	public Connect connect;
 	
 	public UserController userController;
 	ArrayList<JPanel> list;
+	public Address address;
+	public MediaController mediaControl;
+  
 	public Application() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);
@@ -55,11 +62,15 @@ public class Application extends JFrame {
 		cancelOrder = new CancelOrder(this);
 		changePassword = new ChangePassword(this);
 		information = new Information(this);
-		pay = new Pay();
+		//pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
-		
-		
+    
+		address = new user.Address(this);
+
 		//add(home);
+		connect = new Connect();
+		mediaControl = new MediaController(this);
+
 		list = new ArrayList<JPanel>();
 		list.add(home);
 		list.add(cart);
@@ -67,9 +78,10 @@ public class Application extends JFrame {
 		list.add(detailProduct);
 		list.add(cancelOrder);
 		list.add(changePassword);
-		list.add(pay);
+		//list.add(pay);
 		list.add(information);
 		list.add(orderHisrory);
+		list.add(address);
 		Iterator<JPanel> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			add(iterator.next());

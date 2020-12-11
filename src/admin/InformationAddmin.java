@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import Manager.AdminApplication;
+
 import javax.swing.JButton;
 import java.awt.Color;
 
@@ -12,10 +15,12 @@ public class InformationAddmin extends AddminHome {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	/**
-	 * Create the panel.
-	 */
-	public InformationAddmin() {
+	AdminApplication adminApplication;
+
+	public InformationAddmin(AdminApplication adminApplication) {
+		super(adminApplication);
+		this.adminApplication = adminApplication;
+
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(250, 70, 850, 530);

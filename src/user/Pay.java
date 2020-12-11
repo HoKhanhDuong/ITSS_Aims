@@ -17,6 +17,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
+
+import Manager.Application;
+
 import javax.swing.UIManager;
 
 public class Pay extends JPanel {
@@ -28,7 +31,8 @@ public class Pay extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Pay() {
+	public Pay(Application application) {
+	//	super(application);
 		setBackground(Color.WHITE);
         setSize(1100,1000);
         setLayout(null);
@@ -306,4 +310,7 @@ public class Pay extends JPanel {
         btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
         */
 	}
-}
+
+	
+	}
+

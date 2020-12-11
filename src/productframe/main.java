@@ -25,6 +25,7 @@ public class main {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setBounds(100, 100, 1100, 600);
 		mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+		
 		/*
 		Home home = new Home();
 		mainFrame.add(home);
@@ -74,11 +75,6 @@ public class main {
 //		DetailProduct detailProduct = new DetailProduct();
 //		mainFrame.add(detailProduct);
 //		mainFrame.setVisible(true);
-		
-		Pay pay = new Pay();
-		mainFrame.add(pay);
-		mainFrame.setVisible(true);
-        
 
 		
 //		ProductManagement productManagement = new ProductManagement();

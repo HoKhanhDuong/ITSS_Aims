@@ -105,7 +105,7 @@ public class Information extends MyAccount {
 		txtAddress.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtAddress.setColumns(10);
 		txtAddress.setBounds(115, 184, 450, 35);
-		panel.add(txtAddress)
+		panel.add(txtAddress);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 0, 670, 530);

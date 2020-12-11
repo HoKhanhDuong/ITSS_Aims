@@ -6,9 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Manager.Application;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,13 +24,14 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtPassword;
 	private JTextField txtUsername;
+	private Application application;
 	/**
 	 * Launch the application.
 	 */
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public Login(Application application) {
 		setBounds(500, 250, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -40,6 +46,14 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
+				if(iD == -1){
+					JOptionPane.showMessageDialog(new JFrame(), "User name or Password incorrect", "Inane error", JOptionPane.ERROR_MESSAGE);
+				}else {
+					application.setID(iD);
+					setVisible(false);
+					dispose();
+				}
 			}
 		});
 		btnLogin.setBounds(189, 207, 86, 25);
@@ -67,7 +81,9 @@ public class Login extends JFrame {
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Signin sigup = new Signin();
+				dispose();
+				Signin sigup = new Signin(application);
+				
 				
 			}
 		});

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import user.Address;
 import Connect.Connect;
 import Controller.MediaController;
+import Controller.UserController;
 import admin.AddminHome;
 import productframe.Cart;
 import productframe.DetailProduct;
@@ -39,6 +40,7 @@ public class Application extends JFrame {
 	public Address address;
 	public Connect connect;
 	public MediaController mediaControl;
+	public UserController userController;
 
 	ArrayList<JPanel> list;
 	
@@ -61,6 +63,7 @@ public class Application extends JFrame {
 		//add(home);
 		connect = new Connect();
 		mediaControl = new MediaController(this);
+		userController = new UserController(this);
 
 		list = new ArrayList<JPanel>();
 		list.add(home);
@@ -86,6 +89,12 @@ public class Application extends JFrame {
 			iterator.next().setVisible(false);
 		}
 		list.get(list.indexOf(jPanel)).setVisible(true);
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }

@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Manager.Application;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -18,6 +21,7 @@ public class Signin extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private Application application;
 
 	/**
 	 * Launch the application.
@@ -26,7 +30,7 @@ public class Signin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Signin() {
+	public Signin(Application application) {
 		setBounds(400, 150, 450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

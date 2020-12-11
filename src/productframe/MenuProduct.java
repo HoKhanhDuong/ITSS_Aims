@@ -168,7 +168,7 @@ public class MenuProduct extends JPanel {
 			homePanel.add(signInButton);
 			signInButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Login login = new Login();
+					Login login = new Login(application);
 				}
 			});
 		}

@@ -222,4 +222,17 @@ public class Connect {
 		
 		return dvd;
 	}
+	
+	public int getUserId(String username, String password) {
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM Users Where Email = '"+username+"' AND Pass = '"+password +"'");
+			if(rSet.next()) return rSet.getInt("IDUser");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 }

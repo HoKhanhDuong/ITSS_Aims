@@ -20,7 +20,8 @@ public class Information extends MyAccount {
 	private JTextField txtPhone;
 	private JTextField txtMail;
 	private JTextField txtCard;
-
+	private JTextField textField;
+	
 	/**
 	 * Create the panel.
 	 */

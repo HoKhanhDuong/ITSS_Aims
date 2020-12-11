@@ -22,25 +22,12 @@ public class Signin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Signin frame = new Signin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Signin() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(400, 150, 450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,6 +77,7 @@ public class Signin extends JFrame {
 		JButton btnSignIn = new JButton("Sign In");
 		btnSignIn.setBounds(228, 321, 89, 25);
 		contentPane.add(btnSignIn);
+		setVisible(true);
 	}
 
 }

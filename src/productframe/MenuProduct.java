@@ -14,6 +14,8 @@ import javax.swing.SwingConstants;
 
 import Controller.MediaController;
 import Manager.Application;
+import login.Login;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,6 +166,11 @@ public class MenuProduct extends JPanel {
 			signInButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
 			signInButton.setBorderPainted(false);
 			homePanel.add(signInButton);
+			signInButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Login login = new Login();
+				}
+			});
 		}
 		
 		JButton cart = new JButton("CART");

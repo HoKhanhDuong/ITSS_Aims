@@ -22,25 +22,11 @@ public class Login extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(500, 250, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -77,9 +63,17 @@ public class Login extends JFrame {
 		lblLogin.setBounds(189, 31, 96, 35);
 		contentPane.add(lblLogin);
 		
-		JButton btnSignIn = new JButton("Sign in");
+		JButton btnSignIn = new JButton("Sign up");
+		btnSignIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Signin sigup = new Signin();
+				
+			}
+		});
 		btnSignIn.setBounds(290, 207, 86, 25);
 		contentPane.add(btnSignIn);
+		setVisible(true);
 	}
 
 }

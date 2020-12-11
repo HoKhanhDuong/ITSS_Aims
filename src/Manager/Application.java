@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import user.Address;
 import Connect.Connect;
 import Controller.MediaController;
-
+import admin.AddminHome;
 import productframe.Cart;
 import productframe.DetailProduct;
 import productframe.Home;
@@ -24,6 +24,8 @@ import user.OrderHisrory;
 import user.Pay;
 
 public class Application extends JFrame {
+	private int ID;
+	public AddminHome adminHome;
 	public Home home;
 	public Cart cart;
 	public DetailProduct detailProduct;
@@ -53,6 +55,7 @@ public class Application extends JFrame {
 		information = new Information(this);
 		//pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
+		//adminHome = new AddminHome(this);
     
 		address = new user.Address(this);
 		//add(home);

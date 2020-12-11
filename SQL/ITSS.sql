@@ -195,3 +195,6 @@ CREATE TABLE MediaSale (
 )
 
 INSERT INTO Users VALUES('admin@gmail.com','123456',1)
+
+ALTER TABLE Media ADD image VARCHAR(225)
+

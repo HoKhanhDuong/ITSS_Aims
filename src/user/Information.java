@@ -142,13 +142,6 @@ public class Information extends MyAccount {
 		lblNewLabel_6.setBounds(10, 225, 93, 35);
 		panel.add(lblNewLabel_6);
 		
-		textField = new JTextField();
-		textField.setText("111110000011111");
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setColumns(10);
-		textField.setBounds(115, 225, 450, 35);
-		panel.add(textField);
-		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 0, 670, 530);
 		InformationPanel.add(panel_1);

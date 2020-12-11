@@ -7,13 +7,17 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.UserController;
 import Manager.Application;
+import Object.User;
 
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
@@ -28,13 +32,23 @@ public class OrderHisrory extends MyAccount {
 	/**
 	 * Create the panel.
 	 */
-	String data[][] = { { "101", "Tran Van Minh", "6000" }, 
-            { "102", "Phan Van Tai", "8000" }, 
-            { "101", "Do Cao Hoc", "7000" } };
-    String column[] = { "ID", "NAME", "SALARY" };
+	
+    private String column[] = new String[] {
+			"ID", "Product", "Total", "Status"
+		};
+    
+    private String[][] objects;
+    
+    
     private JTable table;
+    
 	public OrderHisrory( Application application) {
 		super(application);
+		
+//		objects = application.orderController.screenListOrder(application.connect.get_OrderDetail(2));
+		
+		objects = application.connect.get_OrderDetail(2);
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(320, 70, 780, 530);
@@ -43,7 +57,7 @@ public class OrderHisrory extends MyAccount {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.control);
-		panel_1.setBounds(10, 0, 670, 530);
+		panel_1.setBounds(10, 0, 753, 524);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -57,7 +71,7 @@ public class OrderHisrory extends MyAccount {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setEnabled(false);
 		scrollPane.setViewportBorder(new LineBorder(SystemColor.control));
-		scrollPane.setBounds(10, 69, 650, 451);
+		scrollPane.setBounds(10, 69, 737, 449);
 		panel_1.add(scrollPane);
 		
 		table = new JTable();
@@ -68,20 +82,26 @@ public class OrderHisrory extends MyAccount {
 		table.setToolTipText("");
 		table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"012345", "11/11/2020", "Hoa cuc dai, Toi thay hoa vang tren co xanh, Shin cau be but chi", "210.000", ""},
-				{"064578", "09/11/2019", "Tuoi tre dang gia bao nhieu", "99.000", "cancel"},
-			},
-			new String[] {
-				"ID", "Date purchase", "Product", "Total", "Status"
-			}
+			objects,
+			column
 		));
 		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setMinWidth(70);
-		table.getColumnModel().getColumn(2).setPreferredWidth(262);
-		table.getColumnModel().getColumn(3).setPreferredWidth(84);
-		table.getColumnModel().getColumn(4).setPreferredWidth(125);
+		table.getColumnModel().getColumn(1).setMinWidth(350);
+		table.getColumnModel().getColumn(2).setPreferredWidth(50);
+		table.getColumnModel().getColumn(3).setPreferredWidth(30);
 		scrollPane.setViewportView(table);
 
 	}
+
+	public String[][] getObjects() {
+		return objects;
+	}
+
+	public void setObjects(String[][] objects) {
+		this.objects = objects;
+	}
+	
+	
+	
+	
 }

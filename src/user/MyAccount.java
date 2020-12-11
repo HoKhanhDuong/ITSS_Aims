@@ -35,6 +35,7 @@ public class MyAccount extends MenuProduct {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.userController.screenInfo(2);
 				application.switchPanel(application.information);
 			}
 		});
@@ -42,11 +43,9 @@ public class MyAccount extends MenuProduct {
 		accountPanel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Change Password");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				application.switchPanel(application.changePassword);
-				
 			}
 		});
 		
@@ -55,12 +54,10 @@ public class MyAccount extends MenuProduct {
 		btnNewButton_1.setBounds(10, 70, 200, 35);
 		accountPanel.add(btnNewButton_1);
 		
-		btnNewButton_2 = new JButton("Order History");
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		JButton btnNewButton_2 = new JButton("Order History");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				application.switchPanel(application.orderHisrory);
-				
 			}
 		});
 		btnNewButton_2.setHorizontalAlignment(SwingConstants.LEADING);

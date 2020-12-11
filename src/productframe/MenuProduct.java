@@ -115,35 +115,36 @@ public class MenuProduct extends JPanel {
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		int status = 1;
+		int status = 0;
+		
 		if(status == 0) {
-			JMenuBar menuBar = new JMenuBar();
-			homePanel.add(menuBar);
+		JMenuBar menuBar = new JMenuBar();
+		homePanel.add(menuBar);
+		
+		JMenu account = new JMenu("ACCOUNT");
+		account.setHorizontalAlignment(SwingConstants.CENTER);
+		account.setBackground(Color.WHITE);
+		account.setForeground(Color.BLACK);
+		account.setBorderPainted(false);
+		account.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		menuBar.add(account);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("T\u00E0i kho\u1EA3n c\u1EE7a t\u00F4i");
+		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		account.add(mntmNewMenuItem);
+		mntmNewMenuItem.addActionListener(new ActionListener() {
 			
-			JMenu account = new JMenu("ACCOUNT");
-			account.setHorizontalAlignment(SwingConstants.CENTER);
-			account.setBackground(Color.WHITE);
-			account.setForeground(Color.BLACK);
-			account.setBorderPainted(false);
-			account.setFont(new Font("Times New Roman", Font.BOLD, 22));
-			menuBar.add(account);
-			
-			JMenuItem mntmNewMenuItem = new JMenuItem("T\u00E0i kho\u1EA3n c\u1EE7a t\u00F4i");
-			mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			account.add(mntmNewMenuItem);
-			mntmNewMenuItem.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					application.switchPanel(application.information);
-				}
-			});
-			
-			JMenuItem mntmNewMenuItem_3 = new JMenuItem("Qu\u1EA3n l\u00FD \u0111\u01A1n h\u00E0ng");
-			mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			account.add(mntmNewMenuItem_3);
-			mntmNewMenuItem_3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				application.userController.screenInfo(2);
+			}
+		});
+		
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Qu\u1EA3n l\u00FD \u0111\u01A1n h\u00E0ng");
+		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		account.add(mntmNewMenuItem_3);
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -156,7 +157,7 @@ public class MenuProduct extends JPanel {
 			mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			account.add(mntmNewMenuItem_2);
 		
-		}else {
+		} else {
 
 			JButton signInButton = new JButton("SIGN IN");
 			signInButton.setForeground(Color.ORANGE);

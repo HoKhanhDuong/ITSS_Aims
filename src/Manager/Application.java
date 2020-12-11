@@ -7,8 +7,10 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import user.Address;
 import Connect.Connect;
+import Controller.OrderController;
+import Controller.UserController;
+import user.Address;
 import Controller.MediaController;
 
 import productframe.Cart;
@@ -34,16 +36,25 @@ public class Application extends JFrame {
 	public Pay pay;
 	public OrderHisrory orderHisrory;
 
-	public Address address;
-	public Connect connect;
-	public MediaController mediaControl;
-
-	ArrayList<JPanel> list;
+	public OrderController orderController;
 	
+	public Connect connect;
+	
+	public UserController userController;
+	ArrayList<JPanel> list;
+	public Address address;
+	public MediaController mediaControl;
+  
 	public Application() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		
+		connect = new Connect();
+		
+		userController = new UserController(this);
+		orderController = new OrderController(this);
+		
 		home = new Home(this);
 		cart = new Cart(this);
 		detailProduct = new DetailProduct(this);
@@ -55,6 +66,7 @@ public class Application extends JFrame {
 		orderHisrory = new OrderHisrory(this);
     
 		address = new user.Address(this);
+
 		//add(home);
 		connect = new Connect();
 		mediaControl = new MediaController(this);

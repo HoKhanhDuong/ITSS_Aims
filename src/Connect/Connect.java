@@ -68,12 +68,12 @@ public class Connect {
 		
 		try {
 			
-			rSet = statement.executeQuery("SELECT Phone, Name, DiaChi, Email, CardNumber "
-					+ "FROM DiaChi JOIN Users ON DiaChi.IDUser = Users.IDUser\n"
-					+ "WHERE DiaChi.IDUser ="+idUser);
+			rSet = statement.executeQuery("SELECT Phone, Name, DiaChi, Email, CardNumber, Users.IDUser "
+					+ "FROM DiaChi JOIN Users ON DiaChi.IDUser = Users.IDUser "
+					+ "WHERE DiaChi.IDUser = "+idUser);
 			if (rSet.next() == true) {
 				user = new User(rSet.getString("Name"), rSet.getString("Phone"), rSet.getString("DiaChi"), 
-						rSet.getString("Email"), rSet.getString("CardNumber"));
+						rSet.getString("Email"), rSet.getString("CardNumber"), rSet.getInt("IDUser"));
 				
 				return user;
 			}
@@ -147,6 +147,10 @@ public class Connect {
 					}
 				}
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 			
 			return data_Order;
 	}

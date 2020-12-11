@@ -68,7 +68,6 @@ public class Application extends JFrame {
 		address = new user.Address(this);
 
 		//add(home);
-		connect = new Connect();
 		mediaControl = new MediaController(this);
 
 		list = new ArrayList<JPanel>();

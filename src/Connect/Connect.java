@@ -235,4 +235,19 @@ public class Connect {
 		return -1;
 	}
 	
+	public int setUser(String username, String password, String name, String phone) {
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM Users Where Email = '"+username+"' AND Pass = '"+password +"'");
+			if(!rSet.next()) {
+				statement.executeUpdate("INSERT INTO Users VALUES ('"+username+"','"+password+"',0)");
+				return 1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 }

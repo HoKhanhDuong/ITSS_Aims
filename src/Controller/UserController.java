@@ -11,4 +11,7 @@ public class UserController {
 	public int Signin(String username, String password) {
 		return application.connect.getUserId(username, password);
 	}
+	public int Signup(String username, String password, String name, String phone) {
+		return application.connect.setUser(username, password, name, phone);
+	}
 }

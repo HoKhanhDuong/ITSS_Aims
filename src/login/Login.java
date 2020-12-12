@@ -48,7 +48,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
 				if(iD == -1){
-					JOptionPane.showMessageDialog(new JFrame(), "User name or Password incorrect", "Inane error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 				}else {
 					application.setID(iD);
 					setVisible(false);

@@ -42,7 +42,7 @@ public class OrderHisrory extends MyAccount {
     
     
     private JTable table;
-    private JTextField textField;
+    private JTextField txt_id_order;
   
 	public OrderHisrory( Application application) {
 		super(application);
@@ -89,11 +89,11 @@ public class OrderHisrory extends MyAccount {
 			objects,
 			column
 		));
-    table.getColumnModel().getColumn(1).setPreferredWidth(420);
+    table.getColumnModel().getColumn(1).setPreferredWidth(390);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(2).setPreferredWidth(50);
-		table.getColumnModel().getColumn(3).setPreferredWidth(30);
+		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setPreferredWidth(25);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblDetailOrder = new JLabel("2. Detail Order");
@@ -111,10 +111,10 @@ public class OrderHisrory extends MyAccount {
 		lblNewLabel_1.setBounds(10, 10, 140, 30);
 		panel_3.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(157, 10, 230, 30);
-		panel_3.add(textField);
-		textField.setColumns(10);
+		txt_id_order = new JTextField();
+		txt_id_order.setBounds(157, 10, 230, 30);
+		panel_3.add(txt_id_order);
+		txt_id_order.setColumns(10);
 		
 		JButton btnNewButton = new JButton("View");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));

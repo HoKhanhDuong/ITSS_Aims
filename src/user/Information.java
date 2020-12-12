@@ -15,11 +15,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-//import javax.swing.JRadioButton;
-
-//import javax.swing.JComboBox;
-//import javax.swing.DefaultComboBoxModel;
-
 public class Information extends MyAccount {
 	/**
 	 * 

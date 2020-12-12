@@ -6,9 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Manager.Application;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,28 +24,15 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtPassword;
 	private JTextField txtUsername;
+	private Application application;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+	public Login(Application application) {
+		setBounds(500, 250, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,6 +46,14 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
+				if(iD == -1){
+					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
+				}else {
+					application.setID(iD);
+					setVisible(false);
+					dispose();
+				}
 			}
 		});
 		btnLogin.setBounds(189, 207, 86, 25);
@@ -77,9 +77,19 @@ public class Login extends JFrame {
 		lblLogin.setBounds(189, 31, 96, 35);
 		contentPane.add(lblLogin);
 		
-		JButton btnSignIn = new JButton("Sign in");
+		JButton btnSignIn = new JButton("Sign up");
+		btnSignIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				dispose();
+				Signin sigup = new Signin(application);
+				
+				
+			}
+		});
 		btnSignIn.setBounds(290, 207, 86, 25);
 		contentPane.add(btnSignIn);
+		setVisible(true);
 	}
 
 }

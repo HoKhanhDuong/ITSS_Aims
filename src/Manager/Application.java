@@ -12,7 +12,8 @@ import Controller.OrderController;
 import Controller.UserController;
 import user.Address;
 import Controller.MediaController;
-
+import Controller.UserController;
+import admin.AddminHome;
 import productframe.Cart;
 import productframe.DetailProduct;
 import productframe.Home;
@@ -26,6 +27,8 @@ import user.OrderHisrory;
 import user.Pay;
 
 public class Application extends JFrame {
+	private int ID;
+	public AddminHome adminHome;
 	public Home home;
 	public Cart cart;
 	public DetailProduct detailProduct;
@@ -39,6 +42,10 @@ public class Application extends JFrame {
 	public OrderController orderController;
 	
 	public Connect connect;
+	public MediaController mediaControl;
+	public UserController userController;
+
+	ArrayList<JPanel> list;
 	
 	public UserController userController;
 	ArrayList<JPanel> list;
@@ -64,11 +71,13 @@ public class Application extends JFrame {
 		information = new Information(this);
 		//pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
+		//adminHome = new AddminHome(this);
     
 		address = new user.Address(this);
 
 		//add(home);
 		mediaControl = new MediaController(this);
+		userController = new UserController(this);
 
 		list = new ArrayList<JPanel>();
 		list.add(home);
@@ -94,6 +103,12 @@ public class Application extends JFrame {
 			iterator.next().setVisible(false);
 		}
 		list.get(list.indexOf(jPanel)).setVisible(true);
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }

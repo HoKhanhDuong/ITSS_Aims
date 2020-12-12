@@ -4,15 +4,18 @@ public class Media {
 	String nameString;
 	int priceFloat;
 	String categoryString;
-	int IDMedia;
+
+	String imageString;
+	private int id;
+	
 	public Media() {}
 	
-	public Media(String name, int price, String category, int IDMedia) {
+	public Media(String name, int price, String category, int id) {
 		// TODO Auto-generated constructor stub
 		this.nameString = name;
 		this.priceFloat = price;
 		this.categoryString=category;
-		this.IDMedia=IDMedia;
+		this.id = id;
 	}
 	public String getNameString() {
 		return nameString;
@@ -33,12 +36,20 @@ public class Media {
 		this.categoryString = categoryString;
 	}
 
-	public int getIDMedia() {
-		return IDMedia;
+	public String getImageString() {
+		return imageString;
 	}
 
-	public void setIDMedia(int iDMedia) {
-		IDMedia = iDMedia;
+	public void setImageString(String imageString) {
+		this.imageString = imageString;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

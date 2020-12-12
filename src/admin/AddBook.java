@@ -5,6 +5,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+
+import Manager.AdminApplication;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
@@ -16,11 +19,10 @@ public class AddBook extends AddProduct {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	AdminApplication adminApplication;
 
-	/**
-	 * Create the panel.
-	 */
-	public AddBook() {
+	public AddBook(AdminApplication adminApplication) {
+		super(adminApplication);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);

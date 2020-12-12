@@ -251,7 +251,7 @@ public class Product extends MenuProduct {
 		panel_2.add(backBtn);
 		
 		nextBtn.addActionListener(new ActionListener() {
-      
+
 			public void actionPerformed(ActionEvent e) {
 				if(page != -1 && page < Math.ceil((double)list.size()/3)-1) {
 					page++;

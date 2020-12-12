@@ -5,6 +5,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+
+import Manager.AdminApplication;
+
 import javax.swing.JButton;
 
 public class AddDVD extends AddProduct {
@@ -17,12 +20,12 @@ public class AddDVD extends AddProduct {
 	private JTextField textField_4;
 	private JTextField textField_7;
 	private JTextField textField_8;
+	AdminApplication adminApplication;
 
-	/**
-	 * Create the panel.
-	 */
-	public AddDVD() {
+
+	public AddDVD(AdminApplication adminApplication) {
 		
+		super(adminApplication);
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBounds(10, 120, 830, 369);

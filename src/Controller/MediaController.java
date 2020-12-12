@@ -68,7 +68,7 @@ public List<ProductPanel> get_ListProductSort(int type) {
 				continue;
 			}
 			Media e = itr.next();
-			ProductPanel productPanel= new ProductPanel(e, j);
+			ProductPanel productPanel= new ProductPanel(e, j, this.application);
 			
 			listProduct.add(productPanel);
 			j++;

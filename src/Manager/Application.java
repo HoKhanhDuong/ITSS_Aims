@@ -46,11 +46,7 @@ public class Application extends JFrame {
 	public UserController userController;
 
 	ArrayList<JPanel> list;
-	
-	public UserController userController;
-	ArrayList<JPanel> list;
 	public Address address;
-	public MediaController mediaControl;
   
 	public Application() throws SQLException {
 		// TODO Auto-generated constructor stub

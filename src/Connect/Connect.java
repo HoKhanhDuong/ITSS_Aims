@@ -259,7 +259,7 @@ public class Connect {
 				media.setCategoryString(rSet.getString("TenLoai"));
 				media.setNameString(rSet.getString("Ten"));
 				media.setPriceFloat(rSet.getInt("GiaCa"));
-				media.setIDMedia(rSet.getInt("IDMedia"));
+				media.setId(rSet.getInt("IDMedia"));
 				listMedia.add(media);
 			}
 			

@@ -26,6 +26,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
+import javax.swing.JTextField;
 
 public class OrderHisrory extends MyAccount {
 
@@ -41,7 +42,8 @@ public class OrderHisrory extends MyAccount {
     
     
     private JTable table;
-    
+    private JTextField textField;
+  
 	public OrderHisrory( Application application) {
 		super(application);
 		
@@ -61,35 +63,65 @@ public class OrderHisrory extends MyAccount {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("My Order");
+		JLabel lblNewLabel = new JLabel("1. My Order");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel.setBounds(25, 25, 615, 30);
 		panel_1.add(lblNewLabel);
 		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 65, 650, 336);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		scrollPane.setBounds(10, 10, 630, 305);
+		panel_2.add(scrollPane);
 		scrollPane.setEnabled(false);
 		scrollPane.setViewportBorder(new LineBorder(SystemColor.control));
-		scrollPane.setBounds(10, 69, 737, 449);
-		panel_1.add(scrollPane);
 		
 		table = new JTable();
+		table.setEnabled(false);
 		table.setRowHeight(table.getRowHeight() + 20);
-		table.setForeground(new Color(0, 0, 0));
-		table.setCellSelectionEnabled(true);
-		table.setBackground(new Color(255, 255, 255));
-		table.setToolTipText("");
-		table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		table.setModel(new DefaultTableModel(
 			objects,
 			column
 		));
+    table.getColumnModel().getColumn(1).setPreferredWidth(420);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setMinWidth(350);
 		table.getColumnModel().getColumn(2).setPreferredWidth(50);
 		table.getColumnModel().getColumn(3).setPreferredWidth(30);
 		scrollPane.setViewportView(table);
+		
+		JLabel lblDetailOrder = new JLabel("2. Detail Order");
+		lblDetailOrder.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblDetailOrder.setBounds(25, 404, 615, 30);
+		panel_1.add(lblDetailOrder);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 445, 650, 75);
+		panel_1.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Enter ID Product :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(10, 10, 140, 30);
+		panel_3.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(157, 10, 230, 30);
+		panel_3.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton = new JButton("View");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(418, 10, 101, 30);
+		panel_3.add(btnNewButton);
+		
+		
 
 	}
 

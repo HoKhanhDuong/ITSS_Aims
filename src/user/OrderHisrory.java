@@ -7,13 +7,17 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.UserController;
 import Manager.Application;
+import Object.User;
 
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
@@ -29,14 +33,24 @@ public class OrderHisrory extends MyAccount {
 	/**
 	 * Create the panel.
 	 */
-	String data[][] = { { "101", "Tran Van Minh", "6000" }, 
-            { "102", "Phan Van Tai", "8000" }, 
-            { "101", "Do Cao Hoc", "7000" } };
-    String column[] = { "ID", "NAME", "SALARY" };
+	
+    private String column[] = new String[] {
+			"ID", "Product", "Total", "Status"
+		};
+    
+    private String[][] objects;
+    
+    
     private JTable table;
     private JTextField textField;
+  
 	public OrderHisrory( Application application) {
 		super(application);
+		
+//		objects = application.orderController.screenListOrder(application.connect.get_OrderDetail(2));
+		
+		objects = application.connect.get_OrderDetail(2);
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(320, 70, 780, 530);
@@ -45,7 +59,7 @@ public class OrderHisrory extends MyAccount {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.control);
-		panel_1.setBounds(10, 0, 670, 530);
+		panel_1.setBounds(10, 0, 753, 524);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -62,30 +76,24 @@ public class OrderHisrory extends MyAccount {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
 		scrollPane.setBounds(10, 10, 630, 305);
 		panel_2.add(scrollPane);
+		scrollPane.setEnabled(false);
+		scrollPane.setViewportBorder(new LineBorder(SystemColor.control));
 		
 		table = new JTable();
 		table.setEnabled(false);
 		table.setRowHeight(table.getRowHeight() + 20);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"122334", "Cho toi xin 1 ve di tuoi tho, Co hai con meo ngoi ben cua so", "100.000 d", "OK"},
-				{"", "", null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, "", null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"ID ", "Product", "Price", "Status"
-			}
+			objects,
+			column
 		));
-		table.getColumnModel().getColumn(1).setPreferredWidth(420);
+    table.getColumnModel().getColumn(1).setPreferredWidth(420);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setPreferredWidth(50);
+		table.getColumnModel().getColumn(3).setPreferredWidth(30);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblDetailOrder = new JLabel("2. Detail Order");
@@ -116,4 +124,16 @@ public class OrderHisrory extends MyAccount {
 		
 
 	}
+
+	public String[][] getObjects() {
+		return objects;
+	}
+
+	public void setObjects(String[][] objects) {
+		this.objects = objects;
+	}
+	
+	
+	
+	
 }

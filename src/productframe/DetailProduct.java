@@ -9,19 +9,28 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Manager.Application;
+import Object.Book;
+import Object.CD;
+import Object.DVD;
+import Object.LD;
+import Object.Media;
 
 import javax.swing.border.LineBorder;
 
 public class DetailProduct extends MenuProduct {
 	private JTextField textField;
 	private JTable table;
-
+	JPanel panel;
+	JLabel priceLabel;
+	JLabel nameLabel;
+	JLabel imgLabel;
 	/**
 	 * Create the panel.
 	 */
@@ -42,9 +51,9 @@ public class DetailProduct extends MenuProduct {
         detailProductPanel.add(imgPanel);
         imgPanel.setLayout(null);
         
-        JLabel imgLabel = new JLabel("img");
+        imgLabel = new JLabel("img");
         imgLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach-anh-dep3-788x445.jpg"));
+        imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setBounds(10, 40, 280, 350);
         imgPanel.add(imgLabel);
@@ -56,21 +65,27 @@ public class DetailProduct extends MenuProduct {
         detailProductPanel.add(detailPanel);
         detailPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("NAME PRODUCT");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-        lblNewLabel.setBounds(40, 40, 510, 30);
-        detailPanel.add(lblNewLabel);
+        nameLabel = new JLabel();
+        nameLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        nameLabel.setBounds(40, 23, 510, 30);
+        detailPanel.add(nameLabel);
+        
+        priceLabel = new JLabel();
+        priceLabel.setForeground(Color.BLACK);
+        priceLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
+        priceLabel.setBounds(67, 64, 152, 60);
+        detailPanel.add(priceLabel);
         
         JPanel quantityPanel = new JPanel();
         quantityPanel.setBackground(Color.WHITE);
-        quantityPanel.setBounds(40, 143, 193, 60);
+        quantityPanel.setBounds(40, 124, 193, 60);
         detailPanel.add(quantityPanel);
         quantityPanel.setLayout(null);
         
-        JLabel lblNewLabel_1 = new JLabel("Quantity");
-        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblNewLabel_1.setBounds(10, 10, 82, 40);
-        quantityPanel.add(lblNewLabel_1);
+        JLabel quantityLabel = new JLabel("Quantity");
+        quantityLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        quantityLabel.setBounds(10, 10, 82, 40);
+        quantityPanel.add(quantityLabel);
         
         textField = new JTextField();
         textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -102,36 +117,12 @@ public class DetailProduct extends MenuProduct {
         lblNewLabel_2.setBounds(10, 10, 480, 34);
         informationPanel.add(lblNewLabel_2);
         
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setBorder(new LineBorder(new Color(0, 0, 0)));
         panel.setBackground(Color.WHITE);
         panel.setBounds(0, 54, 550, 114);
         informationPanel.add(panel);
         panel.setLayout(null);
-        
-        table = new JTable();
-        table.setShowVerticalLines(false);
-        table.setShowHorizontalLines(false);
-        table.setShowGrid(false);
-        table.setRowSelectionAllowed(false);
-        table.setEnabled(false);
-        table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        table.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{"Author :", "Nguyen Nhat Anh"},
-        		{"Publication date :", "July 7, 2020"},
-        		{"Print length :", "320 pages"},
-        		{"Publisher :", "Penguin Press"},
-        		{"Language :", "English"},
-        	},
-        	new String[] {
-        		"DETAIL", "INFORMATION"
-        	}
-        ));
-        table.getColumnModel().getColumn(0).setPreferredWidth(106);
-        table.getColumnModel().getColumn(1).setPreferredWidth(369);
-        table.setBounds(10, 10, 530, 94);
-        panel.add(table);
         
         JButton btnNewButton = new JButton("Add to Cart");
         btnNewButton.setBackground(Color.WHITE);
@@ -139,17 +130,112 @@ public class DetailProduct extends MenuProduct {
         btnNewButton.setBounds(199, 208, 152, 40);
         detailPanel.add(btnNewButton);
         
-        JLabel lblNewLabel_3 = new JLabel("120.000 \u0111");
-        lblNewLabel_3.setForeground(Color.BLACK);
-        lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 25));
-        lblNewLabel_3.setBounds(40, 116, 152, 60);
-        detailPanel.add(lblNewLabel_3);
+        table = new JTable();
+        panel.add(table);
         
-        JLabel lblNewLabel_4 = new JLabel("Price");
-        lblNewLabel_4.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-        lblNewLabel_4.setBounds(102, 85, 84, 23);
-        detailPanel.add(lblNewLabel_4);
-        
-        
+	}
+	public void setBookValue(Book book) {
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(false);
+        table.setShowGrid(false);
+        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.setModel(new DefaultTableModel(
+	        	new Object[][] {
+	        		{"Author :", book.getTacGiaString()},
+	        		{"Type : ", book.getTheloaiString()},
+	        		{"Publication date :", book.getNgayXBString()},
+	        		{"Print length :", book.getSotrang()},
+	        		{"Publisher :", book.getNgayXBString()},
+	        		{"Language :", book.getNgonNguString()},
+	        	},
+	        	new String[] {
+	        		"DETAIL", "INFORMATION"
+	        	}
+	        ));
+		table.getColumnModel().getColumn(0).setPreferredWidth(106);
+        table.getColumnModel().getColumn(1).setPreferredWidth(369);
+        table.setBounds(10, 10, 530, 94);
+        //panel.add(table);
+	}
+	
+	public void setCDValue(CD cd) {
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(false);
+        table.setShowGrid(false);
+        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.setModel(new DefaultTableModel(
+	        	new Object[][] {
+	        		{"Artists :", cd.getTenNgheSyString()},
+	        		{"Tracklist", cd.getBaihatString()},
+	        		{"Type : ", cd.getTheLoaiString()},
+	        		{"Record label :", cd.getHangGhiAmString()},
+	        	},
+	        	new String[] {
+	        		"DETAIL", "INFORMATION"
+	        	}
+	        ));
+		table.getColumnModel().getColumn(0).setPreferredWidth(106);
+        table.getColumnModel().getColumn(1).setPreferredWidth(369);
+        table.setBounds(10, 10, 530, 94);
+        //panel.add(table);
+	}
+	public void setLDValue(LD ld) {
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(false);
+        table.setShowGrid(false);
+        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.setModel(new DefaultTableModel(
+	        	new Object[][] {
+	        		{"Artists :", ld.getTenNgheSyString()},
+	        		{"Tracklist", ld.getBaihatString()},
+	        		{"Type : ", ld.getTheLoaiString()},
+	        		{"Record label :", ld.getHangGhiAmString()},
+	        	},
+	        	new String[] {
+	        		"DETAIL", "INFORMATION"
+	        	}
+	        ));
+		table.getColumnModel().getColumn(0).setPreferredWidth(106);
+        table.getColumnModel().getColumn(1).setPreferredWidth(369);
+        table.setBounds(10, 10, 530, 94);
+        //panel.add(table);
+	}
+	
+	public void setDVDValue(DVD dvd) {
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(false);
+        table.setShowGrid(false);
+        table.setRowSelectionAllowed(false);
+        table.setEnabled(false);
+        table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.setModel(new DefaultTableModel(
+	        	new Object[][] {
+	        		{"Director :", dvd.getDaoDienString()},
+	        		{"Runtime :", dvd.getThoiLuong()},
+	        		{"Studio : ", dvd.getStudioString()},
+	        		{"Leanguage :", dvd.getNgonNguString()},
+	        		{"Subtitles :", dvd.getPhudeString()},
+	        		{"Type :", dvd.getTheLoaiString()},
+	        	},
+	        	new String[] {
+	        		"DETAIL", "INFORMATION"
+	        	}
+	        ));
+		table.getColumnModel().getColumn(0).setPreferredWidth(106);
+        table.getColumnModel().getColumn(1).setPreferredWidth(369);
+        table.setBounds(10, 10, 530, 94);
+        //panel.add(table);
+	}
+	
+	public void changeValue(Media media) {
+		imgLabel.setIcon(new ImageIcon(media.getImageString()));
+		nameLabel.setText(media.getNameString());
+		priceLabel.setText(media.getPriceFloat()+"");
 	}
 }

@@ -12,8 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import Controller.MediaController;
 import Manager.Application;
+import login.Login;
+
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class MenuProduct extends JPanel {
@@ -24,9 +29,18 @@ public class MenuProduct extends JPanel {
 	private JPanel contentPane;
 	private JTextField searchTextField;
 	
+	protected int page;
+	public JButton shoppingButton;
+	
+	protected List<ProductPanel> listProduct;
+	
 	public Application application;
+	
 	public MenuProduct(Application application ) {
 		this.application = application;
+		
+		this.page = 0;
+		this.listProduct = new ArrayList<ProductPanel>();
 		
 		setSize(1100, 600);
 		setLayout(null);
@@ -74,7 +88,9 @@ public class MenuProduct extends JPanel {
 		JButton homeButton = new JButton("HOME");
 		homeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.home.setVisible(true);
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				page = 0;
+				application.switchPanel(application.home);
 			}
 		});
 		homeButton.setForeground(Color.BLACK);
@@ -83,10 +99,16 @@ public class MenuProduct extends JPanel {
 		homeButton.setBorderPainted(false);
 		homePanel.add(homeButton);
 		
-		JButton shoppingButton = new JButton("SHOPPING");
+		shoppingButton = new JButton("SHOPPING");
+		
 		shoppingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.switchPanel(application.product);
+				
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				setListProduct( application.mediaControl.get_ListProduct(0));
+				page = 0;
+				application.mediaControl.screen_ListProduct(listProduct);
+				
 			}
 		});
 		shoppingButton.setForeground(Color.BLACK);
@@ -95,8 +117,9 @@ public class MenuProduct extends JPanel {
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		//int status = 0;
-		//if(status == 0) {
+		int status = 0;
+		
+		if(status == 0) {
 		JMenuBar menuBar = new JMenuBar();
 		homePanel.add(menuBar);
 		
@@ -116,7 +139,7 @@ public class MenuProduct extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				application.switchPanel(application.information);
+				application.userController.screenInfo(2);
 			}
 		});
 		
@@ -124,19 +147,19 @@ public class MenuProduct extends JPanel {
 		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		account.add(mntmNewMenuItem_3);
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					application.switchPanel(application.orderHisrory);
+				}
+			});
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				application.switchPanel(application.orderHisrory);
-			}
-		});
+			JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
+			mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			account.add(mntmNewMenuItem_2);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
-		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		account.add(mntmNewMenuItem_2);
-		
-		/*}else {
+		} else {
 
 			JButton signInButton = new JButton("SIGN IN");
 			signInButton.setForeground(Color.ORANGE);
@@ -144,8 +167,13 @@ public class MenuProduct extends JPanel {
 			signInButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
 			signInButton.setBorderPainted(false);
 			homePanel.add(signInButton);
+			signInButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Login login = new Login(application);
+				}
+			});
 		}
-		*/
+		
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -157,6 +185,14 @@ public class MenuProduct extends JPanel {
 		cart.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		homePanel.add(cart);
 		
-		
 	}
+
+	public List<ProductPanel> getListProduct() {
+		return listProduct;
+	}
+
+	public void setListProduct(List<ProductPanel> listProduct) {
+		this.listProduct = listProduct;
+	}
+	
 }

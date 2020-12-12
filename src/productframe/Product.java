@@ -7,41 +7,60 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import Controller.MediaController;
 import Manager.Application;
+import Object.Media;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JList;
+
 import javax.swing.JInternalFrame;
 import javax.swing.BoxLayout;
 import java.awt.Component;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class Product extends MenuProduct {
 
 	/**
 	 * Create the panel.
 	 */
+	public JScrollPane scrollPane;
+	public List<ProductPanel> list;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	
+	
 	public Product( Application application) {
 		super(application);
+		//this.page = 0;
+		
 		setBorder(new EmptyBorder(3,3,3,3));
 		setSize(1100, 1500);
 		setLayout(null);
 		
 		JPanel ProductPortfolioPanel = new JPanel();
-		ProductPortfolioPanel.setBackground(Color.WHITE);
 		ProductPortfolioPanel.setBounds(0, 70, 220, 770);
+		ProductPortfolioPanel.setBackground(Color.WHITE);
 		add(ProductPortfolioPanel);
 		ProductPortfolioPanel.setLayout(null);
 		
@@ -57,10 +76,72 @@ public class Product extends MenuProduct {
 		ProductPortfolioPanel.add(panel);
 		panel.setLayout(null);
 		
+		JPanel SortProduct = new JPanel();
+		SortProduct.setBounds(220, 70, 880, 60);
+		SortProduct.setBackground(Color.WHITE);
+		add(SortProduct);
+		SortProduct.setLayout(null);
+		
+		
+		JComboBox sortComboBox = new JComboBox();
+		sortComboBox.setBackground(Color.WHITE);
+		sortComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		sortComboBox.setModel(new DefaultComboBoxModel(new String[] {"Fetured", "Price : Low to High", "Price : High to Low"}));
+		sortComboBox.setBounds(724, 15, 128, 30);
+		SortProduct.add(sortComboBox);
+		
+		sortComboBox.addActionListener (new ActionListener () {
+		       public void actionPerformed(ActionEvent e) {
+		    	   String value = sortComboBox.getSelectedItem().toString();
+		    	   if(value=="Price : Low to High") {
+		    		   application.mediaControl.hiddenCurrentPanel(list, page);
+						page = 0;
+						setList(application.mediaControl.get_ListProductSort(0));
+						setListProduct(list);
+						application.mediaControl.screen_ListProduct(getList());
+		    		   
+		    	   }
+		    	   else if(value=="Price : High to Low") {
+		    		   application.mediaControl.hiddenCurrentPanel(list, page);
+						page = 0;
+						setList(application.mediaControl.get_ListProductSort(7));
+						setListProduct(list);
+						application.mediaControl.screen_ListProduct(getList());
+		    	   }
+		       }
+		});
+		
 		JButton bookButton = new JButton("BOOK");
 		bookButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sortComboBox.setSelectedIndex(0);
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProduct(1));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
+				sortComboBox.addActionListener (new ActionListener () {
+				       public void actionPerformed(ActionEvent e) {
+				    	   String value = sortComboBox.getSelectedItem().toString();
+				    	   if(value=="Price : Low to High") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(-1));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    		   
+				    	   }
+				    	   else if(value=="Price : High to Low") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(1));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    	   }
+				       }
+				});
 			}
+			
 		});
 		bookButton.setHorizontalAlignment(SwingConstants.LEFT);
 		bookButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -72,6 +153,33 @@ public class Product extends MenuProduct {
 		JButton cdButton = new JButton("CD");
 		cdButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sortComboBox.setSelectedIndex(0);
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProduct(2));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
+				sortComboBox.addActionListener (new ActionListener () {
+				       public void actionPerformed(ActionEvent e) {
+				    	   String value = sortComboBox.getSelectedItem().toString();
+				    	   if(value=="Price : Low to High") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(-2));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    		   
+				    	   }
+				    	   else if(value=="Price : High to Low") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(2));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    	   }
+				       }
+				});
+				
 			}
 		});
 		cdButton.setBackground(Color.WHITE);
@@ -89,16 +197,38 @@ public class Product extends MenuProduct {
 		dvdButton.setBorderPainted(false);
 		dvdButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sortComboBox.setSelectedIndex(0);
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProduct(3));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
+				sortComboBox.addActionListener (new ActionListener () {
+				       public void actionPerformed(ActionEvent e) {
+				    	   String value = sortComboBox.getSelectedItem().toString();
+				    	   if(value=="Price : Low to High") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(-3));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    		   
+				    	   }
+				    	   else if(value=="Price : High to Low") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(3));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    	   }
+				       }
+				});
+				
 			}
 		});
 		dvdButton.setBounds(0, 72, 200, 31);
 		panel.add(dvdButton);
 		
-		JPanel SortProduct = new JPanel();
-		SortProduct.setBackground(Color.WHITE);
-		SortProduct.setBounds(220, 70, 880, 60);
-		add(SortProduct);
-		SortProduct.setLayout(null);
 		
 		JLabel sortLabel = new JLabel("Sort by :");
 		sortLabel.setBounds(614, 10, 100, 40);
@@ -106,63 +236,88 @@ public class Product extends MenuProduct {
 		sortLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		sortLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JComboBox sortComboBox = new JComboBox();
-		sortComboBox.setBackground(Color.WHITE);
-		sortComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox.setModel(new DefaultComboBoxModel(new String[] {"Fetured", "Price : Low to High", "Price : High to Low"}));
-		sortComboBox.setBounds(724, 15, 128, 30);
-		SortProduct.add(sortComboBox);
 		
-		JPanel productPanel = new JPanel();
-		productPanel.setBounds(220, 130, 666, 348);
-		add(productPanel);
-		productPanel.setLayout(null);
+		panel_2 = new JPanel();
+		panel_2.setBounds(230, 140, 795, 454);
+		panel_2.setLayout(null);
+		add(panel_2);
 		
-		JPanel productPanel_1 = new JPanel();
-		productPanel_1.setBackground(Color.WHITE);
-		productPanel_1.setBounds(35, 35, 250, 300);
-		productPanel.add(productPanel_1);
-		productPanel_1.setLayout(null);
+		JButton nextBtn = new JButton("Next");
+		nextBtn.setBounds(653,362,74,21);
+		panel_2.add(nextBtn);
 		
-		JLabel imgProduct = new JLabel("img1");
-		imgProduct.setBackground(Color.WHITE);
-		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
-		imgProduct.setBounds(10, 10, 230, 220);
-		productPanel_1.add(imgProduct);
+		JButton backBtn = new JButton("Prev");
+		backBtn.setBounds(577, 363, 69, 21);
+		panel_2.add(backBtn);
 		
-		JButton nameProductButton = new JButton("Name Product");
-		nameProductButton.addActionListener(new ActionListener() {
+		nextBtn.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
+				if(page != -1 && page < Math.ceil((double)list.size()/3)-1) {
+					page++;
+					next(page);
+				}
 			}
 		});
-		nameProductButton.setBackground(Color.WHITE);
-		nameProductButton.setBorderPainted(false);
-		nameProductButton.setHorizontalAlignment(SwingConstants.LEADING);
-		nameProductButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		nameProductButton.setBounds(10, 240, 230, 21);
-		productPanel_1.add(nameProductButton);
-		
-		JLabel priceLabel = new JLabel("Price");
-		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		priceLabel.setBounds(27, 271, 104, 21);
-		productPanel_1.add(priceLabel);
-		
-		JButton btnNewButton = new JButton("BUY ");
-		btnNewButton.setForeground(Color.ORANGE);
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setBounds(141, 269, 99, 23);
-		productPanel_1.add(btnNewButton);
-		
-		JPanel productPanel_2 = new JPanel();
-		productPanel_2.setBackground(Color.WHITE);
-		productPanel_2.setBounds(315, 35, 250, 300);
-		productPanel.add(productPanel_2);
-		
-		JPanel productPanel_3 = new JPanel();
-		productPanel_3.setBackground(Color.WHITE);
-		productPanel_3.setBounds(595, 35, 250, 300);
-		
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if((page-1) != -1) {
+					page--;
+					back(page);
+				}
+				
+			}
+		});
 		
 	}
+	
+	public void addListProduct(List<ProductPanel> listProduct) {
+		this.list = listProduct;
+		next(page);
+	}
+	
+	
+	public void next(int page) {
+		
+		int i=0;
+		
+		if(3*page > list.size()) {
+			page = -1;
+			return;
+		}
+		if(page > 0) {
+			list.get((page-1)*3).setVisible(false);
+			list.get((page-1)*3+1).setVisible(false);
+			list.get((page-1)*3+2).setVisible(false);
+		}
+		for(i=3*page;i<=(3*page+2) && i<list.size();i++) {
+			list.get(i).setVisible(true);
+			panel_2.add(list.get(i));	
+			
+		}
+	}
+	public void back(int page) {
+		
+		for(int i=3*(page+1);i<=(3*(page+1)+2) && i<list.size();i++) {
+			list.get(i).setVisible(false);
+		}
+		if(page >= 0) {
+			list.get(page*3).setVisible(true);
+			list.get(page*3+1).setVisible(true);
+			list.get(page*3+2).setVisible(true);
+		}
+		
+	}
+
+	public List<ProductPanel> getList() {
+		return list;
+	}
+
+	public void setList(List<ProductPanel> list) {
+		this.list = list;
+	}
+	
+	
+	
+	
 }

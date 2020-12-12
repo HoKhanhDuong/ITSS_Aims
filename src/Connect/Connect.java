@@ -155,22 +155,31 @@ public class Connect {
 			return data_Order;
 	}
 	public List<Media> getListMedia(int type) {
+		listMedia = new ArrayList<Media>();
 		try {
 			statement = conn.createStatement();
 			switch (type) {
 			case 1: {
-				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='Book'");
-				listMedia = new ArrayList<Media>();
-				
+				break;
+			}
+			case 2: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='CD'");
+				break;
+			}
+			case 3: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='DVD'");
 				break;
 			}
 			default:
-				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai "
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
-				
-				listMedia = new ArrayList<Media>();
 				break;
 			}
 			
@@ -179,6 +188,76 @@ public class Connect {
 				media.setCategoryString(rSet.getString("TenLoai"));
 				media.setNameString(rSet.getString("Ten"));
 				media.setPriceFloat(rSet.getInt("GiaCa"));
+				media.setIDMedia(rSet.getInt("IDMedia"));
+				listMedia.add(media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listMedia;
+	}
+	public List<Media> getListMediaSort(int type) {
+		listMedia = new ArrayList<Media>();
+		try {
+			statement = conn.createStatement();
+			switch (type) {
+			case -1: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='Book' ORDER BY GiaCa ASC");
+				break;
+			}
+			case -2: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='CD' ORDER BY GiaCa ASC");
+				break;
+			}
+			case -3: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='DVD' ORDER BY GiaCa ASC");
+				break;
+			}
+			case 0: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ " ORDER BY GiaCa ASC");
+				break;
+			}
+			case 1: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='Book' ORDER BY GiaCa DESC");
+				break;
+			}
+			case 2: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='CD' ORDER BY GiaCa DESC");
+				break;
+			}
+			case 3: {
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ "WHERE Loai.TenLoai='DVD' ORDER BY GiaCa DESC");
+				break;
+			}
+			default:
+				rSet = statement.executeQuery("SELECT Ten, GiaCa, TenLoai, IDMedia "
+						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
+						+ " ORDER BY GiaCa DESC");
+				break;
+			}
+			
+			while(rSet.next()) {
+				media = new Media();
+				media.setCategoryString(rSet.getString("TenLoai"));
+				media.setNameString(rSet.getString("Ten"));
+				media.setPriceFloat(rSet.getInt("GiaCa"));
+				media.setIDMedia(rSet.getInt("IDMedia"));
 				listMedia.add(media);
 			}
 			

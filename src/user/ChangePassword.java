@@ -25,7 +25,7 @@ public class ChangePassword extends MyAccount {
 	 */
 
 	public ChangePassword(Application application) {
-		
+
 		super(application);
 		
 		JPanel panel = new JPanel();

@@ -54,6 +54,29 @@ public class MediaController {
 		return listProduct;
 	}
 	
+public List<ProductPanel> get_ListProductSort(int type) {
+		
+		int j = 0;
+		
+		listMedia = application.connect.getListMediaSort(type);
+		listProduct = new ArrayList<ProductPanel>();
+		ListIterator<Media> itr = listMedia.listIterator();
+		
+		while (itr.hasNext()) {
+			if (j > 2) {
+				j = 0;
+				continue;
+			}
+			Media e = itr.next();
+			ProductPanel productPanel= new ProductPanel(e, j);
+			
+			listProduct.add(productPanel);
+			j++;
+		}
+		
+		return listProduct;
+	}
+	
 	public void hiddenCurrentPanel(List<ProductPanel> list, int page) {
 		
 		if (list != null && list.size() != 0) {

@@ -1,7 +1,6 @@
 package Object;
 
-public class Book extends Media{
-	
+public class Book extends Media{	
 	
 	private String biaString;
 	private String nhaXBString;
@@ -10,8 +9,9 @@ public class Book extends Media{
 	private String ngonNguString;
 	private String theloaiString;
 	private String tacGiaString;
-	
-	public Book(String name, int price, String category) {
+
+	public Book(String name, int price, String category, int IDMedia){
+		super(name, price, category,IDMedia);
 		// TODO Auto-generated constructor stub
 	}
 

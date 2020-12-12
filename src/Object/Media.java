@@ -4,6 +4,7 @@ public class Media {
 	String nameString;
 	int priceFloat;
 	String categoryString;
+
 	String imageString;
 	private int id;
 	
@@ -50,7 +51,6 @@ public class Media {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 	
 	
 }

@@ -84,6 +84,7 @@ public class main {
 //        Product product = new Product();
 //        mainFrame.add(product);
 //        mainFrame.setVisible(true);
+		
 	}
 
 

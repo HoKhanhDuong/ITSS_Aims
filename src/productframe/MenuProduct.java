@@ -37,7 +37,8 @@ public class MenuProduct extends JPanel {
 	protected List<ProductPanel> listProduct;
 	
 	public Application application;
-	
+	JButton signInButton;
+	JMenuBar menuBar;
 	public MenuProduct(Application application ) {
 		this.application = application;
 		
@@ -122,8 +123,9 @@ public class MenuProduct extends JPanel {
 		
 		
 		
-		if(application.getID() != 0) {
-		JMenuBar menuBar = new JMenuBar();
+		
+		menuBar = new JMenuBar();
+		menuBar.setVisible(false);
 		homePanel.add(menuBar);
 		
 		JMenu account = new JMenu("ACCOUNT");
@@ -142,7 +144,7 @@ public class MenuProduct extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				application.userController.screenInfo(2);
+				application.userController.screenInfo(application.getID());
 			}
 		});
 		
@@ -161,10 +163,17 @@ public class MenuProduct extends JPanel {
 			JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
 			mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			account.add(mntmNewMenuItem_2);
-		
-		} else {
+			
+			mntmNewMenuItem_2.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					application.switchPanel(application.orderHisrory);
+				}
+			});
 
-			JButton signInButton = new JButton("SIGN IN");
+			signInButton = new JButton("SIGN IN");
 			signInButton.setForeground(Color.ORANGE);
 			signInButton.setBackground(Color.WHITE);
 			signInButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
@@ -175,7 +184,6 @@ public class MenuProduct extends JPanel {
 					Login login = new Login(application);
 				}
 			});
-		}
 		
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
@@ -199,6 +207,18 @@ public class MenuProduct extends JPanel {
 
 	public void setListProduct(List<ProductPanel> listProduct) {
 		this.listProduct = listProduct;
+	}
+	
+	public void switchStatus() {
+			if(application.getID() != 0) {
+				
+				signInButton.setVisible(false);
+				menuBar.setVisible(true);
+				
+			} else {
+					menuBar.setVisible(false);
+					signInButton.setVisible(true);
+				}
 	}
 	
 }

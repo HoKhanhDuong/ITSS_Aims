@@ -58,7 +58,8 @@ public class UserController {
 	}
 	
 	public void screenInfo (int idUser) {
-		user = application.connect.InformationUser(2); // can truyen userID
+		
+		user = application.connect.InformationUser(idUser); // can truyen userID
 		
 		if(user == null) {
 			JOptionPane.showMessageDialog(null, "User doesn't exit", 
@@ -71,7 +72,7 @@ public class UserController {
 		application.switchPanel(application.information);
 	}
 	
-	public void changeInformation(String address, String cardNumber) {
+	public void changeInformation(int idUser,String address, String cardNumber) {
 		if (cardNumber.trim().length() < 16) {
 			JOptionPane.showMessageDialog(null, "Card Number < 16 character", 
 					"Information User", 
@@ -79,7 +80,7 @@ public class UserController {
 			return;
 		}
 		
-		application.connect.changeInformation(2, address, cardNumber);
+		application.connect.changeInformation(idUser, address, cardNumber);
 		
 		JOptionPane.showMessageDialog(null, "Changed Information", 
 				"Information User", 

@@ -70,7 +70,7 @@ public class Login extends JFrame {
 					
 					application.setID(iD);
 					setVisible(false);
-//					dispose();
+					dispose();
 					application.switchPanel(application.home);
 				}
 			}

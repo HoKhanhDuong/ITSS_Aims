@@ -311,13 +311,14 @@ public class Product extends MenuProduct {
 	
 	public void addListProduct(List<ProductPanel> listProduct) {
 		this.list = listProduct;
+		setListProduct(getList());
 		next(page);
 	}
 	
 	
 	public void next(int page) {
 		
-		int i=0;
+		int i = 0;
 		
 		if(3*page > list.size()) {
 			page = -1;

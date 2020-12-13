@@ -27,6 +27,7 @@ public class ProductPanel extends JPanel {
 		
 		setBounds(35+x*(WIDTH+15), 35, WIDTH, HEIGHT);
 		setLayout(null);
+		
 		JLabel imgProduct = new JLabel("img1");
 		imgProduct.setBackground(Color.WHITE);
 		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);

@@ -32,6 +32,8 @@ public class MenuProduct extends JPanel {
 	protected int page;
 	public JButton shoppingButton;
 	
+	private int id;
+	
 	protected List<ProductPanel> listProduct;
 	
 	public Application application;
@@ -105,10 +107,9 @@ public class MenuProduct extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
-				setListProduct( application.mediaControl.get_ListProduct(0));
+				setListProduct( application.mediaControl.get_ListProduct(0) );
 				page = 0;
 				application.mediaControl.screen_ListProduct(listProduct);
-				
 			}
 		});
 		shoppingButton.setForeground(Color.BLACK);
@@ -117,9 +118,9 @@ public class MenuProduct extends JPanel {
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		int status = 0;
 		
-		if(status == 0) {
+		
+		if(application.getID() != 0) {
 		JMenuBar menuBar = new JMenuBar();
 		homePanel.add(menuBar);
 		

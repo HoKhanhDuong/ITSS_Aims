@@ -54,7 +54,7 @@ public class MediaController {
 		return listProduct;
 	}
 	
-public List<ProductPanel> get_ListProductSort(int type) {
+	public List<ProductPanel> get_ListProductSort(int type) {
 		
 		int j = 0;
 		
@@ -80,7 +80,7 @@ public List<ProductPanel> get_ListProductSort(int type) {
 	public void hiddenCurrentPanel(List<ProductPanel> list, int page) {
 		
 		if (list != null && list.size() != 0) {
-			for(int i=0 ; i < list.size(); i++) {
+			for(int i = 0 ; i < list.size(); i++) {
 				list.get(i).setVisible(false);
 			}
 		}

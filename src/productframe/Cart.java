@@ -12,6 +12,7 @@ import Manager.Application;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -22,6 +23,9 @@ public class Cart extends MenuProduct {
 	/**
 	 * Create the panel.
 	 */
+	
+	private List<ProductPanel> list;
+	
 	public Cart(Application application) {
 		super(application);
 		JPanel panel = new JPanel();
@@ -29,9 +33,6 @@ public class Cart extends MenuProduct {
 		panel.setBounds(0, 70, 1100, 530);
 		add(panel);
 		panel.setLayout(null);
-		
-		
-		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.control);
@@ -79,7 +80,12 @@ public class Cart extends MenuProduct {
 		JButton btnNewButton = new JButton("Continue shopping");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.switchPanel(application.product);
+				
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProductSort(0));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
 			}
 		});
 		btnNewButton.setBackground(new Color(255, 153, 51));
@@ -87,7 +93,7 @@ public class Cart extends MenuProduct {
 		btnNewButton.setBounds(321, 218, 219, 36);
 		panel_3.add(btnNewButton);
 		
-	    }else
+	    } else
 	    {
 		
 		JLabel lblNewLabel_1 = new JLabel("(1 product)");
@@ -230,7 +236,15 @@ public class Cart extends MenuProduct {
 		panel_4.add(orderButton);
 		
 	    }
-		
-
 	}
+
+	public List<ProductPanel> getList() {
+		return list;
+	}
+
+	public void setList(List<ProductPanel> list) {
+		this.list = list;
+	}
+	
+	
 }

@@ -93,16 +93,15 @@ public class Product extends MenuProduct {
 		sortComboBox.addActionListener (new ActionListener () {
 		       public void actionPerformed(ActionEvent e) {
 		    	   String value = sortComboBox.getSelectedItem().toString();
-		    	   if(value=="Price : Low to High") {
-		    		   application.mediaControl.hiddenCurrentPanel(list, page);
+		    	   if(value == "Price : Low to High") {
+		    		   	application.mediaControl.hiddenCurrentPanel(list, page);
 						page = 0;
 						setList(application.mediaControl.get_ListProductSort(0));
 						setListProduct(list);
-						application.mediaControl.screen_ListProduct(getList());
-		    		   
+						application.mediaControl.screen_ListProduct(getList()); 
 		    	   }
-		    	   else if(value=="Price : High to Low") {
-		    		   application.mediaControl.hiddenCurrentPanel(list, page);
+		    	   else if(value == "Price : High to Low") {
+		    		   	application.mediaControl.hiddenCurrentPanel(list, page);
 						page = 0;
 						setList(application.mediaControl.get_ListProductSort(7));
 						setListProduct(list);
@@ -185,7 +184,7 @@ public class Product extends MenuProduct {
 		cdButton.setBackground(Color.WHITE);
 		cdButton.setHorizontalAlignment(SwingConstants.LEADING);
 		cdButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		cdButton.setBounds(0, 41, 200, 31);
+		cdButton.setBounds(0, 39, 200, 31);
 		cdButton.setBorderPainted(false);
 		panel.add(cdButton);
 		
@@ -226,8 +225,47 @@ public class Product extends MenuProduct {
 				
 			}
 		});
-		dvdButton.setBounds(0, 72, 200, 31);
+		dvdButton.setBounds(0, 70, 200, 31);
 		panel.add(dvdButton);
+		
+		JButton lpButton = new JButton("LP");
+		lpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sortComboBox.setSelectedIndex(0);
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProduct(4));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
+				sortComboBox.addActionListener (new ActionListener () {
+				       public void actionPerformed(ActionEvent e) {
+				    	   String value = sortComboBox.getSelectedItem().toString();
+				    	   if(value=="Price : Low to High") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(-2));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    		   
+				    	   }
+				    	   else if(value=="Price : High to Low") {
+				    		   application.mediaControl.hiddenCurrentPanel(list, page);
+								page = 0;
+								setList(application.mediaControl.get_ListProductSort(2));
+								setListProduct(list);
+								application.mediaControl.screen_ListProduct(getList());
+				    	   }
+				       }
+				});
+				
+			}
+		});
+		lpButton.setBackground(Color.WHITE);
+		lpButton.setHorizontalAlignment(SwingConstants.LEADING);
+		lpButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lpButton.setBounds(0, 104, 200, 31);
+		lpButton.setBorderPainted(false);
+		panel.add(lpButton);
 		
 		
 		JLabel sortLabel = new JLabel("Sort by :");

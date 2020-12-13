@@ -17,14 +17,16 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Signin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField email;
 	private JTextField name;
-	private JTextField password;
 	private JTextField phone;
+	private JPasswordField password;
+	private JTextField address;
 	/**
 	 * Launch the application.
 	 */
@@ -65,15 +67,23 @@ public class Signin extends JFrame {
 		name.setBounds(165, 142, 231, 27);
 		contentPane.add(name);
 		
-		password = new JTextField();
-		password.setColumns(10);
-		password.setBounds(165, 205, 231, 27);
-		contentPane.add(password);
-		
 		phone = new JTextField();
 		phone.setColumns(10);
 		phone.setBounds(165, 265, 231, 27);
 		contentPane.add(phone);
+		
+		password = new JPasswordField();
+		password.setBounds(165, 205, 231, 26);
+		contentPane.add(password);
+		
+		JLabel lblAddress = new JLabel("Address: ");
+		lblAddress.setBounds(46, 326, 70, 15);
+		contentPane.add(lblAddress);
+		
+		address = new JTextField();
+		address.setColumns(10);
+		address.setBounds(165, 320, 231, 27);
+		contentPane.add(address);
 		
 		JLabel lblSignIn = new JLabel("Sign Up");
 		lblSignIn.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 20));
@@ -82,19 +92,23 @@ public class Signin extends JFrame {
 		
 		JButton btnSignIn = new JButton("Sign Up");
 		btnSignIn.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				int iD = application.userController.Signup(email.getText(), password.getText(), name.getText(), phone.getText());
+				int iD = application.userController.Signup(email.getText(), password.getText(), name.getText(), phone.getText(), address.getText());
 				if( iD == -1) {
 					JOptionPane.showMessageDialog(new JFrame(), "Email or Password havent", "Inane error", JOptionPane.ERROR_MESSAGE);
-				}else {
+				} else {
 					setVisible(false);
 					dispose();
+					
+					application.setID(iD);
+					
+					application.switchPanel(application.home);
 				}
 			}
 		});
-		btnSignIn.setBounds(228, 321, 89, 25);
+		btnSignIn.setBounds(213, 397, 89, 25);
 		contentPane.add(btnSignIn);
 		setVisible(true);
 	}
-
 }

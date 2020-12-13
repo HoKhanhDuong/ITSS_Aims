@@ -101,10 +101,10 @@ public class Application extends JFrame {
 		list.get(list.indexOf(jPanel)).setVisible(true);
 	}
 	public int getID() {
-		return ID;
+		return this.ID;
 	}
 	public void setID(int iD) {
-		ID = iD;
+		this.ID = iD;
 	}
 
 }

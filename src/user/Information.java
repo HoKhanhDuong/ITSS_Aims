@@ -21,10 +21,10 @@ public class Information extends MyAccount {
 	private JTextField txtNguyenphuonggmailcom;
 	private JTextField textField;
 
-	private JTextField txtName;
-	private JTextField txtPhone;
-	private JTextField txtMail;
-	private JTextField txtCard;
+//	private JTextField txtName;
+//	private JTextField txtPhone;
+//	private JTextField txtMail;
+//	private JTextField txtCard;
 
 	/**
 	 * 

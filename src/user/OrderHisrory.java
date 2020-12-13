@@ -7,13 +7,17 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.UserController;
 import Manager.Application;
+import Object.User;
 
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
@@ -22,19 +26,31 @@ import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
+import javax.swing.JTextField;
 
 public class OrderHisrory extends MyAccount {
 
 	/**
 	 * Create the panel.
 	 */
-	String data[][] = { { "101", "Tran Van Minh", "6000" }, 
-            { "102", "Phan Van Tai", "8000" }, 
-            { "101", "Do Cao Hoc", "7000" } };
-    String column[] = { "ID", "NAME", "SALARY" };
+	
+    private String column[] = new String[] {
+			"ID", "Product", "Total", "Status"
+		};
+    
+    private String[][] objects;
+    
+    
     private JTable table;
+    private JTextField txt_id_order;
+  
 	public OrderHisrory( Application application) {
 		super(application);
+		
+//		objects = application.orderController.screenListOrder(application.connect.get_OrderDetail(2));
+		
+		objects = application.connect.get_OrderDetail(2);
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(320, 70, 780, 530);
@@ -43,45 +59,81 @@ public class OrderHisrory extends MyAccount {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.control);
-		panel_1.setBounds(10, 0, 670, 530);
+		panel_1.setBounds(10, 0, 753, 524);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("My Order");
+		JLabel lblNewLabel = new JLabel("1. My Order");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel.setBounds(25, 25, 615, 30);
 		panel_1.add(lblNewLabel);
 		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 65, 650, 336);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		scrollPane.setBounds(10, 10, 630, 305);
+		panel_2.add(scrollPane);
 		scrollPane.setEnabled(false);
 		scrollPane.setViewportBorder(new LineBorder(SystemColor.control));
-		scrollPane.setBounds(10, 69, 650, 451);
-		panel_1.add(scrollPane);
 		
 		table = new JTable();
+		table.setEnabled(false);
 		table.setRowHeight(table.getRowHeight() + 20);
-		table.setForeground(new Color(0, 0, 0));
-		table.setCellSelectionEnabled(true);
-		table.setBackground(new Color(255, 255, 255));
-		table.setToolTipText("");
-		table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"012345", "11/11/2020", "Hoa cuc dai, Toi thay hoa vang tren co xanh, Shin cau be but chi", "210.000", ""},
-				{"064578", "09/11/2019", "Tuoi tre dang gia bao nhieu", "99.000", "cancel"},
-			},
-			new String[] {
-				"ID", "Date purchase", "Product", "Total", "Status"
-			}
+			objects,
+			column
 		));
+    table.getColumnModel().getColumn(1).setPreferredWidth(390);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setMinWidth(70);
-		table.getColumnModel().getColumn(2).setPreferredWidth(262);
-		table.getColumnModel().getColumn(3).setPreferredWidth(84);
-		table.getColumnModel().getColumn(4).setPreferredWidth(125);
+		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setPreferredWidth(25);
 		scrollPane.setViewportView(table);
+		
+		JLabel lblDetailOrder = new JLabel("2. Detail Order");
+		lblDetailOrder.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblDetailOrder.setBounds(25, 404, 615, 30);
+		panel_1.add(lblDetailOrder);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 445, 650, 75);
+		panel_1.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Enter ID Product :");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(10, 10, 140, 30);
+		panel_3.add(lblNewLabel_1);
+		
+		txt_id_order = new JTextField();
+		txt_id_order.setBounds(157, 10, 230, 30);
+		panel_3.add(txt_id_order);
+		txt_id_order.setColumns(10);
+		
+		JButton btnNewButton = new JButton("View");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(418, 10, 101, 30);
+		panel_3.add(btnNewButton);
+		
+		
 
 	}
+
+	public String[][] getObjects() {
+		return objects;
+	}
+
+	public void setObjects(String[][] objects) {
+		this.objects = objects;
+	}
+	
+	
+	
+	
 }

@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Manager.Application;
 import Object.Media;
 
 public class ProductPanel extends JPanel {
@@ -21,10 +22,10 @@ public class ProductPanel extends JPanel {
 	private final int WIDTH = 240;
 	private final int HEIGHT = 300;
 	
-	public ProductPanel(Media media, int x, int y) {
+	public ProductPanel(Media media, int x, Application application) {
 		setBackground(Color.WHITE);
-//		setBounds(35, 35, 240, 300);
-		setBounds(35+x*WIDTH, 35+y*HEIGHT, WIDTH, HEIGHT);
+		
+		setBounds(35+x*(WIDTH+15), 35, WIDTH, HEIGHT);
 		setLayout(null);
 		JLabel imgProduct = new JLabel("img1");
 		imgProduct.setBackground(Color.WHITE);
@@ -35,6 +36,7 @@ public class ProductPanel extends JPanel {
 		JButton nameProductButton = new JButton(media.getNameString());
 		nameProductButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.mediaControl.showMedia(media.getId(), media.getCategoryString());
 			}
 		});
 		nameProductButton.setBackground(Color.WHITE);

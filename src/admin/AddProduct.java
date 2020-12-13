@@ -11,17 +11,22 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+
+import Manager.AdminApplication;
+
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddProduct extends AddminHome {
 	  
 	public JPanel addProductPanel;
+	AdminApplication adminApplication;
 
-	/**
-	 * Create the panel.
-	 */
-	public AddProduct() {
+
+	public AddProduct(AdminApplication adminApplication) {
+		super(adminApplication);
 		addProductPanel = new JPanel();
 		addProductPanel.setBounds(250, 70, 850, 530);
 		add(addProductPanel);
@@ -44,16 +49,31 @@ public class AddProduct extends AddminHome {
 		panel_2_1.add(lblChooseTheType);
 		
 		JButton btnNewButton = new JButton("BOOK");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 adminApplication.switchPanel(adminApplication.addBook);
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(349, 10, 85, 30);
 		panel_2_1.add(btnNewButton);
 		
 		JButton btnCd = new JButton("CD/LP");
+		btnCd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 adminApplication.switchPanel(adminApplication.addCD_LP);
+			}
+		});
 		btnCd.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCd.setBounds(459, 10, 85, 30);
 		panel_2_1.add(btnCd);
 		
 		JButton btnDvd = new JButton("DVD");
+		btnDvd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 adminApplication.switchPanel(adminApplication.addDVD);
+			}
+		});
 		btnDvd.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnDvd.setBounds(569, 10, 85, 30);
 		panel_2_1.add(btnDvd);

@@ -25,6 +25,7 @@ public class main {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setBounds(100, 100, 1100, 600);
 		mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+		
 		/*
 		Home home = new Home();
 		mainFrame.add(home);
@@ -74,27 +75,25 @@ public class main {
 //		DetailProduct detailProduct = new DetailProduct();
 //		mainFrame.add(detailProduct);
 //		mainFrame.setVisible(true);
-		
-<<<<<<< HEAD
+
 		Pay pay = new Pay();
 		mainFrame.add(pay);
 		mainFrame.setVisible(true);
         
 
-=======
 //		Pay pay = new Pay();
 //		mainFrame.add(pay);
 //		mainFrame.setVisible(true);
 //        
->>>>>>> 458630ed50c0970e02bf7e809013bf671f4ecf18
+
 		
 //		ProductManagement productManagement = new ProductManagement();
 //		mainFrame.add(productManagement);
 //		mainFrame.setVisible(true);
 		
-        Product product = new Product();
-        mainFrame.add(product);
-        mainFrame.setVisible(true);
+//        Product product = new Product();
+//        mainFrame.add(product);
+//        mainFrame.setVisible(true);
 	}
 
 

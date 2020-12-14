@@ -1,9 +1,9 @@
 package user;
 
-import javax.swing.JPanel;
-
 import Manager.Application;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -19,6 +19,11 @@ public class Address extends MyAccount {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.

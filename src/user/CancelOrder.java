@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 
 public class CancelOrder extends MyAccount {
+	
 	private JTable table;
 	private JTextField textField;
 
@@ -34,6 +35,7 @@ public class CancelOrder extends MyAccount {
 	 */
 	public CancelOrder(Application application) {
 		super(application);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(320, 70, 780, 530);
 		add(panel);

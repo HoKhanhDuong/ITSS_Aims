@@ -27,17 +27,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import java.awt.SystemColor;
 
 public class Home extends MenuProduct {
-	Application application;
+	
+	private Application application;
+	private List<ProductPanel> list;
 
 	public Home(Application application) {
 		super(application);
 		this.application = application;
-
 		setForeground(new Color(102, 204, 255));
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,7 +53,7 @@ public class Home extends MenuProduct {
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setForeground(Color.BLACK);
-		lblNewLabel_1.setIcon(new ImageIcon("img\\home.png"));
+		lblNewLabel_1.setIcon(new ImageIcon("img/home.png"));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(0, 0, 680, 380);
 		imgPanel.add(lblNewLabel_1);
@@ -100,8 +102,12 @@ public class Home extends MenuProduct {
 		JButton buyNowButton = new JButton("BUY NOW ");
 		buyNowButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.switchPanel(application.product);
-
+				
+				application.mediaControl.hiddenCurrentPanel(list, page);
+				page = 0;
+				setList(application.mediaControl.get_ListProductSort(0));
+				setListProduct(list);
+				application.mediaControl.screen_ListProduct(getList());
 			}
 		});
 		buyNowButton.setBackground(Color.WHITE);
@@ -109,6 +115,14 @@ public class Home extends MenuProduct {
 		buyNowButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		buyNowButton.setBounds(198, 209, 124, 29);
 		panel.add(buyNowButton);
-
 	}
+
+	public List<ProductPanel> getList() {
+		return list;
+	}
+
+	public void setList(List<ProductPanel> list) {
+		this.list = list;
+	}
+	
 }

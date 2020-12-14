@@ -1,7 +1,9 @@
+CREATE DATABASE ITSS
+GO
 
  USE ITSS
  GO
-
+-- product
 CREATE TABLE Loai(
 	IDLoai INT IDENTITY(1,1) PRIMARY KEY,
 	TenLoai VARCHAR(30)
@@ -112,12 +114,17 @@ CREATE TABLE Physical(
 	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
 )
 
+-- users
+
 CREATE TABLE Users(
 	IDUser INT IDENTITY PRIMARY KEY,
 	Email VARCHAR(30),
 	Pass VARCHAR(30),
 	isAdmin BIT
 )
+
+-- them truong cardnumber for users
+ALTER TABLE Users ADD CardNumber VARCHAR(50)
 
 CREATE TABLE Actions(
 	IDAction INT IDENTITY PRIMARY KEY,
@@ -151,6 +158,13 @@ CREATE TABLE DiaChi(
 	FOREIGN KEY (IDUser) REFERENCES Users(IDUser)
 )
 
+-- Thay đổi kiểu của Name, Diachi
+ALTER TABLE DiaChi
+ALTER COLUMN Name NVARCHAR(50) NOT NULL;
+ALTER TABLE DiaChi
+ALTER COLUMN Diachi NVARCHAR(225) NOT NULL;
+
+
 CREATE TABLE DonHang(
 	IDDonHang INT IDENTITY PRIMARY KEY,
 	IDUser INT,
@@ -160,6 +174,15 @@ CREATE TABLE DonHang(
 	FOREIGN KEY (IDUser) REFERENCES Users(IDUser),
 	FOREIGN KEY (IDAddress) REFERENCES DiaChi(IDAddress)
 )
+
+ALTER TABLE DonHang
+ALTER COLUMN TrangThai NVARCHAR(50);
+ALTER TABLE DonHang
+ADD CONSTRAINT df_TrangThai DEFAULT(N'Chờ') FOR TrangThai;
+
+ALTER TABLE DonHang
+ALTER COLUMN GhiChu NVARCHAR(225) not null ;
+
 
 CREATE TABLE ThongTinDonHang(
 	IDDonHang INT,
@@ -192,4 +215,8 @@ CREATE TABLE MediaSale (
 	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
 )
 
-INSERT INTO Users VALUES('admin@gmail.com','123456',1)
+INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','123456',1)
+
+ALTER TABLE Media ADD image VARCHAR(225)
+
+

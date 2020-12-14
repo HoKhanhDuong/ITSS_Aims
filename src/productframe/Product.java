@@ -325,11 +325,13 @@ public class Product extends MenuProduct {
 				
 			}
 		});
-	}
 		
-		public void addListProduct(List<ProductPanel> listProduct) {
-			this.list = listProduct;
-			next(page);
+	}
+	
+	public void addListProduct(List<ProductPanel> listProduct) {
+		this.list = listProduct;
+		setListProduct(getList());
+		next(page);
 		}
 
 		public void next(int page) {

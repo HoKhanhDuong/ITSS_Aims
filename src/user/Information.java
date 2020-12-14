@@ -3,6 +3,8 @@ package user;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 //import javax.swing.SwingConstants;
@@ -115,8 +117,20 @@ public class Information extends MyAccount {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.userController.changeInformation(txtAddress.getText(), txtCard.getText());
-				application.userController.screenInfo(2);
+				int passd = application.userController.changeInformation(application.getID(),txtAddress.getText(), txtCard.getText());
+				
+				if (passd == 0) {
+					String errors = application.userController.getErrors();
+					JOptionPane.showMessageDialog(null, errors, 
+							"Information User", 
+							JOptionPane.ERROR_MESSAGE);
+					application.userController.setErrors("");
+				}else {
+					JOptionPane.showMessageDialog(null, "Changed Information", 
+							"Information User", 
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				application.userController.screenInfo(application.getID());
 			}
 		});
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 20));

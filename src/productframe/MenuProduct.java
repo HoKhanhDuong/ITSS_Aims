@@ -91,6 +91,7 @@ public class MenuProduct extends JPanel {
 		JButton homeButton = new JButton("HOME");
 		homeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("home: "+listProduct.size()+"\n"+page);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
 				application.switchPanel(application.home);
@@ -109,6 +110,7 @@ public class MenuProduct extends JPanel {
 				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				setListProduct( application.mediaControl.get_ListProduct(0) );
+				System.out.println("shoping: "+listProduct.size()+"\n"+page);
 				page = 0;
 				application.mediaControl.screen_ListProduct(listProduct);
 			}
@@ -192,7 +194,6 @@ public class MenuProduct extends JPanel {
 				application.switchPanel(application.home);
 				}
 			});
-			
 		
 	}
 

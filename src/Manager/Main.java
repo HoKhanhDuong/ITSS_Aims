@@ -10,7 +10,7 @@ public class Main extends JFrame {
 		// TODO Auto-generated constructor stub
 	}
 	public static void main(String[] args) {
-		int a = 0;
+		int a = 1;
 		if(a == 1) {
 		Application application = new Application();
 		}else {

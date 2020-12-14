@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -13,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Manager.Application;
+import login.Login;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -23,6 +26,7 @@ public class MenuProduct extends JPanel {
 	 */
 	private JPanel contentPane;
 	private JTextField searchTextField;
+	public Login login;
 	
 	public Application application;
 	public MenuProduct(Application application ) {
@@ -95,8 +99,8 @@ public class MenuProduct extends JPanel {
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		//int status = 0;
-		//if(status == 0) {
+	    int status = 0;
+		if(status == 0) {
 		JMenuBar menuBar = new JMenuBar();
 		homePanel.add(menuBar);
 		
@@ -136,16 +140,22 @@ public class MenuProduct extends JPanel {
 		mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		account.add(mntmNewMenuItem_2);
 		
-		/*}else {
+		}else {
 
 			JButton signInButton = new JButton("SIGN IN");
+			signInButton.addActionListener(new ActionListener() {
+		
+				public void actionPerformed(ActionEvent e) {
+					login.setVisible(true);
+			}
+			});
 			signInButton.setForeground(Color.ORANGE);
 			signInButton.setBackground(Color.WHITE);
 			signInButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
 			signInButton.setBorderPainted(false);
 			homePanel.add(signInButton);
 		}
-		*/
+		
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

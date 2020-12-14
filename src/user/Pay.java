@@ -34,7 +34,7 @@ public class Pay extends JPanel {
 	public Pay(Application application) {
 	//	super(application);
 		setBackground(Color.WHITE);
-        setSize(1100,1000);
+        setSize(1100,600);
         setLayout(null);
         
         JPanel panel = new JPanel();
@@ -126,7 +126,7 @@ public class Pay extends JPanel {
         panel_4.setBounds(10, 319, 860, 386);
         panel_2.add(panel_4);
         panel_4.setLayout(null);
-        
+        /*
         JPanel panel_5 = new JPanel();
         panel_5.setBounds(100, 10, 660, 366);
         panel_4.add(panel_5);
@@ -208,6 +208,7 @@ public class Pay extends JPanel {
         btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
         btnNewButton_5.setBounds(407, 313, 243, 30);
         panel_5.add(btnNewButton_5);
+        */
         
         JPanel panel_6 = new JPanel();
         panel_6.setBounds(10, 274, 860, 47);

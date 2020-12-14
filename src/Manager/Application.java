@@ -6,6 +6,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import login.Login;
 import user.Address;
 
 import productframe.Cart;
@@ -46,6 +47,7 @@ public class Application extends JFrame {
 		//pay = new Pay();
 		orderHisrory = new OrderHisrory(this);
 		address = new user.Address(this);
+		
 		//add(home);
 		list = new ArrayList<JPanel>();
 		list.add(home);
@@ -72,5 +74,6 @@ public class Application extends JFrame {
 		}
 		list.get(list.indexOf(jPanel)).setVisible(true);
 	}
+	
 
 }

@@ -58,6 +58,7 @@ public class UserController {
 	}
 	
 	public void screenInfo (int idUser) {
+    
 		user = application.connect.InformationUser(idUser); // can truyen userID
 		
 		if(user == null) {

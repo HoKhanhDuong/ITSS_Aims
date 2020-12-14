@@ -38,7 +38,7 @@ public class MenuProduct extends JPanel {
 	public JPanel homePanel;
 	JButton signInButton;
 	JMenuBar menuBar;
-	
+  
 	public MenuProduct(Application application ) {
 		this.application = application;
 		
@@ -182,12 +182,27 @@ public class MenuProduct extends JPanel {
 				}
 			});
 			
-			JMenuItem taikhoanitem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
-			taikhoanitem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			account.add(taikhoanitem_2);
-			taikhoanitem_2.addActionListener(new ActionListener() {
+			JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
+			mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			account.add(mntmNewMenuItem_2);
+			
+			mntmNewMenuItem_2.addActionListener(new ActionListener() {
 				
 				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					application.switchPanel(application.orderHisrory);
+				}
+			});
+
+			signInButton = new JButton("SIGN IN");
+			signInButton.setForeground(Color.ORANGE);
+			signInButton.setBackground(Color.WHITE);
+			signInButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
+			signInButton.setBorderPainted(false);
+			homePanel.add(signInButton);
+			signInButton.addActionListener(new ActionListener() {
+
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 				application.setID(0);
@@ -204,6 +219,7 @@ public class MenuProduct extends JPanel {
 	public void setListProduct(List<ProductPanel> listProduct) {
 		this.listProduct = listProduct;
 	}
+  
 	public void switchStatus() {
 		if(application.getID() != 0) {
 			

@@ -92,7 +92,7 @@ public class Connect {
 		
 	}
 	
-	public void changeInformation(Integer idUser, String address, String cardNumber) {
+	public void changeInformation(int idUser, String address, String cardNumber) {
 		
 		try {
 			statement.executeUpdate("UPDATE DiaChi SET DiaChi = N'"+address+"' WHERE IDUser="+idUser);

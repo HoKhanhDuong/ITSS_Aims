@@ -115,9 +115,8 @@ public class Information extends MyAccount {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(application.getID());
 				application.userController.changeInformation(application.getID(),txtAddress.getText(), txtCard.getText());
-				application.userController.screenInfo(2);
+				application.userController.screenInfo(application.getID());
 			}
 		});
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 20));

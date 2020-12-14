@@ -95,13 +95,12 @@ public class Application extends JFrame {
 	}
 	public void switchPanel(MenuProduct jPanel) {
 		Iterator<MenuProduct> iterator = list.iterator();
-		
 		while(iterator.hasNext()) {
 			iterator.next().setVisible(false);
 		}
+		
 		list.get(list.indexOf(jPanel)).setVisible(true);
 		list.get(list.indexOf(jPanel)).switchStatus();
-		
 	}
 	public int getID() {
 		return this.ID;

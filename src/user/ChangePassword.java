@@ -89,7 +89,7 @@ public class ChangePassword extends MyAccount {
 				newPass = txtNewPass.getText();
 				confirmPass = txtConfirmPass.getText();
 				
-				application.userController.changePassword(1, currentPass, newPass, confirmPass); // can truyen idUSer
+				application.userController.changePassword(application.getID(), currentPass, newPass, confirmPass); // can truyen idUSer
 			}
 		});
 		btnNewButton.setBackground(new Color(51, 51, 204));

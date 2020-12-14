@@ -75,10 +75,6 @@ public class main {
 //		DetailProduct detailProduct = new DetailProduct();
 //		mainFrame.add(detailProduct);
 //		mainFrame.setVisible(true);
-
-		Pay pay = new Pay();
-		mainFrame.add(pay);
-		mainFrame.setVisible(true);
         
 
 //		Pay pay = new Pay();

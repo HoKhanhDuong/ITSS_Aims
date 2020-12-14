@@ -40,9 +40,6 @@ public class Home extends MenuProduct {
 	public Home(Application application) {
 		super(application);
 		this.application = application;
-		
-		System.out.println(application.getID());
-
 		setForeground(new Color(102, 204, 255));
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(5, 5, 5, 5));

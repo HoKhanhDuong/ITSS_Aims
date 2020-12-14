@@ -32,13 +32,13 @@ public class MenuProduct extends JPanel {
 	protected int page;
 	public JButton shoppingButton;
 	
-	private int id;
-	
 	protected List<ProductPanel> listProduct;
 	
 	public Application application;
+	public JPanel homePanel;
 	JButton signInButton;
 	JMenuBar menuBar;
+  
 	public MenuProduct(Application application ) {
 		this.application = application;
 		
@@ -82,7 +82,7 @@ public class MenuProduct extends JPanel {
 		searchButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		searchPanel.add(searchButton);
 		
-		JPanel homePanel = new JPanel();
+		homePanel = new JPanel();
 		homePanel.setBackground(Color.WHITE);
 		homePanel.setBounds(480, 0, 620, 70);
 		add(homePanel);
@@ -122,7 +122,29 @@ public class MenuProduct extends JPanel {
 		homePanel.add(shoppingButton);
 		
 		
+		signInButton = new JButton("SIGN IN");
+		signInButton.setForeground(Color.ORANGE);
+		signInButton.setBackground(Color.WHITE);
+		signInButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		signInButton.setBorderPainted(false);
+		homePanel.add(signInButton);
+		signInButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login login = new Login(application);
+			}
+		});
 		
+		
+		JButton cart = new JButton("CART");
+		cart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.switchPanel(application.cart);
+			}
+		});
+		cart.setBackground(Color.WHITE);
+		cart.setForeground(Color.BLACK);
+		cart.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		homePanel.add(cart);
 		
 		menuBar = new JMenuBar();
 		menuBar.setVisible(false);
@@ -136,10 +158,10 @@ public class MenuProduct extends JPanel {
 		account.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		menuBar.add(account);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("T\u00E0i kho\u1EA3n c\u1EE7a t\u00F4i");
-		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		account.add(mntmNewMenuItem);
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem taikhoanitem = new JMenuItem("T\u00E0i kho\u1EA3n c\u1EE7a t\u00F4i");
+		taikhoanitem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		account.add(taikhoanitem);
+		taikhoanitem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -148,10 +170,10 @@ public class MenuProduct extends JPanel {
 			}
 		});
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Qu\u1EA3n l\u00FD \u0111\u01A1n h\u00E0ng");
-		mntmNewMenuItem_3.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		account.add(mntmNewMenuItem_3);
-		mntmNewMenuItem_3.addActionListener(new ActionListener() {
+		JMenuItem taikhoanitem_3 = new JMenuItem("Qu\u1EA3n l\u00FD \u0111\u01A1n h\u00E0ng");
+		taikhoanitem_3.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		account.add(taikhoanitem_3);
+		taikhoanitem_3.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -180,24 +202,13 @@ public class MenuProduct extends JPanel {
 			signInButton.setBorderPainted(false);
 			homePanel.add(signInButton);
 			signInButton.addActionListener(new ActionListener() {
+
 				public void actionPerformed(ActionEvent e) {
-					Login login = new Login(application);
+					// TODO Auto-generated method stub
+				application.setID(0);
+				application.switchPanel(application.home);
 				}
 			});
-		
-		JButton cart = new JButton("CART");
-		cart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("cart: "+listProduct.size()+"\n"+page);
-				application.mediaControl.hiddenCurrentPanel(listProduct, page);
-				page = 0;
-				application.switchPanel(application.cart);
-			}
-		});
-		cart.setBackground(Color.WHITE);
-		cart.setForeground(Color.BLACK);
-		cart.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		homePanel.add(cart);
 		
 	}
 
@@ -208,17 +219,18 @@ public class MenuProduct extends JPanel {
 	public void setListProduct(List<ProductPanel> listProduct) {
 		this.listProduct = listProduct;
 	}
-	
+  
 	public void switchStatus() {
-			if(application.getID() != 0) {
-				
-				signInButton.setVisible(false);
-				menuBar.setVisible(true);
-				
+		if(application.getID() != 0) {
+			
+			signInButton.setVisible(false);
+			menuBar.setVisible(true);
+			
 			} else {
-					menuBar.setVisible(false);
-					signInButton.setVisible(true);
-				}
+				menuBar.setVisible(false);
+				signInButton.setVisible(true);
+			}
+		
+		
 	}
-	
 }

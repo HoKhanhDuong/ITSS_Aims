@@ -23,7 +23,7 @@ public class MyAccount extends MenuProduct {
 	 * Create the panel.
 	 */
 	public MyAccount( Application application) {
-		super(application);
+		super(application);		
 		JPanel accountPanel = new JPanel();
 		accountPanel.setBackground(Color.LIGHT_GRAY);
 		accountPanel.setBounds(100, 70, 220, 530);

@@ -38,7 +38,7 @@ public class UserController {
 			return;
 		}
 		
-		boolean change = application.connect.changePassword(1, currentPass, newPass);
+		boolean change = application.connect.changePassword(idUser, currentPass, newPass);
 		
 		if (change == false) {
 			JOptionPane.showMessageDialog(null, "Current Password doen't exit", 
@@ -58,7 +58,7 @@ public class UserController {
 	}
 	
 	public void screenInfo (int idUser) {
-		
+    
 		user = application.connect.InformationUser(idUser); // can truyen userID
 		
 		if(user == null) {

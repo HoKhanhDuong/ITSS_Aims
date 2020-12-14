@@ -72,6 +72,7 @@ public class Login extends JFrame {
 					setVisible(false);
 					dispose();
 					application.switchPanel(application.home);
+					
 				}
 			}
 		});

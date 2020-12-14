@@ -512,4 +512,38 @@ public class Connect {
 		return -1;
 	}
 	
+	public int searchCart(int IDUser, int IDMedia) {
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM Cart WHERE IDMedia = "+IDMedia+" IDUser = "+IDUser);
+			if(rSet.next()) {
+				return rSet.getInt("SoLuong");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public void addCart(int IDUser, int IDMedia, int soluong) {
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate("INSERT INTO Cart VALUES ("+IDMedia+","+IDUser+","+soluong+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateCart(int IDUser, int IDMedia, int soluong) {
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate("UPDATE Cart SET SoLuong = "+soluong+" WHERE IDUser = "+IDUser+" AND IDMedia = "+IDMedia);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

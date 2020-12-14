@@ -2,12 +2,16 @@ package productframe;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -31,6 +35,7 @@ public class DetailProduct extends MenuProduct {
 	JLabel priceLabel;
 	JLabel nameLabel;
 	JLabel imgLabel;
+	int IDMedia;
 	/**
 	 * Create the panel.
 	 */
@@ -100,6 +105,19 @@ public class DetailProduct extends MenuProduct {
         buyNowButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         buyNowButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		if(textField.getText() != null) {
+        		int soluong = Integer.parseInt(textField.getText());
+        		int status;
+        		if(soluong > 0) {
+        			status = application.cartController.addMedia(IDMedia, soluong);
+        			if(status == -1) {
+        				JOptionPane.showMessageDialog(new JFrame(), "Please login or Sign up", "Inane error", JOptionPane.ERROR_MESSAGE);
+        			}
+        		}else {
+    				JOptionPane.showMessageDialog(new JFrame(), "Please enter count > 0", "Inane error", JOptionPane.ERROR_MESSAGE);
+        		}
+        		
+        		}
         	}
         });
         buyNowButton.setBounds(40, 208, 138, 40);
@@ -237,5 +255,6 @@ public class DetailProduct extends MenuProduct {
 		imgLabel.setIcon(new ImageIcon(media.getImageString()));
 		nameLabel.setText(media.getNameString());
 		priceLabel.setText(media.getPriceFloat()+"");
+		IDMedia = media.getId();
 	}
 }

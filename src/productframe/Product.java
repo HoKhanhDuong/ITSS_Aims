@@ -119,26 +119,7 @@ public class Product extends MenuProduct {
 				setList(application.mediaControl.get_ListProduct(1));
 				setListProduct(list);
 				application.mediaControl.screen_ListProduct(getList());
-				sortComboBox.addActionListener (new ActionListener () {
-				       public void actionPerformed(ActionEvent e) {
-				    	   String value = sortComboBox.getSelectedItem().toString();
-				    	   if(value=="Price : Low to High") {
-				    		   application.mediaControl.hiddenCurrentPanel(list, page);
-								page = 0;
-								setList(application.mediaControl.get_ListProductSort(-1));
-								setListProduct(list);
-								application.mediaControl.screen_ListProduct(getList());
-				    		   
-				    	   }
-				    	   else if(value=="Price : High to Low") {
-				    		   application.mediaControl.hiddenCurrentPanel(list, page);
-								page = 0;
-								setList(application.mediaControl.get_ListProductSort(1));
-								setListProduct(list);
-								application.mediaControl.screen_ListProduct(getList());
-				    	   }
-				       }
-				});
+				
 			}
 			
 		});
@@ -158,26 +139,7 @@ public class Product extends MenuProduct {
 				setList(application.mediaControl.get_ListProduct(2));
 				setListProduct(list);
 				application.mediaControl.screen_ListProduct(getList());
-				sortComboBox.addActionListener (new ActionListener () {
-				       public void actionPerformed(ActionEvent e) {
-				    	   String value = sortComboBox.getSelectedItem().toString();
-				    	   if(value=="Price : Low to High") {
-				    		   application.mediaControl.hiddenCurrentPanel(list, page);
-								page = 0;
-								setList(application.mediaControl.get_ListProductSort(-2));
-								setListProduct(list);
-								application.mediaControl.screen_ListProduct(getList());
-				    		   
-				    	   }
-				    	   else if(value=="Price : High to Low") {
-				    		   application.mediaControl.hiddenCurrentPanel(list, page);
-								page = 0;
-								setList(application.mediaControl.get_ListProductSort(2));
-								setListProduct(list);
-								application.mediaControl.screen_ListProduct(getList());
-				    	   }
-				       }
-				});
+				
 				
 			}
 		});
@@ -202,26 +164,7 @@ public class Product extends MenuProduct {
 				setList(application.mediaControl.get_ListProduct(3));
 				setListProduct(list);
 				application.mediaControl.screen_ListProduct(getList());
-				sortComboBox.addActionListener (new ActionListener () {
-				       public void actionPerformed(ActionEvent e) {
-				    	   String value = sortComboBox.getSelectedItem().toString();
-				    	   if(value=="Price : Low to High") {
-				    		   application.mediaControl.hiddenCurrentPanel(list, page);
-								page = 0;
-								setList(application.mediaControl.get_ListProductSort(-3));
-								setListProduct(list);
-								application.mediaControl.screen_ListProduct(getList());
-				    		   
-				    	   }
-				    	   else if(value=="Price : High to Low") {
-				    		   application.mediaControl.hiddenCurrentPanel(list, page);
-								page = 0;
-								setList(application.mediaControl.get_ListProductSort(3));
-								setListProduct(list);
-								application.mediaControl.screen_ListProduct(getList());
-				    	   }
-				       }
-				});
+				
 				
 			}
 		});

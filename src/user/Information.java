@@ -115,7 +115,8 @@ public class Information extends MyAccount {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.userController.changeInformation(txtAddress.getText(), txtCard.getText());
+				System.out.println(application.getID());
+				application.userController.changeInformation(application.getID(),txtAddress.getText(), txtCard.getText());
 				application.userController.screenInfo(2);
 			}
 		});

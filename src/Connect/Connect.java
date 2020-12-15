@@ -546,4 +546,37 @@ public class Connect {
 		}
 	}
 	
+	public int getSLKho(int IDMedia) {
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT SoLuong FROM Physical WHERE IDMedia = "+IDMedia);
+			return rSet.getInt("SoLuong");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public ArrayList<Media> getMediaInCart(int IDUser){
+		ArrayList<Media> list = new ArrayList<Media>();
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM Cart JOIN Media ON Cart.IDMedia = Media.IDMedia "
+					+ " WHERE IDUser = "+IDUser);
+			while(rSet.next()) {
+				Media media = new Media();
+				media.setId(rSet.getInt("Cart.IDMedia"));
+				media.setImageString(rSet.getString("image"));
+				media.setNameString(rSet.getString("Ten"));
+				media.setPriceFloat(rSet.getInt("GiaCa"));
+				list.add(media);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 }

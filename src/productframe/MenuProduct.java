@@ -136,7 +136,7 @@ public class MenuProduct extends JPanel {
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
 				application.switchPanel(application.cart);

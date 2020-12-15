@@ -58,6 +58,8 @@ public class DetailProduct extends MenuProduct {
         
         imgLabel = new JLabel("img");
         imgLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        
+        // image
         imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setBounds(10, 40, 280, 350);
@@ -112,6 +114,10 @@ public class DetailProduct extends MenuProduct {
         			status = application.cartController.addMedia(IDMedia, soluong);
         			if(status == -1) {
         				JOptionPane.showMessageDialog(new JFrame(), "Please login or Sign up", "Inane error", JOptionPane.ERROR_MESSAGE);
+        			}else if(status == -2) {
+        				JOptionPane.showMessageDialog(new JFrame(), "Sorry we don't have enough stock", "Inane error", JOptionPane.ERROR_MESSAGE);        				
+        			}else {
+        				JOptionPane.showMessageDialog(new JFrame(), "Inserted into your cart", "Inane custom dialog", JOptionPane.INFORMATION_MESSAGE);        					
         			}
         		}else {
     				JOptionPane.showMessageDialog(new JFrame(), "Please enter count > 0", "Inane error", JOptionPane.ERROR_MESSAGE);

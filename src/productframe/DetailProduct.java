@@ -27,10 +27,10 @@ import javax.swing.border.LineBorder;
 public class DetailProduct extends MenuProduct {
 	private JTextField textField;
 	private JTable table;
-	JPanel panel;
-	JLabel priceLabel;
-	JLabel nameLabel;
-	JLabel imgLabel;
+	public JPanel panel;
+	public JLabel priceLabel;
+	public JLabel nameLabel;
+	public JLabel imgLabel;
 	/**
 	 * Create the panel.
 	 */
@@ -53,7 +53,7 @@ public class DetailProduct extends MenuProduct {
         
         imgLabel = new JLabel("img");
         imgLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
+        imgLabel.setIcon(new ImageIcon("img/xpt_1.jpg"));
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setBounds(10, 40, 280, 350);
         imgPanel.add(imgLabel);
@@ -125,6 +125,11 @@ public class DetailProduct extends MenuProduct {
         panel.setLayout(null);
         
         JButton btnNewButton = new JButton("Add to Cart");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
         btnNewButton.setBackground(Color.WHITE);
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         btnNewButton.setBounds(199, 208, 152, 40);

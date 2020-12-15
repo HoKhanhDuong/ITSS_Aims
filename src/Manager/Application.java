@@ -45,7 +45,7 @@ public class Application extends JFrame {
 	public MediaController mediaControl;
 	public UserController userController;
 
-	ArrayList<JPanel> list;
+	ArrayList<MenuProduct> list;
 	public Address address;
   
 	public Application() throws SQLException {
@@ -75,7 +75,7 @@ public class Application extends JFrame {
 		mediaControl = new MediaController(this);
 		userController = new UserController(this);
 
-		list = new ArrayList<JPanel>();
+		list = new ArrayList<MenuProduct>();
 		list.add(home);
 		list.add(cart);
 		list.add(product);
@@ -86,19 +86,21 @@ public class Application extends JFrame {
 		list.add(information);
 		list.add(orderHisrory);
 		list.add(address);
-		Iterator<JPanel> iterator = list.iterator();
+		Iterator<MenuProduct> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			add(iterator.next());
 		}
 		switchPanel(home);
 		setVisible(true);
 	}
-	public void switchPanel(JPanel jPanel) {
-		Iterator<JPanel> iterator = list.iterator();
+	public void switchPanel(MenuProduct jPanel) {
+		Iterator<MenuProduct> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			iterator.next().setVisible(false);
 		}
+		
 		list.get(list.indexOf(jPanel)).setVisible(true);
+		list.get(list.indexOf(jPanel)).switchStatus();
 	}
 	public int getID() {
 		return this.ID;

@@ -512,4 +512,25 @@ public class Connect {
 		return -1;
 	}
 	
+	public List<Media> searchMedia(String search) {
+		listMedia = new ArrayList<Media>();
+		try {
+			rSet = statement.executeQuery("select Ten, GiaCa, TenLoai, IDMedia "
+					+ "from Media join Loai\n"
+					+ "ON Media.IDLoai = Loai.IDLoai\n"
+					+ "where Ten LIKE '%"+search+"%';");
+			
+			while(rSet.next()) {
+
+				media = new Media(rSet.getString("Ten"), rSet.getInt("GiaCa"), rSet.getString("TenLoai"), rSet.getInt("IDMedia"));
+				listMedia.add(media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listMedia;
+	}
+	
 }

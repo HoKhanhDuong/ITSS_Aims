@@ -31,11 +31,13 @@ import javax.swing.border.LineBorder;
 public class DetailProduct extends MenuProduct {
 	private JTextField textField;
 	private JTable table;
+
 	JPanel panel;
 	JLabel priceLabel;
 	JLabel nameLabel;
 	JLabel imgLabel;
 	int IDMedia;
+
 	/**
 	 * Create the panel.
 	 */
@@ -58,9 +60,11 @@ public class DetailProduct extends MenuProduct {
         
         imgLabel = new JLabel("img");
         imgLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
         
         // image
         imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
+
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setBounds(10, 40, 280, 350);
         imgPanel.add(imgLabel);
@@ -162,6 +166,7 @@ public class DetailProduct extends MenuProduct {
         addCart.setFont(new Font("Tahoma", Font.PLAIN, 20));
         addCart.setBounds(199, 208, 152, 40);
         detailPanel.add(addCart);
+
         
         table = new JTable();
         panel.add(table);

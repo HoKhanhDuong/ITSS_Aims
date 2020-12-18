@@ -513,6 +513,7 @@ public class Connect {
 		return -1;
 	}
 	
+
 	public int searchCart(int IDUser, int IDMedia) {
 		try {
 			statement = conn.createStatement();
@@ -572,6 +573,7 @@ public class Connect {
 				i++;
 				list.add(media);
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

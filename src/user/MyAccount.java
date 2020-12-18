@@ -66,6 +66,12 @@ public class MyAccount extends MenuProduct {
 		accountPanel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Address");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.switchPanel(application.address);
+			}
+			
+		});
 		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEADING);
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_3.setBounds(10, 157, 200, 35);
@@ -76,6 +82,7 @@ public class MyAccount extends MenuProduct {
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnNewButton_4.setBounds(10, 202, 200, 35);

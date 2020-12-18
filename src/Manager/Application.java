@@ -11,6 +11,7 @@ import Connect.Connect;
 import Controller.OrderController;
 import Controller.UserController;
 import user.Address;
+import Controller.CartController;
 import Controller.MediaController;
 import Controller.UserController;
 import admin.AddminHome;
@@ -44,6 +45,7 @@ public class Application extends JFrame {
 	public Connect connect;
 	public MediaController mediaControl;
 	public UserController userController;
+	public CartController cartController;
 
 	ArrayList<MenuProduct> list;
 	public Address address;
@@ -57,6 +59,7 @@ public class Application extends JFrame {
 		
 		userController = new UserController(this);
 		orderController = new OrderController(this);
+		cartController = new CartController(this);
 		
 		home = new Home(this);
 		cart = new Cart(this);

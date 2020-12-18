@@ -6,6 +6,7 @@ public class Media {
 	String categoryString;
 
 	String imageString;
+	int soluong;
 	private int id;
 	
 	public Media() {}
@@ -50,6 +51,14 @@ public class Media {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getSoluong() {
+		return soluong;
+	}
+
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
 	}
 	
 	

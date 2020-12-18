@@ -30,6 +30,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JInternalFrame;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -48,11 +53,9 @@ public class Product extends MenuProduct {
 	public List<ProductPanel> list;
 	private JPanel panel_1;
 	private JPanel panel_2;
-	
-	
-	public Product( Application application) {
+
+	public Product(Application application) {
 		super(application);
-		//this.page = 0;
 		
 		setBorder(new EmptyBorder(3,3,3,3));
 		setSize(1100, 1500);
@@ -81,7 +84,6 @@ public class Product extends MenuProduct {
 		SortProduct.setBackground(Color.WHITE);
 		add(SortProduct);
 		SortProduct.setLayout(null);
-		
 		
 		JComboBox sortComboBox = new JComboBox();
 		sortComboBox.setBackground(Color.WHITE);
@@ -207,13 +209,30 @@ public class Product extends MenuProduct {
 		lpButton.setBorderPainted(false);
 		panel.add(lpButton);
 		
-		
 		JLabel sortLabel = new JLabel("Sort by :");
 		sortLabel.setBounds(614, 10, 100, 40);
 		SortProduct.add(sortLabel);
 		sortLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		sortLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
+		
+
+		JPanel productPanel = new JPanel();
+		productPanel.setBounds(220, 130, 666, 348);
+		add(productPanel);
+		productPanel.setLayout(null);
+		
+		JPanel productPanel_1 = new JPanel();
+		productPanel_1.setBackground(Color.WHITE);
+		productPanel_1.setBounds(35, 35, 250, 300);
+		productPanel.add(productPanel_1);
+		productPanel_1.setLayout(null);
+		
+		JLabel imgProduct = new JLabel("img1");
+		imgProduct.setBackground(Color.WHITE);
+		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
+		imgProduct.setBounds(10, 10, 230, 220);
+		productPanel_1.add(imgProduct);
 		
 		panel_2 = new JPanel();
 		panel_2.setBounds(230, 140, 795, 454);
@@ -253,50 +272,47 @@ public class Product extends MenuProduct {
 		this.list = listProduct;
 		setListProduct(getList());
 		next(page);
-	}
-	
-	
-	public void next(int page) {
-		
-		int i = 0;
-		
-		if(3*page > list.size()) {
-			page = -1;
-			return;
 		}
-		if(page > 0) {
-			list.get((page-1)*3).setVisible(false);
-			list.get((page-1)*3+1).setVisible(false);
-			list.get((page-1)*3+2).setVisible(false);
+
+		public void next(int page) {
+			
+			int i=0;
+			
+			if(3*page > list.size()) {
+				page = -1;
+				return;
+			}
+			if(page > 0) {
+				list.get((page-1)*3).setVisible(false);
+				list.get((page-1)*3+1).setVisible(false);
+				list.get((page-1)*3+2).setVisible(false);
+			}
+			for(i=3*page;i<=(3*page+2) && i<list.size();i++) {
+				list.get(i).setVisible(true);
+				panel_2.add(list.get(i));	
+				
+			}
 		}
-		for(i=3*page;i<=(3*page+2) && i<list.size();i++) {
-			list.get(i).setVisible(true);
-			panel_2.add(list.get(i));	
+		public void back(int page) {
+			
+			for(int i=3*(page+1);i<=(3*(page+1)+2) && i<list.size();i++) {
+				list.get(i).setVisible(false);
+			}
+			if(page >= 0) {
+				list.get(page*3).setVisible(true);
+				list.get(page*3+1).setVisible(true);
+				list.get(page*3+2).setVisible(true);
+			}
 			
 		}
-	}
-	public void back(int page) {
-		
-		for(int i=3*(page+1);i<=(3*(page+1)+2) && i<list.size();i++) {
-			list.get(i).setVisible(false);
-		}
-		if(page >= 0) {
-			list.get(page*3).setVisible(true);
-			list.get(page*3+1).setVisible(true);
-			list.get(page*3+2).setVisible(true);
-		}
-		
-	}
 
-	public List<ProductPanel> getList() {
-		return list;
-	}
+		public List<ProductPanel> getList() {
+			return list;
+		}
 
-	public void setList(List<ProductPanel> list) {
-		this.list = list;
-	}
-	
-	
-	
+		public void setList(List<ProductPanel> list) {
+			this.list = list;
+		}
+
 	
 }

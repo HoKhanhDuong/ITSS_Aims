@@ -40,7 +40,7 @@ public class Login extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_ENTER: {
-					int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
+					int iD = application.userController.Signin(txtUsername.getText().trim(), txtPassword.getText().trim());
 					if(iD == -1){
 						JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 					}else {

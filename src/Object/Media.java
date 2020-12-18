@@ -4,8 +4,9 @@ public class Media {
 	private String nameString;
 	private int priceFloat;
 	private String categoryString;
-
 	private String image;
+
+	int soluong;
 	private int id;
 	
 	public Media() {}
@@ -51,6 +52,14 @@ public class Media {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getSoluong() {
+		return soluong;
+	}
+
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
 	}
 	
 	

@@ -48,7 +48,6 @@ public class Login extends JFrame {
 						application.setID(iD);
 						setVisible(false);
 						dispose();
-						
 						application.switchPanel(application.home);
 					}
 				}

@@ -87,7 +87,7 @@ public class MediaController {
 	}
 	
 	public void showMedia(int id, String categoryString) {
-		if(categoryString.equals("book")) {
+		if(categoryString.equals("Book")) {
 			Book book = application.connect.getBook(id);
 			book.setId(id);
 			book.setCategoryString(categoryString);

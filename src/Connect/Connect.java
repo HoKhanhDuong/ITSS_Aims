@@ -14,6 +14,7 @@ import Object.CD;
 import Object.DVD;
 import Object.LD;
 import Object.User;
+import productframe.ProductPaneInCart;
 import Object.Media;
 
 public class Connect {
@@ -31,7 +32,7 @@ public class Connect {
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 	     String userName = "SA";
-	     String password = "do@1230.com";
+	     String password = "123456";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
 	 
@@ -517,29 +518,73 @@ public class Connect {
 		return -1;
 	}
 	
-	public List<Media> searchMedia(String search) {
-		listMedia = new ArrayList<Media>();
-		try {
-			rSet = statement.executeQuery("select Ten, GiaCa, TenLoai, IDMedia "
-					+ "from Media join Loai\n"
-					+ "ON Media.IDLoai = Loai.IDLoai\n"
-					+ "where Ten LIKE '%"+search+"%';");
-			
-			while(rSet.next()) {
 
-				media = new Media(rSet.getString("Ten"), 
-						rSet.getInt("GiaCa"), 
-						rSet.getString("TenLoai"), 
-						rSet.getString("image"),
-						rSet.getInt("IDMedia"));
-				listMedia.add(media);
+	public int searchCart(int IDUser, int IDMedia) {
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM Cart WHERE IDMedia = "+IDMedia+" AND IDUser = "+IDUser);
+			if(rSet.next()) {
+				return rSet.getInt("SoLuong");
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listMedia;
+		return 0;
+	}
+	
+	public void addCart(int IDUser, int IDMedia, int soluong) {
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate("INSERT INTO Cart VALUES ("+IDMedia+","+IDUser+","+soluong+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateCart(int IDUser, int IDMedia, int soluong) {
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate("UPDATE Cart SET SoLuong = "+soluong+" WHERE IDUser = "+IDUser+" AND IDMedia = "+IDMedia);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public int getSLKho(int IDMedia) {
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT SoLuong FROM Physical WHERE IDMedia = "+IDMedia);
+			rSet.next();
+			return rSet.getInt("SoLuong");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public ArrayList<ProductPaneInCart> getMediaInCart(int IDUser){
+		ArrayList<ProductPaneInCart> list = new ArrayList<ProductPaneInCart>();
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM Cart JOIN Media ON Cart.IDMedia = Media.IDMedia "
+					+ " WHERE IDUser = "+IDUser);
+			int i=0;
+			while(rSet.next()) {
+
+				ProductPaneInCart media = new ProductPaneInCart(rSet.getString("Ten"), rSet.getString("image"), rSet.getInt("IDMedia"), rSet.getInt("GiaCa"), rSet.getInt("SoLuong"), i);
+				i++;
+				list.add(media);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 }

@@ -18,6 +18,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Information extends MyAccount {
+	private JTextField txtNguyenPhuong;
+	private JTextField textField_1;
+	private JTextField txtNguyenphuonggmailcom;
+	private JTextField textField;
+
+//	private JTextField txtName;
+//	private JTextField txtPhone;
+//	private JTextField txtMail;
+//	private JTextField txtCard;
+
 	/**
 	 * 
 	 */

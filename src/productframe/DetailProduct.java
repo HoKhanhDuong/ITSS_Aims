@@ -2,12 +2,16 @@ package productframe;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -27,10 +31,13 @@ import javax.swing.border.LineBorder;
 public class DetailProduct extends MenuProduct {
 	private JTextField textField;
 	private JTable table;
-	public JPanel panel;
-	public JLabel priceLabel;
-	public JLabel nameLabel;
-	public JLabel imgLabel;
+
+	JPanel panel;
+	JLabel priceLabel;
+	JLabel nameLabel;
+	JLabel imgLabel;
+	int IDMedia;
+
 	/**
 	 * Create the panel.
 	 */
@@ -53,7 +60,11 @@ public class DetailProduct extends MenuProduct {
         
         imgLabel = new JLabel("img");
         imgLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        imgLabel.setIcon(new ImageIcon("img/xpt_1.jpg"));
+
+        
+        // image
+        imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
+
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setBounds(10, 40, 280, 350);
         imgPanel.add(imgLabel);
@@ -100,6 +111,7 @@ public class DetailProduct extends MenuProduct {
         buyNowButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         buyNowButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
         	}
         });
         buyNowButton.setBounds(40, 208, 138, 40);
@@ -124,16 +136,37 @@ public class DetailProduct extends MenuProduct {
         informationPanel.add(panel);
         panel.setLayout(null);
         
-        JButton btnNewButton = new JButton("Add to Cart");
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton addCart = new JButton("Add to Cart");
+        addCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		if(textField.getText() != null) {
+        			if(textField.getText().matches("-?\\d?")) {
+	            		int soluong = Integer.parseInt(textField.getText());
+	            		int status;
+	            		if(soluong > 0) {
+	            			status = application.cartController.addMedia(IDMedia, soluong);
+	            			if(status == -1) {
+	            				JOptionPane.showMessageDialog(new JFrame(), "Please login or Sign up", "Inane error", JOptionPane.ERROR_MESSAGE);
+	            			}else if(status == -2) {
+	            				JOptionPane.showMessageDialog(new JFrame(), "Sorry we don't have enough stock", "Inane error", JOptionPane.ERROR_MESSAGE);        				
+	            			}else {
+	            				JOptionPane.showMessageDialog(new JFrame(), "Inserted into your cart", "Inane custom dialog", JOptionPane.INFORMATION_MESSAGE);        					
+	            			}
+	            		}else {
+	        				JOptionPane.showMessageDialog(new JFrame(), "Please enter count > 0", "Inane error", JOptionPane.ERROR_MESSAGE);
+	            		}
+	       			}else {
+        				JOptionPane.showMessageDialog(new JFrame(), "Please enter a number", "Inane error", JOptionPane.ERROR_MESSAGE);
+	       			}
+            		
+            	}
         	}
         });
-        btnNewButton.setBackground(Color.WHITE);
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton.setBounds(199, 208, 152, 40);
-        detailPanel.add(btnNewButton);
+        addCart.setBackground(Color.WHITE);
+        addCart.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        addCart.setBounds(199, 208, 152, 40);
+        detailPanel.add(addCart);
+
         
         table = new JTable();
         panel.add(table);
@@ -242,5 +275,6 @@ public class DetailProduct extends MenuProduct {
 		imgLabel.setIcon(new ImageIcon(media.getImageString()));
 		nameLabel.setText(media.getNameString());
 		priceLabel.setText(media.getPriceFloat()+"");
+		IDMedia = media.getId();
 	}
 }

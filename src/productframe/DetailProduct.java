@@ -107,23 +107,7 @@ public class DetailProduct extends MenuProduct {
         buyNowButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         buyNowButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(textField.getText() != null) {
-        		int soluong = Integer.parseInt(textField.getText());
-        		int status;
-        		if(soluong > 0) {
-        			status = application.cartController.addMedia(IDMedia, soluong);
-        			if(status == -1) {
-        				JOptionPane.showMessageDialog(new JFrame(), "Please login or Sign up", "Inane error", JOptionPane.ERROR_MESSAGE);
-        			}else if(status == -2) {
-        				JOptionPane.showMessageDialog(new JFrame(), "Sorry we don't have enough stock", "Inane error", JOptionPane.ERROR_MESSAGE);        				
-        			}else {
-        				JOptionPane.showMessageDialog(new JFrame(), "Inserted into your cart", "Inane custom dialog", JOptionPane.INFORMATION_MESSAGE);        					
-        			}
-        		}else {
-    				JOptionPane.showMessageDialog(new JFrame(), "Please enter count > 0", "Inane error", JOptionPane.ERROR_MESSAGE);
-        		}
         		
-        		}
         	}
         });
         buyNowButton.setBounds(40, 208, 138, 40);
@@ -151,13 +135,27 @@ public class DetailProduct extends MenuProduct {
         JButton addCart = new JButton("Add to Cart");
         addCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		int status = application.cartController.addMedia(IDMedia, (Integer.parseInt(textField.getText())));
-        		if(status == -2) {
-        			JOptionPane.showMessageDialog(new JFrame(),
-        				    "We haven't enough",
-        				    "Inane error",
-        				    JOptionPane.ERROR_MESSAGE);
-        		}
+        		if(textField.getText() != null) {
+        			if(textField.getText().matches("-?\\d?")) {
+	            		int soluong = Integer.parseInt(textField.getText());
+	            		int status;
+	            		if(soluong > 0) {
+	            			status = application.cartController.addMedia(IDMedia, soluong);
+	            			if(status == -1) {
+	            				JOptionPane.showMessageDialog(new JFrame(), "Please login or Sign up", "Inane error", JOptionPane.ERROR_MESSAGE);
+	            			}else if(status == -2) {
+	            				JOptionPane.showMessageDialog(new JFrame(), "Sorry we don't have enough stock", "Inane error", JOptionPane.ERROR_MESSAGE);        				
+	            			}else {
+	            				JOptionPane.showMessageDialog(new JFrame(), "Inserted into your cart", "Inane custom dialog", JOptionPane.INFORMATION_MESSAGE);        					
+	            			}
+	            		}else {
+	        				JOptionPane.showMessageDialog(new JFrame(), "Please enter count > 0", "Inane error", JOptionPane.ERROR_MESSAGE);
+	            		}
+	       			}else {
+        				JOptionPane.showMessageDialog(new JFrame(), "Please enter a number", "Inane error", JOptionPane.ERROR_MESSAGE);
+	       			}
+            		
+            	}
         	}
         });
         addCart.setBackground(Color.WHITE);

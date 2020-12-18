@@ -173,33 +173,36 @@ public class Cart extends MenuProduct {
 		panel_4.add(orderButton);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(10, 70, 560, 50);
-		scrollPane.setLayout(null);
-		panel_1.add(scrollPane);
-		scrollPane.setVisible(false);
+//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		scrollPane.setBounds(10, 70, 560, 200);
+//		scrollPane.setVisible(false);
+//		panel_1.add(scrollPane);
+		
 	}
 
 	public void setList(List<ProductPaneInCart> list) {
-		if(list == null) {
+		if(list.size() == 0) {
 			scrollPane.setVisible(false);
 			panel_3.setVisible(true);
 		}else {
 			panel_3.setVisible(false);
-			
-			
+			scrollPane.setVisible(true);
 			Iterator<ProductPaneInCart> iterator = list.iterator();
 			while(iterator.hasNext()) {
 				ProductPaneInCart paneInCart = iterator.next();
 				paneInCart.setPreferredSize(new Dimension(560, 350));
-				scrollPane = new JScrollPane(paneInCart,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scrollPane.getViewport().add(paneInCart);
+				scrollPane.setSize(new Dimension(560,200));
 				scrollPane.setPreferredSize(new Dimension(560, 200));
-				//panel_1.add(scrollPane);
+				scrollPane.setLocation(10, 70);
+				paneInCart.setVisible(true);
+				panel_1.add(scrollPane);
 				System.out.println(paneInCart.nameLabel.getText());
 			}
 			
-			scrollPane.setVisible(true);
+		
 		}
 	}
 }

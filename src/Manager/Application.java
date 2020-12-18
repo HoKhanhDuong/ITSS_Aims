@@ -7,6 +7,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import login.Login;
 import Connect.Connect;
 import Controller.OrderController;
 import Controller.UserController;
@@ -73,7 +74,6 @@ public class Application extends JFrame {
 		//adminHome = new AddminHome(this);
     
 		address = new user.Address(this);
-
 		//add(home);
 		mediaControl = new MediaController(this);
 		userController = new UserController(this);
@@ -111,5 +111,6 @@ public class Application extends JFrame {
 	public void setID(int iD) {
 		this.ID = iD;
 	}
+	
 
 }

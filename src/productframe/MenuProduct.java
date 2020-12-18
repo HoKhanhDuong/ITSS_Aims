@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,6 +32,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 	 */
 	private JPanel contentPane;
 	private JTextField searchTextField;
+	public Login login;
 	
 	protected int page;
 	private String search;
@@ -142,7 +144,6 @@ public class MenuProduct extends JPanel implements KeyListener{
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
 		
-		
 		signInButton = new JButton("SIGN IN");
 		signInButton.setForeground(Color.ORANGE);
 		signInButton.setBackground(Color.WHITE);
@@ -173,6 +174,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 		
 		menuBar = new JMenuBar();
 		menuBar.setVisible(false);
+
 		homePanel.add(menuBar);
 		
 		JMenu account = new JMenu("ACCOUNT");
@@ -220,7 +222,6 @@ public class MenuProduct extends JPanel implements KeyListener{
 					application.switchPanel(application.home);
 				}
 			});
-		
 	}
 
 	public List<ProductPanel> getListProduct() {

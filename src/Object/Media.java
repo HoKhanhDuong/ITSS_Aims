@@ -1,22 +1,23 @@
 package Object;
 
 public class Media {
-	String nameString;
-	int priceFloat;
-	String categoryString;
+	private String nameString;
+	private int priceFloat;
+	private String categoryString;
+	private String image;
 
-	String imageString;
 	int soluong;
 	private int id;
 	
 	public Media() {}
 	
-	public Media(String name, int price, String category, int id) {
+	public Media(String name, int price, String category,String img, int id) {
 		// TODO Auto-generated constructor stub
 		this.nameString = name;
 		this.priceFloat = price;
-		this.categoryString=category;
+		this.categoryString = category;
 		this.id = id;
+		this.image = img;
 	}
 	public String getNameString() {
 		return nameString;
@@ -37,12 +38,12 @@ public class Media {
 		this.categoryString = categoryString;
 	}
 
-	public String getImageString() {
-		return imageString;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImageString(String imageString) {
-		this.imageString = imageString;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public int getId() {

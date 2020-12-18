@@ -139,6 +139,7 @@ public class MenuProduct extends JPanel {
 				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
+				application.cartController.getMediaInCart();
 				application.switchPanel(application.cart);
 			}
 		});

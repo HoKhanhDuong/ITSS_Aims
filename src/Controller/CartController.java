@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Manager.Application;
 import Object.Media;
+import productframe.ProductPaneInCart;
 
 public class CartController {
 
@@ -39,9 +40,10 @@ public class CartController {
 		return -1;
 	}
 	
-	public ArrayList<Media> getMediaInCart(){
-		ArrayList<Media> list;
+	public ArrayList<ProductPaneInCart> getMediaInCart(){
+		ArrayList<ProductPaneInCart> list;
 		list = application.connect.getMediaInCart(application.getID());
+		application.cart.setList(list);
 		return list;
 	}
 }

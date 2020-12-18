@@ -148,11 +148,22 @@ public class DetailProduct extends MenuProduct {
         informationPanel.add(panel);
         panel.setLayout(null);
         
-        JButton btnNewButton = new JButton("Add to Cart");
-        btnNewButton.setBackground(Color.WHITE);
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton.setBounds(199, 208, 152, 40);
-        detailPanel.add(btnNewButton);
+        JButton addCart = new JButton("Add to Cart");
+        addCart.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int status = application.cartController.addMedia(IDMedia, (Integer.parseInt(textField.getText())));
+        		if(status == -2) {
+        			JOptionPane.showMessageDialog(new JFrame(),
+        				    "We haven't enough",
+        				    "Inane error",
+        				    JOptionPane.ERROR_MESSAGE);
+        		}
+        	}
+        });
+        addCart.setBackground(Color.WHITE);
+        addCart.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        addCart.setBounds(199, 208, 152, 40);
+        detailPanel.add(addCart);
         
         table = new JTable();
         panel.add(table);

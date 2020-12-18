@@ -12,63 +12,46 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 
 public class ProductPaneInCart extends JPanel {
-
-	public ProductPaneInCart() {
-		// TODO Auto-generated constructor stub
-		setBounds(0, 0, 580, 300);
-		setLayout(null);		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(10, 60, 565, 220);
-		add(panel_3);
-		panel_3.setLayout(null);
+	public int id;
+	private JTextField SoLuong;
+	public JLabel imageLabel;
+	public JLabel nameLabel;
+	public JLabel priceLabel;
+	public ProductPaneInCart(String name, String image, int id, int price, int soluong, int i) {
+		// TODO Auto-generated constructor stub				
+		setLayout(null);
+		imageLabel = new JLabel("img");
+		imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		imageLabel.setBounds(20, 28*(1+i), 107, 133);
+		add(imageLabel);
 		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(Color.WHITE);
-		panel_7.setBounds(10, 10, 545, 200);
-		panel_3.add(panel_7);
-		panel_7.setLayout(null);
+		nameLabel = new JLabel(name);
+		nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		nameLabel.setBounds(0, 10*(1+i), 150, 19);
+		add(nameLabel);
 		
-		JLabel lblNewLabel_7 = new JLabel("img");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setBounds(20, 28, 107, 133);
-		panel_7.add(lblNewLabel_7);
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.setBounds(117, 77*(1+i), 76, 19);
+		deleteButton.setHorizontalAlignment(SwingConstants.LEADING);
+		deleteButton.setBackground(Color.WHITE);
+		deleteButton.setForeground(new Color(255, 0, 0));
+		deleteButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		deleteButton.setBorderPainted(false);
+		add(deleteButton);
 		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBackground(Color.WHITE);
-		panel_8.setBounds(137, 43, 203, 107);
-		panel_7.add(panel_8);
-		panel_8.setLayout(null);
+		priceLabel = new JLabel(price+"");
+		priceLabel.setBounds(0, 41*(1+i), 88, 30);
+		priceLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		add(priceLabel);
 		
-		JLabel lblNewLabel_8 = new JLabel("Name Product");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_8.setBounds(0, 10, 150, 19);
-		panel_8.add(lblNewLabel_8);
-		
-
-		JButton btnNewButton_3 = new JButton("Delete");
-		btnNewButton_3.setBounds(117, 77, 76, 19);
-		panel_8.add(btnNewButton_3);
-		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEADING);
-		btnNewButton_3.setBackground(Color.WHITE);
-		btnNewButton_3.setForeground(new Color(255, 0, 0));
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton_3.setBorderPainted(false);
-		
-		JLabel lblNewLabel_11 = new JLabel("111.000 d");
-		lblNewLabel_11.setBounds(0, 41, 88, 30);
-		panel_8.add(lblNewLabel_11);
-		lblNewLabel_11.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(Color.WHITE);
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"}));
-		comboBox.setBounds(480, 52, 55, 26);
-		panel_7.add(comboBox);
+		SoLuong = new JTextField();
+		SoLuong.setBounds(428, 64*(1+i), 86, 31);
+		SoLuong.setColumns(10);
+		SoLuong.setText(soluong+"");
+		add(SoLuong);
 	}
-
 }

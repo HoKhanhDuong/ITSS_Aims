@@ -14,6 +14,7 @@ import Object.CD;
 import Object.DVD;
 import Object.LD;
 import Object.User;
+import productframe.ProductPaneInCart;
 import Object.Media;
 
 public class Connect {
@@ -515,7 +516,7 @@ public class Connect {
 	public int searchCart(int IDUser, int IDMedia) {
 		try {
 			statement = conn.createStatement();
-			rSet = statement.executeQuery("SELECT * FROM Cart WHERE IDMedia = "+IDMedia+" IDUser = "+IDUser);
+			rSet = statement.executeQuery("SELECT * FROM Cart WHERE IDMedia = "+IDMedia+" AND IDUser = "+IDUser);
 			if(rSet.next()) {
 				return rSet.getInt("SoLuong");
 			}
@@ -550,6 +551,7 @@ public class Connect {
 		try {
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT SoLuong FROM Physical WHERE IDMedia = "+IDMedia);
+			rSet.next();
 			return rSet.getInt("SoLuong");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -558,18 +560,16 @@ public class Connect {
 		return 0;
 	}
 	
-	public ArrayList<Media> getMediaInCart(int IDUser){
-		ArrayList<Media> list = new ArrayList<Media>();
+	public ArrayList<ProductPaneInCart> getMediaInCart(int IDUser){
+		ArrayList<ProductPaneInCart> list = new ArrayList<ProductPaneInCart>();
 		try {
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT * FROM Cart JOIN Media ON Cart.IDMedia = Media.IDMedia "
 					+ " WHERE IDUser = "+IDUser);
+			int i=0;
 			while(rSet.next()) {
-				Media media = new Media();
-				media.setId(rSet.getInt("Cart.IDMedia"));
-				media.setImageString(rSet.getString("image"));
-				media.setNameString(rSet.getString("Ten"));
-				media.setPriceFloat(rSet.getInt("GiaCa"));
+				ProductPaneInCart media = new ProductPaneInCart(rSet.getString("Ten"), rSet.getString("image"), rSet.getInt("IDMedia"), rSet.getInt("GiaCa"), rSet.getInt("SoLuong"), i);
+				i++;
 				list.add(media);
 			}
 		} catch (SQLException e) {

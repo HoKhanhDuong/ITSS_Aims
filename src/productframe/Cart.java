@@ -2,21 +2,28 @@ package productframe;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
 
 import Manager.Application;
+import Object.Media;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class Cart extends MenuProduct {
 
@@ -24,7 +31,9 @@ public class Cart extends MenuProduct {
 	 * Create the panel.
 	 */
 	JPanel panel_3;
-	private List<ProductPanel> list;
+	private List<ProductPaneInCart> listp;
+	JScrollPane scrollPane;
+	JPanel panel_1;
 	
 	public Cart(Application application) {
 		super(application);
@@ -34,7 +43,7 @@ public class Cart extends MenuProduct {
 		add(panel);
 		panel.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.control);
 		panel_1.setBounds(100, 0, 900, 530);
 		panel.add(panel_1);
@@ -50,46 +59,47 @@ public class Cart extends MenuProduct {
 		lblNewLabel.setBounds(10, 5, 73, 30);
 		panel_2.add(lblNewLabel);
 		
-		// no product in cart
-//		panel_3 = new JPanel();
-//		panel_3.setBackground(Color.WHITE);
-//		panel_3.setBounds(10, 60, 880, 375);
-//		panel_1.add(panel_3);
-//		panel_3.setLayout(null);
-//		
-//		JLabel lblNewLabel_10 = new JLabel("(0 product)");
-//		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 20));
-//		lblNewLabel_10.setBounds(81, 10, 145, 22);
-//		panel_2.add(lblNewLabel_10);
-//		
-//		JLabel cart_image = new JLabel("img");
-//		cart_image.setIcon(new ImageIcon("img\\cart.jpg"));
-//		cart_image.setHorizontalAlignment(SwingConstants.CENTER);
-//		cart_image.setBounds(311, 27, 229, 144);
-//		panel_3.add(cart_image);
-//		
-//		JLabel empty_label = new JLabel("Your shopping cart is empty!");
-//		empty_label.setHorizontalAlignment(SwingConstants.CENTER);
-//		empty_label.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		empty_label.setBounds(229, 181, 396, 27);
-//		panel_3.add(empty_label);
-//		
-//		JButton continuebtn = new JButton("Shopping continue");
-//		continuebtn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				
+		//no product in cart
+		panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBounds(10, 60, 880, 375);
+		panel_1.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel cart_image = new JLabel("img");
+		cart_image.setIcon(new ImageIcon("img\\cart.jpg"));
+		cart_image.setHorizontalAlignment(SwingConstants.CENTER);
+		cart_image.setBounds(311, 27, 229, 144);
+		panel_3.add(cart_image);
+		
+		JLabel empty_label = new JLabel("Your shopping cart is empty!");
+		empty_label.setHorizontalAlignment(SwingConstants.CENTER);
+		empty_label.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		empty_label.setBounds(229, 181, 396, 27);
+		panel_3.add(empty_label);
+		
+		JButton continuebtn = new JButton("Shopping continue");
+		continuebtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 //				application.mediaControl.hiddenCurrentPanel(list, page);
 //				page = 0;
 //				setList(application.mediaControl.get_ListProductSort(0));
 //				setListProduct(list);
 //				application.mediaControl.screen_ListProduct(getList());
-//			}
-//		});
-//		continuebtn.setBackground(new Color(255, 153, 51));
-//		continuebtn.setFont(new Font("Tahoma", Font.BOLD, 14));
-//		continuebtn.setBounds(321, 218, 219, 36);
-//		panel_3.add(continuebtn);
+			}
+		});
+		continuebtn.setBackground(new Color(255, 153, 51));
+		continuebtn.setFont(new Font("Tahoma", Font.BOLD, 14));
+		continuebtn.setBounds(321, 218, 219, 36);
+		panel_3.add(continuebtn);
 		
+//		scrollPane = new JScrollPane();
+//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		scrollPane.setBounds(10, 70, 560, 350);
+//		scrollPane.setLayout(null);
+//		panel_1.add(scrollPane);
+//		scrollPane.setVisible(false);
 	    
 	    
 //		ProductPaneInCart paneInCart = new ProductPaneInCart();
@@ -162,18 +172,34 @@ public class Cart extends MenuProduct {
 		orderButton.setBounds(10, 234, 305, 35);
 		panel_4.add(orderButton);
 		
-	    
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(10, 70, 560, 50);
+		scrollPane.setLayout(null);
+		panel_1.add(scrollPane);
+		scrollPane.setVisible(false);
 	}
 
-	public List<ProductPanel> getList() {
-		return list;
-	}
-
-	public void setList(List<ProductPanel> list) {
-		this.list = list;
+	public void setList(List<ProductPaneInCart> list) {
 		if(list == null) {
+			scrollPane.setVisible(false);
+			panel_3.setVisible(true);
+		}else {
+			panel_3.setVisible(false);
 			
+			
+			Iterator<ProductPaneInCart> iterator = list.iterator();
+			while(iterator.hasNext()) {
+				ProductPaneInCart paneInCart = iterator.next();
+				paneInCart.setPreferredSize(new Dimension(560, 350));
+				scrollPane = new JScrollPane(paneInCart,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scrollPane.setPreferredSize(new Dimension(560, 200));
+				//panel_1.add(scrollPane);
+				System.out.println(paneInCart.nameLabel.getText());
+			}
+			
+			scrollPane.setVisible(true);
 		}
 	}
-	
 }

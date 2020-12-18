@@ -272,7 +272,7 @@ public class DetailProduct extends MenuProduct {
 	}
 	
 	public void changeValue(Media media) {
-		imgLabel.setIcon(new ImageIcon(media.getImageString()));
+		imgLabel.setIcon(new ImageIcon(media.getImage()));
 		nameLabel.setText(media.getNameString());
 		priceLabel.setText(media.getPriceFloat()+"");
 		IDMedia = media.getId();

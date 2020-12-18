@@ -122,7 +122,7 @@ public class MediaController {
 			return null;
 		}
 		
-		listMedia = application.connect.searchMedia(search);
+//		listMedia = application.connect.searchMedia(application.getID(), search);
 		
 		if (listMedia == null || listMedia.size() == 0) {
 			return null;

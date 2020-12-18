@@ -29,6 +29,7 @@ import user.OrderHisrory;
 import user.Pay;
 
 public class Application extends JFrame {
+	
 	private int ID;
 	public AddminHome adminHome;
 	public Home home;

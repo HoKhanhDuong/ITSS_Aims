@@ -28,7 +28,7 @@ INSERT INTO Media
 VALUES ('Tha lam hat mua',3, 80000,80000,'img/CD/1.jpg'),
        ('Mai yeu', 3, 75000,80000,'img/CD/2.jpg'),
 	   ('Dau chi rieng em', 3, 75000,80000,'img/CD/3.jpg'),
-       ('Cafe sang', 3, 75000,80000,'img/CD/ctx1vdtt.jpg'),
+       ('Cafe sang', 3, 75000,80000,'img/CD/4.jpg'),
        ('Hoang hon thuc giac ', 3, 75000,80000,'img/CD/4.jpg'),
        ('Love song', 3, 75000,80000,'img/CD/5.jpg'),
        ('Nhu chua bat dau', 3, 75000,80000,'img/CD/6.jpg'),

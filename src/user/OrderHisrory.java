@@ -47,9 +47,7 @@ public class OrderHisrory extends MyAccount {
 	public OrderHisrory( Application application) {
 		super(application);
 		
-//		objects = application.orderController.screenListOrder(application.connect.get_OrderDetail(2));
-		
-		objects = application.connect.get_OrderDetail(2);
+		objects = application.connect.get_OrderDetail(application.getID());
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -117,6 +115,10 @@ public class OrderHisrory extends MyAccount {
 		txt_id_order.setColumns(10);
 		
 		JButton btnNewButton = new JButton("View");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(418, 10, 101, 30);
 		panel_3.add(btnNewButton);

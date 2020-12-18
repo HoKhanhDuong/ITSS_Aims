@@ -30,8 +30,8 @@ public class Connect {
 		String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
-	     String userName = "sa";
-	     String password = "123456";
+	     String userName = "SA";
+	     String password = "do@1230.com";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
 	 
@@ -92,7 +92,7 @@ public class Connect {
 		
 	}
 	
-	public void changeInformation(Integer idUser, String address, String cardNumber) {
+	public void changeInformation(int idUser, String address, String cardNumber) {
 		
 		try {
 			statement.executeUpdate("UPDATE DiaChi SET DiaChi = N'"+address+"' WHERE IDUser="+idUser);
@@ -510,6 +510,27 @@ public class Connect {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	
+	public List<Media> searchMedia(String search) {
+		listMedia = new ArrayList<Media>();
+		try {
+			rSet = statement.executeQuery("select Ten, GiaCa, TenLoai, IDMedia "
+					+ "from Media join Loai\n"
+					+ "ON Media.IDLoai = Loai.IDLoai\n"
+					+ "where Ten LIKE '%"+search+"%';");
+			
+			while(rSet.next()) {
+
+				media = new Media(rSet.getString("Ten"), rSet.getInt("GiaCa"), rSet.getString("TenLoai"), rSet.getInt("IDMedia"));
+				listMedia.add(media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listMedia;
 	}
 	
 }

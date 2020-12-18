@@ -27,6 +27,7 @@ public class Signin extends JFrame {
 	private JTextField phone;
 	private JPasswordField password;
 	private JTextField address;
+	private JPasswordField confirm_password;
 	/**
 	 * Launch the application.
 	 */
@@ -51,38 +52,38 @@ public class Signin extends JFrame {
 		contentPane.add(lblEmail);
 		
 		JLabel lblNewLabel = new JLabel("Password: ");
-		lblNewLabel.setBounds(46, 211, 96, 15);
+		lblNewLabel.setBounds(46, 156, 96, 15);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Phone: ");
-		lblNewLabel_1.setBounds(46, 271, 70, 15);
+		lblNewLabel_1.setBounds(46, 219, 70, 15);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblName = new JLabel("Name: ");
-		lblName.setBounds(46, 148, 70, 15);
+		lblName.setBounds(46, 123, 70, 15);
 		contentPane.add(lblName);
 		
 		name = new JTextField();
 		name.setColumns(10);
-		name.setBounds(165, 142, 231, 27);
+		name.setBounds(165, 117, 231, 27);
 		contentPane.add(name);
 		
 		phone = new JTextField();
 		phone.setColumns(10);
-		phone.setBounds(165, 265, 231, 27);
+		phone.setBounds(165, 213, 231, 27);
 		contentPane.add(phone);
 		
 		password = new JPasswordField();
-		password.setBounds(165, 205, 231, 26);
+		password.setBounds(165, 150, 231, 26);
 		contentPane.add(password);
 		
 		JLabel lblAddress = new JLabel("Address: ");
-		lblAddress.setBounds(46, 326, 70, 15);
+		lblAddress.setBounds(46, 252, 70, 15);
 		contentPane.add(lblAddress);
 		
 		address = new JTextField();
 		address.setColumns(10);
-		address.setBounds(165, 320, 231, 27);
+		address.setBounds(165, 246, 231, 27);
 		contentPane.add(address);
 		
 		JLabel lblSignIn = new JLabel("Sign Up");
@@ -94,10 +95,16 @@ public class Signin extends JFrame {
 		btnSignIn.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				int iD = application.userController.Signup(email.getText(), password.getText(), name.getText(), phone.getText(), address.getText());
+				int iD = application.userController.Signup(email.getText(), password.getText(), name.getText(), phone.getText(), address.getText(), confirm_password.getText());
 				if( iD == -1) {
 					JOptionPane.showMessageDialog(new JFrame(), "Email or Password havent", "Inane error", JOptionPane.ERROR_MESSAGE);
-				} else {
+				} else if (iD == -2) {
+					String errors = application.userController.getErrors();
+					
+					JOptionPane.showMessageDialog(new JPanel(), errors, "Error Signup", JOptionPane.ERROR_MESSAGE);
+					application.userController.setErrors("");
+				} 
+				else {
 					setVisible(false);
 					dispose();
 					
@@ -107,8 +114,16 @@ public class Signin extends JFrame {
 				}
 			}
 		});
-		btnSignIn.setBounds(213, 397, 89, 25);
+		btnSignIn.setBounds(187, 321, 89, 25);
 		contentPane.add(btnSignIn);
+		
+		JLabel lblConfirmPassword = new JLabel("Confirm: ");
+		lblConfirmPassword.setBounds(46, 187, 96, 15);
+		contentPane.add(lblConfirmPassword);
+		
+		confirm_password = new JPasswordField();
+		confirm_password.setBounds(165, 181, 231, 26);
+		contentPane.add(confirm_password);
 		setVisible(true);
 	}
 }

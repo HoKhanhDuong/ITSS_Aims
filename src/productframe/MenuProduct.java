@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -18,11 +19,13 @@ import Manager.Application;
 import login.Login;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class MenuProduct extends JPanel {
+public class MenuProduct extends JPanel implements KeyListener{
 
 	/**
 	 * Create the panel.
@@ -32,15 +35,16 @@ public class MenuProduct extends JPanel {
 	public Login login;
 	
 	protected int page;
-	public JButton shoppingButton;
+	private String search;
 	
+	public JButton shoppingButton;
 	protected List<ProductPanel> listProduct;
 	
 	public Application application;
 	public JPanel homePanel;
-	JButton signInButton;
-	JMenuBar menuBar;
-	
+	public JButton signInButton;
+	public JMenuBar menuBar;
+  
 	public MenuProduct(Application application ) {
 		this.application = application;
 		
@@ -78,11 +82,30 @@ public class MenuProduct extends JPanel {
 		searchTextField.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		searchPanel.add(searchTextField);
 		searchTextField.setColumns(20);
+		searchTextField.addKeyListener(this);
 		
 		JButton searchButton = new JButton("Search");
 		searchButton.setBackground(Color.WHITE);
 		searchButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		searchPanel.add(searchButton);
+		searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				search = searchTextField.getText().trim();
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				setListProduct(application.mediaControl.get_product_search(search));
+				
+				if (getListProduct().size() == 0) {
+					JOptionPane.showMessageDialog(null, "Khong co san pham nao", 
+							"Search Message", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+				page = 0;
+				application.mediaControl.screen_ListProduct(listProduct);
+			}
+		});
 		
 		homePanel = new JPanel();
 		homePanel.setBackground(Color.WHITE);
@@ -93,7 +116,6 @@ public class MenuProduct extends JPanel {
 		JButton homeButton = new JButton("HOME");
 		homeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("home: "+listProduct.size()+"\n"+page);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
 				application.switchPanel(application.home);
@@ -112,7 +134,6 @@ public class MenuProduct extends JPanel {
 				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				setListProduct( application.mediaControl.get_ListProduct(0) );
-				System.out.println("shoping: "+listProduct.size()+"\n"+page);
 				page = 0;
 				application.mediaControl.screen_ListProduct(listProduct);
 			}
@@ -139,6 +160,9 @@ public class MenuProduct extends JPanel {
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				page = 0;
 				application.switchPanel(application.cart);
 			}
 		});
@@ -184,16 +208,17 @@ public class MenuProduct extends JPanel {
 				}
 			});
 			
-			JMenuItem taikhoanitem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
-			taikhoanitem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			account.add(taikhoanitem_2);
-			taikhoanitem_2.addActionListener(new ActionListener() {
+			JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u0110\u0103ng Xu\u1EA5t");
+			mntmNewMenuItem_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			account.add(mntmNewMenuItem_2);
+			
+			mntmNewMenuItem_2.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-				application.setID(0);
-				application.switchPanel(application.home);
+					application.setID(0);
+					application.switchPanel(application.home);
 				}
 			});
 	}
@@ -205,18 +230,55 @@ public class MenuProduct extends JPanel {
 	public void setListProduct(List<ProductPanel> listProduct) {
 		this.listProduct = listProduct;
 	}
+  
 	public void switchStatus() {
 		if(application.getID() != 0) {
-			
 			signInButton.setVisible(false);
 			menuBar.setVisible(true);
 			
-			} else {
-				menuBar.setVisible(false);
-				signInButton.setVisible(true);
+		} else {
+			menuBar.setVisible(false);
+			signInButton.setVisible(true);
+    }
+	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_ENTER: {
+			search = searchTextField.getText().trim();
+			application.mediaControl.hiddenCurrentPanel(listProduct, page);
+			setListProduct(application.mediaControl.get_product_search(search));
+			
+			if (getListProduct() == null || getListProduct().size() == 0) {
+				JOptionPane.showMessageDialog(null, "Khong co san pham nao", 
+						"Search Message", JOptionPane.INFORMATION_MESSAGE);
+				return;
 			}
+			
+			page = 0;
+			searchTextField.setText("");
+			application.mediaControl.screen_ListProduct(getListProduct());
+			
+			break;
+		}
 		
+		default:
+			break;
+	}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		switch (e.getKeyCode()) {
 		
+		}
 	}
 }

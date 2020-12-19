@@ -31,9 +31,17 @@ public class Cart extends MenuProduct {
 	 * Create the panel.
 	 */
 	JPanel panel_3;
+
+	List<ProductPaneInCart> listp;
+	JLabel moneylabel;
+
 	private List<ProductPaneInCart> list;
+
 	JScrollPane scrollPane;
 	JPanel panel_1;
+	JPanel panel_4;
+	JButton orderButton;
+	int total;
 	
 	public Cart(Application application) {
 		super(application);
@@ -94,77 +102,33 @@ public class Cart extends MenuProduct {
 		continuebtn.setBounds(321, 218, 219, 36);
 		panel_3.add(continuebtn);
 		
-//		scrollPane = new JScrollPane();
-//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//		scrollPane.setBounds(10, 70, 560, 350);
-//		scrollPane.setLayout(null);
-//		panel_1.add(scrollPane);
-//		scrollPane.setVisible(false);
-	    
-	    
-//		ProductPaneInCart paneInCart = new ProductPaneInCart();
-//		panel_1.add(paneInCart);
-
-		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
 		panel_4.setBackground(SystemColor.control);
-		panel_4.setBounds(575, 49, 325, 481);
+		panel_4.setBounds(575, 49, 325, 384);
 		panel_1.add(panel_4);
 		panel_4.setLayout(null);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(10, 10, 305, 113);
-		panel_4.add(panel_5);
-		panel_5.setLayout(null);
-		
-		JLabel lblNewLabel_2 = new JLabel("Delivery address");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 10, 122, 25);
-		panel_5.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Nguyen Thi Thu Phuong");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(10, 42, 285, 25);
-		panel_5.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("Thanh Xuyen, Hoang Long, Phu Xuyen, Ha Noi");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_4.setBounds(10, 77, 285, 25);
-		panel_5.add(lblNewLabel_4);
-		
-		JButton changeButton = new JButton("Change");
-		changeButton.setHorizontalAlignment(SwingConstants.TRAILING);
-		changeButton.setBackground(Color.WHITE);
-		changeButton.setForeground(Color.BLUE);
-		changeButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		changeButton.setBounds(210, 10, 85, 21);
-		changeButton.setBorderPainted(false);
-		panel_5.add(changeButton);
-		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(10, 133, 305, 91);
-		panel_4.add(panel_6);
+		panel_6.setBounds(10, 51, 305, 91);
 		panel_6.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("Total");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_5.setBounds(10, 10, 285, 25);
-		panel_6.add(lblNewLabel_5);
+		JLabel totalLabel = new JLabel("Total");
+		totalLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		totalLabel.setBounds(10, 11, 285, 25);
+		panel_6.add(totalLabel);
 		
-		JLabel lblNewLabel_6 = new JLabel(" 111.000 d");
-		lblNewLabel_6.setForeground(Color.RED);
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_6.setBounds(10, 45, 285, 35);
-		panel_6.add(lblNewLabel_6);
+		moneylabel = new JLabel(" 111.000 d");
+		moneylabel.setForeground(Color.RED);
+		moneylabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		moneylabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		moneylabel.setBounds(10, 47, 285, 35);
+		panel_6.add(moneylabel);
 		
-		JButton orderButton = new JButton("ORDER");
+		orderButton = new JButton("ORDER");
 		orderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//application.switchPanel(application.pay);
+				application.switchPanel(application.pay);
 			}
 		});
 		orderButton.setForeground(Color.WHITE);
@@ -172,38 +136,43 @@ public class Cart extends MenuProduct {
 		orderButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		orderButton.setBounds(10, 234, 305, 35);
 		panel_4.add(orderButton);
-		
+		panel_4.add(panel_6);
+		panel_4.setVisible(false);
 		scrollPane = new JScrollPane();
-//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//		scrollPane.setBounds(10, 70, 560, 200);
-//		scrollPane.setVisible(false);
-//		panel_1.add(scrollPane);
 		
 	}
 
 	public void setList(List<ProductPaneInCart> list) {
+		listp = list;
+		if(application.getID() < 0) {
+			panel_4.setVisible(false);
+		}else {
+			panel_4.setVisible(true);
+		}
+		
 		if(list.size() == 0) {
 			scrollPane.setVisible(false);
 			panel_3.setVisible(true);
 		}else {
 			panel_3.setVisible(false);
 			scrollPane.setVisible(true);
+			total = 0;
+			JPanel productJPanel = new JPanel();
+			productJPanel.setLayout(null);
 			Iterator<ProductPaneInCart> iterator = list.iterator();
 			while(iterator.hasNext()) {
 				ProductPaneInCart paneInCart = iterator.next();
-				paneInCart.setPreferredSize(new Dimension(560, 350));
-				scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-				scrollPane.getViewport().add(paneInCart);
-				scrollPane.setSize(new Dimension(560,200));
-				scrollPane.setPreferredSize(new Dimension(560, 200));
-				scrollPane.setLocation(10, 70);
-				paneInCart.setVisible(true);
-				panel_1.add(scrollPane);
-				System.out.println(paneInCart.nameLabel.getText());
+				productJPanel.add(paneInCart);
+				total+=  Integer.parseInt(paneInCart.priceLabel.getText()) * Integer.parseInt(paneInCart.SoLuong.getText());
 			}
-			
-		
+			productJPanel.setPreferredSize(new Dimension(560, list.size()*200));
+			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollPane.setViewportView(productJPanel);
+			scrollPane.setSize(new Dimension(560,400));
+			scrollPane.setLocation(10, 70);
+			moneylabel.setText(total+" d");
+			productJPanel.setVisible(true);
+			panel_1.add(scrollPane);
 		}
 	}
 }

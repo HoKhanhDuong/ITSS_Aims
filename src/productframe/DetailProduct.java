@@ -144,9 +144,9 @@ public class DetailProduct extends MenuProduct {
         JButton addCart = new JButton("Add to Cart");
         addCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		if(textField.getText() != null) {
+        			if(textField.getText().matches("(\\d+)?")) {
 
-        		if(textField.getText().length() != 0) {
-        			if(textField.getText().matches("-?\\d?")) {
 	            		int soluong = Integer.parseInt(textField.getText());
 	            		int status;
 	            		if(soluong > 0) {

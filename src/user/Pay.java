@@ -1,71 +1,69 @@
 package user;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 
 import Manager.Application;
+import Object.Address;
+import productframe.MenuProduct;
 
 import javax.swing.UIManager;
 
-public class Pay extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-
+public class Pay extends MenuProduct {
+	private JTextField nameTextfield;
+	private JTextField phonetextField;
+	private JTextField districtText;
+	String cityString;
+	JPanel panel_5;
+	JLabel nameLabel;
+	JLabel addressLabel;
+	JLabel phoneLabel;
+	int idaddress;
+	ArrayList<Address> list;
 	/**
 	 * Create the panel.
 	 */
 	public Pay(Application application) {
-	//	super(application);
+		super(application);
 		setBackground(Color.WHITE);
-        setSize(1100,600);
+    
         setLayout(null);
-        
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        panel.setBounds(0, 0, 1100, 100);
-        add(panel);
-        panel.setLayout(null);
-        
-        JButton btnNewButton = new JButton("S2");
-        btnNewButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnNewButton.setBackground(Color.WHITE);
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 60));
-        btnNewButton.setBounds(10, 10, 132, 80);
-        btnNewButton.setBorderPainted(false);
-        panel.add(btnNewButton);
-        
-        JLabel lblNewLabel = new JLabel("Sign In - Addess - Order & Pay");
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblNewLabel.setBounds(131, 10, 858, 80);
-        panel.add(lblNewLabel);
+        JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setSize(800, 430);
+        scrollPane.setLocation(100, 100);
+        scrollPane.setPreferredSize(new Dimension(800, 500));
+        add(scrollPane);
         
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(Color.WHITE);
-        panel_1.setBounds(100, 100, 900, 735);
-        add(panel_1);
+        panel_1.setLocation(0, 0);
+        panel_1.setPreferredSize(new Dimension(900, 735));
         panel_1.setLayout(null);
-
+        scrollPane.setViewportView(panel_1);
+        
         JPanel panel_2 = new JPanel();
         panel_2.setBounds(10, 10, 880, 715);
         panel_1.add(panel_2);
@@ -83,51 +81,64 @@ public class Pay extends JPanel {
         
         JPanel panel_3 = new JPanel();
         panel_3.setBackground(Color.WHITE);
-        panel_3.setBounds(10, 95, 860, 180);
+        panel_3.setBounds(10, 95, 760, 180);
         panel_2.add(panel_3);
         panel_3.setLayout(null);
         
-        JLabel lblNewLabel_3 = new JLabel("Nguyen Thi Thu Phuong");
-        lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 20));
-        lblNewLabel_3.setBounds(10, 10, 840, 30);
-        panel_3.add(lblNewLabel_3);
+        nameLabel = new JLabel("Nguyen Thi Thu Phuong");
+        nameLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        nameLabel.setBounds(10, 10, 750, 30);
+        panel_3.add(nameLabel);
         
-        JLabel lblNewLabel_4 = new JLabel("Address : Thanh Xuyen, Hoang Long, Phu Xuyen, Ha Noi");
-        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNewLabel_4.setBounds(10, 50, 840, 30);
-        panel_3.add(lblNewLabel_4);
+        addressLabel = new JLabel("Address : Thanh Xuyen, Hoang Long, Phu Xuyen, Ha Noi");
+        addressLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        addressLabel.setBounds(10, 50, 750, 30);
+        panel_3.add(addressLabel);
         
-        JLabel lblNewLabel_5 = new JLabel("Phone : 0382140588");
-        lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNewLabel_5.setBounds(10, 90, 840, 30);
-        panel_3.add(lblNewLabel_5);
+        phoneLabel = new JLabel("Phone : 0382140588");
+        phoneLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        phoneLabel.setBounds(10, 90, 750, 30);
+        panel_3.add(phoneLabel);
         
-        JButton btnNewButton_1 = new JButton("Ship to this address");
-        btnNewButton_1.setForeground(Color.WHITE);
-        btnNewButton_1.setBackground(new Color(51, 51, 204));
-        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        btnNewButton_1.setBounds(10, 129, 219, 30);
-        panel_3.add(btnNewButton_1);
+        JButton ship1Button = new JButton("Ship to this address");
+        ship1Button.setForeground(Color.WHITE);
+        ship1Button.setBackground(new Color(51, 51, 204));
+        ship1Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        ship1Button.setBounds(10, 129, 219, 30);
+        panel_3.add(ship1Button);
         
-        JButton btnNewButton_2 = new JButton("Edit");
-        btnNewButton_2.setBackground(Color.WHITE);
-        btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        btnNewButton_2.setBounds(239, 130, 85, 30);
-        panel_3.add(btnNewButton_2);
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		application.payController.deleteAddress(idaddress);
+        	}
+        });
+        deleteButton.setBackground(Color.WHITE);
+        deleteButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        deleteButton.setBounds(261, 129, 85, 30);
+        panel_3.add(deleteButton);
         
-        JButton btnNewButton_3 = new JButton("Delete");
-        btnNewButton_3.setBackground(Color.WHITE);
-        btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        btnNewButton_3.setBounds(338, 130, 85, 30);
-        panel_3.add(btnNewButton_3);
+        JButton changeButton = new JButton("Change");
+        changeButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		changeAddress(application.payController.getNextAddress());
+        	}
+        });
+        changeButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        changeButton.setBackground(Color.WHITE);
+        changeButton.setBounds(383, 129, 101, 30);
+        panel_3.add(changeButton);
         
         JPanel panel_4 = new JPanel();
         panel_4.setBorder(new LineBorder(new Color(227, 227, 227)));
         panel_4.setBounds(10, 319, 860, 386);
         panel_2.add(panel_4);
         panel_4.setLayout(null);
-        /*
-        JPanel panel_5 = new JPanel();
+
+        
+        panel_5 = new JPanel();
+        panel_5.setVisible(false);
+
         panel_5.setBounds(100, 10, 660, 366);
         panel_4.add(panel_5);
         panel_5.setLayout(null);
@@ -137,81 +148,90 @@ public class Pay extends JPanel {
         lblNewLabel_7.setBounds(10, 10, 85, 30);
         panel_5.add(lblNewLabel_7);
         
-        textField = new JTextField();
-        textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        textField.setBounds(139, 10, 511, 30);
-        panel_5.add(textField);
-        textField.setColumns(10);
+        nameTextfield = new JTextField();
+        nameTextfield.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        nameTextfield.setBounds(139, 10, 511, 30);
+        panel_5.add(nameTextfield);
+        nameTextfield.setColumns(10);
         
         JLabel lblNewLabel_8 = new JLabel("Phone\r\n");
         lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lblNewLabel_8.setBounds(10, 50, 85, 30);
         panel_5.add(lblNewLabel_8);
         
-        textField_1 = new JTextField();
-        textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        textField_1.setBounds(139, 50, 511, 30);
-        panel_5.add(textField_1);
-        textField_1.setColumns(10);
+        phonetextField = new JTextField();
+        phonetextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        phonetextField.setBounds(139, 50, 511, 30);
+        panel_5.add(phonetextField);
+        phonetextField.setColumns(10);
         
         JLabel lblNewLabel_9 = new JLabel("City");
         lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lblNewLabel_9.setBounds(10, 90, 85, 30);
         panel_5.add(lblNewLabel_9);
         
-        JComboBox comboBox = new JComboBox();
-        comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ha Noi", "Ho Chi Minh", "Other city"}));
-        comboBox.setBackground(Color.WHITE);
-        comboBox.setBounds(139, 90, 511, 30);
-        panel_5.add(comboBox);
+        JComboBox cityCombo = new JComboBox();
+        cityCombo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        cityCombo.setModel(new DefaultComboBoxModel(new String[] {"Ha Noi", "Ho Chi Minh", "Other city"}));
+        cityCombo.setBackground(Color.WHITE);
+        cityCombo.setBounds(139, 90, 511, 30);
+        cityCombo.addActionListener (new ActionListener () {
+		       public void actionPerformed(ActionEvent e) {
+		    	   cityString = cityCombo.getSelectedItem().toString();
+		    	   if(cityString == "Other city") {
+		    		   cityString = (String)JOptionPane.showInputDialog(new JFrame(), "Enter your city :", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, "");
+		    	   }
+		       }
+        });
+        panel_5.add(cityCombo);
         
         JLabel lblNewLabel_10 = new JLabel("District");
         lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lblNewLabel_10.setBounds(10, 130, 100, 30);
         panel_5.add(lblNewLabel_10);
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(139, 130, 511, 30);
-        panel_5.add(textField_2);
-        textField_2.setColumns(10);
-        
-        JLabel lblNewLabel_11 = new JLabel("Ward");
-        lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lblNewLabel_11.setBounds(10, 170, 85, 30);
-        panel_5.add(lblNewLabel_11);
-        
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        textField_3.setBounds(139, 170, 511, 30);
-        panel_5.add(textField_3);
+        districtText = new JTextField();
+        districtText.setBounds(139, 130, 511, 30);
+        panel_5.add(districtText);
+        districtText.setColumns(10);
         
         JLabel lblNewLabel_12 = new JLabel("Address");
         lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lblNewLabel_12.setBounds(10, 210, 100, 30);
+        lblNewLabel_12.setBounds(10, 170, 100, 30);
         panel_5.add(lblNewLabel_12);
         
-        JTextArea textArea = new JTextArea();
-        textArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        textArea.setBounds(139, 215, 511, 76);
-        panel_5.add(textArea);
+        JTextArea addressText = new JTextArea();
+        addressText.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        addressText.setBounds(139, 170, 511, 76);
+        panel_5.add(addressText);
         
-        JButton btnNewButton_4 = new JButton("Cancel");
-        btnNewButton_4.setBackground(SystemColor.controlHighlight);
-        btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        btnNewButton_4.setBounds(139, 313, 237, 30);
-        panel_5.add(btnNewButton_4);
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setBackground(SystemColor.controlHighlight);
+        cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        cancelButton.setBounds(139, 313, 237, 30);
+        cancelButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		panel_5.setVisible(false);
+        	}
+        });
+        panel_5.add(cancelButton);
         
-        JButton btnNewButton_5 = new JButton("Ship to this address");
-        btnNewButton_5.setForeground(Color.WHITE);
-        btnNewButton_5.setBackground(new Color(51, 51, 204));
-        btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        btnNewButton_5.setBounds(407, 313, 243, 30);
-        panel_5.add(btnNewButton_5);
-        */
+        JButton ship2Button = new JButton("Ship to this address");
+        ship2Button.setForeground(Color.WHITE);
+        ship2Button.setBackground(new Color(51, 51, 204));
+        ship2Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        ship2Button.setBounds(407, 313, 243, 30);
+        ship2Button.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		application.payController.addAddress(nameTextfield.getText(), phonetextField.getText(), cityString, districtText.getText(), addressText.getText());
+        	}
+        });
+        
+        panel_5.add(ship2Button);
+
         
         JPanel panel_6 = new JPanel();
-        panel_6.setBounds(10, 274, 860, 47);
+        panel_6.setBounds(10, 274, 760, 47);
         panel_2.add(panel_6);
         panel_6.setLayout(null);
         
@@ -220,11 +240,16 @@ public class Pay extends JPanel {
         panel_6.add(lblNewLabel_2_1);
         lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
         
-        JLabel lblNewLabel_6 = new JLabel("Add new shipping address");
-        lblNewLabel_6.setBounds(300, -1, 218, 42);
-        panel_6.add(lblNewLabel_6);
-        lblNewLabel_6.setForeground(new Color(51, 51, 204));
-        lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        JButton newAddressButton = new JButton("Add new shipping address");
+        newAddressButton.setForeground(Color.BLUE);
+        newAddressButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        newAddressButton.setBounds(305, 10, 232, 23);
+        newAddressButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		panel_5.setVisible(true);
+        	}
+        });
+        panel_6.add(newAddressButton);
         
         /*
          JPanel panel_2 = new JPanel();
@@ -311,7 +336,11 @@ public class Pay extends JPanel {
         btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 16));
         */
 	}
-
-	
+	public void changeAddress(Address address) {
+		nameLabel.setText(address.getName());
+		phoneLabel.setText(address.getPhone());
+		addressLabel.setText(address.getAddress()+", "+address.getDistrict()+", "+address.getCity());
+		idaddress = address.getID();
 	}
+}
 

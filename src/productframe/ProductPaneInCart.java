@@ -12,14 +12,19 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import Manager.Application;
+
 import javax.swing.JTextField;
 
-public class ProductPaneInCart extends JPanel {
+public class ProductPaneInCart extends JPanel implements ActionListener {
 	public int id;
-	private JTextField SoLuong;
+	public JTextField SoLuong;
 	public JLabel imageLabel;
 	public JLabel nameLabel;
 	public JLabel priceLabel;
+	private Application application;
+	
 	public ProductPaneInCart(String name, String image, int id, int price, int soluong, int i) {
 		// TODO Auto-generated constructor stub				
 		setLayout(null);
@@ -35,6 +40,7 @@ public class ProductPaneInCart extends JPanel {
 		add(nameLabel);
 		
 		JButton deleteButton = new JButton("Delete");
+		deleteButton.addActionListener(this);
 		deleteButton.setBounds(451, 69, 76, 19);
 		deleteButton.setHorizontalAlignment(SwingConstants.LEADING);
 		deleteButton.setBackground(Color.WHITE);
@@ -54,5 +60,19 @@ public class ProductPaneInCart extends JPanel {
 		SoLuong.setColumns(10);
 		SoLuong.setText(soluong+"");
 		add(SoLuong);
+		this.id = id;
+	}
+	public void addApp(Application application) {
+		this.application = application;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		application.cart.listp.remove(this);
+		application.connect.removeInCart(application.getID(), id);
+		System.out.println(application.getID()+"neb"+id);
+		application.cart.setList(application.cart.listp);
+		
 	}
 }

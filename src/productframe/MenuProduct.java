@@ -160,7 +160,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				System.out.println(listProduct.size());
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
 				application.cartController.getMediaInCart();

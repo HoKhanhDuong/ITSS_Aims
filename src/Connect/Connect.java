@@ -32,7 +32,7 @@ public class Connect {
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 	     String userName = "SA";
-	     String password = "do@1230.com";
+	     String password = "123456";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
 	 
@@ -585,6 +585,35 @@ public class Connect {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public List<Media> searchMedia(String search) {
+		listMedia = new ArrayList<Media>();
+		try {
+			rSet = statement.executeQuery("select * "
+					+ "from Media join Loai\n"
+					+ "ON Media.IDLoai = Loai.IDLoai\n"
+					+ "where Ten LIKE '%"+search+"%'");
+			
+			
+			while(rSet.next()) {
+				media = new Media();
+				media.setCategoryString(rSet.getString("TenLoai"));
+				media.setNameString(rSet.getString("Ten"));
+				media.setPriceFloat(rSet.getInt("GiaCa"));
+				media.setId(rSet.getInt("IDMedia"));
+				media.setImage(rSet.getString("image"));
+				listMedia.add(media);
+			}
+			
+			return listMedia;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 }

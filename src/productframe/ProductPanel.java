@@ -72,6 +72,11 @@ public class ProductPanel extends JPanel {
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBounds(141, 269, 99, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.mediaControl.showMedia(media.getId(), media.getCategoryString());
+			}
+		});
 		add(btnNewButton);
 	}
 

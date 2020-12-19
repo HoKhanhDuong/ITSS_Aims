@@ -87,7 +87,9 @@ public class MediaController {
 	}
 	
 	public void showMedia(int id, String categoryString) {
+
 		if(categoryString.equals("Book")) {
+			
 			Book book = application.connect.getBook(id);
 			book.setId(id);
 			book.setCategoryString(categoryString);
@@ -122,7 +124,7 @@ public class MediaController {
 			return null;
 		}
 		
-//		listMedia = application.connect.searchMedia(application.getID(), search);
+		listMedia = application.connect.searchMedia(search);
 		
 		if (listMedia == null || listMedia.size() == 0) {
 			return null;

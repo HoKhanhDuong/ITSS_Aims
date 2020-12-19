@@ -7,12 +7,16 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
@@ -36,6 +40,7 @@ public class DetailProduct extends MenuProduct {
 	JLabel priceLabel;
 	JLabel nameLabel;
 	JLabel imgLabel;
+	JPanel imgPanel;
 	int IDMedia;
 
 	/**
@@ -52,7 +57,7 @@ public class DetailProduct extends MenuProduct {
         add(detailProductPanel);
         detailProductPanel.setLayout(null);
         
-        JPanel imgPanel = new JPanel();
+        imgPanel = new JPanel();
         imgPanel.setBackground(Color.WHITE);
         imgPanel.setBounds(100, 0, 300, 530);
         detailProductPanel.add(imgPanel);
@@ -63,7 +68,7 @@ public class DetailProduct extends MenuProduct {
 
         
         // image
-        imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
+//        imgLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\Downloads\\sach.jpg"));
 
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imgLabel.setBounds(10, 40, 280, 350);
@@ -139,7 +144,8 @@ public class DetailProduct extends MenuProduct {
         JButton addCart = new JButton("Add to Cart");
         addCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(textField.getText() != null) {
+
+        		if(textField.getText().length() != 0) {
         			if(textField.getText().matches("-?\\d?")) {
 	            		int soluong = Integer.parseInt(textField.getText());
 	            		int status;
@@ -159,7 +165,9 @@ public class DetailProduct extends MenuProduct {
         				JOptionPane.showMessageDialog(new JFrame(), "Please enter a number", "Inane error", JOptionPane.ERROR_MESSAGE);
 	       			}
             		
-            	}
+            	} else {
+            		JOptionPane.showMessageDialog(new JFrame(), "Please enter amount", "Inane error", JOptionPane.ERROR_MESSAGE);
+				}
         	}
         });
         addCart.setBackground(Color.WHITE);
@@ -272,7 +280,14 @@ public class DetailProduct extends MenuProduct {
 	}
 	
 	public void changeValue(Media media) {
-		imgLabel.setIcon(new ImageIcon(media.getImage()));
+		try {
+			BufferedImage image = ImageIO.read(new File(media.getImage()));
+            ImageIcon icon = new ImageIcon(image.getScaledInstance(270, 340, image.SCALE_SMOOTH));
+            imgLabel.setIcon(icon);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		nameLabel.setText(media.getNameString());
 		priceLabel.setText(media.getPriceFloat()+"");
 		IDMedia = media.getId();

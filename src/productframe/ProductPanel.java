@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +36,17 @@ public class ProductPanel extends JPanel {
 		imgProduct.setBackground(Color.WHITE);
 		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		imgProduct.setBounds(10, 10, 230, 220);
+		imgProduct.setLayout(null);
+		
+		try {
+			BufferedImage image = ImageIO.read(new File(media.getImage()));
+            ImageIcon icon = new ImageIcon(image.getScaledInstance(230, 220, image.SCALE_SMOOTH));
+            imgProduct.setIcon(icon);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		add(imgProduct);
 		
 		JButton nameProductButton = new JButton(media.getNameString());
@@ -57,6 +72,11 @@ public class ProductPanel extends JPanel {
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBounds(141, 269, 99, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.mediaControl.showMedia(media.getId(), media.getCategoryString());
+			}
+		});
 		add(btnNewButton);
 	}
 

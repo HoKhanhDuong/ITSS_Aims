@@ -87,7 +87,9 @@ public class MediaController {
 	}
 	
 	public void showMedia(int id, String categoryString) {
+
 		if(categoryString.equals("Book")) {
+			
 			Book book = application.connect.getBook(id);
 			book.setId(id);
 			book.setCategoryString(categoryString);
@@ -113,6 +115,38 @@ public class MediaController {
 			application.detailProduct.changeValue(dvd);
 			application.switchPanel(application.detailProduct);
 		}
+	}
+	
+	public List<ProductPanel> get_product_search(String search) {
+		int j = 0;
+		
+		if (search.isEmpty()) {
+			return null;
+		}
+		
+		listMedia = application.connect.searchMedia(search);
+		
+		if (listMedia == null || listMedia.size() == 0) {
+			return null;
+		}
+		
+		listProduct = new ArrayList<ProductPanel>();
+		ListIterator<Media> itr = listMedia.listIterator();
+		
+		while (itr.hasNext()) {
+			if (j > 2) {
+				j = 0;
+				continue;
+			}
+			Media e = itr.next();
+			ProductPanel productPanel= new ProductPanel(e, j, application);
+			
+			listProduct.add(productPanel);
+			j++;
+		}
+		
+		return listProduct;
+	
 	}
 	
 

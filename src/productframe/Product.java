@@ -216,24 +216,6 @@ public class Product extends MenuProduct {
 		sortLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		
-
-		JPanel productPanel = new JPanel();
-		productPanel.setBounds(220, 130, 666, 348);
-		add(productPanel);
-		productPanel.setLayout(null);
-		
-		JPanel productPanel_1 = new JPanel();
-		productPanel_1.setBackground(Color.WHITE);
-		productPanel_1.setBounds(35, 35, 250, 300);
-		productPanel.add(productPanel_1);
-		productPanel_1.setLayout(null);
-		
-		JLabel imgProduct = new JLabel("img1");
-		imgProduct.setBackground(Color.WHITE);
-		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
-		imgProduct.setBounds(10, 10, 230, 220);
-		productPanel_1.add(imgProduct);
-		
 		panel_2 = new JPanel();
 		panel_2.setBounds(230, 140, 795, 454);
 		panel_2.setLayout(null);

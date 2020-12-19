@@ -31,8 +31,12 @@ public class Cart extends MenuProduct {
 	 * Create the panel.
 	 */
 	JPanel panel_3;
+
 	List<ProductPaneInCart> listp;
 	JLabel moneylabel;
+
+	private List<ProductPaneInCart> list;
+
 	JScrollPane scrollPane;
 	JPanel panel_1;
 	JPanel panel_4;
@@ -71,8 +75,9 @@ public class Cart extends MenuProduct {
 		panel_3.setLayout(null);
 		
 		JLabel cart_image = new JLabel("img");
-		cart_image.setIcon(new ImageIcon("img\\cart.jpg"));
 		cart_image.setHorizontalAlignment(SwingConstants.CENTER);
+		cart_image.setLayout(null);
+		cart_image.setIcon(new ImageIcon("img\\cart.jpg"));
 		cart_image.setBounds(311, 27, 229, 144);
 		panel_3.add(cart_image);
 		

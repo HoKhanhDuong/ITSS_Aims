@@ -49,7 +49,7 @@ public class Pay extends MenuProduct {
 	public Pay(Application application) {
 		super(application);
 		setBackground(Color.WHITE);
-		
+    
         setLayout(null);
         JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setSize(800, 430);
@@ -134,9 +134,11 @@ public class Pay extends MenuProduct {
         panel_4.setBounds(10, 319, 860, 386);
         panel_2.add(panel_4);
         panel_4.setLayout(null);
+
         
         panel_5 = new JPanel();
         panel_5.setVisible(false);
+
         panel_5.setBounds(100, 10, 660, 366);
         panel_4.add(panel_5);
         panel_5.setLayout(null);
@@ -226,6 +228,7 @@ public class Pay extends MenuProduct {
         });
         
         panel_5.add(ship2Button);
+
         
         JPanel panel_6 = new JPanel();
         panel_6.setBounds(10, 274, 760, 47);

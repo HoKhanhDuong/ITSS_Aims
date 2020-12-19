@@ -43,6 +43,9 @@ public class CartController {
 	public ArrayList<ProductPaneInCart> getMediaInCart(){
 		ArrayList<ProductPaneInCart> list;
 		list = application.connect.getMediaInCart(application.getID());
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).addApp(application);
+		}
 		application.cart.setList(list);
 		return list;
 	}

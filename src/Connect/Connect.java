@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import Object.Address;
 import Object.Book;
 import Object.CD;
 import Object.DVD;
@@ -571,6 +571,59 @@ public class Connect {
 				ProductPaneInCart media = new ProductPaneInCart(rSet.getString("Ten"), rSet.getString("image"), rSet.getInt("IDMedia"), rSet.getInt("GiaCa"), rSet.getInt("SoLuong"), i);
 				i++;
 				list.add(media);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public void removeInCart(int IDUser, int IDMedia) {
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate("DELETE FROM Cart WHERE IDMedia ="+IDMedia+" AND IDUser ="+IDUser);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public int deleteAdd(int IDAddress) {
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate("DELETE FROM DiaChi WHERE IDAddress ="+IDAddress);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	public void addAdd(Address address) {
+		try {
+			String diachiString = address.getAddress() + "<>" + address.getDistrict() + "<>" +address.getCity();
+			statement = conn.createStatement();
+			statement.executeUpdate("INSERT INTO DiaChi VALUES ("+address.getIDUser()+",'"+address.getPhone()
+									+"','"+address.getName()+"','"+diachiString+"')");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Address> getAddresses(int IDUser){
+		ArrayList<Address> list = new ArrayList<Address>();
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT * FROM DiaChi WHERE IDUser = "+IDUser);
+			while(rSet.next()) {
+				String diachi = rSet.getString("Diachi");
+				String[] city = diachi.split("<>");
+				
+				Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), city[2], city[1], city[0], IDUser);
+				address.setID(rSet.getInt("IDAddress"));
+				list.add(address);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

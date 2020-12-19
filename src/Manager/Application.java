@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import Connect.Connect;
 import Controller.OrderController;
+import Controller.PayController;
 import Controller.UserController;
 import user.Address;
 import Controller.CartController;
@@ -46,6 +47,7 @@ public class Application extends JFrame {
 	public MediaController mediaControl;
 	public UserController userController;
 	public CartController cartController;
+	public PayController payController;
 
 	ArrayList<MenuProduct> list;
 	public Address address;
@@ -60,6 +62,7 @@ public class Application extends JFrame {
 		userController = new UserController(this);
 		orderController = new OrderController(this);
 		cartController = new CartController(this);
+		payController = new PayController(this);
 		
 		home = new Home(this);
 		cart = new Cart(this);
@@ -68,7 +71,7 @@ public class Application extends JFrame {
 		cancelOrder = new CancelOrder(this);
 		changePassword = new ChangePassword(this);
 		information = new Information(this);
-		//pay = new Pay();
+		pay = new Pay(this);
 		orderHisrory = new OrderHisrory(this);
 		//adminHome = new AddminHome(this);
     
@@ -89,6 +92,7 @@ public class Application extends JFrame {
 		list.add(information);
 		list.add(orderHisrory);
 		list.add(address);
+		list.add(pay);
 		Iterator<MenuProduct> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			add(iterator.next());

@@ -20,5 +20,6 @@ public class Main extends JFrame {
 
     public static void main(String[] args) throws SQLException {
 		    Application application = new Application();
+//    	AdminApplication adminapp = new AdminApplication();
 	}
 }

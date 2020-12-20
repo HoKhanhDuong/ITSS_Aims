@@ -32,7 +32,7 @@ import user.Pay;
 public class Application extends JFrame {
 	
 	private int ID;
-	public AddminHome adminHome;
+	//public AddminHome adminHome;
 	public Home home;
 	public Cart cart;
 	public DetailProduct detailProduct;
@@ -50,7 +50,6 @@ public class Application extends JFrame {
 	public UserController userController;
 	public CartController cartController;
 	public PayController payController;
-
 	ArrayList<MenuProduct> list;
 	public Address address;
   
@@ -117,5 +116,13 @@ public class Application extends JFrame {
 		this.ID = iD;
 	}
 	
+	public void deletePanel() {
+		Iterator<MenuProduct> iterator = list.iterator();
+		while(iterator.hasNext()) {
+			iterator.next().setVisible(false);
+		}
+		this.setVisible(false);
+	}
+
 
 }

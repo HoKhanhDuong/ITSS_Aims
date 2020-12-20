@@ -11,7 +11,7 @@ public class UserController {
 	
 	private User user;
 	
-	private String errors = "";;
+	private String errors = "";
 	
 	public UserController(Application application) {
 		this.application = application;
@@ -65,6 +65,13 @@ public class UserController {
 	}
 	
 	public void changePassword(int idUser, String currentPass, String newPass, String confirmPass) {
+		
+		if (currentPass.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty() ) {
+			JOptionPane.showMessageDialog(null, "Please enter your information", 
+					"Change Password", 
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		
 		if (newPass.length() < 8) {
 			JOptionPane.showMessageDialog(null, "Length new password > 8 character", 

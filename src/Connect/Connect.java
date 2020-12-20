@@ -49,6 +49,20 @@ public class Connect {
 //	     }
 	     System.out.println("Connect ok");
 	}
+	public boolean checkAdmin(int idUser) {
+		try {
+			rSet = statement.executeQuery("SELECT isAdmin FROM Users WHERE IDUser = "+idUser);
+			
+			if (!rSet.next() || rSet.getInt("isAdmin")==0) {
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 	
 	public boolean changePassword(int idUser, String currentPass, String newPass) {
 		
@@ -622,17 +636,28 @@ public class Connect {
 	
 	public ArrayList<Address> getAddresses(int IDUser){
 		ArrayList<Address> list = new ArrayList<Address>();
-		try {
-			statement = conn.createStatement();
-			rSet = statement.executeQuery("SELECT * FROM DiaChi WHERE IDUser = "+IDUser);
-			while(rSet.next()) {
-				String diachi = rSet.getString("Diachi");
-				String[] city = diachi.split("<>");
+		
+			
+			try {
+				statement = conn.createStatement();
+				rSet = statement.executeQuery("SELECT * FROM DiaChi WHERE IDUser = "+IDUser);
+				while(rSet.next()) {
+					String diachi = rSet.getString("Diachi");
+					String[] city = diachi.split("<>");
+					
+					Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), city[2], city[1], city[0], IDUser);
+					address.setID(rSet.getInt("IDAddress"));
+					list.add(address);
+				}
 				
-				Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), city[2], city[1], city[0], IDUser);
-				address.setID(rSet.getInt("IDAddress"));
-				list.add(address);
+				return list;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			return null;
+	}
 
 	public List<Media> searchMedia(String search) {
 		listMedia = new ArrayList<Media>();

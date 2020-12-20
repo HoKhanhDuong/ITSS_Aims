@@ -10,8 +10,8 @@ public class Book extends Media{
 	private String theloaiString;
 	private String tacGiaString;
 
-	public Book(String name, int price, String category, int IDMedia){
-		super(name, price, category,IDMedia);
+	public Book(String name, int price, String category, String img, int IDMedia){
+		super(name, price, category,img,IDMedia);
 		// TODO Auto-generated constructor stub
 	}
 

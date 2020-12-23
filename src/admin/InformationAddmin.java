@@ -84,12 +84,10 @@ public class InformationAddmin extends AddminHome {
 				newPassStr = newpass.getText();
 				confirmPassStr = confirmPass.getText();
 				
-				System.out.println(adminApplication.getID());
-				
 				adminApplication.adminController.changePass(adminApplication.getID(), currentPassStr, newPassStr, confirmPassStr); // can truyen idUSer
 			}
 		});
-		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBackground(new Color(51, 51, 204));
 		btnNewButton.setBounds(181, 130, 161, 30);

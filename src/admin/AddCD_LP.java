@@ -157,6 +157,8 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 					return;
 				}
 				
+				adminApplication.setSua(true);
+				
 				adminApplication.switchPanel(adminApplication.productManagement);
 				
 			}
@@ -232,6 +234,8 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		priceTXT.setColumns(10);
 		priceTXT.setBounds(540, 113, 250, 30);
 		panel_2.add(priceTXT);
+		
+		priceTXT.setEditable(false);
 		
 		
 		JLabel lblPrice = new JLabel("Price");

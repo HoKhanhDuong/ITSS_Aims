@@ -770,7 +770,7 @@ public class Connect {
 				if (rSet.next()) {
 					return rSet.getInt("IDTacGia");
 				}
-			} else return 1;
+			} else return rSet.getInt("IDTacGia");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

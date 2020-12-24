@@ -19,8 +19,11 @@ public class AdminController{
 	private int add_media;
 	private int id_tgia;
 	
+	public Media media;
+	
 	public AdminController(AdminApplication adminApp) {
-		this.adminApp=adminApp;
+		this.adminApp = adminApp;
+		media = new Media();
 	}
 	
 	
@@ -89,7 +92,7 @@ public class AdminController{
 		Date currentDate = Calendar.getInstance().getTime();
 		String dateString = simple.format(currentDate);
 		
-		Media media = adminApp.connect.getMedia(value[0]);
+		media = adminApp.connect.getMedia(value[0]);
 		
 		if (media == null) {
 			add_media = adminApp.connect.addMedia(value[0], value[3], value[1], 
@@ -97,7 +100,7 @@ public class AdminController{
 		} else if(media != null && !media.getCategory().equals(value[3])) {
 			add_media = adminApp.connect.addMedia(value[0], value[3], value[1], 
 					value[2], value[4], dateString);
-		} else {
+		} else if (media != null && media.getCategory().equals(value[3])) {
 			add_media = adminApp.connect.updateMedia(value[0], value[1], value[2], value[4], dateString);
 		}
 		
@@ -124,6 +127,8 @@ public class AdminController{
 
 	public boolean create_artists_sangtac(String[] value) {
 		
+		add_media = media.getId();
+		
 		id_tgia = adminApp.connect.add_Artists(value[5]);
 		
 		return adminApp.connect.add_SangTac(add_media, id_tgia);
@@ -131,8 +136,9 @@ public class AdminController{
 	
 	public boolean create_listTrack(String value) {
 		
+		add_media = media.getId();
+		
 		String[] listTrack = value.trim().split("\\,\\s+");
-		System.out.println(listTrack);
 		
 		int id[] = adminApp.connect.add_BaiHat(listTrack, id_tgia);
 		

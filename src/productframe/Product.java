@@ -53,6 +53,8 @@ public class Product extends MenuProduct {
 	public List<ProductPanel> list;
 	private JPanel panel_1;
 	private JPanel panel_2;
+	JPanel productPanel;
+	
 
 	public Product(Application application) {
 		super(application);
@@ -217,76 +219,36 @@ public class Product extends MenuProduct {
 		
 		
 		panel_2 = new JPanel();
-		panel_2.setBounds(230, 140, 795, 454);
+		panel_2.setBounds(230, 140, 850, 454);
 		panel_2.setLayout(null);
 		add(panel_2);
 		
-		JButton nextBtn = new JButton("Next");
-		nextBtn.setBounds(653,362,74,21);
-		panel_2.add(nextBtn);
-		
-		JButton backBtn = new JButton("Prev");
-		backBtn.setBounds(577, 363, 69, 21);
-		panel_2.add(backBtn);
-		
-		nextBtn.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				if(page != -1 && page < Math.ceil((double)list.size()/3)-1) {
-					page++;
-					next(page);
-				}
-			}
-		});
-		backBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if((page-1) != -1) {
-					page--;
-					back(page);
-				}
-				
-			}
-		});
+		productPanel = new JPanel();
+		scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setSize(840, 410);
+		scrollPane.setLocation(10, 10);
 		
 	}
 	
 	public void addListProduct(List<ProductPanel> listProduct) {
 		this.list = listProduct;
 		setListProduct(getList());
-		next(page);
+		scrollPane.remove(productPanel);		
+		
+		productPanel = new JPanel();
+		productPanel.setLayout(null);
+		productPanel.setPreferredSize(new Dimension(765, Math.round(list.size()/3 + 1)*310));
+		
+		for(int i = 0; i<list.size() -1; i++) {
+			productPanel.add(list.get(i));
 		}
-
-		public void next(int page) {
-			
-			int i=0;
-			
-			if(3*page > list.size()) {
-				page = -1;
-				return;
-			}
-			if(page > 0) {
-				list.get((page-1)*3).setVisible(false);
-				list.get((page-1)*3+1).setVisible(false);
-				list.get((page-1)*3+2).setVisible(false);
-			}
-			for(i=3*page;i<=(3*page+2) && i<list.size();i++) {
-				list.get(i).setVisible(true);
-				panel_2.add(list.get(i));	
-				
-			}
-		}
-		public void back(int page) {
-			
-			for(int i=3*(page+1);i<=(3*(page+1)+2) && i<list.size();i++) {
-				list.get(i).setVisible(false);
-			}
-			if(page >= 0) {
-				list.get(page*3).setVisible(true);
-				list.get(page*3+1).setVisible(true);
-				list.get(page*3+2).setVisible(true);
-			}
-			
-		}
+		productPanel.setVisible(true);
+		
+		scrollPane.add(productPanel);
+		scrollPane.setViewportView(productPanel);
+		panel_2.add(scrollPane);
+	}
 
 		public List<ProductPanel> getList() {
 			return list;

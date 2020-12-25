@@ -720,13 +720,52 @@ public class Connect {
 					+ "image = '"+image+"',\n"
 					+ "ngay_nhap = '"+date+"'\n"
 					+ "WHERE Ten = '"+name+"'");
-			return 1;
+			
+			statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			
+			if (rSet.next()) {
+				return rSet.getInt("IDMedia");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return -1;
 		}
 		
+		return 1;
+		
+	}
+	
+	public boolean insertBook(
+			int id_media, int id_bia, 
+			String nxb, String date, 
+			int page, int id_nn, int id_theloai) {
+		
+		try {
+			rSet = statement.executeQuery("SELECT * FROM Book WHERE IDMedia = "+id_media);
+			
+			if (rSet.next() == false) {
+				statement.executeUpdate("INSERT INTO Book\n"
+						+ "VALUES("+id_media+", "+id_bia+", '"+nxb+"',"
+						+ "'"+date+"', "+page+", "+id_nn+", "+id_theloai+")");
+			} else {
+				statement.executeUpdate("UPDATE Book \n"
+						+ "SET IDBia="+id_bia+",\n"
+						+ "NhaXB = '"+nxb+"', \n"
+						+ "NgayXB = '"+date+"'\n"
+						+ "SoTrang = "+page+",\n"
+						+ "IDNN = "+id_nn+",\n"
+						+ "IDTheLoai = "+id_theloai+"\n"
+						+ "WHERE IDMedia = "+id_media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean add_CD_LP(String name, String record, int id_tloai, String type) {

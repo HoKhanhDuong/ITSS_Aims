@@ -31,24 +31,24 @@ public class Connect {
 		String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
-	     String userName = "sa";
-	     String password = "123456";
+
+// 	     String userName = "sa";
+// 	     String password = "123456";
+
+// 	     String userName = "SA";
+// 	     String password = "do@1230.com";
+
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
 	 
 	     conn = DriverManager.getConnection(connectionURL, userName, password);
 	     
 	     statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-	     
-	     
-//	     statement.executeUpdate("UPDATE Users SET Pass ='1234567' WHERE IDUser = 1");  
-//	     System.out.println(rSet.next());
-	     
-//	     while(rSet.next()) {
-//	    	 System.out.println(rSet.getString("Email") + " " + rSet.getString("Pass") + " " + rSet.getString("isAdmin") );
-//	     }
+
 	     System.out.println("Connect ok");
 	}
+
+// phần user 
 	public boolean checkAdmin(int idUser) {
 		try {
 			rSet = statement.executeQuery("SELECT isAdmin FROM Users WHERE IDUser = "+idUser);
@@ -288,7 +288,7 @@ public class Connect {
 			
 			while(rSet.next()) {
 				media = new Media();
-				media.setCategoryString(rSet.getString("TenLoai"));
+				media.setCategory(rSet.getString("TenLoai"));
 				media.setNameString(rSet.getString("Ten"));
 				media.setPriceFloat(rSet.getInt("GiaCa"));
 				media.setId(rSet.getInt("IDMedia"));
@@ -670,7 +670,7 @@ public class Connect {
 			
 			while(rSet.next()) {
 				media = new Media();
-				media.setCategoryString(rSet.getString("TenLoai"));
+				media.setCategory(rSet.getString("TenLoai"));
 				media.setNameString(rSet.getString("Ten"));
 				media.setPriceFloat(rSet.getInt("GiaCa"));
 				media.setId(rSet.getInt("IDMedia"));
@@ -687,5 +687,218 @@ public class Connect {
 		}
 		return null;
 	}
+	
+// them san pham ben admin
+	public int addMedia(String name, String id_loai, String value, 
+			String price, String image, String date) {
+		
+		int loai = Integer.parseInt(id_loai);
+		long value_p = Integer.parseInt(value);
+		long price_p = Integer.parseInt(price);
+		
+		try {
+			statement.executeUpdate("insert into Media(Ten, IDLoai, GiaTri, GiaCa, image, ngay_nhap)\n"
+					+ "VALUES ('"+name+"', "+loai+", "+value_p+", "
+					+price_p+", '"+image+"', '"+date+"')");
+			
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			if (rSet.next()) return rSet.getInt("IDMedia");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+		return -1;
+	}
+	
+	public int updateMedia(String name, String value, 
+			String price, String image, String date) {
+		long value_p = Integer.parseInt(value);
+		long price_p = Integer.parseInt(price);
+		
+		try {
+			statement.executeUpdate("UPDATE Media\n"
+					+ "SET GiaTri = "+value_p+",\n"
+					+ "GiaCa = "+price_p+",\n"
+					+ "image = '"+image+"',\n"
+					+ "ngay_nhap = '"+date+"'\n"
+					+ "WHERE Ten = '"+name+"'");
+			
+			statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			
+			if (rSet.next()) {
+				return rSet.getInt("IDMedia");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+		return 1;
+		
+	}
+	
+	public boolean insertBook(
+			int id_media, int id_bia, 
+			String nxb, String date, 
+			int page, int id_nn, int id_theloai) {
+		
+		try {
+			rSet = statement.executeQuery("SELECT * FROM Book WHERE IDMedia = "+id_media);
+			
+			if (rSet.next() == false) {
+				statement.executeUpdate("INSERT INTO Book\n"
+						+ "VALUES("+id_media+", "+id_bia+", '"+nxb+"',"
+						+ "'"+date+"', "+page+", "+id_nn+", "+id_theloai+")");
+			} else {
+				statement.executeUpdate("UPDATE Book \n"
+						+ "SET IDBia="+id_bia+",\n"
+						+ "NhaXB = '"+nxb+"', \n"
+						+ "NgayXB = '"+date+"'\n"
+						+ "SoTrang = "+page+",\n"
+						+ "IDNN = "+id_nn+",\n"
+						+ "IDTheLoai = "+id_theloai+"\n"
+						+ "WHERE IDMedia = "+id_media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean add_CD_LP(String name, String record, int id_tloai, String type) {
+		int id_media;
+		try {
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			
+			if (rSet.next()) {
+				id_media = rSet.getInt("IDMedia");
+				rSet = statement.executeQuery("SELECT * FROM "+type+" WHERE IDMedia = "+id_media);
+				if (rSet.next() == false) {
+					statement.executeUpdate("insert into "+type+" \n"
+							+ "values ("+id_media+", '"+record+"', "+id_tloai+")");
+				} else {
+					statement.executeUpdate("UPDATE "+type+"\n"
+							+ "SET HangGhiAm ='"+record+"'\n"
+							+ "WHERE IDMedia = "+id_media);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public int add_Artists(String tacgia) {
+		
+		try {
+			rSet = statement.executeQuery("SELECT * FROM TacGia WHERE Ten = '"+tacgia+"'");
+			
+			if (rSet.next() == false) {
+				statement.executeUpdate("INSERT INTO TacGia \n"
+						+ "VALUES ('"+tacgia+"')");
+				
+				rSet = statement.executeQuery("SELECT IDTacGia FROM TacGia WHERE Ten LIKE'%"+tacgia+"%'");
+				
+				if (rSet.next()) {
+					return rSet.getInt("IDTacGia");
+				}
+			} else return rSet.getInt("IDTacGia");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		return -1;
+	}
+	
+	public boolean add_SangTac(int id_media, int id_tg) {
+		
+		try {
+			statement.executeUpdate("INSERT INTO SangTac\n"
+					+ "VALUES ("+id_tg+", "+id_media+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public int[] add_BaiHat(String[] value, int id_tgia) {
+		
+		int[] id_bh = new int[value.length];
+		
+		for (int i = 0; i < value.length; i++) {
+			try {
+				statement.executeUpdate("INSERT INTO BaiHat\n"
+						+ "VALUES ('"+value[i]+"', "+id_tgia+")");
+				
+				rSet = statement.executeQuery("SELECT IDBaiHat FROM BaiHat WHERE Ten LIKE '%"+value[i]+"%'");
+				if (rSet.next()) {
+					id_bh[i]= rSet.getInt("IDBaiHat"); 
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return id_bh;
+	}
+	
+	public boolean add_ListTrack(int[] id, int id_media) {
+		
+		for (int i = 0; i < id.length; i++) {
+			try {
+				statement.executeUpdate("INSERT INTO DanhSachBaiHat\n"
+						+ "VALUES ("+id_media+", "+id[i]+")");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public Media getMedia(String name) {
+		Media media = new Media();
+		try {
+			rSet = statement.executeQuery("SELECT * FROM Media \n"
+					+ "WHERE Ten LIKE '%"+name+"%'");
+			
+			if (rSet.next()) {
+				media.setId(rSet.getInt("IDMedia"));
+				media.setNameString(rSet.getString("Ten"));
+				media.setPriceFloat(rSet.getInt("GiaCa"));
+				media.setDate(rSet.getString("ngay_nhap"));
+				media.setCategory(""+rSet.getInt("IDLoai"));
+				return media;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 }

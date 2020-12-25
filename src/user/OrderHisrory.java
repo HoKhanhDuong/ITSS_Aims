@@ -87,7 +87,7 @@ public class OrderHisrory extends MyAccount {
 			objects,
 			column
 		));
-    table.getColumnModel().getColumn(1).setPreferredWidth(390);
+		table.getColumnModel().getColumn(1).setPreferredWidth(390);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(60);

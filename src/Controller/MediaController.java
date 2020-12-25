@@ -92,26 +92,26 @@ public class MediaController {
 			
 			Book book = application.connect.getBook(id);
 			book.setId(id);
-			book.setCategoryString(categoryString);
+			book.setCategory(categoryString);
 			application.detailProduct.changeValue(book);
 			application.detailProduct.setBookValue(book);
 			application.switchPanel(application.detailProduct);
 		}else if(categoryString.equals("CD")) {
 			CD cd = application.connect.getCd(id);
 			cd.setId(id);
-			cd.setCategoryString(categoryString);
+			cd.setCategory(categoryString);
 			application.detailProduct.changeValue(cd);
 			application.switchPanel(application.detailProduct);
 		}else if(categoryString.equals("LD")) {
 			CD ldCd = application.connect.getlD(id);
 			ldCd.setId(id);
-			ldCd.setCategoryString(categoryString);
+			ldCd.setCategory(categoryString);
 			application.detailProduct.changeValue(ldCd);
 			application.switchPanel(application.detailProduct);
 		}else if(categoryString.equals("DVD")) {
 			DVD dvd = application.connect.getDvd(id);
 			dvd.setId(id);
-			dvd.setCategoryString(categoryString);
+			dvd.setCategory(categoryString);
 			application.detailProduct.changeValue(dvd);
 			application.switchPanel(application.detailProduct);
 		}

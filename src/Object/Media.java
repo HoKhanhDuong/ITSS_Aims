@@ -3,8 +3,9 @@ package Object;
 public class Media {
 	private String nameString;
 	private int priceFloat;
-	private String categoryString;
+	private String category;
 	private String image;
+	private String date;
 
 	int soluong;
 	private int id;
@@ -15,7 +16,7 @@ public class Media {
 		// TODO Auto-generated constructor stub
 		this.nameString = name;
 		this.priceFloat = price;
-		this.categoryString = category;
+		this.category = category;
 		this.id = id;
 		this.image = img;
 	}
@@ -31,11 +32,11 @@ public class Media {
 	public void setPriceFloat(int priceFloat) {
 		this.priceFloat = priceFloat;
 	}
-	public String getCategoryString() {
-		return categoryString;
+	public String getCategory() {
+		return category;
 	}
-	public void setCategoryString(String categoryString) {
-		this.categoryString = categoryString;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getImage() {
@@ -60,6 +61,14 @@ public class Media {
 
 	public void setSoluong(int soluong) {
 		this.soluong = soluong;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 	

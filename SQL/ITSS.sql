@@ -219,4 +219,11 @@ INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','123456',1)
 
 ALTER TABLE Media ADD image VARCHAR(225)
 
+-- update vao ngay 22/12/2020
+ALTER TABLE Media ADD ngay_nhap DATE
+
+-- update vao ngay 23/12/2020;
+ALTER TABLE Media
+ALTER COLUMN ngay_nhap VARCHAR(50)
+
 

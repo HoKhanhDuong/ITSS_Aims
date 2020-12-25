@@ -33,22 +33,23 @@ public class MediaController {
 	
 	public List<ProductPanel> get_ListProduct(int type) {
 		
-		int j = 0;
+		int x = 0, y = 0;
 		
 		listMedia = application.connect.getListMedia(type);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
 		while (itr.hasNext()) {
-			if (j > 2) {
-				j = 0;
+			if (x > 2) {
+				x = 0;
+				y++;
 				continue;
 			}
 			Media e = itr.next();
-			ProductPanel productPanel= new ProductPanel(e, j, application);
+			ProductPanel productPanel= new ProductPanel(e, x, y, application);
 			
 			listProduct.add(productPanel);
-			j++;
+			x++;
 		}
 		
 		return listProduct;
@@ -56,22 +57,24 @@ public class MediaController {
 	
 	public List<ProductPanel> get_ListProductSort(int type) {
 		
-		int j = 0;
+		int x = 0;
+		int y = 0;
 		
 		listMedia = application.connect.getListMediaSort(type);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
 		while (itr.hasNext()) {
-			if (j > 2) {
-				j = 0;
+			if (x > 2) {
+				x = 0;
+				y++;
 				continue;
 			}
 			Media e = itr.next();
-			ProductPanel productPanel= new ProductPanel(e, j, this.application);
+			ProductPanel productPanel= new ProductPanel(e, x, y, this.application);
 			
 			listProduct.add(productPanel);
-			j++;
+			x++;
 		}
 		
 		return listProduct;
@@ -80,8 +83,9 @@ public class MediaController {
 	public void hiddenCurrentPanel(List<ProductPanel> list, int page) {
 		
 		if (list != null && list.size() != 0) {
-			for(int i = 0 ; i < list.size(); i++) {
-				list.get(i).setVisible(false);
+			for(int i = list.size() -1 ; i >= 0 ;i--) {
+				//application.product.scrollPane.remove(comp);
+				list.remove(i);
 			}
 		}
 	}
@@ -118,7 +122,8 @@ public class MediaController {
 	}
 	
 	public List<ProductPanel> get_product_search(String search) {
-		int j = 0;
+		int x = 0;
+		int y = 0;
 		
 		if (search.isEmpty()) {
 			return null;
@@ -134,15 +139,16 @@ public class MediaController {
 		ListIterator<Media> itr = listMedia.listIterator();
 		
 		while (itr.hasNext()) {
-			if (j > 2) {
-				j = 0;
+			if (x > 2) {
+				x = 0;
+				y++;
 				continue;
 			}
 			Media e = itr.next();
-			ProductPanel productPanel= new ProductPanel(e, j, application);
+			ProductPanel productPanel= new ProductPanel(e, x, y, application);
 			
 			listProduct.add(productPanel);
-			j++;
+			x++;
 		}
 		
 		return listProduct;

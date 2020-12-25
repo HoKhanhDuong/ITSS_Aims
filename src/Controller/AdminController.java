@@ -109,6 +109,22 @@ public class AdminController{
 		return true;
 	}
 	
+	public boolean create_Book(String[] value) {
+		
+		int id_language = Integer.parseInt(value[9]);
+		int id_theloai = Integer.parseInt(value[10]);
+		int id_bia = Integer.parseInt(value[5]);
+		int page = Integer.parseInt(value[8]);
+		
+		boolean add_Book = adminApp.connect.insertBook(
+				add_media, id_bia, value[6], 
+				value[7], page, 
+				id_language, id_theloai
+				);
+		
+		return add_Book;
+	}
+	
 	public boolean createCD_LP(String[] value) {
 		
 		String type = ""; 

@@ -172,6 +172,8 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setThem(true);
 				adminApplication.setSua(true);
+				
+				adminApplication.switchPanel(adminApplication.productManagement);
 			}
 		});
 		cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -206,9 +208,12 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showOpenDialog(null);
-				String string = fileChooser.getSelectedFile().toString();
-				string = string.substring(string.indexOf("img"));
-				validation[4] = string;
+				if (fileChooser.getSelectedFile() != null) {
+					String string = fileChooser.getSelectedFile().toString();
+					string = string.substring(string.indexOf("img"));
+					validation[4] = string;
+				}
+				
 			}
 		});
 		imgButton.setBounds(142, 41, 117, 29);

@@ -79,6 +79,9 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		authorlbl.setBounds(10, 50, 110, 30);
 		panel_2.add(authorlbl);
 		
+
+		JButton btnAdd = new JButton("Next");
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -87,7 +90,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				
 				setValidation();
 				
-				boolean check = adminApplication.adminController.checkValidate(getValidation());
+				boolean check = adminApplication.adminController.checkValidate(getValidation());x
 				
 				if (check == false) {
 					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),

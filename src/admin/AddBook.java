@@ -58,7 +58,7 @@ public class AddBook extends AddProduct {
 		lblNewLabel_2.setBounds(10, 50, 110, 30);
 		panel_2.add(lblNewLabel_2);
 		
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Next");
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAdd.setBounds(676, 273, 124, 30);
 		panel_2.add(btnAdd);

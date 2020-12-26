@@ -303,7 +303,15 @@ public class Connect {
 		}
 		return listMedia;
 	}
-	
+	public void setBook(String name, String NgayXB, String NhaXB, int soTrang, int Price, int Value, String image) throws SQLException {
+		Book book = new Book();
+		rSet = statement.executeQuery("SELECT IDLoai "
+				+ "FROM Loai WHERE TenLoai = 'Book'");
+		int idLoai=rSet.getInt("IDLoai");
+		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
+		
+		
+	}
 	public Book getBook(int id) {
 		Book book = new Book();
 		try {

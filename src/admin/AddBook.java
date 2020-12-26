@@ -12,14 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 public class AddBook extends AddProduct {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField name;
+	private JTextField author;
+	private JTextField publisher;
+	private JTextField publicationDate;
+	private JTextField pages;
+	private JTextField language;
+	private JTextField theloai;
 	AdminApplication adminApplication;
+	private JTextField Value;
+	private JTextField Price;
 
 	public AddBook(AdminApplication adminApplication) {
 		super(adminApplication);
@@ -45,13 +47,13 @@ public class AddBook extends AddProduct {
 		lblNewLabel_1.setBounds(10, 10, 124, 30);
 		panel_2.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setText("name");
-		textField.setForeground(Color.LIGHT_GRAY);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setColumns(10);
-		textField.setBounds(146, 10, 654, 30);
-		panel_2.add(textField);
+		name = new JTextField();
+		name.setText("name");
+		name.setForeground(Color.LIGHT_GRAY);
+		name.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		name.setColumns(10);
+		name.setBounds(146, 10, 654, 30);
+		panel_2.add(name);
 		
 		JLabel lblNewLabel_2 = new JLabel("Author");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -63,18 +65,18 @@ public class AddBook extends AddProduct {
 		btnAdd.setBounds(676, 273, 124, 30);
 		panel_2.add(btnAdd);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Loai bia");
+		JLabel lblNewLabel_2_1 = new JLabel("Cover type");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1.setBounds(10, 90, 110, 30);
 		panel_2.add(lblNewLabel_2_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("name");
-		textField_1.setForeground(Color.LIGHT_GRAY);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_1.setColumns(10);
-		textField_1.setBounds(146, 50, 654, 30);
-		panel_2.add(textField_1);
+		author = new JTextField();
+		author.setText("name");
+		author.setForeground(Color.LIGHT_GRAY);
+		author.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		author.setColumns(10);
+		author.setBounds(146, 50, 654, 30);
+		panel_2.add(author);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Paperback");
 		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -93,65 +95,64 @@ public class AddBook extends AddProduct {
 		lblNewLabel_2_1_1.setBounds(10, 130, 110, 30);
 		panel_2.add(lblNewLabel_2_1_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("name");
-		textField_2.setForeground(Color.LIGHT_GRAY);
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_2.setColumns(10);
-		textField_2.setBounds(146, 126, 654, 30);
-		panel_2.add(textField_2);
+		publisher = new JTextField();
+		publisher.setText("name");
+		publisher.setForeground(Color.LIGHT_GRAY);
+		publisher.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		publisher.setColumns(10);
+		publisher.setBounds(146, 126, 175, 30);
+		panel_2.add(publisher);
 		
 		JLabel lblNewLabel_2_1_1_1 = new JLabel("Publication Date");
 		lblNewLabel_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_1_1.setBounds(10, 170, 124, 30);
 		panel_2.add(lblNewLabel_2_1_1_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("mm/dd/yy");
-		textField_3.setForeground(Color.LIGHT_GRAY);
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_3.setColumns(10);
-		textField_3.setBounds(146, 170, 654, 30);
-		panel_2.add(textField_3);
+		publicationDate = new JTextField();
+		publicationDate.setText("mm/dd/yy");
+		publicationDate.setForeground(Color.LIGHT_GRAY);
+		publicationDate.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		publicationDate.setColumns(10);
+		publicationDate.setBounds(146, 170, 654, 30);
+		panel_2.add(publicationDate);
 		
 		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Pages");
 		lblNewLabel_2_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_1_1_1.setBounds(146, 210, 61, 30);
 		panel_2.add(lblNewLabel_2_1_1_1_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setText("pages");
-		textField_4.setForeground(Color.LIGHT_GRAY);
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_4.setColumns(10);
-		textField_4.setBounds(217, 210, 86, 30);
-		panel_2.add(textField_4);
+		pages = new JTextField();
+		pages.setText("pages");
+		pages.setForeground(Color.LIGHT_GRAY);
+		pages.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		pages.setColumns(10);
+		pages.setBounds(217, 210, 86, 30);
+		panel_2.add(pages);
 		
 		JLabel lblNewLabel_2_1_1_1_1_1 = new JLabel("Language");
 		lblNewLabel_2_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_1_1_1_1.setBounds(340, 210, 86, 30);
 		panel_2.add(lblNewLabel_2_1_1_1_1_1);
 		
-		textField_5 = new JTextField();
-		textField_5.setText("pages");
-		textField_5.setForeground(Color.LIGHT_GRAY);
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_5.setColumns(10);
-		textField_5.setBounds(436, 210, 110, 30);
-		panel_2.add(textField_5);
+		language = new JTextField();
+		language.setText("language");
+		language.setForeground(Color.LIGHT_GRAY);
+		language.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		language.setColumns(10);
+		language.setBounds(436, 210, 110, 30);
+		panel_2.add(language);
 		
-		JLabel lblNewLabel_2_1_1_1_1_1_1 = new JLabel("The Loai");
+		JLabel lblNewLabel_2_1_1_1_1_1_1 = new JLabel("Category");
 		lblNewLabel_2_1_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_1_1_1_1_1.setBounds(576, 210, 75, 30);
 		panel_2.add(lblNewLabel_2_1_1_1_1_1_1);
 		
-		textField_6 = new JTextField();
-		textField_6.setText("pages");
-		textField_6.setForeground(Color.LIGHT_GRAY);
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_6.setColumns(10);
-		textField_6.setBounds(661, 210, 139, 30);
-		panel_2.add(textField_6);
+		theloai = new JTextField();
+		theloai.setForeground(Color.LIGHT_GRAY);
+		theloai.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		theloai.setColumns(10);
+		theloai.setBounds(661, 210, 139, 30);
+		panel_2.add(theloai);
 		
 		JLabel lblNewLabel_2_1_1_1_2 = new JLabel("Other");
 		lblNewLabel_2_1_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -162,7 +163,30 @@ public class AddBook extends AddProduct {
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_1_1.setBounds(506, 273, 124, 30);
 		panel_2.add(btnNewButton_1_1);
+		
+		JLabel lblNewLabel_2_1_1_1_1_2 = new JLabel("Value");
+		lblNewLabel_2_1_1_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_1_1_1_1_2.setBounds(354, 126, 56, 30);
+		panel_2.add(lblNewLabel_2_1_1_1_1_2);
+		
+		Value = new JTextField();
+		Value.setForeground(Color.LIGHT_GRAY);
+		Value.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Value.setColumns(10);
+		Value.setBounds(416, 126, 121, 30);
+		panel_2.add(Value);
+		
+		JLabel lblNewLabel_2_1_1_1_1_2_1 = new JLabel("Price");
+		lblNewLabel_2_1_1_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_1_1_1_1_2_1.setBounds(559, 126, 56, 30);
+		panel_2.add(lblNewLabel_2_1_1_1_1_2_1);
+		
+		Price = new JTextField();
+		Price.setForeground(Color.LIGHT_GRAY);
+		Price.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		Price.setColumns(10);
+		Price.setBounds(621, 126, 121, 30);
+		panel_2.add(Price);
 
 	}
-
 }

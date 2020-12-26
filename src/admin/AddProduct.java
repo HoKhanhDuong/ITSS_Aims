@@ -58,7 +58,7 @@ public class AddProduct extends AddminHome {
 		btnNewButton.setBounds(349, 10, 85, 30);
 		panel_2_1.add(btnNewButton);
 		
-		JButton btnCd = new JButton("CD/LP");
+		JButton btnCd = new JButton("CD");
 		btnCd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 adminApplication.switchPanel(adminApplication.addCD_LP);
@@ -77,6 +77,11 @@ public class AddProduct extends AddminHome {
 		btnDvd.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnDvd.setBounds(569, 10, 85, 30);
 		panel_2_1.add(btnDvd);
+		
+		JButton btnLp = new JButton("LP");
+		btnLp.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnLp.setBounds(683, 10, 85, 30);
+		panel_2_1.add(btnLp);
 
 	}
 }

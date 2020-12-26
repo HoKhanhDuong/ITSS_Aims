@@ -1,14 +1,11 @@
 package Manager;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import Connect.Connect;
 import Controller.AdminController;
@@ -20,18 +17,14 @@ import admin.AddminHome;
 import admin.InformationAddmin;
 import admin.ProductManagement;
 import admin.UserManagement;
-import productframe.Cart;
-import productframe.DetailProduct;
-import productframe.Home;
-import productframe.Product;
-import user.CancelOrder;
-import user.ChangePassword;
-import user.Information;
-import user.OrderHisrory;
-import user.Pay;
 
 public class AdminApplication extends JFrame {
+	
 	private int ID;
+	private boolean them;
+	private boolean sua;
+	private int prod_up_de;
+	
 	public AddminHome adminHome;
 	public AddBook addBook;
 	public AddCD_LP addCD_LP;
@@ -86,6 +79,26 @@ public class AdminApplication extends JFrame {
 		}
 		list.get(list.indexOf(jPanel)).setVisible(true);
 	}
+	
+	public boolean isThem() {
+		return them;
+	}
+	public void setThem(boolean them) {
+		this.them = them;
+	}
+	public boolean isSua() {
+		return sua;
+	}
+	public void setSua(boolean sua) {
+		this.sua = sua;
+	}
+	public int getProd_up_de() {
+		return prod_up_de;
+	}
+	public void setProd_up_de(int prod_up_de) {
+		this.prod_up_de = prod_up_de;
+	}
+	
 	public int getID() {
 		return ID;
 	}

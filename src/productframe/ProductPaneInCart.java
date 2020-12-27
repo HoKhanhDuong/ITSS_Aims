@@ -5,8 +5,12 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,6 +36,14 @@ public class ProductPaneInCart extends JPanel implements ActionListener {
 		imageLabel = new JLabel("img");
 		imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		imageLabel.setBounds(20, 28, 107, 133);
+		try {
+			BufferedImage image1 = ImageIO.read(new File(image));
+            ImageIcon icon = new ImageIcon(image1.getScaledInstance(240, 220, image1.SCALE_SMOOTH));
+            imageLabel.setIcon(icon);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		add(imageLabel);
 		
 		nameLabel = new JLabel(name);

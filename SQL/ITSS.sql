@@ -220,7 +220,7 @@ CREATE TABLE MediaSale (
 	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
 )
 
-INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','123456',1)
+INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','12345678',1)
 
 ALTER TABLE Media ADD image VARCHAR(225)
 

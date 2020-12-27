@@ -219,6 +219,7 @@ public class Connect {
 						rSet.getString("image"),
 						rSet.getInt("IDMedia"));
 				listMedia.add(media);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -373,6 +374,7 @@ public class Connect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		return book;
 	}
 	
@@ -994,7 +996,7 @@ public class Connect {
 	}
 	public void saveOrder(OrderObject order, int IDUser, List<ProductPaneInCart> list) {
 		try {
-			statement.executeUpdate("INSERT INTO DonHang VALUES("+IDUser+","+order.address.getID()+",'Cho','',"+order.total);
+			statement.executeUpdate("INSERT INTO DonHang VALUES("+IDUser+","+order.address.getID()+",'Cho','',"+order.total+")");
 			rSet = statement.executeQuery("SELECT MAX(IDDonHang) AS IDDonHang FROM DonHang GROUP BY (IDDonHang)");
 			rSet.next();
 			int iddh = rSet.getInt("IDDonHang");

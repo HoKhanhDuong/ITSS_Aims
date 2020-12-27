@@ -15,5 +15,6 @@ public class OrderController {
 	}
 	public void saveOrder(OrderObject orderObject) {
 		application.connect.saveOrder(orderObject, application.getID(), application.cart.listp);
+		application.switchPanel(application.home);
 	}
 }

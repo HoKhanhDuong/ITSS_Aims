@@ -26,9 +26,12 @@ public class ProductPanel extends JPanel {
 	private final int WIDTH = 250;
 	private final int HEIGHT = 300;
 	
+	public Media media;
+	
 	public ProductPanel(Media media, int x, int y, Application application) {
 		setBackground(Color.WHITE);
 		
+		this.media = media;
 		setBounds(15+x*(WIDTH+15), 15 + y*(HEIGHT+15), WIDTH, HEIGHT);
 		setLayout(null);
 		

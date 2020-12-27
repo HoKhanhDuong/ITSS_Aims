@@ -215,7 +215,7 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese", "US"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese"}));
 		comboBox.setBounds(99, 134, 198, 27);
 		panel_2.add(comboBox);
 		comboBox.addActionListener(new ActionListener() {
@@ -230,9 +230,6 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 					break;
 				case "Japanese":
 					id_language = "3";
-					break;
-				case "US":
-					id_language = "4";
 					break;
 				default:
 					break;
@@ -299,7 +296,7 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 				this.validation[0] = nametxt.getText();
 				this.validation[1] = valuetxt.getText();
 				this.validation[2] = pricetxt.getText();
-				this.validation[3] = "9";
+				this.validation[3] = "2";
 				this.validation[4] = image;
 		// book
 				this.validation[5] = id_dia;

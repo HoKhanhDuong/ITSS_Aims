@@ -240,7 +240,7 @@ public class Product extends MenuProduct {
 		productPanel.setLayout(null);
 		productPanel.setPreferredSize(new Dimension(765, Math.round(list.size()/3 + 2)*310));
 		
-		for(int i = 0; i<list.size() -1; i++) {
+		for(int i = 0; i<=list.size() -1; i++) {
 			productPanel.add(list.get(i));
 		}
 		productPanel.setVisible(true);

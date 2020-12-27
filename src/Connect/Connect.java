@@ -33,7 +33,8 @@ public class Connect {
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 
- 	     String userName = "sa";
+
+ 	     String userName = "SA";
  	     String password = "123456";
 
 // 	     String userName = "SA";
@@ -320,7 +321,15 @@ public class Connect {
 		}
 		return listMedia;
 	}
-	
+	public void setBook(String name, String NgayXB, String NhaXB, int soTrang, int Price, int Value, String image) throws SQLException {
+		Book book = new Book();
+		rSet = statement.executeQuery("SELECT IDLoai "
+				+ "FROM Loai WHERE TenLoai = 'Book'");
+		int idLoai=rSet.getInt("IDLoai");
+		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
+		
+		
+	}
 	public Book getBook(int id) {
 		Book book = new Book();
 		try {
@@ -365,6 +374,16 @@ public class Connect {
 			e.printStackTrace();
 		}
 		return book;
+	}
+	
+	public void setDVD(String name, String thoiLuong, String studio, int Price, int Value, String image) throws SQLException {
+		DVD DVD = new DVD();
+		rSet = statement.executeQuery("SELECT IDLoai "
+				+ "FROM Loai WHERE TenLoai = 'DVD'");
+		int idLoai=rSet.getInt("IDLoai");
+		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
+		
+		
 	}
 	
 	public CD getCd(int id) {
@@ -727,7 +746,7 @@ public class Connect {
 					+ "VALUES ('"+name+"', "+loai+", "+value_p+", "
 					+price_p+", '"+image+"', '"+date+"')");
 			
-			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '"+name+"'");
 			if (rSet.next()) return rSet.getInt("IDMedia");
 			
 		} catch (SQLException e) {
@@ -752,7 +771,7 @@ public class Connect {
 					+ "ngay_nhap = '"+date+"'\n"
 					+ "WHERE Ten = '"+name+"'");
 			
-			statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten = '"+name+"'");
 			
 			if (rSet.next()) {
 				return rSet.getInt("IDMedia");
@@ -799,10 +818,42 @@ public class Connect {
 		return true;
 	}
 	
+	public boolean insertDVD(
+			int id_media, int id_dia, 
+			int thoiLuong, String studio, 
+			String phuDe, int id_nn, int id_theloai) {
+		
+		try {
+			rSet = statement.executeQuery("SELECT * FROM DVD WHERE IDMedia = "+id_media);
+			
+			if (rSet.next() == false) {
+				statement.executeUpdate("INSERT INTO DVD\n"
+						+ "VALUES("+id_media+", "+id_theloai+", "+thoiLuong+","
+						+ "'"+studio+"', "+id_nn+", '"+phuDe+"', "+id_dia+")");
+			} else {
+				statement.executeUpdate("UPDATE DVD \n"
+						+ "SET IDDia="+id_dia+",\n"
+						+ "ThoiLuong = '"+thoiLuong+"', \n"
+						+ "Studio = '"+studio+"'\n"
+						+ "PhuDe = "+phuDe+",\n"
+						+ "IDNN = "+id_nn+",\n"
+						+ "IDTheLoai = "+id_theloai+"\n"
+						+ "WHERE IDMedia = "+id_media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public boolean add_CD_LP(String name, String record, int id_tloai, String type) {
 		int id_media;
 		try {
-			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten = '"+name+"'");
 			
 			if (rSet.next()) {
 				id_media = rSet.getInt("IDMedia");
@@ -907,7 +958,7 @@ public class Connect {
 		Media media = new Media();
 		try {
 			rSet = statement.executeQuery("SELECT * FROM Media \n"
-					+ "WHERE Ten LIKE '%"+name+"%'");
+					+ "WHERE Ten = '"+name+"'");
 			
 			if (rSet.next()) {
 				media.setId(rSet.getInt("IDMedia"));

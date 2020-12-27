@@ -159,7 +159,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 				
 				adminApplication.setSua(true);
 				
-				adminApplication.switchPanel(adminApplication.productManagement);
+				adminApplication.switchPanel(adminApplication.physicalManagement);
 				
 			}
 		});

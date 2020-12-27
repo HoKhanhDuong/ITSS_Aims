@@ -97,13 +97,17 @@ public class AdminController{
 		
 		for (int i = 0; i < validation.length; i++) {
 			if (validation[i].isEmpty()) {
+
 				errors += "Ph蘯｣i nh蘯ｭp vﾃ� ch盻肱 ﾄ黛ｻｧ thﾃｴng tin s蘯｣n ph蘯ｩm\n";
+
 				return false;
 			}
 		}
 		
 		if ((!validation[1].matches(number) || !validation[2].matches(number))) {
+
 			errors += "Giﾃ｡ tr盻� ph蘯｣i nh蘯ｭp s盻曾n";
+
 			return false;
 		}
 		
@@ -111,7 +115,7 @@ public class AdminController{
 	}
 	
 	public boolean createMedia(String[] value) {
-		SimpleDateFormat simple = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date currentDate = Calendar.getInstance().getTime();
 		String dateString = simple.format(currentDate);
 		
@@ -129,6 +133,7 @@ public class AdminController{
 		
 		if (add_media == -1) return false;
 		
+		media = adminApp.connect.getMedia(value[0]);
 		return true;
 	}
 	
@@ -136,16 +141,28 @@ public class AdminController{
 		
 		int id_language = Integer.parseInt(value[9]);
 		int id_theloai = Integer.parseInt(value[10]);
-		int id_bia = Integer.parseInt(value[5]);
+		int id_dia = Integer.parseInt(value[5]);
 		int page = Integer.parseInt(value[8]);
 		
 		boolean add_Book = adminApp.connect.insertBook(
-				add_media, id_bia, value[6], 
+				add_media, id_dia, value[6], 
 				value[7], page, 
 				id_language, id_theloai
 				);
 		
 		return add_Book;
+	}
+	
+	public boolean create_DVD(String[] value) {
+		
+		int id_language = Integer.parseInt(value[8]);
+		int id_theloai = Integer.parseInt(value[9]);
+		int id_dia = Integer.parseInt(value[5]);
+		int thoiLuong = Integer.parseInt(value[6]);
+		
+		boolean add_DVD = adminApp.connect.insertDVD(add_media, id_dia, thoiLuong, value[7], value[10], id_language, id_theloai);
+		
+		return add_DVD;
 	}
 	
 	public boolean createCD_LP(String[] value) {

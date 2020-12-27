@@ -238,7 +238,7 @@ public class Product extends MenuProduct {
 		
 		productPanel = new JPanel();
 		productPanel.setLayout(null);
-		productPanel.setPreferredSize(new Dimension(765, Math.round(list.size()/3 + 1)*310));
+		productPanel.setPreferredSize(new Dimension(765, Math.round(list.size()/3 + 2)*310));
 		
 		for(int i = 0; i<list.size() -1; i++) {
 			productPanel.add(list.get(i));

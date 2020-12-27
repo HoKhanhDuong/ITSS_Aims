@@ -63,7 +63,10 @@ VALUES ('Loi cua giong song', 4, 75000,80000,'img/LP/1.jpg'),
        ('Le Cat Trong Ly viny', 4, 75000,80000,'img/LP/10.jpg')
 
 
-
+-- Loai dia
+INSERT INTO LoaiDia
+VALUES('Blu-ray'),
+		('HD-DVD');
 
 
 

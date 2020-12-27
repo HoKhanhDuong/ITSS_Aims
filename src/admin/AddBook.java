@@ -82,7 +82,6 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 
 		JButton btnAdd = new JButton("Next");
 
-		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setThem(true);
@@ -90,7 +89,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				
 				setValidation();
 				
-				boolean check = adminApplication.adminController.checkValidate(getValidation());x
+				boolean check = adminApplication.adminController.checkValidate(getValidation());
 				
 				if (check == false) {
 					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
@@ -110,7 +109,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				
 				adminApplication.setSua(true);
 				
-				adminApplication.switchPanel(adminApplication.productManagement);
+				adminApplication.switchPanel(adminApplication.physicalManagement);
 				
 			}
 		});
@@ -211,7 +210,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		
 		combo_language.setBackground(Color.WHITE);
 		combo_language.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		combo_language.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
+		combo_language.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese", "US"}));
 		combo_language.setBounds(423, 214, 128, 30);
 		panel_2.add(combo_language);
 		
@@ -219,8 +218,17 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 			public void actionPerformed(ActionEvent e) {
 				String value = combo_language.getSelectedItem().toString();
 				switch (value) {
-					case "":
+					case "Vietnamese":
 						id_language = "1";
+						break;
+					case "English":
+						id_language = "2";
+						break;
+					case "Japanese":
+						id_language = "3";
+						break;
+					case "US":
+						id_language = "4";
 						break;
 					default:
 						break;
@@ -279,7 +287,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		JComboBox comboBox_theloai = new JComboBox();
 		comboBox_theloai.setBackground(Color.WHITE);
 		comboBox_theloai.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
+		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"Truyen tranh", "Truyen trinh tham", "Truyen hai", "Truyen phieu luu"}));
 		comboBox_theloai.setBounds(657, 214, 116, 27);
 		panel_2.add(comboBox_theloai);
 		
@@ -287,8 +295,17 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox_theloai.getSelectedItem().toString();
 				switch (value) {
-					case "":
-						id_theloai = "1";
+					case "Truyen tranh":
+						id_theloai = "8";
+						break;
+					case "Truyen trinh tham":
+						id_theloai = "9";
+						break;
+					case "Truyen hai":
+						id_theloai = "10";
+						break;
+					case "Truyen phieu luu":
+						id_theloai = "11";
 						break;
 					default:
 						break;
@@ -301,17 +318,21 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		pricetxt.setText(valueString);
+		if (valuetxt.getText() != "") {
+			int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			pricetxt.setText(valueString);
+		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		pricetxt.setText(valueString);
+		if (valuetxt.getText() != "") {
+			int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			pricetxt.setText(valueString);
+		}
 	}
 
 	@Override
@@ -329,7 +350,8 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		this.validation[0] = nametxt.getText();
 		this.validation[1] = valuetxt.getText();
 		this.validation[2] = pricetxt.getText();
-		this.validation[3] = valuetxt.getText();
+//		this.validation[3] = "1";
+		this.validation[3] = "8";
 		this.validation[4] = image;
 // book
 		this.validation[5] = id_bia;
@@ -346,7 +368,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		if ("CD".equals(e.getActionCommand())) {
+		if ("Paperback".equals(e.getActionCommand())) {
 			this.id_bia = "1";
 		} else {
 			this.id_bia = "2";

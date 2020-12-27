@@ -15,6 +15,7 @@ import admin.AddDVD;
 import admin.AddProduct;
 import admin.AddminHome;
 import admin.InformationAddmin;
+import admin.PhysicalProductManagement;
 import admin.ProductManagement;
 import admin.UserManagement;
 
@@ -34,6 +35,7 @@ public class AdminApplication extends JFrame {
 	public AdminController adminController;
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
+	public PhysicalProductManagement physicalManagement;
 	public Connect connect;
 
 	ArrayList<JPanel> list;
@@ -53,6 +55,7 @@ public class AdminApplication extends JFrame {
 		informationAddmin = new InformationAddmin(this);
 		productManagement = new ProductManagement(this);
 		userManagement = new UserManagement(this);
+		physicalManagement = new PhysicalProductManagement(this);
 		
 		//add(home);
 		list = new ArrayList<JPanel>();
@@ -64,6 +67,7 @@ public class AdminApplication extends JFrame {
 		list.add(informationAddmin);
 		list.add(productManagement);
 		list.add(userManagement);
+		list.add(physicalManagement);
 
 		Iterator<JPanel> iterator = list.iterator();
 		while(iterator.hasNext()) {

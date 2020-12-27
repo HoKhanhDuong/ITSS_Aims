@@ -41,7 +41,7 @@ public class Pay extends MenuProduct {
 	JLabel nameLabel;
 	JLabel addressLabel;
 	JLabel phoneLabel;
-	int idaddress;
+	Address address;
 	ArrayList<Address> list;
 	/**
 	 * Create the panel.
@@ -101,6 +101,13 @@ public class Pay extends MenuProduct {
         panel_3.add(phoneLabel);
         
         JButton ship1Button = new JButton("Ship to this address");
+        ship1Button.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// qua order r ms goi ship money
+        		application.payController.makeOrder();
+        		
+        	}
+        });
         ship1Button.setForeground(Color.WHITE);
         ship1Button.setBackground(new Color(51, 51, 204));
         ship1Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -110,7 +117,7 @@ public class Pay extends MenuProduct {
         JButton deleteButton = new JButton("Delete");
         deleteButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		application.payController.deleteAddress(idaddress);
+        		application.payController.deleteAddress(address.getID());
         	}
         });
         deleteButton.setBackground(Color.WHITE);
@@ -168,6 +175,8 @@ public class Pay extends MenuProduct {
         lblNewLabel_9.setBounds(10, 90, 85, 30);
         panel_5.add(lblNewLabel_9);
         
+        cityString = "Ha Noi";
+        
         JComboBox cityCombo = new JComboBox();
         cityCombo.setFont(new Font("Tahoma", Font.PLAIN, 16));
         cityCombo.setModel(new DefaultComboBoxModel(new String[] {"Ha Noi", "Ho Chi Minh", "Other city"}));
@@ -222,6 +231,7 @@ public class Pay extends MenuProduct {
         ship2Button.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		application.payController.addAddress(nameTextfield.getText(), phonetextField.getText(), cityString, districtText.getText(), addressText.getText());
+        		application.payController.makeOrder();
         	}
         });
         
@@ -334,10 +344,11 @@ public class Pay extends MenuProduct {
         */
 	}
 	public void changeAddress(Address address) {
+		this.address = address;
 		nameLabel.setText(address.getName());
 		phoneLabel.setText(address.getPhone());
 		addressLabel.setText(address.getAddress()+", "+address.getDistrict()+", "+address.getCity());
-		idaddress = address.getID();
+		
 	}
 }
 

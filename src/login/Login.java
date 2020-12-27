@@ -44,10 +44,14 @@ public class Login extends JFrame {
 					if(iD == -1){
 						JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 					}else {
-						application.setID(iD);
-						setVisible(false);
-						dispose();
-						application.switchPanel(application.home);
+						if(iD > 0) {
+							application.setID(iD);
+							setVisible(false);
+							dispose();
+							application.switchPanel(application.home);
+						}else if(iD == -2) {
+							application.setAdmin();
+						}
 					}
 				}
 				}
@@ -66,12 +70,15 @@ public class Login extends JFrame {
 				if(iD == -1){
 					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 				}else {
-					
-					application.setID(iD);
-					setVisible(false);
-					dispose();
-					application.switchPanel(application.home);
-					
+					if(iD > 0) {
+						application.setID(iD);
+						setVisible(false);
+						dispose();
+						application.switchPanel(application.home);
+					}else if(iD == -2) {
+						application.setAdmin();
+						dispose();
+					}
 				}
 			}
 		});

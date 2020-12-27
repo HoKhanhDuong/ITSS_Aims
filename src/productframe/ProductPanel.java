@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,7 +29,7 @@ public class ProductPanel extends JPanel {
 		setBounds(35+x*(WIDTH+15), 35, WIDTH, HEIGHT);
 		setLayout(null);
 		
-		JLabel imgProduct = new JLabel("img1");
+		JLabel imgProduct = new JLabel(new ImageIcon(media.getImageString()));
 		imgProduct.setBackground(Color.WHITE);
 		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		imgProduct.setBounds(10, 10, 230, 220);

@@ -2,6 +2,7 @@ package Manager;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -9,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Connect.AdminConnect;
+import Controller.AdminController;
 import admin.AddBook;
 import admin.AddCD_LP;
 import admin.AddDVD;
@@ -37,6 +40,8 @@ public class AdminApplication extends JFrame {
 	public InformationAddmin informationAddmin;
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
+	public AdminController adminController;
+	public AdminConnect adminConnect;
 
 	ArrayList<JPanel> list;
 	public AdminApplication() {
@@ -51,6 +56,13 @@ public class AdminApplication extends JFrame {
 		informationAddmin = new InformationAddmin(this);
 		productManagement = new ProductManagement(this);
 		userManagement = new UserManagement(this);
+		adminController = new AdminController(this);
+		try {
+			adminConnect = new AdminConnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//add(home);
 		list = new ArrayList<JPanel>();

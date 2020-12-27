@@ -26,6 +26,7 @@ import user.CancelOrder;
 import user.ChangePassword;
 import user.Information;
 import user.MyAccount;
+import user.Order;
 import user.OrderHisrory;
 import user.Pay;
 
@@ -42,6 +43,7 @@ public class Application extends JFrame {
 	public Information information;
 	public Pay pay;
 	public OrderHisrory orderHisrory;
+	public Order order;
 
 	public OrderController orderController;
 	
@@ -75,7 +77,7 @@ public class Application extends JFrame {
 		pay = new Pay(this);
 		orderHisrory = new OrderHisrory(this);
 		//adminHome = new AddminHome(this);
-    
+		order = new Order(this);
 		address = new user.Address(this);
 		//add(home);
 		mediaControl = new MediaController(this);
@@ -93,6 +95,7 @@ public class Application extends JFrame {
 		list.add(orderHisrory);
 		list.add(address);
 		list.add(pay);
+		list.add(order);
 		Iterator<MenuProduct> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			add(iterator.next());
@@ -114,6 +117,18 @@ public class Application extends JFrame {
 	}
 	public void setID(int iD) {
 		this.ID = iD;
+	}
+	public void setAdmin() {
+		AdminApplication adminApplication;
+		try {
+			adminApplication = new AdminApplication();
+			adminApplication.setVisible(true);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.dispose();
 	}
 	
 	public void deletePanel() {

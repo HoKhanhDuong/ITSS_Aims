@@ -3,21 +3,27 @@ package admin;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Vector;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Manager.AdminApplication;
+import Object.User;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UserManagement extends AddminHome {
 	private JTable table;
-	private JTextField textField;
+	private JTextField useridtextField;
 	AdminApplication adminApplication;
 
 	public UserManagement(AdminApplication adminApplication) {
@@ -51,24 +57,9 @@ public class UserManagement extends AddminHome {
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"123456", "Nguyen Thi Thu Phuong", "nguyenphuong4899@gmail.com", "ok"},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
 			},
 			new String[] {
-				"ID", "Name", "Email", "Status"
+				"ID", "Name", "Phone", "Status"
 			}
 		));
 		table.getColumnModel().getColumn(1).setPreferredWidth(157);
@@ -92,26 +83,44 @@ public class UserManagement extends AddminHome {
 		lblNewLabel.setBounds(10, 10, 131, 30);
 		panel_2.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setBounds(176, 10, 644, 30);
-		panel_2.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Remove User");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(176, 50, 162, 30);
-		panel_2.add(btnNewButton);
+		useridtextField = new JTextField();
+		useridtextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		useridtextField.setBounds(176, 10, 644, 30);
+		panel_2.add(useridtextField);
+		useridtextField.setColumns(10);
 		
 		JButton btnBlockUser = new JButton("Block User");
+		btnBlockUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.adminController.changeStatusUser(useridtextField.getText(), 1);
+			}
+		});
 		btnBlockUser.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnBlockUser.setBounds(385, 50, 223, 30);
 		panel_2.add(btnBlockUser);
 		
-		JButton btnNewButton_1_1 = new JButton("Unblock users");
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton_1_1.setBounds(643, 50, 177, 30);
-		panel_2.add(btnNewButton_1_1);
-
+		JButton btnUnblockButton = new JButton("Unblock users");
+		btnUnblockButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.adminController.changeStatusUser(useridtextField.getText(), 0);
+			}
+		});
+		btnUnblockButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnUnblockButton.setBounds(643, 50, 177, 30);
+		panel_2.add(btnUnblockButton);
+	}
+	public void setUsers(ArrayList<User> list) {
+		DefaultTableModel dModel = (DefaultTableModel) table.getModel();
+		int rowCount = dModel.getRowCount();
+		for(int i=rowCount-1; i>=0 ; i--) {
+			dModel.removeRow(i);
+		}
+		
+		
+		for(int i = 0; i<list.size()-1; i++) {
+			User user = list.get(i);
+			String[] row = {user.getId()+"", user.getName(), user.getPhone(), user.isblock+"" };
+			dModel.addRow(row);
+ 		}
 	}
 }

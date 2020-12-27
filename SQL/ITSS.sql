@@ -1,3 +1,8 @@
+-- update isBlock
+ALTER TABLE USERS ADD isBlock Bit
+ALTER TABLE DonHang ADD total float
+
+
 CREATE DATABASE ITSS
 GO
 

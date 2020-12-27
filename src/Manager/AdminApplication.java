@@ -1,11 +1,15 @@
 package Manager;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Connect.AdminConnect;
 
 import Connect.Connect;
 import Controller.AdminController;
@@ -35,6 +39,8 @@ public class AdminApplication extends JFrame {
 	public AdminController adminController;
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
+	
+	public AdminConnect adminConnect;
 	public PhysicalProductManagement physicalManagement;
 	public Connect connect;
 
@@ -55,6 +61,13 @@ public class AdminApplication extends JFrame {
 		informationAddmin = new InformationAddmin(this);
 		productManagement = new ProductManagement(this);
 		userManagement = new UserManagement(this);
+		adminController = new AdminController(this);
+		try {
+			adminConnect = new AdminConnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		physicalManagement = new PhysicalProductManagement(this);
 		
 		//add(home);

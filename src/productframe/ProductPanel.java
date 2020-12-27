@@ -26,13 +26,16 @@ public class ProductPanel extends JPanel {
 	private final int WIDTH = 250;
 	private final int HEIGHT = 300;
 	
+	public Media media;
+	
 	public ProductPanel(Media media, int x, int y, Application application) {
 		setBackground(Color.WHITE);
 		
+		this.media = media;
 		setBounds(15+x*(WIDTH+15), 15 + y*(HEIGHT+15), WIDTH, HEIGHT);
 		setLayout(null);
 		
-		JLabel imgProduct = new JLabel("img1");
+		JLabel imgProduct = new JLabel(new ImageIcon(media.getImage()));
 		imgProduct.setBackground(Color.WHITE);
 		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		imgProduct.setBounds(10, 10, 230, 220);

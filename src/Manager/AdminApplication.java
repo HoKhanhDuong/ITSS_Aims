@@ -8,9 +8,10 @@ import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import Connect.AdminConnect;
+
+import Connect.Connect;
 import Controller.AdminController;
 import admin.AddBook;
 import admin.AddCD_LP;
@@ -20,34 +21,36 @@ import admin.AddminHome;
 import admin.InformationAddmin;
 import admin.ProductManagement;
 import admin.UserManagement;
-import productframe.Cart;
-import productframe.DetailProduct;
-import productframe.Home;
-import productframe.Product;
-import user.CancelOrder;
-import user.ChangePassword;
-import user.Information;
-import user.OrderHisrory;
-import user.Pay;
 
 public class AdminApplication extends JFrame {
-
+	
+	private int ID;
+	private boolean them;
+	private boolean sua;
+	private int prod_up_de;
+	
 	public AddminHome adminHome;
 	public AddBook addBook;
 	public AddCD_LP addCD_LP;
 	public AddDVD addDVD;
 	public AddProduct addProduct;
 	public InformationAddmin informationAddmin;
+	public AdminController adminController;
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
-	public AdminController adminController;
+	
 	public AdminConnect adminConnect;
+	public Connect connect;
 
 	ArrayList<JPanel> list;
-	public AdminApplication() {
+	public AdminApplication() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		connect = new Connect();
+		
+		adminController = new AdminController(this);
+		
 		adminHome = new AddminHome(this);
 		addBook = new AddBook(this);
 		addCD_LP = new AddCD_LP(this);
@@ -89,5 +92,30 @@ public class AdminApplication extends JFrame {
 		}
 		list.get(list.indexOf(jPanel)).setVisible(true);
 	}
-
+	
+	public boolean isThem() {
+		return them;
+	}
+	public void setThem(boolean them) {
+		this.them = them;
+	}
+	public boolean isSua() {
+		return sua;
+	}
+	public void setSua(boolean sua) {
+		this.sua = sua;
+	}
+	public int getProd_up_de() {
+		return prod_up_de;
+	}
+	public void setProd_up_de(int prod_up_de) {
+		this.prod_up_de = prod_up_de;
+	}
+	
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
 }

@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,25 +23,36 @@ public class ProductPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private final int WIDTH = 240;
+	private final int WIDTH = 250;
 	private final int HEIGHT = 300;
 	
-	public ProductPanel(Media media, int x, Application application) {
+	public ProductPanel(Media media, int x, int y, Application application) {
 		setBackground(Color.WHITE);
 		
-		setBounds(35+x*(WIDTH+15), 35, WIDTH, HEIGHT);
+		setBounds(15+x*(WIDTH+15), 15 + y*(HEIGHT+15), WIDTH, HEIGHT);
 		setLayout(null);
 		
-		JLabel imgProduct = new JLabel(new ImageIcon(media.getImageString()));
+		JLabel imgProduct = new JLabel(new ImageIcon(media.getImage()));
 		imgProduct.setBackground(Color.WHITE);
 		imgProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		imgProduct.setBounds(10, 10, 230, 220);
+		imgProduct.setLayout(null);
+		
+		try {
+			BufferedImage image = ImageIO.read(new File(media.getImage()));
+            ImageIcon icon = new ImageIcon(image.getScaledInstance(240, 220, image.SCALE_SMOOTH));
+            imgProduct.setIcon(icon);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		add(imgProduct);
 		
 		JButton nameProductButton = new JButton(media.getNameString());
 		nameProductButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				application.mediaControl.showMedia(media.getId(), media.getCategoryString());
+				application.mediaControl.showMedia(media.getId(), media.getCategory());
 			}
 		});
 		nameProductButton.setBackground(Color.WHITE);
@@ -58,6 +72,11 @@ public class ProductPanel extends JPanel {
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBounds(141, 269, 99, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.mediaControl.showMedia(media.getId(), media.getCategory());
+			}
+		});
 		add(btnNewButton);
 	}
 

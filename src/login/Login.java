@@ -1,6 +1,7 @@
 package login;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Manager.Application;
+import Manager.AdminApplication;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -19,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+
 import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
@@ -28,7 +32,10 @@ public class Login extends JFrame {
 	private JTextField txtUsername;
 	private Application application;
 	private JPasswordField txtPassword;
+	
+	public AdminApplication adminApp;
 	/**
+	 * 
 	 * Launch the application.
 	 */
 	/**
@@ -40,7 +47,8 @@ public class Login extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_ENTER: {
-					int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
+					int iD = application.userController.Signin(txtUsername.getText().trim(), txtPassword.getText().trim());
+					boolean check = application.connect.checkAdmin(iD);
 					if(iD == -1){
 						JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 					}else {
@@ -52,6 +60,11 @@ public class Login extends JFrame {
 						}else if(iD == -2) {
 							application.setAdmin();
 						}
+						application.setID(iD);
+						setVisible(false);
+						dispose();
+//						application.switchPanel(application.home);
+						
 					}
 				}
 				}
@@ -67,6 +80,7 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
+				boolean check=application.connect.checkAdmin(iD);
 				if(iD == -1){
 					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 				}else {
@@ -79,6 +93,23 @@ public class Login extends JFrame {
 						application.setAdmin();
 						dispose();
 					}
+					
+					application.setID(iD);
+					setVisible(false);
+					dispose();
+//					application.switchPanel(application.home);
+					if(check == true)
+						try {
+							application.deletePanel();
+							adminApp = new AdminApplication();
+							adminApp.setID(iD);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					else
+						application.switchPanel(application.home);
+					
 				}
 			}
 		});

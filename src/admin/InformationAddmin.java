@@ -3,6 +3,9 @@ package admin;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 
 import Manager.AdminApplication;
@@ -11,10 +14,14 @@ import javax.swing.JButton;
 import java.awt.Color;
 
 public class InformationAddmin extends AddminHome {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField currentPass;
+	private JTextField newpass;
+	private JTextField confirmPass;
 
+	private String currentPassStr;
+	private String newPassStr;
+	private String confirmPassStr;
+	
 	AdminApplication adminApplication;
 
 	public InformationAddmin(AdminApplication adminApplication) {
@@ -42,41 +49,55 @@ public class InformationAddmin extends AddminHome {
 		lblNewLabel_1.setBounds(10, 10, 161, 30);
 		panel_2.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setColumns(10);
-		textField.setBounds(181, 10, 429, 30);
-		panel_2.add(textField);
+		currentPass = new JTextField();
+		currentPass.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		currentPass.setColumns(10);
+		currentPass.setBounds(181, 10, 429, 30);
+		panel_2.add(currentPass);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("New Password");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1.setBounds(10, 50, 161, 30);
 		panel_2.add(lblNewLabel_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_1.setColumns(10);
-		textField_1.setBounds(181, 50, 429, 30);
-		panel_2.add(textField_1);
+		newpass = new JTextField();
+		newpass.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		newpass.setColumns(10);
+		newpass.setBounds(181, 50, 429, 30);
+		panel_2.add(newpass);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Confirm password");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1_1.setBounds(10, 90, 161, 30);
 		panel_2.add(lblNewLabel_1_1_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_2.setColumns(10);
-		textField_2.setBounds(181, 90, 429, 30);
-		panel_2.add(textField_2);
+		confirmPass = new JTextField();
+		confirmPass.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		confirmPass.setColumns(10);
+		confirmPass.setBounds(181, 90, 429, 30);
+		panel_2.add(confirmPass);
 		
 		JButton btnNewButton = new JButton("Save Changes");
-		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentPassStr = currentPass.getText();
+				newPassStr = newpass.getText();
+				confirmPassStr = confirmPass.getText();
+				
+				adminApplication.adminController.changePass(adminApplication.getID(), currentPassStr, newPassStr, confirmPassStr); // can truyen idUSer
+			}
+		});
+		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBackground(new Color(51, 51, 204));
 		btnNewButton.setBounds(181, 130, 161, 30);
 		panel_2.add(btnNewButton);
 
+	}
+	public void setNullText() {
+		confirmPass.setText("");
+		currentPass.setText("");
+		newpass.setText("");
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import login.Login;
 import Connect.Connect;
 import Controller.OrderController;
 import Controller.PayController;
@@ -30,8 +31,9 @@ import user.OrderHisrory;
 import user.Pay;
 
 public class Application extends JFrame {
+	
 	private int ID;
-	public AddminHome adminHome;
+	//public AddminHome adminHome;
 	public Home home;
 	public Cart cart;
 	public DetailProduct detailProduct;
@@ -50,7 +52,6 @@ public class Application extends JFrame {
 	public UserController userController;
 	public CartController cartController;
 	public PayController payController;
-
 	ArrayList<MenuProduct> list;
 	public Address address;
   
@@ -78,7 +79,6 @@ public class Application extends JFrame {
 		//adminHome = new AddminHome(this);
 		order = new Order(this);
 		address = new user.Address(this);
-
 		//add(home);
 		mediaControl = new MediaController(this);
 		userController = new UserController(this);
@@ -119,8 +119,25 @@ public class Application extends JFrame {
 		this.ID = iD;
 	}
 	public void setAdmin() {
-		AdminApplication adminApplication = new AdminApplication();
-		adminApplication.setVisible(true);
+		AdminApplication adminApplication;
+		try {
+			adminApplication = new AdminApplication();
+			adminApplication.setVisible(true);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.dispose();
 	}
+	
+	public void deletePanel() {
+		Iterator<MenuProduct> iterator = list.iterator();
+		while(iterator.hasNext()) {
+			iterator.next().setVisible(false);
+		}
+		this.setVisible(false);
+	}
+
+
 }

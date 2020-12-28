@@ -1,5 +1,11 @@
 package Controller;
 
+
+import java.util.ArrayList;
+
+import Manager.AdminApplication;
+import Manager.Application;
+import Object.User;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,6 +15,9 @@ import javax.swing.JOptionPane;
 
 import Manager.AdminApplication;
 import Object.Media;
+
+
+
 
 public class AdminController{
 	
@@ -20,6 +29,20 @@ public class AdminController{
 	private int id_tgia;
 	
 	public Media media;
+	
+	private AdminApplication adminApplication;
+
+	public ArrayList<User> getUsers() {
+		adminApplication.switchPanel(adminApplication.userManagement);
+		adminApplication.userManagement.setUsers(adminApplication.adminConnect.getfullUsers());
+		//return adminApplication.adminConnect.getfullUsers();
+		return null;
+	}
+	
+	public void changeStatusUser(String iDUser, int status) {
+		adminApplication.adminConnect.changeStatusUser(iDUser, status);
+	}
+
 	
 	public AdminController(AdminApplication adminApp) {
 		this.adminApp = adminApp;
@@ -74,13 +97,17 @@ public class AdminController{
 		
 		for (int i = 0; i < validation.length; i++) {
 			if (validation[i].isEmpty()) {
-				errors += "Pháº£i nháº­p vÃ  chá»�n Ä‘á»§ thÃ´ng tin sáº£n pháº©m\n";
+
+				errors += "Ph蘯｣i nh蘯ｭp vﾃ� ch盻肱 ﾄ黛ｻｧ thﾃｴng tin s蘯｣n ph蘯ｩm\n";
+
 				return false;
 			}
 		}
 		
 		if ((!validation[1].matches(number) || !validation[2].matches(number))) {
-			errors += "GiÃ¡ trá»‹ pháº£i nháº­p sá»‘\n";
+
+			errors += "Giﾃ｡ tr盻� ph蘯｣i nh蘯ｭp s盻曾n";
+
 			return false;
 		}
 		

@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 
 public class ProductPaneInCart extends JPanel implements ActionListener {
 	public int id;
-	public JTextField SoLuong;
+	public JLabel SoLuong;
 	public JLabel imageLabel;
 	public JLabel nameLabel;
 	public JLabel priceLabel;
@@ -55,9 +55,8 @@ public class ProductPaneInCart extends JPanel implements ActionListener {
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		add(priceLabel);
 		
-		SoLuong = new JTextField();
+		SoLuong = new JLabel();
 		SoLuong.setBounds(137, 100, 86, 31);
-		SoLuong.setColumns(10);
 		SoLuong.setText(soluong+"");
 		add(SoLuong);
 		this.id = id;

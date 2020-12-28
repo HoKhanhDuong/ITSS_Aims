@@ -9,6 +9,8 @@ import productframe.ProductPaneInCart;
 public class CartController {
 
 	private Application application;
+	ArrayList<ProductPaneInCart> list;
+	
 	public CartController(Application application) {
 		// TODO Auto-generated constructor stub
 		this.application = application;
@@ -41,7 +43,6 @@ public class CartController {
 	}
 	
 	public ArrayList<ProductPaneInCart> getMediaInCart(){
-		ArrayList<ProductPaneInCart> list;
 		list = application.connect.getMediaInCart(application.getID());
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).addApp(application);
@@ -49,4 +50,5 @@ public class CartController {
 		application.cart.setList(list);
 		return list;
 	}
+	
 }

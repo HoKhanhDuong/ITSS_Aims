@@ -7,12 +7,13 @@ public class User {
 	private String address;
 	private String email;
 	private String card_number;
+	public int isblock;
 	
 	private int id;
 	
 	public User(String name, String phone, 
 			String address, String email, 
-			String card_number, int id) {
+			String card_number, int id, int isblock) {
 		// TODO Auto-generated constructor stub
 		
 		this.id = id;
@@ -21,6 +22,7 @@ public class User {
 		this.email = email;
 		this.name = name;
 		this.phone = phone;
+		this.isblock = isblock;
 	}
 
 	public String getName() {
@@ -61,6 +63,14 @@ public class User {
 
 	public void setCard_number(String card_number) {
 		this.card_number = card_number;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

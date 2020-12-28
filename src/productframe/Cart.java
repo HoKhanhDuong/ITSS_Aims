@@ -15,7 +15,6 @@ import Object.Media;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -31,8 +30,8 @@ public class Cart extends MenuProduct {
 	 * Create the panel.
 	 */
 	JPanel panel_3;
+	public List<ProductPaneInCart> listp;
 
-	List<ProductPaneInCart> listp;
 	JLabel moneylabel;
 
 	private List<ProductPaneInCart> list;
@@ -41,7 +40,7 @@ public class Cart extends MenuProduct {
 	JPanel panel_1;
 	JPanel panel_4;
 	JButton orderButton;
-	int total;
+	public int total;
 	
 	public Cart(Application application) {
 		super(application);
@@ -128,6 +127,7 @@ public class Cart extends MenuProduct {
 		orderButton = new JButton("ORDER");
 		orderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.pay.changeAddress(application.payController.getNextAddress());
 				application.switchPanel(application.pay);
 			}
 		});

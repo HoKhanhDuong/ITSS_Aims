@@ -1,7 +1,7 @@
 ﻿USE ITSS
 GO
 -- Book
-INSERT INTO Media
+INSERT INTO Media(Ten,IDLoai,GiaTri,GiaCa,image)
 VALUES ('Cho toi xin mot ve di tuoi tho', 1, 80000,80000,'img/book/1.jpg'),
        ('Nha gia kim', 1, 69000,69000,'img/book/2.jpg'),
 	   ('Co hai con meo ngoi ben cua so', 1, 85000,80000,'img/book/3.jpg'),

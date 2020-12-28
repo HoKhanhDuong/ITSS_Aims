@@ -31,7 +31,7 @@ public class Connect {
 		// TODO Auto-generated constructor stub
 		String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
-	     String database = "ITSS";
+	     String database = "ITSS_DB";
 
 
  	     String userName = "SA";
@@ -374,8 +374,10 @@ public class Connect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		System.out.println(book.getImage());
+
 		return book;
+		
 	}
 	
 	public void setDVD(String name, String thoiLuong, String studio, int Price, int Value, String image) throws SQLException {

@@ -210,7 +210,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		
 		combo_language.setBackground(Color.WHITE);
 		combo_language.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		combo_language.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese", "US"}));
+		combo_language.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese"}));
 		combo_language.setBounds(423, 214, 128, 30);
 		panel_2.add(combo_language);
 		
@@ -226,9 +226,6 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 						break;
 					case "Japanese":
 						id_language = "3";
-						break;
-					case "US":
-						id_language = "4";
 						break;
 					default:
 						break;
@@ -287,7 +284,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		JComboBox comboBox_theloai = new JComboBox();
 		comboBox_theloai.setBackground(Color.WHITE);
 		comboBox_theloai.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"Truyen tranh", "Truyen trinh tham", "Truyen hai", "Truyen phieu luu"}));
+		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"Novel", "Short story", "Life skills", "Economic"}));
 		comboBox_theloai.setBounds(657, 214, 116, 27);
 		panel_2.add(comboBox_theloai);
 		
@@ -295,17 +292,17 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox_theloai.getSelectedItem().toString();
 				switch (value) {
-					case "Truyen tranh":
-						id_theloai = "8";
+					case "Novel":
+						id_theloai = "1";
 						break;
-					case "Truyen trinh tham":
-						id_theloai = "9";
+					case "Short story":
+						id_theloai = "2";
 						break;
-					case "Truyen hai":
-						id_theloai = "10";
+					case "Life skills":
+						id_theloai = "3";
 						break;
-					case "Truyen phieu luu":
-						id_theloai = "11";
+					case "Economic":
+						id_theloai = "4";
 						break;
 					default:
 						break;
@@ -350,8 +347,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		this.validation[0] = nametxt.getText();
 		this.validation[1] = valuetxt.getText();
 		this.validation[2] = pricetxt.getText();
-//		this.validation[3] = "1";
-		this.validation[3] = "8";
+		this.validation[3] = "1";
 		this.validation[4] = image;
 // book
 		this.validation[5] = id_bia;

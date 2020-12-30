@@ -293,7 +293,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valueTXT.getText())*1.1);
+		int value_int = (int) (Float.parseFloat(valueTXT.getText())*1.1);
 		String valueString = String.valueOf(value_int); 
 		priceTXT.setText(valueString);
 	}

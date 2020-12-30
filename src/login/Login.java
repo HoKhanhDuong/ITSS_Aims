@@ -42,26 +42,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login(Application application) {
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_ENTER: {
-					int iD = application.userController.Signin(txtUsername.getText().trim(), txtPassword.getText().trim());
-					boolean check = application.connect.checkAdmin(iD);
-					if(iD == -1){
-						JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
-					}else {
-						application.setID(iD);
-						setVisible(false);
-						dispose();
-//						application.switchPanel(application.home);
-						
-					}
-				}
-				}
-			}
-		});
+		
 		setBounds(500, 250, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,7 +53,7 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
-				boolean check=application.connect.checkAdmin(iD);
+				boolean check = application.connect.checkAdmin(iD);
 				if(iD == -1){
 					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 				}else {

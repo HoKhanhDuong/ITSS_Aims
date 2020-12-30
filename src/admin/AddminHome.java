@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import Manager.AdminApplication;
+import Manager.Application;
 
 import java.awt.Font;
 import java.awt.FlowLayout;
@@ -28,6 +29,7 @@ public class AddminHome extends JPanel {
 	public JPanel panel_3;
 
 	private AdminApplication adminApplication;
+	private Application application;
 	public AddminHome(AdminApplication adminApplication) {
 		this.adminApplication = adminApplication;
 		
@@ -94,17 +96,15 @@ public class AddminHome extends JPanel {
 		mnNewMenu.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		mntmNewMenuItem.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
-		mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
-		mntmNewMenuItem_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mnNewMenu.add(mntmNewMenuItem_2);
+		JMenuItem logout = new JMenuItem("Đăng xuất");
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.setID(0);
+				adminApplication.switchPanel(application.home);
+			}
+		});
+		logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mnNewMenu.add(logout);
 		
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);

@@ -81,8 +81,6 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		
 
 		JButton btnAdd = new JButton("Next");
-
-		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setThem(true);
@@ -90,7 +88,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				
 				setValidation();
 				
-				boolean check = adminApplication.adminController.checkValidate(getValidation());x
+				boolean check = adminApplication.adminController.checkValidate(getValidation());
 				
 				if (check == false) {
 					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),

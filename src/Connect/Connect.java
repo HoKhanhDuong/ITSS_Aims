@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,19 +25,22 @@ public class Connect {
 	private List<Media> listMedia;
 	private Media media;
 	private Statement statement;
+	
+	private DecimalFormat format;
+	
   private final int SIZE = 10000;
   
 	public Connect() throws SQLException {
 		// TODO Auto-generated constructor stub
-		String hostName = "localhost";
+		 String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 
 // 	     String userName = "sa";
 // 	     String password = "123456";
 
-// 	     String userName = "SA";
-// 	     String password = "do@1230.com";
+ 	     String userName = "SA";
+ 	     String password = "do@1230.com";
 
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -895,6 +899,43 @@ public class Connect {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	public String[][] getList_Product_Physical() {
+		int i = 0;
+		format = new DecimalFormat("###,###,###");
+		
+		try {
+			rSet = statement.executeQuery("select Media.IDMedia, Media.Ten, Media.GiaCa, SoLuong, ngay_nhap, Barcode\n"
+					+ "from Media JOIN Physical\n"
+					+ "ON Media.IDMedia = Physical.IDMedia");
+			
+			if (rSet.last()) {
+				String[][] products = new String[rSet.getRow()][6];
+				rSet.beforeFirst();
+				
+				while (rSet.next()) {
+					products[i][0] = ""+ rSet.getInt("IDMedia");
+					products[i][1] = ""+ rSet.getString("Ten");
+					products[i][2] = format.format(rSet.getInt("GiaCa"))+" VND";
+					products[i][3] = ""+ rSet.getInt("SoLuong");
+					products[i][4] = ""+ rSet.getString("ngay_nhap");
+					products[i][5] = ""+ rSet.getString("Barcode");
+					i++;
+				}
+				
+				return products;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return null;
 		}
 		
 		return null;

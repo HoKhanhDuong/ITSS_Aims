@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ProductManagement extends AddminHome {
+	
 	private JTable table;
 	private JTextField textField;
 	AdminApplication adminApplication;
@@ -51,31 +52,18 @@ public class ProductManagement extends AddminHome {
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setRowHeight(table.getRowHeight() + 20);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"123456", "Cho toi xin 1 ve di tuoi tho", "100.000 d", "20"},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
+			adminApplication.connect.getList_Product_Physical()
+			,
 			new String[] {
-				"ID", "Name", "Price", "Quantity"
+				"ID", "Name", "Price", "Quantity", "Input day", "Barcode"
 			}
 		));
-		table.getColumnModel().getColumn(1).setPreferredWidth(329);
-		table.getColumnModel().getColumn(2).setPreferredWidth(197);
-		table.getColumnModel().getColumn(3).setPreferredWidth(52);
+		table.getColumnModel().getColumn(0).setPreferredWidth(60);
+		table.getColumnModel().getColumn(1).setPreferredWidth(230);
+		table.getColumnModel().getColumn(2).setPreferredWidth(95);
+		table.getColumnModel().getColumn(3).setPreferredWidth(55);
+		table.getColumnModel().getColumn(4).setPreferredWidth(90);
+		table.getColumnModel().getColumn(5).setPreferredWidth(120);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblRemoveUser = new JLabel("2.  Remove/Edit Product");
@@ -100,15 +88,20 @@ public class ProductManagement extends AddminHome {
 		panel_2.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnBlockUser = new JButton("Edit Product");
-		btnBlockUser.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnBlockUser.setBounds(172, 50, 190, 30);
-		panel_2.add(btnBlockUser);
+		JButton btnEdit = new JButton("Edit Product");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnEdit.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnEdit.setBounds(172, 50, 190, 30);
+		panel_2.add(btnEdit);
 		
-		JButton btnNewButton_1_1 = new JButton("Remove Product");
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton_1_1.setBounds(392, 50, 177, 30);
-		panel_2.add(btnNewButton_1_1);
+		JButton btnRemove = new JButton("Remove Product");
+		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnRemove.setBounds(392, 50, 177, 30);
+		panel_2.add(btnRemove);
 		
 		JLabel lblAddProduct = new JLabel("3.  Add product");
 		lblAddProduct.setFont(new Font("Tahoma", Font.BOLD, 22));

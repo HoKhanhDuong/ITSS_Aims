@@ -126,7 +126,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_4 = new JButton("USER MANAGEMENT");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.userManagement);
+				
+				 adminApplication.adminController.getUsers();
 			}
 		});
 		btnNewButton_4.setHorizontalAlignment(SwingConstants.LEADING);

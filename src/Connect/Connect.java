@@ -17,6 +17,7 @@ import Object.LD;
 import Object.User;
 import productframe.ProductPaneInCart;
 import Object.Media;
+import Object.OrderObject;
 
 public class Connect {
   
@@ -36,7 +37,8 @@ public class Connect {
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 
-// 	     String userName = "sa";
+
+// 	     String userName = "SA";
 // 	     String password = "123456";
 
  	     String userName = "SA";
@@ -49,7 +51,6 @@ public class Connect {
 	     
 	     statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-	     System.out.println("Connect ok");
 	}
 
 // phần user 
@@ -92,12 +93,12 @@ public class Connect {
 		
 		try {
 			
-			rSet = statement.executeQuery("SELECT Phone, Name, DiaChi, Email, CardNumber, Users.IDUser "
+			rSet = statement.executeQuery("SELECT Phone, Name, DiaChi, Email, CardNumber, Users.IDUser, isBlock "
 					+ "FROM DiaChi JOIN Users ON DiaChi.IDUser = Users.IDUser "
 					+ "WHERE DiaChi.IDUser = "+idUser);
 			if (rSet.next() == true) {
 				user = new User(rSet.getString("Name"), rSet.getString("Phone"), rSet.getString("DiaChi"), 
-						rSet.getString("Email"), rSet.getString("CardNumber"), rSet.getInt("IDUser"));
+						rSet.getString("Email"), rSet.getString("CardNumber"), rSet.getInt("IDUser"), rSet.getInt("isBlock"));
 				
 				return user;
 			}
@@ -179,30 +180,35 @@ public class Connect {
 			statement = conn.createStatement();
 			switch (type) {
 			case 1: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='Book'");
 				break;
 			}
 			case 2: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='CD'");
 				break;
 			}
 			case 3: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='DVD'");
 				break;
 			}
 			case 4:{
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='LP'");
 				break;
 			}
 			default:
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai");
 				break;
@@ -210,12 +216,14 @@ public class Connect {
 			
 			while(rSet.next()) {
 
+
 				media = new Media(rSet.getString("Ten"), 
 						rSet.getInt("GiaCa"), 
 						rSet.getString("TenLoai"), 
 						rSet.getString("image"),
 						rSet.getInt("IDMedia"));
 				listMedia.add(media);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -230,60 +238,70 @@ public class Connect {
 			statement = conn.createStatement();
 			switch (type) {
 			case -1: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='Book' ORDER BY GiaCa ASC");
 				break;
 			}
 			case -2: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='CD' ORDER BY GiaCa ASC");
 				break;
 			}
 			case -3: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='DVD' ORDER BY GiaCa ASC");
 				break;
 			}
 			case -4: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='LP' ORDER BY GiaCa ASC");
 				break;
 			}
 			case 0: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ " ORDER BY GiaCa ASC");
 				break;
 			}
 			case 1: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='Book' ORDER BY GiaCa DESC");
 				break;
 			}
 			case 2: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='CD' ORDER BY GiaCa DESC");
 				break;
 			}
 			case 3: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='DVD' ORDER BY GiaCa DESC");
 				break;
 			}
 			case 4: {
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ "WHERE Loai.TenLoai='LP' ORDER BY GiaCa DESC");
 				break;
 			}
 			default:
+
 				rSet = statement.executeQuery("SELECT * "
 						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
 						+ " ORDER BY GiaCa DESC");
@@ -296,6 +314,7 @@ public class Connect {
 				media.setNameString(rSet.getString("Ten"));
 				media.setPriceFloat(rSet.getInt("GiaCa"));
 				media.setId(rSet.getInt("IDMedia"));
+
 				media.setImage(rSet.getString("image"));
 				listMedia.add(media);
 			}
@@ -307,7 +326,15 @@ public class Connect {
 		}
 		return listMedia;
 	}
-	
+	public void setBook(String name, String NgayXB, String NhaXB, int soTrang, int Price, int Value, String image) throws SQLException {
+		Book book = new Book();
+		rSet = statement.executeQuery("SELECT IDLoai "
+				+ "FROM Loai WHERE TenLoai = 'Book'");
+		int idLoai=rSet.getInt("IDLoai");
+		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
+		
+		
+	}
 	public Book getBook(int id) {
 		Book book = new Book();
 		try {
@@ -351,7 +378,20 @@ public class Connect {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(book.getImage());
+
 		return book;
+		
+	}
+	
+	public void setDVD(String name, String thoiLuong, String studio, int Price, int Value, String image) throws SQLException {
+		DVD DVD = new DVD();
+		rSet = statement.executeQuery("SELECT IDLoai "
+				+ "FROM Loai WHERE TenLoai = 'DVD'");
+		int idLoai=rSet.getInt("IDLoai");
+		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
+		
+		
 	}
 	
 	public CD getCd(int id) {
@@ -506,7 +546,16 @@ public class Connect {
 		try {
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT * FROM Users Where Email = '"+username+"' AND Pass = '"+password +"'");
-			if(rSet.next()) return rSet.getInt("IDUser");
+			if(rSet.next()) {
+				Boolean boolean1 = rSet.getBoolean("isAdmin");
+				System.out.println(!rSet.getBoolean("isAdmin"));
+				
+				if(rSet.getBoolean("isAdmin") == false) {
+					System.out.println(boolean1);
+					return rSet.getInt("IDUser");
+				}
+				else return -2;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -631,7 +680,7 @@ public class Connect {
 			String diachiString = address.getAddress() + "<>" + address.getDistrict() + "<>" +address.getCity();
 			statement = conn.createStatement();
 			statement.executeUpdate("INSERT INTO DiaChi VALUES ("+address.getIDUser()+",'"+address.getPhone()
-									+"','"+address.getName()+"','"+diachiString+"')");
+									+"','"+address.getName()+"','"+diachiString+"',0)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -705,7 +754,7 @@ public class Connect {
 					+ "VALUES ('"+name+"', "+loai+", "+value_p+", "
 					+price_p+", '"+image+"', '"+date+"')");
 			
-			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '"+name+"'");
 			if (rSet.next()) return rSet.getInt("IDMedia");
 			
 		} catch (SQLException e) {
@@ -730,7 +779,7 @@ public class Connect {
 					+ "ngay_nhap = '"+date+"'\n"
 					+ "WHERE Ten = '"+name+"'");
 			
-			statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten = '"+name+"'");
 			
 			if (rSet.next()) {
 				return rSet.getInt("IDMedia");
@@ -777,10 +826,42 @@ public class Connect {
 		return true;
 	}
 	
+	public boolean insertDVD(
+			int id_media, int id_dia, 
+			int thoiLuong, String studio, 
+			String phuDe, int id_nn, int id_theloai) {
+		
+		try {
+			rSet = statement.executeQuery("SELECT * FROM DVD WHERE IDMedia = "+id_media);
+			
+			if (rSet.next() == false) {
+				statement.executeUpdate("INSERT INTO DVD\n"
+						+ "VALUES("+id_media+", "+id_theloai+", "+thoiLuong+","
+						+ "'"+studio+"', "+id_nn+", '"+phuDe+"', "+id_dia+")");
+			} else {
+				statement.executeUpdate("UPDATE DVD \n"
+						+ "SET IDDia="+id_dia+",\n"
+						+ "ThoiLuong = '"+thoiLuong+"', \n"
+						+ "Studio = '"+studio+"'\n"
+						+ "PhuDe = "+phuDe+",\n"
+						+ "IDNN = "+id_nn+",\n"
+						+ "IDTheLoai = "+id_theloai+"\n"
+						+ "WHERE IDMedia = "+id_media);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public boolean add_CD_LP(String name, String record, int id_tloai, String type) {
 		int id_media;
 		try {
-			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '%"+name+"%'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten = '"+name+"'");
 			
 			if (rSet.next()) {
 				id_media = rSet.getInt("IDMedia");
@@ -885,7 +966,7 @@ public class Connect {
 		Media media = new Media();
 		try {
 			rSet = statement.executeQuery("SELECT * FROM Media \n"
-					+ "WHERE Ten LIKE '%"+name+"%'");
+					+ "WHERE Ten = '"+name+"'");
 			
 			if (rSet.next()) {
 				media.setId(rSet.getInt("IDMedia"));
@@ -903,7 +984,6 @@ public class Connect {
 		
 		return null;
 	}
-	
 	
 	public String[][] getList_Product_Physical() {
 		int i = 0;
@@ -940,6 +1020,38 @@ public class Connect {
 		
 		return null;
 	}
-	
+
+	public float getKg(int IDUser) {
+		float kg = 0;
+		try {
+			rSet = statement.executeQuery("SELECT MAX(KhoiLuong) AS KhoiLuong FROM Physical "
+					+" JOIN Cart ON Cart.IDMedia = Physical.IDMedia "
+					+" WHERE Cart.IDUser = "+IDUser);
+			rSet.next();
+			kg = rSet.getFloat("KhoiLuong");
+			return kg;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return kg;
+	}
+	public void saveOrder(OrderObject order, int IDUser, List<ProductPaneInCart> list) {
+		try {
+			statement.executeUpdate("INSERT INTO DonHang VALUES("+IDUser+","+order.address.getID()+",'Cho','',"+order.total+")");
+			rSet = statement.executeQuery("SELECT MAX(IDDonHang) AS IDDonHang FROM DonHang GROUP BY (IDDonHang)");
+			rSet.next();
+			int iddh = rSet.getInt("IDDonHang");
+			for(int i=0; i< list.size() -1; i++) {
+				statement.executeUpdate("INSERT INTO ThongTinDonHang VALUES ("+iddh+","+list.get(i).id+","+Integer.parseInt(list.get(i).SoLuong.getText())+","+Integer.parseInt(list.get(i).priceLabel.getText())+")");
+			}
+			
+			statement.executeUpdate("DELETE FROM Cart WHERE IDUser = "+IDUser);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

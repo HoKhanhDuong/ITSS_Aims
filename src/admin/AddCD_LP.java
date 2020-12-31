@@ -159,7 +159,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 				
 				adminApplication.setSua(true);
 				
-				adminApplication.switchPanel(adminApplication.productManagement);
+				adminApplication.switchPanel(adminApplication.physicalManagement);
 				
 			}
 		});
@@ -181,24 +181,59 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		panel_2.add(cancelButton);
 		
 		JComboBox comboBox = new JComboBox();
+//		comboBox.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String value = comboBox.getSelectedItem().toString();
+//				if (value.equals("Techno")) {
+//					id_theloai = 7;
+//				} else if (value.equals("Pop")) {
+//					id_theloai = 8;
+//				} else if (value.equals("Folk")) {
+//					id_theloai = 9;
+//				}
+//			}
+//		});
+		comboBox.setBackground(Color.WHITE);
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Techno", "Pop", "Folk","R&B","Ballad","V-pop","Pre-war","Lyrical","Children Music"}));
+		comboBox.setBounds(550, 156, 128, 30);
+		panel_2.add(comboBox);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox.getSelectedItem().toString();
-				if (value.equals("C-POP")) {
-					id_theloai = 1;
-				} else if (value.equals("K-POP")) {
-					id_theloai = 2;
-				} else if (value.equals("US-UK")) {
-					id_theloai = 3;
+				switch (value) {
+					case "Techno":
+						id_theloai = 7;
+						break;
+					case "Pop":
+						id_theloai = 8;
+						break;
+					case "Folk":
+						id_theloai = 9;
+						break;
+					case "R&B":
+						id_theloai = 10;
+						break;
+					case "Ballad":
+						id_theloai = 11;
+						break;
+					case "V-pop":
+						id_theloai = 12;
+						break;
+					case "Pre-war":
+						id_theloai = 13;
+						break;
+					case "Lyrical":
+						id_theloai = 14;
+						break;
+					case "Children Music":
+						id_theloai = 15;
+						break;
+					default:
+						break;
 				}
 			}
 		});
-		comboBox.setBackground(Color.WHITE);
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
-		comboBox.setBounds(550, 156, 128, 30);
-		panel_2.add(comboBox);
-		
 		JLabel lblImage = new JLabel("Image");
 		lblImage.setBounds(6, 41, 61, 16);
 		panel_2.add(lblImage);

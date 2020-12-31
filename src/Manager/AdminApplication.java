@@ -1,11 +1,15 @@
 package Manager;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Connect.AdminConnect;
 
 import Connect.Connect;
 import Controller.AdminController;
@@ -15,6 +19,7 @@ import admin.AddDVD;
 import admin.AddProduct;
 import admin.AddminHome;
 import admin.InformationAddmin;
+import admin.PhysicalProductManagement;
 import admin.ProductManagement;
 import admin.UserManagement;
 
@@ -34,6 +39,9 @@ public class AdminApplication extends JFrame {
 	public AdminController adminController;
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
+	
+	public AdminConnect adminConnect;
+	public PhysicalProductManagement physicalManagement;
 	public Connect connect;
 
 	ArrayList<JPanel> list;
@@ -53,6 +61,14 @@ public class AdminApplication extends JFrame {
 		informationAddmin = new InformationAddmin(this);
 		productManagement = new ProductManagement(this);
 		userManagement = new UserManagement(this);
+		adminController = new AdminController(this);
+		try {
+			adminConnect = new AdminConnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		physicalManagement = new PhysicalProductManagement(this);
 		
 		//add(home);
 		list = new ArrayList<JPanel>();
@@ -64,6 +80,7 @@ public class AdminApplication extends JFrame {
 		list.add(informationAddmin);
 		list.add(productManagement);
 		list.add(userManagement);
+		list.add(physicalManagement);
 
 		Iterator<JPanel> iterator = list.iterator();
 		while(iterator.hasNext()) {

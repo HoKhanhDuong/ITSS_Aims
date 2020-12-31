@@ -1,7 +1,10 @@
 package admin;
 
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -10,6 +13,7 @@ import javax.swing.event.DocumentListener;
 
 import Manager.AdminApplication;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,11 +22,9 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AddDVD extends AddProduct implements DocumentListener {
+public class AddDVD extends AddProduct implements DocumentListener, ActionListener {
 	private JTextField nametxt;
-	private JTextField disktypetxt;
 	private JTextField directortxt;
-	private JTextField textField_3;
 	private JTextField runtimetxt;
 	private JTextField studiotxt;
 	private JTextField subtitletxt;
@@ -30,10 +32,18 @@ public class AddDVD extends AddProduct implements DocumentListener {
 	private JTextField valuetxt;
 	private JTextField pricetxt;
 
-
+	private String[] validation;
+	private String image;
+	private String id_theloai = "";
+	private String id_language = "";
+	private String id_dia = "";
+	
 	public AddDVD(AdminApplication adminApplication) {
 		
 		super(adminApplication);
+		
+		validation = new String[12];
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBounds(10, 120, 830, 369);
@@ -62,12 +72,62 @@ public class AddDVD extends AddProduct implements DocumentListener {
 		nametxt.setBounds(99, 10, 324, 30);
 		panel_2.add(nametxt);
 		
-		JLabel lblNewLabel_2 = new JLabel("Disk Type");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(446, 50, 93, 30);
-		panel_2.add(lblNewLabel_2);
+		JLabel dialbl = new JLabel("Disk type");
+		dialbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		dialbl.setBounds(446, 49, 110, 30);
+		panel_2.add(dialbl);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Blu-ray");
+		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnNewRadioButton.setBackground(Color.WHITE);
+		rdbtnNewRadioButton.setBounds(545, 49, 118, 30);
+		panel_2.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnHardcover = new JRadioButton("HD-DVD");
+		rdbtnHardcover.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnHardcover.setBackground(Color.WHITE);
+		rdbtnHardcover.setBounds(673, 49, 118, 30);
+		panel_2.add(rdbtnHardcover);
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnHardcover);
+		
+		rdbtnNewRadioButton.addActionListener(this);
+		rdbtnHardcover.addActionListener(this);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.setThem(true);
+				adminApplication.setSua(false);
+				
+				setValidation();
+				
+				boolean check = adminApplication.adminController.checkValidate(getValidation());
+				
+				if (check == false) {
+					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+							"Add Product", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				boolean check_media = adminApplication.adminController.createMedia(getValidation());
+				boolean check_insert = adminApplication.adminController.create_DVD(getValidation());
+				boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+				
+				if (!check_media || !check_artists || !check_insert) {
+					JOptionPane.showMessageDialog(null, "Them khong thanh cong",
+							"Add Product", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				adminApplication.setSua(true);
+				
+				adminApplication.switchPanel(adminApplication.physicalManagement);
+				
+			}
+		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAdd.setBounds(676, 277, 124, 30);
 		panel_2.add(btnAdd);
@@ -76,13 +136,6 @@ public class AddDVD extends AddProduct implements DocumentListener {
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1.setBounds(10, 50, 79, 30);
 		panel_2.add(lblNewLabel_2_1);
-		
-		disktypetxt = new JTextField();
-		disktypetxt.setForeground(Color.LIGHT_GRAY);
-		disktypetxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		disktypetxt.setColumns(10);
-		disktypetxt.setBounds(546, 50, 254, 30);
-		panel_2.add(disktypetxt);
 		
 		JLabel lblNewLabel_2_1_1 = new JLabel("Runtime");
 		lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -98,21 +151,8 @@ public class AddDVD extends AddProduct implements DocumentListener {
 		
 		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("The loai");
 		lblNewLabel_2_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1_1_1_1.setBounds(10, 212, 79, 30);
+		lblNewLabel_2_1_1_1_1.setBounds(10, 172, 79, 30);
 		panel_2.add(lblNewLabel_2_1_1_1_1);
-		
-		textField_3 = new JTextField();
-		textField_3.setText("pages");
-		textField_3.setForeground(Color.LIGHT_GRAY);
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_3.setColumns(10);
-		textField_3.setBounds(99, 130, 324, 30);
-		panel_2.add(textField_3);
-		
-		JLabel lblNewLabel_2_1_1_1_2 = new JLabel("Ngay Ph");
-		lblNewLabel_2_1_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1_1_1_2.setBounds(10, 130, 79, 30);
-		panel_2.add(lblNewLabel_2_1_1_1_2);
 		
 		JButton cancelbtn = new JButton("Cancel");
 		cancelbtn.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -140,7 +180,7 @@ public class AddDVD extends AddProduct implements DocumentListener {
 		
 		JLabel lblNewLabel_2_1_1_1_3 = new JLabel("Language");
 		lblNewLabel_2_1_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1_1_1_3.setBounds(10, 170, 79, 30);
+		lblNewLabel_2_1_1_1_3.setBounds(10, 130, 79, 30);
 		panel_2.add(lblNewLabel_2_1_1_1_3);
 		
 		subtitletxt = new JTextField();
@@ -161,8 +201,8 @@ public class AddDVD extends AddProduct implements DocumentListener {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showOpenDialog(null);
 				String string = fileChooser.getSelectedFile().toString();
-				string = string.substring(string.indexOf("img"));
-//				validation[4] = string;
+				image = string.substring(string.indexOf("img"));
+				
 			}
 		});
 		imgButton.setBounds(546, 13, 117, 29);
@@ -175,15 +215,48 @@ public class AddDVD extends AddProduct implements DocumentListener {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
-		comboBox.setBounds(99, 174, 198, 27);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese"}));
+		comboBox.setBounds(99, 134, 198, 27);
 		panel_2.add(comboBox);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String value = comboBox.getSelectedItem().toString();
+				switch (value) {
+				case "Vietnamese":
+					id_language = "1";
+					break;
+				case "English":
+					id_language = "2";
+					break;
+				case "Japanese":
+					id_language = "3";
+					break;
+				default:
+					break;
+				}
+			}
+		});
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
-		comboBox_1.setBounds(99, 216, 198, 27);
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Phim le", "Phim bo"}));
+		comboBox_1.setBounds(99, 176, 198, 27);
 		panel_2.add(comboBox_1);
+		comboBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String value = comboBox_1.getSelectedItem().toString();
+				switch (value) {
+					case "Phim le":
+						id_theloai = "12";
+						break;
+					case "Phim bo":
+						id_theloai = "13";
+						break;
+					default:
+						break;
+				}
+			}
+		});
 		
 		JLabel lblNewLabel_2_1_1_1_4_1 = new JLabel("Value");
 		lblNewLabel_2_1_1_1_4_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -214,7 +287,38 @@ public class AddDVD extends AddProduct implements DocumentListener {
 
 	}
 
-
+	public String[] getValidation() {
+		return validation;
+	}
+	
+	public void setValidation() {
+		// media
+				this.validation[0] = nametxt.getText();
+				this.validation[1] = valuetxt.getText();
+				this.validation[2] = pricetxt.getText();
+				this.validation[3] = "2";
+				this.validation[4] = image;
+		// book
+				this.validation[5] = id_dia;
+				this.validation[6] = runtimetxt.getText();
+				this.validation[7] = studiotxt.getText();
+				this.validation[8] = id_language;
+				this.validation[9] = id_theloai;
+				this.validation[10] = subtitletxt.getText();
+		// sang gia
+				this.validation[11] = directortxt.getText();
+			}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		if ("Blu-ray".equals(e.getActionCommand())) {
+			this.id_dia = "1";
+		} else {
+			this.id_dia = "2";
+		}
+		
+	}
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub

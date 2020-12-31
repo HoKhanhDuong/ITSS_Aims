@@ -1,7 +1,7 @@
 ﻿USE ITSS
 GO
 -- Book
-INSERT INTO Media
+INSERT INTO Media(Ten,IDLoai,GiaTri,GiaCa,image)
 VALUES ('Cho toi xin mot ve di tuoi tho', 1, 80000,80000,'img/book/1.jpg'),
        ('Nha gia kim', 1, 69000,69000,'img/book/2.jpg'),
 	   ('Co hai con meo ngoi ben cua so', 1, 85000,80000,'img/book/3.jpg'),
@@ -63,7 +63,10 @@ VALUES ('Loi cua giong song', 4, 75000,80000,'img/LP/1.jpg'),
        ('Le Cat Trong Ly viny', 4, 75000,80000,'img/LP/10.jpg')
 
 
-
+-- Loai dia
+INSERT INTO LoaiDia
+VALUES('Blu-ray'),
+		('HD-DVD');
 
 
 

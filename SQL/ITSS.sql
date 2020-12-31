@@ -1,3 +1,8 @@
+-- update isBlock
+ALTER TABLE USERS ADD isBlock Bit
+ALTER TABLE DonHang ADD total float
+
+
 CREATE DATABASE ITSS
 GO
 
@@ -70,6 +75,11 @@ CREATE TABLE DVD(
 	FOREIGN KEY (IDTheLoai) REFERENCES TheLoai(IDTheLoai),
 	FOREIGN KEY (IDNN) REFERENCES NgonNgu(IDNN),
 	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
+)
+
+CREATE TABLE LoaiDia(
+	IDDia INT IDENTITY(1,1) PRIMARY KEY,
+	LoaiDia VARCHAR(30)
 )
 
 CREATE TABLE BaiHat(
@@ -215,7 +225,7 @@ CREATE TABLE MediaSale (
 	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
 )
 
-INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','123456',1)
+INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','12345678',1)
 
 ALTER TABLE Media ADD image VARCHAR(225)
 

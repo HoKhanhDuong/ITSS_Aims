@@ -42,7 +42,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login(Application application) {
-		
+
 		setBounds(500, 250, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,6 +57,15 @@ public class Login extends JFrame {
 				if(iD == -1){
 					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 				}else {
+					if(iD > 0) {
+						application.setID(iD);
+						setVisible(false);
+						dispose();
+						application.switchPanel(application.home);
+					}else if(iD == -2) {
+						application.setAdmin();
+						dispose();
+					}
 					
 					application.setID(iD);
 					setVisible(false);

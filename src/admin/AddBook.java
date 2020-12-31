@@ -81,6 +81,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		
 
 		JButton btnAdd = new JButton("Next");
+
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setThem(true);
@@ -108,7 +109,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				
 				adminApplication.setSua(true);
 				
-				adminApplication.switchPanel(adminApplication.productManagement);
+				adminApplication.switchPanel(adminApplication.physicalManagement);
 				
 			}
 		});
@@ -209,7 +210,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		
 		combo_language.setBackground(Color.WHITE);
 		combo_language.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		combo_language.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
+		combo_language.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese"}));
 		combo_language.setBounds(423, 214, 128, 30);
 		panel_2.add(combo_language);
 		
@@ -217,8 +218,14 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 			public void actionPerformed(ActionEvent e) {
 				String value = combo_language.getSelectedItem().toString();
 				switch (value) {
-					case "":
+					case "Vietnamese":
 						id_language = "1";
+						break;
+					case "English":
+						id_language = "2";
+						break;
+					case "Japanese":
+						id_language = "3";
 						break;
 					default:
 						break;
@@ -277,7 +284,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		JComboBox comboBox_theloai = new JComboBox();
 		comboBox_theloai.setBackground(Color.WHITE);
 		comboBox_theloai.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"C-POP", "K-POP", "US-UK"}));
+		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"Novel", "Short story", "Life skills", "Economic"}));
 		comboBox_theloai.setBounds(657, 214, 116, 27);
 		panel_2.add(comboBox_theloai);
 		
@@ -285,8 +292,17 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox_theloai.getSelectedItem().toString();
 				switch (value) {
-					case "":
+					case "Novel":
 						id_theloai = "1";
+						break;
+					case "Short story":
+						id_theloai = "2";
+						break;
+					case "Life skills":
+						id_theloai = "3";
+						break;
+					case "Economic":
+						id_theloai = "4";
 						break;
 					default:
 						break;
@@ -299,17 +315,21 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		pricetxt.setText(valueString);
+		if (valuetxt.getText() != "") {
+			int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			pricetxt.setText(valueString);
+		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		pricetxt.setText(valueString);
+		if (valuetxt.getText() != "") {
+			int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			pricetxt.setText(valueString);
+		}
 	}
 
 	@Override
@@ -327,7 +347,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		this.validation[0] = nametxt.getText();
 		this.validation[1] = valuetxt.getText();
 		this.validation[2] = pricetxt.getText();
-		this.validation[3] = valuetxt.getText();
+		this.validation[3] = "1";
 		this.validation[4] = image;
 // book
 		this.validation[5] = id_bia;
@@ -344,7 +364,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		if ("CD".equals(e.getActionCommand())) {
+		if ("Paperback".equals(e.getActionCommand())) {
 			this.id_bia = "1";
 		} else {
 			this.id_bia = "2";

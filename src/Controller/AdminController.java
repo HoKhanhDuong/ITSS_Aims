@@ -35,7 +35,7 @@ public class AdminController{
 	public ArrayList<User> getUsers() {
 		adminApplication.switchPanel(adminApplication.userManagement);
 		adminApplication.userManagement.setUsers(adminApplication.adminConnect.getfullUsers());
-		//return adminApplication.adminConnect.getfullUsers();
+		
 		return null;
 	}
 	

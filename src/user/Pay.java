@@ -52,8 +52,8 @@ public class Pay extends MenuProduct {
     
         setLayout(null);
         JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setSize(800, 430);
-        scrollPane.setLocation(100, 100);
+        scrollPane.setSize(842, 500);
+        scrollPane.setLocation(125, 76);
         scrollPane.setPreferredSize(new Dimension(800, 500));
         add(scrollPane);
         
@@ -76,7 +76,7 @@ public class Pay extends MenuProduct {
         
         JLabel lblNewLabel_2 = new JLabel("Choose the shipping address available below:");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lblNewLabel_2.setBounds(10, 62, 860, 23);
+        lblNewLabel_2.setBounds(10, 62, 761, 23);
         panel_2.add(lblNewLabel_2);
         
         JPanel panel_3 = new JPanel();

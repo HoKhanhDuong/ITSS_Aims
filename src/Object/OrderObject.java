@@ -10,7 +10,7 @@ public class OrderObject {
 		this.address = address;
 		this.price = price;
 		this.ship = ship;
-		this.total = price + ship;
+		this.total = (float) (price*1.1 + ship);
 	}
 	
 }

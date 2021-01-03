@@ -120,7 +120,7 @@ public class Application extends JFrame {
 	public void setID(int iD) {
 		this.ID = iD;
 	}
-	public void setAdmin() {
+	public void setAdmin(int ID) {
 		AdminApplication adminApplication;
 		try {
 			adminApplication = new AdminApplication();

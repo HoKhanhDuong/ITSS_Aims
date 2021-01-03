@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import Manager.AdminApplication;
+import Manager.Application;
 
 import java.awt.Font;
 import java.awt.FlowLayout;
@@ -28,6 +29,7 @@ public class AddminHome extends JPanel {
 	public JPanel panel_3;
 
 	private AdminApplication adminApplication;
+
 	public AddminHome(AdminApplication adminApplication) {
 		this.adminApplication = adminApplication;
 		
@@ -73,7 +75,8 @@ public class AddminHome extends JPanel {
 		JButton addminHome = new JButton("HOME");
 		addminHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  adminApplication.switchPanel(adminApplication.informationAddmin);
+				adminApplication.setID(-1);
+				adminApplication.switchPanel(adminApplication.informationAddmin);
 			}
 		});
 		addminHome.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -94,17 +97,15 @@ public class AddminHome extends JPanel {
 		mnNewMenu.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		mntmNewMenuItem.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mnNewMenu.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
-		mntmNewMenuItem_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mnNewMenu.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New menu item");
-		mntmNewMenuItem_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mnNewMenu.add(mntmNewMenuItem_2);
+		JMenuItem logout = new JMenuItem("Đăng xuất");
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.setID(0);
+				adminApplication.setUser();
+			}
+		});
+		logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mnNewMenu.add(logout);
 		
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
@@ -115,7 +116,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_3 = new JButton("ADMIN");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.informationAddmin);
+				adminApplication.setID(-1);
+				adminApplication.switchPanel(adminApplication.informationAddmin);
 			}
 		});
 		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEADING);
@@ -126,8 +128,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_4 = new JButton("USER MANAGEMENT");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				 adminApplication.adminController.getUsers();
+				adminApplication.setID(-1);
+				adminApplication.adminController.getUsers();
 			}
 		});
 		btnNewButton_4.setHorizontalAlignment(SwingConstants.LEADING);
@@ -138,7 +140,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_5 = new JButton("PRODUCT MANAGEMENT");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.productManagement);
+				adminApplication.setID(-1);
+				adminApplication.switchPanel(adminApplication.productManagement);
 			}
 		});
 		btnNewButton_5.setHorizontalAlignment(SwingConstants.LEADING);

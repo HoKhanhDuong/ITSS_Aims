@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,20 +26,23 @@ public class Connect {
 	private List<Media> listMedia;
 	private Media media;
 	private Statement statement;
+	
+	private DecimalFormat format;
+	
   private final int SIZE = 10000;
   
 	public Connect() throws SQLException {
 		// TODO Auto-generated constructor stub
-		String hostName = "localhost";
+		 String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 
 
- 	     String userName = "SA";
- 	     String password = "123456";
-
 // 	     String userName = "SA";
-// 	     String password = "do@1230.com";
+// 	     String password = "123456";
+
+ 	     String userName = "SA";
+ 	     String password = "do@1230.com";
 
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -326,7 +330,7 @@ public class Connect {
 		Book book = new Book();
 		rSet = statement.executeQuery("SELECT IDLoai "
 				+ "FROM Loai WHERE TenLoai = 'Book'");
-		int idLoai=rSet.getInt("IDLoai");
+		int idLoai = rSet.getInt("IDLoai");
 		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
 		
 		
@@ -384,7 +388,7 @@ public class Connect {
 		DVD DVD = new DVD();
 		rSet = statement.executeQuery("SELECT IDLoai "
 				+ "FROM Loai WHERE TenLoai = 'DVD'");
-		int idLoai=rSet.getInt("IDLoai");
+		int idLoai = rSet.getInt("IDLoai");
 		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
 		
 		
@@ -539,18 +543,13 @@ public class Connect {
 	}
 	
 	public int getUserId(String username, String password) {
+		
 		try {
-			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT * FROM Users Where Email = '"+username+"' AND Pass = '"+password +"'");
 			if(rSet.next()) {
-				Boolean boolean1 = rSet.getBoolean("isAdmin");
-				System.out.println(!rSet.getBoolean("isAdmin"));
-				
 				if(rSet.getBoolean("isAdmin") == false) {
-					System.out.println(boolean1);
 					return rSet.getInt("IDUser");
-				}
-				else return -2;
+				} else return -2;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -750,7 +749,7 @@ public class Connect {
 					+ "VALUES ('"+name+"', "+loai+", "+value_p+", "
 					+price_p+", '"+image+"', '"+date+"')");
 			
-			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '"+name+"'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten = '"+name+"'");
 			if (rSet.next()) return rSet.getInt("IDMedia");
 			
 		} catch (SQLException e) {
@@ -890,7 +889,7 @@ public class Connect {
 				statement.executeUpdate("INSERT INTO TacGia \n"
 						+ "VALUES ('"+tacgia+"')");
 				
-				rSet = statement.executeQuery("SELECT IDTacGia FROM TacGia WHERE Ten LIKE'%"+tacgia+"%'");
+				rSet = statement.executeQuery("SELECT IDTacGia FROM TacGia WHERE Ten = '"+tacgia+"'");
 				
 				if (rSet.next()) {
 					return rSet.getInt("IDTacGia");
@@ -980,6 +979,42 @@ public class Connect {
 		
 		return null;
 	}
+	
+	public String[][] getList_Product_Physical() {
+		int i = 0;
+		format = new DecimalFormat("###,###,###");
+		
+		try {
+			rSet = statement.executeQuery("select Media.IDMedia, Media.Ten, Media.GiaCa, SoLuong, NgayNhapKho, Barcode\n"
+					+ "from Media JOIN Physical\n"
+					+ "ON Media.IDMedia = Physical.IDMedia");
+			
+			if (rSet.last()) {
+				String[][] products = new String[rSet.getRow()][6];
+				rSet.beforeFirst();
+				
+				while (rSet.next()) {
+					products[i][0] = ""+ rSet.getInt("IDMedia");
+					products[i][1] = ""+ rSet.getString("Ten");
+					products[i][2] = format.format(rSet.getInt("GiaCa"))+" VND";
+					products[i][3] = ""+ rSet.getInt("SoLuong");
+					products[i][4] = ""+ rSet.getString("NgayNhapKho");
+					products[i][5] = ""+ rSet.getString("Barcode");
+					i++;
+				}
+				
+				return products;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return null;
+		}
+		
+		return null;
+	}
 
 	public float getKg(int IDUser) {
 		float kg = 0;
@@ -1014,5 +1049,5 @@ public class Connect {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

@@ -148,6 +148,12 @@ public class AddminHome extends JPanel {
 		btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_5.setBounds(10, 90, 230, 30);
 		panel_3.add(btnNewButton_5);
+		
+		JButton btnNewButton_5_1 = new JButton("PROMOTIONS");
+		btnNewButton_5_1.setHorizontalAlignment(SwingConstants.LEADING);
+		btnNewButton_5_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton_5_1.setBounds(10, 130, 230, 30);
+		panel_3.add(btnNewButton_5_1);
 
 	}
 	 

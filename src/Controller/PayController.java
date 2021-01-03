@@ -57,6 +57,7 @@ public class PayController {
 			i=0;
 		}
 		if(i > list.size() - 1) i = 0;
+
 		address = list.get(i);
 		return list.get(i++);
 	}
@@ -76,29 +77,31 @@ public class PayController {
 					break;
 				}
 			}
-		}else {
-			if(address.getCity().equalsIgnoreCase("Ho Chi Minh")) {
+		}else if(address.getCity().equalsIgnoreCase("Ho Chi Minh")) {
+			
 				for(int i=0; i<hochiminh.length-1; i++) {
 					if(hochiminh[i].equalsIgnoreCase(address.getDistrict())) {
 						ship = 22000;
 						break;
 					}
 				}
-			} else ship = 30000;
-		}
+			
+		}else ship = 30000;
 		if(ship == 22000) {
 			kg = kg - 3;
 		}else {
 			kg = (float) (kg - 0.5);
 		}
-		kg = Math.round(kg);
-		ship += kg*2.5;
+		kg = Math.round(kg*2);
+		ship += kg*2500;
 		
 		return ship;
 	}
 	
 	public void makeOrder() {
-		order = new OrderObject(address, application.cart.total, shipMoney());
+		if(application.cart.total < 100000)
+			order = new OrderObject(address, application.cart.total, shipMoney());
+		else order = new OrderObject(address, application.cart.total, 0);
 		application.order.setValue(order);
 		application.switchPanel(application.order);
 	}

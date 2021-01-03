@@ -39,9 +39,9 @@ public class AdminApplication extends JFrame {
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
 	
-	public AdminConnect adminConnect;
 	public PhysicalProductManagement physicalManagement;
 	public Connect connect;
+	public AdminConnect adminConnect;
 
 	ArrayList<JPanel> list;
 	public AdminApplication() throws SQLException {

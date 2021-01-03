@@ -1034,11 +1034,12 @@ public class Connect {
 	public void saveOrder(OrderObject order, int IDUser, List<ProductPaneInCart> list) {
 		try {
 			statement.executeUpdate("INSERT INTO DonHang VALUES("+IDUser+","+order.address.getID()+",'Cho','',"+order.total+")");
-			rSet = statement.executeQuery("SELECT MAX(IDDonHang) AS IDDonHang FROM DonHang GROUP BY (IDDonHang)");
+			rSet = statement.executeQuery("SELECT MAX(IDDonHang) AS IDDonHang FROM DonHang");
 			rSet.next();
 			int iddh = rSet.getInt("IDDonHang");
-			for(int i=0; i< list.size() -1; i++) {
-				statement.executeUpdate("INSERT INTO ThongTinDonHang VALUES ("+iddh+","+list.get(i).id+","+Integer.parseInt(list.get(i).SoLuong.getText())+","+Integer.parseInt(list.get(i).priceLabel.getText())+")");
+			for(int i=0; i<= list.size() -1; i++) {
+				statement.executeUpdate("INSERT INTO ThongTinDonHang VALUES ("+iddh+","+list.get(i).id+","
+				   +Integer.parseInt(list.get(i).SoLuong.getText())+","+Integer.parseInt(list.get(i).priceLabel.getText())+")");
 			}
 			
 			statement.executeUpdate("DELETE FROM Cart WHERE IDUser = "+IDUser);

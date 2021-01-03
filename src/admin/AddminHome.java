@@ -29,7 +29,7 @@ public class AddminHome extends JPanel {
 	public JPanel panel_3;
 
 	private AdminApplication adminApplication;
-	private Application application;
+
 	public AddminHome(AdminApplication adminApplication) {
 		this.adminApplication = adminApplication;
 		
@@ -75,7 +75,8 @@ public class AddminHome extends JPanel {
 		JButton addminHome = new JButton("HOME");
 		addminHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			  adminApplication.switchPanel(adminApplication.informationAddmin);
+				adminApplication.setID(-1);
+				adminApplication.switchPanel(adminApplication.informationAddmin);
 			}
 		});
 		addminHome.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -100,7 +101,7 @@ public class AddminHome extends JPanel {
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setID(0);
-				adminApplication.switchPanel(application.home);
+				adminApplication.setUser();
 			}
 		});
 		logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -115,7 +116,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_3 = new JButton("ADMIN");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.informationAddmin);
+				adminApplication.setID(-1);
+				adminApplication.switchPanel(adminApplication.informationAddmin);
 			}
 		});
 		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEADING);
@@ -126,8 +128,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_4 = new JButton("USER MANAGEMENT");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				 adminApplication.adminController.getUsers();
+				adminApplication.setID(-1);
+				adminApplication.adminController.getUsers();
 			}
 		});
 		btnNewButton_4.setHorizontalAlignment(SwingConstants.LEADING);
@@ -138,7 +140,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_5 = new JButton("PRODUCT MANAGEMENT");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.productManagement);
+				adminApplication.setID(-1);
+				adminApplication.switchPanel(adminApplication.productManagement);
 			}
 		});
 		btnNewButton_5.setHorizontalAlignment(SwingConstants.LEADING);

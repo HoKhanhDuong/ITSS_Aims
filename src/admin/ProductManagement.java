@@ -5,6 +5,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,11 +22,16 @@ import java.awt.event.ActionEvent;
 public class ProductManagement extends AddminHome {
 	
 	private JTable table;
-	private JTextField textField;
+	private JTextField idmediatxt;
 	AdminApplication adminApplication;
+	
+	private String[][] items;
 
 	public ProductManagement(AdminApplication adminApplication) {
 		super(adminApplication);
+		
+		items = adminApplication.connect.getList_Product_Physical();
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(250, 70, 850, 530);
 		add(panel);
@@ -50,14 +56,8 @@ public class ProductManagement extends AddminHome {
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(table.getRowHeight() + 20);
-		table.setModel(new DefaultTableModel(
-			adminApplication.connect.getList_Product_Physical()
-			,
-			new String[] {
-				"ID", "Name", "Price", "Quantity", "Input day", "Barcode"
-			}
-		));
+		table.setRowHeight(table.getRowHeight() + 15);
+		setTable();
 		table.getColumnModel().getColumn(0).setPreferredWidth(60);
 		table.getColumnModel().getColumn(1).setPreferredWidth(230);
 		table.getColumnModel().getColumn(2).setPreferredWidth(95);
@@ -82,16 +82,16 @@ public class ProductManagement extends AddminHome {
 		lblNewLabel.setBounds(10, 10, 131, 30);
 		panel_2.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setBounds(176, 10, 644, 30);
-		panel_2.add(textField);
-		textField.setColumns(10);
+		idmediatxt = new JTextField();
+		idmediatxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		idmediatxt.setBounds(176, 10, 644, 30);
+		panel_2.add(idmediatxt);
+		idmediatxt.setColumns(10);
 		
 		JButton btnEdit = new JButton("Edit Product");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				System.out.println(adminApplication.getID());
 			}
 		});
 		btnEdit.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -99,6 +99,38 @@ public class ProductManagement extends AddminHome {
 		panel_2.add(btnEdit);
 		
 		JButton btnRemove = new JButton("Remove Product");
+		btnRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				//tùy chỉnh văn bản cho nút lệnh
+				Object[] options = {"Yes, please", "No, thanks"};
+				
+				
+				int n = JOptionPane.showOptionDialog(null, 
+						"Ban muon xoa khong?", 
+						"Xoa san pham", 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.QUESTION_MESSAGE,
+						null, options, 
+						options[1]);
+				
+				if (n == JOptionPane.YES_OPTION) {
+					int id_media = Integer.parseInt(idmediatxt.getText().trim());
+					
+					adminApplication.adminController.addHistory(id_media, adminApplication.getID(), 3);
+					adminApplication.adminController.removeProduct(id_media);
+					
+					adminApplication.productManagement.setItems(
+							adminApplication.connect.getList_Product_Physical()
+					);
+					adminApplication.productManagement.setTable();
+					
+					adminApplication.productManagement.idmediatxt.setText("");
+					
+					adminApplication.switchPanel(adminApplication.productManagement);
+				}
+			}
+		});
 		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnRemove.setBounds(392, 50, 177, 30);
 		panel_2.add(btnRemove);
@@ -150,4 +182,25 @@ public class ProductManagement extends AddminHome {
 		panel_2_1.add(btnDvd);
 
 	}
+
+	public String[][] getItems() {
+		return items;
+	}
+
+	public void setItems(String[][] items) {
+		this.items = items;
+	}
+	
+	public void setTable() {
+		
+		table.setModel(new DefaultTableModel(
+			getItems()
+			,
+			new String[] {
+				"ID", "Name", "Price", "Quantity", "Input day", "Barcode"
+			}
+		));
+		
+	}
+	
 }

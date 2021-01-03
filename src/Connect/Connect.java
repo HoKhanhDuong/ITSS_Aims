@@ -330,7 +330,7 @@ public class Connect {
 		Book book = new Book();
 		rSet = statement.executeQuery("SELECT IDLoai "
 				+ "FROM Loai WHERE TenLoai = 'Book'");
-		int idLoai=rSet.getInt("IDLoai");
+		int idLoai = rSet.getInt("IDLoai");
 		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
 		
 		
@@ -388,7 +388,7 @@ public class Connect {
 		DVD DVD = new DVD();
 		rSet = statement.executeQuery("SELECT IDLoai "
 				+ "FROM Loai WHERE TenLoai = 'DVD'");
-		int idLoai=rSet.getInt("IDLoai");
+		int idLoai = rSet.getInt("IDLoai");
 		statement.execute("INSERT INTO Media VALUES ('"+name+"',"+idLoai +"',0)");
 		
 		
@@ -543,18 +543,13 @@ public class Connect {
 	}
 	
 	public int getUserId(String username, String password) {
+		
 		try {
-			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT * FROM Users Where Email = '"+username+"' AND Pass = '"+password +"'");
 			if(rSet.next()) {
-				Boolean boolean1 = rSet.getBoolean("isAdmin");
-				System.out.println(!rSet.getBoolean("isAdmin"));
-				
 				if(rSet.getBoolean("isAdmin") == false) {
-					System.out.println(boolean1);
 					return rSet.getInt("IDUser");
-				}
-				else return -2;
+				} else return -2;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -754,7 +749,7 @@ public class Connect {
 					+ "VALUES ('"+name+"', "+loai+", "+value_p+", "
 					+price_p+", '"+image+"', '"+date+"')");
 			
-			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten LIKE '"+name+"'");
+			rSet = statement.executeQuery("SELECT IDMedia FROM Media WHERE Ten = '"+name+"'");
 			if (rSet.next()) return rSet.getInt("IDMedia");
 			
 		} catch (SQLException e) {
@@ -894,7 +889,7 @@ public class Connect {
 				statement.executeUpdate("INSERT INTO TacGia \n"
 						+ "VALUES ('"+tacgia+"')");
 				
-				rSet = statement.executeQuery("SELECT IDTacGia FROM TacGia WHERE Ten LIKE'%"+tacgia+"%'");
+				rSet = statement.executeQuery("SELECT IDTacGia FROM TacGia WHERE Ten = '"+tacgia+"'");
 				
 				if (rSet.next()) {
 					return rSet.getInt("IDTacGia");
@@ -990,7 +985,7 @@ public class Connect {
 		format = new DecimalFormat("###,###,###");
 		
 		try {
-			rSet = statement.executeQuery("select Media.IDMedia, Media.Ten, Media.GiaCa, SoLuong, ngay_nhap, Barcode\n"
+			rSet = statement.executeQuery("select Media.IDMedia, Media.Ten, Media.GiaCa, SoLuong, NgayNhapKho, Barcode\n"
 					+ "from Media JOIN Physical\n"
 					+ "ON Media.IDMedia = Physical.IDMedia");
 			
@@ -1003,7 +998,7 @@ public class Connect {
 					products[i][1] = ""+ rSet.getString("Ten");
 					products[i][2] = format.format(rSet.getInt("GiaCa"))+" VND";
 					products[i][3] = ""+ rSet.getInt("SoLuong");
-					products[i][4] = ""+ rSet.getString("ngay_nhap");
+					products[i][4] = ""+ rSet.getString("NgayNhapKho");
 					products[i][5] = ""+ rSet.getString("Barcode");
 					i++;
 				}

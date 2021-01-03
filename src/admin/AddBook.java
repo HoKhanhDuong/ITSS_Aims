@@ -31,6 +31,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	AdminApplication adminApplication;
 	private JTextField valuetxt;
 	private JTextField pricetxt;
+	private JLabel lable_img;
 	
 	private String[] validation;
 	private String image;
@@ -84,33 +85,38 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.setThem(true);
-				adminApplication.setSua(false);
 				
-				setValidation();
-				
-				boolean check = adminApplication.adminController.checkValidate(getValidation());
-				
-				if (check == false) {
-					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
-							"Add Product", JOptionPane.ERROR_MESSAGE);
-					return;
+				if (adminApplication.isThem() == true) {
+					adminApplication.setSua(false);
+					
+					setValidation();
+					
+					boolean check = adminApplication.adminController.checkValidate(getValidation());
+					
+					if (check == false) {
+						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						adminApplication.adminController.setErrors("");
+						return;
+					}
+					
+					boolean check_media = adminApplication.adminController.createMedia(getValidation());
+					boolean check_insert = adminApplication.adminController.create_Book(getValidation());
+					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+					
+					if (!check_media || !check_artists || !check_insert) {
+						JOptionPane.showMessageDialog(null, "Them khong thanh cong",
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					adminApplication.switchPanel(adminApplication.physicalManagement);
+				} else {
+					JOptionPane.showMessageDialog(null, 
+							"He thong dang trong trang thai sua\n", 
+							"Trang thai", 
+							JOptionPane.ERROR_MESSAGE);
 				}
-				
-				boolean check_media = adminApplication.adminController.createMedia(getValidation());
-				boolean check_insert = adminApplication.adminController.create_Book(getValidation());
-				boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
-				
-				if (!check_media || !check_artists || !check_insert) {
-					JOptionPane.showMessageDialog(null, "Them khong thanh cong",
-							"Add Product", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				adminApplication.setSua(true);
-				
-				adminApplication.switchPanel(adminApplication.physicalManagement);
-				
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -166,7 +172,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		panel_2.add(datelbl);
 		
 		datetxt = new JTextField();
-		datetxt.setText("mm/dd/yy");
+		datetxt.setText("yyyy-mm-dd");
 		datetxt.setForeground(Color.LIGHT_GRAY);
 		datetxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		datetxt.setColumns(10);
@@ -202,6 +208,14 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		panel_2.add(otherlbl);
 		
 		JButton cancel_btn = new JButton("Cancel");
+		cancel_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.setThem(true);
+				adminApplication.setSua(true);
+				
+				adminApplication.switchPanel(adminApplication.productManagement);
+			}
+		});
 		cancel_btn.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cancel_btn.setBounds(506, 273, 124, 30);
 		panel_2.add(cancel_btn);
@@ -260,6 +274,10 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		pricetxt.setBounds(506, 101, 176, 30);
 		panel_2.add(pricetxt);
 		
+		lable_img = new JLabel();
+		lable_img.setBounds(635, 11, 100, 30);
+		panel_2.add(lable_img);
+		
 		JLabel lblImage = new JLabel("Image");
 		lblImage.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImage.setBounds(423, 10, 61, 20);
@@ -273,7 +291,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				if (fileChooser.getSelectedFile() != null) {
 					String string = fileChooser.getSelectedFile().toString();
 					string = string.substring(string.indexOf("img"));
-					
+					lable_img.setText(string);
 					image = string;
 				}
 			}
@@ -287,6 +305,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"Novel", "Short story", "Life skills", "Economic"}));
 		comboBox_theloai.setBounds(657, 214, 116, 27);
 		panel_2.add(comboBox_theloai);
+		
 		
 		comboBox_theloai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

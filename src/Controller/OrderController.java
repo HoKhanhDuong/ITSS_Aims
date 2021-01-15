@@ -2,6 +2,7 @@ package Controller;
 
 import Manager.Application;
 import Object.OrderObject;
+import user.Payment;
 
 public class OrderController {
 
@@ -15,6 +16,7 @@ public class OrderController {
 	}
 	public void saveOrder(OrderObject orderObject) {
 		application.connect.saveOrder(orderObject, application.getID(), application.cart.listp);
+		Payment payment = new Payment(application, orderObject.total);
 		application.switchPanel(application.home);
 	}
 }

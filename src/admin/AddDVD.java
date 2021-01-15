@@ -96,36 +96,40 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		rdbtnNewRadioButton.addActionListener(this);
 		rdbtnHardcover.addActionListener(this);
 		
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Next");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.setThem(true);
-				adminApplication.setSua(false);
-				
-				setValidation();
-				
-				boolean check = adminApplication.adminController.checkValidate(getValidation());
-				
-				if (check == false) {
-					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
-							"Add Product", JOptionPane.ERROR_MESSAGE);
-					return;
+				if (adminApplication.isThem() == true) {
+					adminApplication.setThem(true);
+					adminApplication.setSua(false);
+					
+					setValidation();
+					
+					boolean check = adminApplication.adminController.checkValidate(getValidation());
+					
+					if (check == false) {
+						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					boolean check_media = adminApplication.adminController.createMedia(getValidation());
+					boolean check_insert = adminApplication.adminController.create_DVD(getValidation());
+					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+					
+					if (!check_media || !check_artists || !check_insert) {
+						JOptionPane.showMessageDialog(null, "Them khong thanh cong",
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					adminApplication.switchPanel(adminApplication.physicalManagement);
+				} else {
+					JOptionPane.showMessageDialog(null, 
+							"He thong dang trong trang thai sua\n", 
+							"Trang thai", 
+							JOptionPane.ERROR_MESSAGE);
 				}
-				
-				boolean check_media = adminApplication.adminController.createMedia(getValidation());
-				boolean check_insert = adminApplication.adminController.create_DVD(getValidation());
-				boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
-				
-				if (!check_media || !check_artists || !check_insert) {
-					JOptionPane.showMessageDialog(null, "Them khong thanh cong",
-							"Add Product", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				adminApplication.setSua(true);
-				
-				adminApplication.switchPanel(adminApplication.physicalManagement);
-				
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -155,6 +159,14 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		panel_2.add(lblNewLabel_2_1_1_1_1);
 		
 		JButton cancelbtn = new JButton("Cancel");
+		cancelbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.setThem(true);
+				adminApplication.setSua(true);
+				
+				adminApplication.switchPanel(adminApplication.productManagement);
+			}
+		});
 		cancelbtn.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cancelbtn.setBounds(540, 277, 124, 30);
 		panel_2.add(cancelbtn);

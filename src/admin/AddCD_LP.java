@@ -130,36 +130,41 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		cdRadio.addActionListener(this);
 		lpRadio.addActionListener(this);
 		
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Next");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.setThem(true);
-				adminApplication.setSua(false);
-				
-				setValidation();
-				
-				boolean check = adminApplication.adminController.checkValidate(getValidation());
-				
-				if (check == false) {
-					JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
-							"Add Product", JOptionPane.ERROR_MESSAGE);
-					return;
+				if (adminApplication.isThem() == true) {
+					adminApplication.setSua(false);
+					
+					setValidation();
+					
+					boolean check = adminApplication.adminController.checkValidate(getValidation());
+					
+					if (check == false) {
+						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					boolean check_media = adminApplication.adminController.createMedia(getValidation());
+					boolean check_add = adminApplication.adminController.createCD_LP(getValidation());
+					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+					boolean check_listtrack = adminApplication.adminController.create_listTrack(trackTXT.getText());
+					
+					if (!check_media || !check_artists || !check_add || !check_listtrack) {
+						JOptionPane.showMessageDialog(null, "Them khong thanh cong",
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					adminApplication.switchPanel(adminApplication.physicalManagement);
+				} else {
+					JOptionPane.showMessageDialog(null, 
+							"He thong dang trong trang thai sua\n", 
+							"Trang thai", 
+							JOptionPane.ERROR_MESSAGE);
 				}
 				
-				boolean check_media = adminApplication.adminController.createMedia(getValidation());
-				boolean check_add = adminApplication.adminController.createCD_LP(getValidation());
-				boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
-				boolean check_listtrack = adminApplication.adminController.create_listTrack(trackTXT.getText());
-				
-				if (!check_media || !check_artists || !check_add || !check_listtrack) {
-					JOptionPane.showMessageDialog(null, "Them khong thanh cong",
-							"Add Product", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				adminApplication.setSua(true);
-				
-				adminApplication.switchPanel(adminApplication.physicalManagement);
 				
 			}
 		});
@@ -181,18 +186,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		panel_2.add(cancelButton);
 		
 		JComboBox comboBox = new JComboBox();
-//		comboBox.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String value = comboBox.getSelectedItem().toString();
-//				if (value.equals("Techno")) {
-//					id_theloai = 7;
-//				} else if (value.equals("Pop")) {
-//					id_theloai = 8;
-//				} else if (value.equals("Folk")) {
-//					id_theloai = 9;
-//				}
-//			}
-//		});
+	
 		comboBox.setBackground(Color.WHITE);
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Techno", "Pop", "Folk","R&B","Ballad","V-pop","Pre-war","Lyrical","Children Music"}));
@@ -328,7 +322,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valueTXT.getText())*1.1);
+		int value_int = (int) (Float.parseFloat(valueTXT.getText())*1.1);
 		String valueString = String.valueOf(value_int); 
 		priceTXT.setText(valueString);
 	}

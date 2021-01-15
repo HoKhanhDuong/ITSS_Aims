@@ -11,6 +11,7 @@ import login.Login;
 import Connect.Connect;
 import Controller.OrderController;
 import Controller.PayController;
+import Controller.PaymentController;
 import Controller.UserController;
 import user.Address;
 import Controller.CartController;
@@ -46,7 +47,7 @@ public class Application extends JFrame {
 	public Order order;
 
 	public OrderController orderController;
-	
+	public PaymentController paymentController;
 	public Connect connect;
 	public MediaController mediaControl;
 	public UserController userController;
@@ -66,6 +67,7 @@ public class Application extends JFrame {
 		orderController = new OrderController(this);
 		cartController = new CartController(this);
 		payController = new PayController(this);
+		paymentController = new PaymentController();
 		
 		home = new Home(this);
 		cart = new Cart(this);
@@ -118,7 +120,7 @@ public class Application extends JFrame {
 	public void setID(int iD) {
 		this.ID = iD;
 	}
-	public void setAdmin() {
+	public void setAdmin(int ID) {
 		AdminApplication adminApplication;
 		try {
 			adminApplication = new AdminApplication();

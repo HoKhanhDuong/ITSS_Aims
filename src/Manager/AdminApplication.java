@@ -1,7 +1,6 @@
 package Manager;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,15 +39,19 @@ public class AdminApplication extends JFrame {
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
 	
-	public AdminConnect adminConnect;
 	public PhysicalProductManagement physicalManagement;
 	public Connect connect;
+	public AdminConnect adminConnect;
 
 	ArrayList<JPanel> list;
 	public AdminApplication() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		
+		this.them = true;
+		this.sua = true;
+		
 		connect = new Connect();
 		
 		adminController = new AdminController(this);
@@ -61,7 +64,7 @@ public class AdminApplication extends JFrame {
 		informationAddmin = new InformationAddmin(this);
 		productManagement = new ProductManagement(this);
 		userManagement = new UserManagement(this);
-		adminController = new AdminController(this);
+		
 		try {
 			adminConnect = new AdminConnect();
 		} catch (SQLException e) {
@@ -120,6 +123,25 @@ public class AdminApplication extends JFrame {
 		return ID;
 	}
 	public void setID(int iD) {
-		ID = iD;
+		if (iD == -1) {
+			ID = this.adminController.getID();
+		} else {
+			ID = iD;
+		}
 	}
+	
+	public void setUser() {
+		Application application;
+		try {
+			application = new Application();
+			application.setVisible(true);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.dispose();
+		
+	}
+	
 }

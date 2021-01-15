@@ -22,8 +22,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class UserManagement extends AddminHome {
+	
 	private JTable table;
-	private JTextField useridtextField;
+	private JTextField user_idtxt;
 	AdminApplication adminApplication;
 
 	public UserManagement(AdminApplication adminApplication) {
@@ -53,18 +54,19 @@ public class UserManagement extends AddminHome {
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(table.getRowHeight() + 20);
+		table.setRowHeight(table.getRowHeight() + 15);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"123456", "Nguyen Thi Thu Phuong", "nguyenphuong4899@gmail.com", "ok"},
 			},
 			new String[] {
-				"ID", "Name", "Phone", "Status"
+				"ID", "Name", "Phone","Address", "Status"
 			}
 		));
-		table.getColumnModel().getColumn(1).setPreferredWidth(157);
-		table.getColumnModel().getColumn(2).setPreferredWidth(197);
-		table.getColumnModel().getColumn(3).setPreferredWidth(52);
+		table.getColumnModel().getColumn(1).setPreferredWidth(150);
+		table.getColumnModel().getColumn(2).setPreferredWidth(120);
+		table.getColumnModel().getColumn(3).setPreferredWidth(200);
+		table.getColumnModel().getColumn(4).setPreferredWidth(52);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblRemoveUser = new JLabel("2.  User management");
@@ -83,16 +85,16 @@ public class UserManagement extends AddminHome {
 		lblNewLabel.setBounds(10, 10, 131, 30);
 		panel_2.add(lblNewLabel);
 		
-		useridtextField = new JTextField();
-		useridtextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		useridtextField.setBounds(176, 10, 644, 30);
-		panel_2.add(useridtextField);
-		useridtextField.setColumns(10);
+		user_idtxt = new JTextField();
+		user_idtxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		user_idtxt.setBounds(176, 10, 644, 30);
+		panel_2.add(user_idtxt);
+		user_idtxt.setColumns(10);
 		
 		JButton btnBlockUser = new JButton("Block User");
 		btnBlockUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.adminController.changeStatusUser(useridtextField.getText(), 1);
+				adminApplication.adminController.changeStatusUser(user_idtxt.getText(), 1);
 			}
 		});
 		btnBlockUser.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -102,14 +104,30 @@ public class UserManagement extends AddminHome {
 		JButton btnUnblockButton = new JButton("Unblock users");
 		btnUnblockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.adminController.changeStatusUser(useridtextField.getText(), 0);
+				adminApplication.adminController.changeStatusUser(user_idtxt.getText(), 0);
 			}
 		});
 		btnUnblockButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnUnblockButton.setBounds(643, 50, 177, 30);
 		panel_2.add(btnUnblockButton);
 	}
+	
+	
+	
+	public JTextField getUser_idtxt() {
+		return user_idtxt;
+	}
+
+
+
+	public void setUser_idtxt(JTextField user_idtxt) {
+		this.user_idtxt = user_idtxt;
+	}
+
+
+
 	public void setUsers(ArrayList<User> list) {
+
 		DefaultTableModel dModel = (DefaultTableModel) table.getModel();
 		int rowCount = dModel.getRowCount();
 		for(int i=rowCount-1; i>=0 ; i--) {
@@ -117,9 +135,9 @@ public class UserManagement extends AddminHome {
 		}
 		
 		
-		for(int i = 0; i<list.size()-1; i++) {
+		for(int i = 0; i < list.size(); i++) {
 			User user = list.get(i);
-			String[] row = {user.getId()+"", user.getName(), user.getPhone(), user.isblock+"" };
+			String[] row = {user.getId()+"", user.getName(), user.getPhone(),user.getAddress(), user.isblock+"" };
 			dModel.addRow(row);
  		}
 	}

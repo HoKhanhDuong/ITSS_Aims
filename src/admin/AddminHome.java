@@ -150,6 +150,11 @@ public class AddminHome extends JPanel {
 		panel_3.add(btnNewButton_5);
 		
 		JButton btnNewButton_5_1 = new JButton("PROMOTIONS");
+		btnNewButton_5_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.switchPanel(adminApplication.addPromitions);
+			}
+		});
 		btnNewButton_5_1.setHorizontalAlignment(SwingConstants.LEADING);
 		btnNewButton_5_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_5_1.setBounds(10, 130, 230, 30);

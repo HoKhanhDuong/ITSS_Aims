@@ -616,7 +616,7 @@ public class Connect {
 
 				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
 						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
-						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
 						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' \r\n" + 
 						"ORDER BY Media.IDMedia\r\n" + 
 						"OFFSET "+offset+"ROWS\r\n" + 
@@ -627,7 +627,7 @@ public class Connect {
 
 				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
 						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
-						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
 						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' \r\n" + 
 						"ORDER BY Media.IDMedia\r\n" + 
 						"OFFSET "+offset+"ROWS\r\n" + 
@@ -638,7 +638,7 @@ public class Connect {
 
 				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
 						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
-						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
 						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' \r\n" + 
 						"ORDER BY Media.IDMedia\r\n" + 
 						"OFFSET "+offset+"ROWS\r\n" + 
@@ -649,7 +649,7 @@ public class Connect {
 
 				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
 						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
-						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
 						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' \r\n" + 
 						"ORDER BY Media.IDMedia\r\n" + 
 						"OFFSET "+offset+"ROWS\r\n" + 
@@ -660,7 +660,7 @@ public class Connect {
 
 				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
 						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
-						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
 						"WHERE Media.IDMedia > 0\r\n" + 
 						"ORDER BY Media.IDMedia\r\n" + 
 						"OFFSET "+offset+"ROWS\r\n" + 
@@ -670,13 +670,13 @@ public class Connect {
 			
 			while(rSet.next()) {
 
-
+				
 				media = new Media(rSet.getString("Ten"), 
 						rSet.getInt("GiaCa"), 
 						rSet.getString("TenLoai"), 
 						rSet.getString("image"),
 						rSet.getInt("IDMedia"),
-						rSet.getFloat("sale"));
+						0);
 				listMedia.add(media);
 				
 			}

@@ -105,9 +105,9 @@ public class Home extends MenuProduct {
 				
 				application.mediaControl.hiddenCurrentPanel(list, page);
 				page = 0;
-				setList(application.mediaControl.get_ListProductSort(0));
+				setList(application.mediaControl.get_ListProductSort(0, 0));
 				setListProduct(list);
-				application.mediaControl.screen_ListProduct(getList());
+				application.mediaControl.screen_ListProduct(getList(),page);
 			}
 		});
 		buyNowButton.setBackground(Color.WHITE);

@@ -103,7 +103,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 					return;
 				}
 				page = 0;
-				application.mediaControl.screen_ListProduct(listProduct);
+				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
 		
@@ -133,9 +133,9 @@ public class MenuProduct extends JPanel implements KeyListener{
 			public void actionPerformed(ActionEvent e) {
 				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
-				setListProduct( application.mediaControl.get_ListProduct(0) );
+				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
 				page = 0;
-				application.mediaControl.screen_ListProduct(listProduct);
+				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
 		shoppingButton.setForeground(Color.BLACK);
@@ -265,7 +265,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 			
 			page = 0;
 			searchTextField.setText("");
-			application.mediaControl.screen_ListProduct(getListProduct());
+			application.mediaControl.screen_ListProduct(getListProduct(),page);
 			
 			break;
 		}

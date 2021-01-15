@@ -155,7 +155,7 @@ public List<ProductPanel> get_ListProductSale(int type, int offset) {
 	
 	}
 	public void showMedia(int id, String categoryString) {
-
+		
 		if(categoryString.equals("Book")) {
 			
 			Book book = application.connect.getBook(id);

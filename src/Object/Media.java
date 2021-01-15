@@ -6,7 +6,7 @@ public class Media {
 	private String category;
 	private String image;
 	private String date;
-	private float sale;
+	private float sale = 0;
 
 	int soluong;
 	private int id;

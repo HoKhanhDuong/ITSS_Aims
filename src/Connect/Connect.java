@@ -869,6 +869,14 @@ public class Connect {
 			}
 			book.setTacGiaString(tacgiaString);
 			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					book.setSale(book.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -936,6 +944,15 @@ public class Connect {
 				baihatString = baihatString + rSet.getString("Ten") + ", ";
 			}
 			cd.setBaihatString(baihatString);
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					cd.setSale(cd.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -987,6 +1004,14 @@ public class Connect {
 			}
 			cd.setBaihatString(baihatString);
 			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					cd.setSale(cd.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1027,6 +1052,14 @@ public class Connect {
 					+ "WHERE DVD.IDMedia ="+id);
 			if (rSet.next()) {
 				dvd.setDaoDienString(rSet.getString("Ten"));
+			}
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					dvd.setSale(dvd.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -1126,6 +1159,7 @@ public class Connect {
 	public ArrayList<ProductPaneInCart> getMediaInCart(int IDUser){
 		ArrayList<ProductPaneInCart> list = new ArrayList<ProductPaneInCart>();
 		try {
+			
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT * FROM Cart JOIN Media ON Cart.IDMedia = Media.IDMedia "
 					+ " WHERE IDUser = "+IDUser);
@@ -1135,6 +1169,17 @@ public class Connect {
 				ProductPaneInCart media = new ProductPaneInCart(rSet.getString("Ten"), rSet.getString("image"), rSet.getInt("IDMedia"), rSet.getInt("GiaCa"), rSet.getInt("SoLuong"), i);
 				i++;
 				list.add(media);
+			}
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				for(int index=0; index< list.size(); index++) {
+					rSet = statement.executeQuery("SELECT sale, GiaCa FROM MediaSale JOIN Media ON MediaSale.IDMEdia = Media.IDMedia"
+							+" WHERE Media.IDMedia = "+list.get(index).id);
+					if(rSet.next()) {
+						list.get(index).priceLabel.setText(rSet.getFloat("GiaCa")*(1-rSet.getFloat("sale"))+"");
+					}
+				}
 			}
 
 		} catch (SQLException e) {

@@ -17,18 +17,13 @@ import javax.swing.SwingConstants;
 import Manager.Application;
 import Object.Media;
 
-public class ProductPanel extends JPanel {
-
-	/**
-	 * Create the panel.
-	 */
-	
+public class ProductSalePanel extends JPanel{
 	private final int WIDTH = 250;
 	private final int HEIGHT = 300;
 	
 	public Media media;
 	
-	public ProductPanel(Media media, int x, int y, Application application) {
+	public ProductSalePanel(Media media, int x, int y, Application application) {
 		setBackground(Color.WHITE);
 		
 		this.media = media;
@@ -65,36 +60,28 @@ public class ProductPanel extends JPanel {
 		nameProductButton.setBounds(0, 240, 230, 21);
 		add(nameProductButton);
 		
-//		JLabel priceLabel = new JLabel(media.getPriceFloat()+"");
-//		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		priceLabel.setBounds(10, 271, 104, 21);
-//		add(priceLabel);
-		
 		JLabel priceLabel = new JLabel(media.getPriceFloat()+"");
-		
+		priceLabel.setForeground(Color.GRAY);
 		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		priceLabel.setBounds(10, 271, 66, 21);
 		add(priceLabel);
-		if(media.getSale()>0) {
-			priceLabel.setForeground(Color.GRAY);
-			JLabel priceSaleLabel = new JLabel((int)(media.getPriceFloat()*(1-media.getSale()))+"");
-			priceSaleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			priceSaleLabel.setBounds(84, 271, 66, 21);
-			priceSaleLabel.setForeground(Color.RED);
-			add(priceSaleLabel);
-		}
 		
 		JButton btnNewButton = new JButton("BUY ");
 		btnNewButton.setForeground(Color.ORANGE);
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setBounds(141, 269, 99, 23);
+		btnNewButton.setBounds(172, 269, 68, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				application.mediaControl.showMedia(media.getId(), media.getCategory());
 			}
 		});
 		add(btnNewButton);
+		
+		JLabel priceSaleLabel = new JLabel("0");
+		priceSaleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		priceSaleLabel.setBounds(84, 271, 66, 21);
+		add(priceSaleLabel);
 	}
 
 }

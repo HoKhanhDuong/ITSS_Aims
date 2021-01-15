@@ -32,6 +32,12 @@ public class MediaController {
 		System.out.println(listProduct.size());
 	}
 	
+	public void screen_ListProductSale(List<ProductPanel> listProduct, int page) {
+		application.saleProduct.addListProduct(listProduct, page);
+		application.switchPanel(application.saleProduct);
+		System.out.println(listProduct.size());
+	}
+	
 	public List<ProductPanel> get_ListProduct(int type, int offset) {
 		
 		int x = 0, y = 0;
@@ -56,12 +62,63 @@ public class MediaController {
 		return listProduct;
 	}
 	
+	
 	public List<ProductPanel> get_ListProductSort(int type, int offset) {
 		
 		int x = 0;
 		int y = 0;
 		
 		listMedia = application.connect.getListMediaSort(type, offset);
+		listProduct = new ArrayList<ProductPanel>();
+		ListIterator<Media> itr = listMedia.listIterator();
+		
+		while (itr.hasNext()) {
+			if (x > 2) {
+				x = 0;
+				y++;
+				continue;
+			}
+			Media e = itr.next();
+			ProductPanel productPanel= new ProductPanel(e, x, y, this.application);
+			
+			listProduct.add(productPanel);
+			x++;
+		}
+		
+		return listProduct;
+	}
+	
+
+public List<ProductPanel> get_ListProductSale(int type, int offset) {
+		
+		int x = 0, y = 0;
+		
+		listMedia = application.connect.getListMediaSale(type, offset);
+		listProduct = new ArrayList<ProductPanel>();
+		ListIterator<Media> itr = listMedia.listIterator();
+		
+		while (itr.hasNext()) {
+			if (x > 2) {
+				x = 0;
+				y++;
+				continue;
+			}
+			Media e = itr.next();
+			ProductPanel productPanel= new ProductPanel(e, x, y, application);
+			listProduct.add(productPanel);
+			x++;
+		}
+		
+		return listProduct;
+	}
+	
+	
+	public List<ProductPanel> get_ListProductSaleSort(int type, int offset) {
+		
+		int x = 0;
+		int y = 0;
+		
+		listMedia = application.connect.getListMediaSaleSort(type, offset);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
@@ -91,7 +148,6 @@ public class MediaController {
 		}
 	
 	}
-	
 	public void showMedia(int id, String categoryString) {
 
 		if(categoryString.equals("Book")) {

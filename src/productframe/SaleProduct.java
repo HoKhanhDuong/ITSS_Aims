@@ -93,8 +93,42 @@ public class SaleProduct extends MenuProduct {
 		});
 		
 		JButton bookButton = new JButton("BOOK");
+		bookButton.setHorizontalAlignment(SwingConstants.LEFT);
+		bookButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		bookButton.setBackground(Color.WHITE);
+		bookButton.setBounds(0, 10, 200, 31);
+		bookButton.setBorderPainted(false);
+		panel.add(bookButton);
+		
+		JButton cdButton = new JButton("CD");
+		cdButton.setBackground(Color.WHITE);
+		cdButton.setHorizontalAlignment(SwingConstants.LEADING);
+		cdButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cdButton.setBounds(0, 39, 200, 31);
+		cdButton.setBorderPainted(false);
+		panel.add(cdButton);
+		
+		JButton dvdButton = new JButton("DVD");
+		dvdButton.setForeground(Color.BLACK);
+		dvdButton.setBackground(Color.WHITE);
+		dvdButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		dvdButton.setHorizontalAlignment(SwingConstants.LEFT);
+		dvdButton.setBorderPainted(false);
+		
+		JButton lpButton = new JButton("LP");
+		lpButton.setBackground(Color.WHITE);
+		lpButton.setHorizontalAlignment(SwingConstants.LEADING);
+		lpButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lpButton.setBounds(0, 104, 200, 31);
+		lpButton.setBorderPainted(false);
+		panel.add(lpButton);
+		
 		bookButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				bookButton.setForeground(Color.BLUE);
+				dvdButton.setForeground(Color.BLACK);
+				cdButton.setForeground(Color.BLACK);
+				lpButton.setForeground(Color.BLACK);
 				type = 1;
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
@@ -106,12 +140,6 @@ public class SaleProduct extends MenuProduct {
 			}
 			
 		});
-		bookButton.setHorizontalAlignment(SwingConstants.LEFT);
-		bookButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		bookButton.setBackground(Color.WHITE);
-		bookButton.setBounds(0, 10, 200, 31);
-		bookButton.setBorderPainted(false);
-		panel.add(bookButton);
 		
 //		sortComboBox.addActionListener (new ActionListener () {
 //		       public void actionPerformed(ActionEvent e) {
@@ -134,9 +162,13 @@ public class SaleProduct extends MenuProduct {
 //		       }
 //		});
 		
-		JButton cdButton = new JButton("CD");
+		
 		cdButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cdButton.setForeground(Color.BLUE);
+				dvdButton.setForeground(Color.BLACK);
+				bookButton.setForeground(Color.BLACK);
+				lpButton.setForeground(Color.BLACK);
 				type = 2;
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
@@ -146,21 +178,15 @@ public class SaleProduct extends MenuProduct {
 				application.mediaControl.screen_ListProductSale(getList(),page);
 			}
 		});
-		cdButton.setBackground(Color.WHITE);
-		cdButton.setHorizontalAlignment(SwingConstants.LEADING);
-		cdButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		cdButton.setBounds(0, 39, 200, 31);
-		cdButton.setBorderPainted(false);
-		panel.add(cdButton);
 		
-		JButton dvdButton = new JButton("DVD");
-		dvdButton.setForeground(Color.BLACK);
-		dvdButton.setBackground(Color.WHITE);
-		dvdButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		dvdButton.setHorizontalAlignment(SwingConstants.LEFT);
-		dvdButton.setBorderPainted(false);
+		
+		
 		dvdButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dvdButton.setForeground(Color.BLUE);
+				cdButton.setForeground(Color.BLACK);
+				bookButton.setForeground(Color.BLACK);
+				lpButton.setForeground(Color.BLACK);
 				type = 3;
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
@@ -173,9 +199,13 @@ public class SaleProduct extends MenuProduct {
 		dvdButton.setBounds(0, 70, 200, 31);
 		panel.add(dvdButton);
 		
-		JButton lpButton = new JButton("LP");
+		
 		lpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lpButton.setForeground(Color.BLUE);
+				dvdButton.setForeground(Color.BLACK);
+				cdButton.setForeground(Color.BLACK);
+				bookButton.setForeground(Color.BLACK);
 				type = 4;
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
@@ -186,12 +216,6 @@ public class SaleProduct extends MenuProduct {
 				
 			}
 		});
-		lpButton.setBackground(Color.WHITE);
-		lpButton.setHorizontalAlignment(SwingConstants.LEADING);
-		lpButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lpButton.setBounds(0, 104, 200, 31);
-		lpButton.setBorderPainted(false);
-		panel.add(lpButton);
 		
 		JLabel sortLabel = new JLabel("Sort by :");
 		sortLabel.setBounds(647, 10, 67, 40);

@@ -185,7 +185,8 @@ public class AdminConnect {
 			rSet.next();
 			int id = rSet.getInt("IDSale");
 			for(int i=0; i<list.size(); i++) {
-				statement.executeUpdate("INSERT INTO MediaSale VALUES ("+id+", "+list.get(i).mediaid+", "+list.get(i).sale.getText()+")");
+				statement.executeUpdate("INSERT INTO MediaSale VALUES ("+id+", "+list.get(i).mediaid+", "
+						+(Float.parseFloat(list.get(i).sale.getText())/100)+")");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

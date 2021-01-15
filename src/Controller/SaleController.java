@@ -28,16 +28,12 @@ public class SaleController {
 	}
 	
 	public void saveSale(String name, LocalDate starttime, LocalDate endtime, ArrayList<SaleMedia> list) {
-		System.out.println(starttime.compareTo(endtime));
 		if(starttime.compareTo(endtime) >= 0) {
 			JOptionPane.showMessageDialog(new JFrame(), "Thoi gian bat dau phai truoc thoi gian ket thuc"
 					,"",JOptionPane.ERROR_MESSAGE);
 		}else {
 			LocalDate myObj = LocalDate.now();
-			
-			System.out.println(myObj);
-			
-			System.out.println(starttime.compareTo(myObj));
+						
 			if(starttime.compareTo(myObj) < 0) {
 				JOptionPane.showMessageDialog(new JFrame(), "Thoi gian bat dau phai sau thoi gian hien tai"
 						,"",JOptionPane.ERROR_MESSAGE);

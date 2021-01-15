@@ -104,6 +104,7 @@ public class DetailProduct extends MenuProduct {
         quantityPanel.add(quantityLabel);
         
         textField = new JTextField();
+        textField.setText("1");
         textField.setHorizontalAlignment(SwingConstants.CENTER);
         textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
         textField.setBounds(102, 17, 62, 26);

@@ -93,7 +93,10 @@ public List<ProductPanel> get_ListProductSale(int type, int offset) {
 		
 		int x = 0, y = 0;
 		
-		listMedia = application.connect.getListMediaSale(type, offset);
+		int idSale = application.connect.checkSale();
+		if(idSale == 0) return null;
+		
+		listMedia = application.connect.getListMediaSale(type, offset, idSale);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
@@ -118,7 +121,10 @@ public List<ProductPanel> get_ListProductSale(int type, int offset) {
 		int x = 0;
 		int y = 0;
 		
-		listMedia = application.connect.getListMediaSaleSort(type, offset);
+		int idSale = application.connect.checkSale();
+		if(idSale == 0) return null;
+		
+		listMedia = application.connect.getListMediaSaleSort(type, offset, idSale);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		

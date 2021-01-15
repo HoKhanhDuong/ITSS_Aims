@@ -109,9 +109,9 @@ public class MenuProduct extends JPanel implements KeyListener{
 		
 		homePanel = new JPanel();
 		homePanel.setBackground(Color.WHITE);
-		homePanel.setBounds(480, 0, 620, 70);
+		homePanel.setBounds(478, 0, 612, 70);
 		add(homePanel);
-        homePanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 20));
+        homePanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
 		
 		JButton homeButton = new JButton("HOME");
 		homeButton.addActionListener(new ActionListener() {
@@ -131,10 +131,9 @@ public class MenuProduct extends JPanel implements KeyListener{
 		
 		shoppingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
-				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
 				page = 0;
+				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
 				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
@@ -143,6 +142,21 @@ public class MenuProduct extends JPanel implements KeyListener{
 		shoppingButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		shoppingButton.setBorderPainted(false);
 		homePanel.add(shoppingButton);
+		
+		JButton homeButton_1 = new JButton("SALE");
+		homePanel.add(homeButton_1);
+		homeButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				page = 0;
+				setListProduct( application.mediaControl.get_ListProductSale(0, page*20) );	
+				application.mediaControl.screen_ListProductSale(listProduct,page);
+			}
+		});
+		homeButton_1.setForeground(Color.BLACK);
+		homeButton_1.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		homeButton_1.setBorderPainted(false);
+		homeButton_1.setBackground(Color.WHITE);
 		
 		signInButton = new JButton("SIGN IN");
 		signInButton.setForeground(Color.ORANGE);

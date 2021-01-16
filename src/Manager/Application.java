@@ -11,6 +11,7 @@ import login.Login;
 import Connect.Connect;
 import Controller.OrderController;
 import Controller.PayController;
+import Controller.PaymentController;
 import Controller.UserController;
 import user.Address;
 import Controller.CartController;
@@ -22,6 +23,7 @@ import productframe.DetailProduct;
 import productframe.Home;
 import productframe.MenuProduct;
 import productframe.Product;
+import productframe.SaleProduct;
 import user.CancelOrder;
 import user.ChangePassword;
 import user.Information;
@@ -38,6 +40,7 @@ public class Application extends JFrame {
 	public Cart cart;
 	public DetailProduct detailProduct;
 	public Product product;
+	public SaleProduct saleProduct;
 	public CancelOrder cancelOrder;
 	public ChangePassword changePassword;
 	public Information information;
@@ -46,7 +49,7 @@ public class Application extends JFrame {
 	public Order order;
 
 	public OrderController orderController;
-	
+	public PaymentController paymentController;
 	public Connect connect;
 	public MediaController mediaControl;
 	public UserController userController;
@@ -66,11 +69,13 @@ public class Application extends JFrame {
 		orderController = new OrderController(this);
 		cartController = new CartController(this);
 		payController = new PayController(this);
+		paymentController = new PaymentController();
 		
 		home = new Home(this);
 		cart = new Cart(this);
 		detailProduct = new DetailProduct(this);
 		product = new Product(this);
+		saleProduct = new SaleProduct(this);
 		cancelOrder = new CancelOrder(this);
 		changePassword = new ChangePassword(this);
 		information = new Information(this);
@@ -87,6 +92,7 @@ public class Application extends JFrame {
 		list.add(home);
 		list.add(cart);
 		list.add(product);
+		list.add(saleProduct);
 		list.add(detailProduct);
 		list.add(cancelOrder);
 		list.add(changePassword);
@@ -118,7 +124,7 @@ public class Application extends JFrame {
 	public void setID(int iD) {
 		this.ID = iD;
 	}
-	public void setAdmin() {
+	public void setAdmin(int ID) {
 		AdminApplication adminApplication;
 		try {
 			adminApplication = new AdminApplication();

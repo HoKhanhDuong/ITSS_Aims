@@ -133,8 +133,6 @@ CREATE TABLE Users(
 	isAdmin BIT
 )
 
--- them truong cardnumber for users
-ALTER TABLE Users ADD CardNumber VARCHAR(50)
 
 CREATE TABLE Actions(
 	IDAction INT IDENTITY PRIMARY KEY,
@@ -150,6 +148,8 @@ CREATE TABLE History(
 	FOREIGN KEY (IDUser) REFERENCES Users(IDUser),
 	FOREIGN KEY (IDAction) REFERENCES Actions(IDAction)
 )
+
+
 
 CREATE TABLE Cart(
 	IDMedia INT,
@@ -167,13 +167,6 @@ CREATE TABLE DiaChi(
 	Diachi VARCHAR(225),
 	FOREIGN KEY (IDUser) REFERENCES Users(IDUser)
 )
-
--- Thay đổi kiểu của Name, Diachi
-ALTER TABLE DiaChi
-ALTER COLUMN Name NVARCHAR(50) NOT NULL;
-ALTER TABLE DiaChi
-ALTER COLUMN Diachi NVARCHAR(225) NOT NULL;
-
 
 CREATE TABLE DonHang(
 	IDDonHang INT IDENTITY PRIMARY KEY,
@@ -200,8 +193,9 @@ CREATE TABLE ThongTinDonHang(
 	SoLuong INT,
 	Gia INT,
 	FOREIGN KEY (IDDonHang) REFERENCES DonHang(IDDonHang),
-	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
+	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia) ON DELETE NO ACTION
 )
+
 
 CREATE TABLE LichSuThanhToan(
 	ID INT IDENTITY PRIMARY KEY,
@@ -236,4 +230,66 @@ ALTER TABLE Media ADD ngay_nhap DATE
 ALTER TABLE Media
 ALTER COLUMN ngay_nhap VARCHAR(50)
 
+-- update Physical ngay 25/12/2020
+ALTER TABLE Physical
+ALTER COLUMN Barcode VARCHAR(100)
+ALTER TABLE Physical
+ALTER COLUMN KhoiLuong FLOAT(10)
 
+ALTER TABLE Physical
+ALTER COLUMN Size VARCHAR(100)
+-- them truong cardnumber for users
+ALTER TABLE Users ADD CardNumber VARCHAR(50)
+ALTER TABLE Users ADD isBlock BIT
+
+ALTER TABLE Users ADD CONSTRAINT df_isBlock DEFAULT(0) FOR isBlock;
+
+-- update 02/01/2021
+ALTER TABLE History ADD date_action DATE
+
+-- fake data for table actions
+INSERT INTO Actions (Ten)
+VALUES ('Them'),('Sua'), ('Xoa')
+
+-- Thay đổi kiểu của Name, Diachi
+ALTER TABLE DiaChi
+ALTER COLUMN Name NVARCHAR(50) NOT NULL;
+ALTER TABLE DiaChi
+ALTER COLUMN Diachi NVARCHAR(225) NOT NULL;
+
+-- them truong vao DiaChi
+ALTER TABLE DiaChi
+ADD isMain BIT
+
+-- update ngày 02-01-2021
+ALTER TABLE SangTac
+ADD CONSTRAINT fk_media
+foreign key (IDMedia)
+REFERENCES Media
+ON DELETE CASCADE
+
+ALTER TABLE Physical
+ADD CONSTRAINT fk_media_physical
+FOREIGN KEY (IDMedia)
+REFERENCES Media
+ON DELETE CASCADE
+
+-- tao xong xoa
+ALTER TABLE History
+add constraint fk_media_history1
+foreign key (IDMedia)
+REFERENCES Media
+ON DELETE set null
+
+
+
+-- xoa
+ALTER TABLE History
+drop constraint fk_History_IDMedia
+
+-- update sale table
+ALTER TABLE Sale 
+DROP COLUMN Sale
+
+ALTER TABLE MediaSale
+ADD sale float

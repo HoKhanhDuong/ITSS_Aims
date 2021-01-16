@@ -47,7 +47,9 @@ public class OrderHisrory extends MyAccount {
 	public OrderHisrory( Application application) {
 		super(application);
 		
-		objects = application.connect.get_OrderDetail(application.getID());
+		if (application.getID() != 0) {
+			objects = application.connect.get_OrderDetail(application.getID());
+		}
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

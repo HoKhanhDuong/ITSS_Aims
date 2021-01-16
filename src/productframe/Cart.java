@@ -41,7 +41,7 @@ public class Cart extends MenuProduct {
 	JPanel panel_2;
 	JPanel panel_4;
 	JButton orderButton;
-	public int total;
+	public float total;
 	
 	public Cart(Application application) {
 		super(application);
@@ -166,7 +166,7 @@ public class Cart extends MenuProduct {
 			while(iterator.hasNext()) {
 				ProductPaneInCart paneInCart = iterator.next();
 				productJPanel.add(paneInCart);
-				total+=  Integer.parseInt(paneInCart.priceLabel.getText()) * Integer.parseInt(paneInCart.SoLuong.getText());
+				total+=  Float.parseFloat(paneInCart.priceLabel.getText()) * Integer.parseInt(paneInCart.SoLuong.getText());
 			}
 			productJPanel.setPreferredSize(new Dimension(560, list.size()*200));
 			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);

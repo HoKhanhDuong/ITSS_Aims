@@ -21,11 +21,9 @@ import Object.Media;
 
 public class AdminController{
 	
-	private AdminApplication adminApp;
-	
 	private String errors = "";
 	
-	private int add_media;
+	private int id_media;
 	private int id_tgia;
 	
 	public Media media;
@@ -35,17 +33,22 @@ public class AdminController{
 	public ArrayList<User> getUsers() {
 		adminApplication.switchPanel(adminApplication.userManagement);
 		adminApplication.userManagement.setUsers(adminApplication.adminConnect.getfullUsers());
-		
 		return null;
+	}
+	
+	public int getID() {
+		return adminApplication.adminConnect.getID();
 	}
 	
 	public void changeStatusUser(String iDUser, int status) {
 		adminApplication.adminConnect.changeStatusUser(iDUser, status);
+		adminApplication.userManagement.getUser_idtxt().setText("");
+		adminApplication.userManagement.setUsers(adminApplication.adminConnect.getfullUsers());
 	}
 
 	
 	public AdminController(AdminApplication adminApp) {
-		this.adminApp = adminApp;
+		this.adminApplication = adminApp;
 		media = new Media();
 	}
 	
@@ -73,7 +76,7 @@ public class AdminController{
 			return;
 		}
 		
-		boolean change = adminApp.connect.changePassword(idUser, currentPass, newPass);
+		boolean change = adminApplication.connect.changePassword(idUser, currentPass, newPass);
 		
 		if (change == false) {
 			JOptionPane.showMessageDialog(null, "Current Password doen't exit", 
@@ -86,9 +89,9 @@ public class AdminController{
 				"Change Password", 
 				JOptionPane.INFORMATION_MESSAGE);
 	
-		adminApp.informationAddmin.setNullText();
+		adminApplication.informationAddmin.setNullText();
 		
-		adminApp.switchPanel(adminApp.informationAddmin);
+		adminApplication.switchPanel(adminApplication.informationAddmin);
 	}
 	
 	public boolean checkValidate(String[] validation) {
@@ -119,21 +122,21 @@ public class AdminController{
 		Date currentDate = Calendar.getInstance().getTime();
 		String dateString = simple.format(currentDate);
 		
-		media = adminApp.connect.getMedia(value[0]);
+		media = adminApplication.connect.getMedia(value[0]);
 		
 		if (media == null) {
-			add_media = adminApp.connect.addMedia(value[0], value[3], value[1], 
+			id_media = adminApplication.connect.addMedia(value[0], value[3], value[1], 
 					value[2], value[4], dateString);
 		} else if(media != null && !media.getCategory().equals(value[3])) {
-			add_media = adminApp.connect.addMedia(value[0], value[3], value[1], 
+			id_media = adminApplication.connect.addMedia(value[0], value[3], value[1], 
 					value[2], value[4], dateString);
 		} else if (media != null && media.getCategory().equals(value[3])) {
-			add_media = adminApp.connect.updateMedia(value[0], value[1], value[2], value[4], dateString);
+			id_media = adminApplication.connect.updateMedia(value[0], value[1], value[2], value[4], dateString);
 		}
 		
-		if (add_media == -1) return false;
+		if (id_media == -1) return false;
 		
-		media = adminApp.connect.getMedia(value[0]);
+		media = adminApplication.connect.getMedia(value[0]);
 		return true;
 	}
 	
@@ -144,8 +147,8 @@ public class AdminController{
 		int id_dia = Integer.parseInt(value[5]);
 		int page = Integer.parseInt(value[8]);
 		
-		boolean add_Book = adminApp.connect.insertBook(
-				add_media, id_dia, value[6], 
+		boolean add_Book = adminApplication.connect.insertBook(
+				id_media, id_dia, value[6], 
 				value[7], page, 
 				id_language, id_theloai
 				);
@@ -160,7 +163,7 @@ public class AdminController{
 		int id_dia = Integer.parseInt(value[5]);
 		int thoiLuong = Integer.parseInt(value[6]);
 		
-		boolean add_DVD = adminApp.connect.insertDVD(add_media, id_dia, thoiLuong, value[7], value[10], id_language, id_theloai);
+		boolean add_DVD = adminApplication.connect.insertDVD(id_media, id_dia, thoiLuong, value[7], value[10], id_language, id_theloai);
 		
 		return add_DVD;
 	}
@@ -176,29 +179,29 @@ public class AdminController{
 			type = "LD";
 		}
 		
-		boolean add_CD_LP = adminApp.connect.add_CD_LP(value[0], value[6], id_tloai, type);
+		boolean add_CD_LP = adminApplication.connect.add_CD_LP(value[0], value[6], id_tloai, type);
 		
 		return add_CD_LP;
 	}
 
 	public boolean create_artists_sangtac(String[] value) {
 		
-		add_media = media.getId();
+		id_media = media.getId();
 		
-		id_tgia = adminApp.connect.add_Artists(value[5]);
+		id_tgia = adminApplication.connect.add_Artists(value[5]);
 		
-		return adminApp.connect.add_SangTac(add_media, id_tgia);
+		return adminApplication.connect.add_SangTac(id_media, id_tgia);
 	}
 	
 	public boolean create_listTrack(String value) {
 		
-		add_media = media.getId();
+		id_media = media.getId();
 		
 		String[] listTrack = value.trim().split("\\,\\s+");
 		
-		int id[] = adminApp.connect.add_BaiHat(listTrack, id_tgia);
+		int id[] = adminApplication.connect.add_BaiHat(listTrack, id_tgia);
 		
-		return adminApp.connect.add_ListTrack(id, add_media);
+		return adminApplication.connect.add_ListTrack(id, id_media);
 	}
 
 	public String getErrors() {
@@ -234,5 +237,60 @@ public class AdminController{
 		return true;
 	}
 	
+	public void add_Physical(String[] value) {
+		
+		String format_date = "\\d{4}-\\d{2}-\\d{2}";
+		String format_bcode = "\\d{10,12}";
+		String format_qtyti = "\\d+";
+		String format_size = "\\d+\\*\\d+\\*\\d+";
+		String format_mass = "\\d+\\.{0,1}\\d*";
+		
+		if (!value[0].trim().matches(format_bcode)) {
+			errors += "Barcode co tu 10-12 ky tu so\n"; 
+		}
+		if (!value[1].trim().matches(format_qtyti)) {
+			errors += "Quantity phai la so\n";
+		} 
+		if (!value[3].trim().matches(format_date)) {
+			errors += "Ngay thang nhap phai co dang: yyyy-mm-dd\n";
+		}
+		if (!value[4].trim().matches(format_size)) {
+			errors += "Kích thước có dạng: dai*rong*cao\n";
+		}
+		if (!value[5].trim().matches(format_mass)) {
+			errors += "Khoi luong phai dinh dang: 123 hoac 12.3\n";
+		}
+		
+		if (!errors.isEmpty()) {
+			JOptionPane.showMessageDialog(null, errors, "Physical information", JOptionPane.ERROR_MESSAGE);
+			errors = "";
+			return;
+		}
+		
+		adminApplication.adminConnect.insert_Physical(id_media, value);
+	}
+	
+	public void addHistory(int media,int id_admin, int id_action) {
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date currentDate = Calendar.getInstance().getTime();
+		String date = simple.format(currentDate);
+		
+		if (media == -1) {
+			adminApplication.adminConnect.insert_History(id_media, id_admin, id_action, date);
+		} else {
+			adminApplication.adminConnect.insert_History(media, id_admin, id_action, date);
+		}
+	}
+	
+	public void removeProduct(int id_media) {
+		
+		int id_loai = adminApplication.adminConnect.id_loai(id_media);
+		
+		if (id_loai == -1) {
+			JOptionPane.showMessageDialog(null, "San pham khong ton tai", "Remove Product", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		adminApplication.adminConnect.remove_product(id_media, id_loai);
+	}
 	
 }

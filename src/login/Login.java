@@ -1,8 +1,5 @@
 package login;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,13 +16,12 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPasswordField;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +29,7 @@ public class Login extends JFrame {
 	private Application application;
 	private JPasswordField txtPassword;
 	
-	public AdminApplication adminApp;
+	public AdminApplication adminApplication;
 	/**
 	 * 
 	 * Launch the application.
@@ -42,45 +38,19 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login(Application application) {
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_ENTER: {
-					int iD = application.userController.Signin(txtUsername.getText().trim(), txtPassword.getText().trim());
-					boolean check = application.connect.checkAdmin(iD);
-					if(iD == -1){
-						JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
-					}else {
-						if(iD > 0) {
-							application.setID(iD);
-							setVisible(false);
-							dispose();
-							application.switchPanel(application.home);
-						}else if(iD == -2) {
-							application.setAdmin();
-						}
-						application.setID(iD);
-						setVisible(false);
-						dispose();
-//						application.switchPanel(application.home);
-						
-					}
-				}
-				}
-			}
-		});
+
 		setBounds(500, 250, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		this.addKeyListener(this);
+		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
-				boolean check=application.connect.checkAdmin(iD);
 				if(iD == -1){
 					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
 				}else {
@@ -90,25 +60,9 @@ public class Login extends JFrame {
 						dispose();
 						application.switchPanel(application.home);
 					}else if(iD == -2) {
-						application.setAdmin();
+						application.setAdmin(iD);
 						dispose();
 					}
-					
-					application.setID(iD);
-					setVisible(false);
-					dispose();
-//					application.switchPanel(application.home);
-					if(check == true)
-						try {
-							application.deletePanel();
-							adminApp = new AdminApplication();
-							adminApp.setID(iD);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					else
-						application.switchPanel(application.home);
 					
 				}
 			}
@@ -150,6 +104,23 @@ public class Login extends JFrame {
 		contentPane.add(btnSignIn);
 		
 		setVisible(true);
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
 	}
 
 }

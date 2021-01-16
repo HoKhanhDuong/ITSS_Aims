@@ -7,12 +7,14 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import Manager.AdminApplication;
+import Object.Book;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -32,11 +34,23 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	private JTextField valuetxt;
 	private JTextField pricetxt;
 	private JLabel lable_img;
+	private JLabel titlelbl;
+	
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnHardcover;
+	private ButtonGroup group;
+	
+	private JComboBox combo_language;
+	private JComboBox comboBox_theloai;
 	
 	private String[] validation;
 	private String image;
-	private String theloai;
+//	private String theloai;
 	private String id_bia = "";
+	private int id_media;
+	
+	private HashMap<String, Integer> languages;
+	private HashMap<String, Integer> categorys;
 	
 	private String id_language = "";
 	private String id_theloai = "";
@@ -45,6 +59,8 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	public AddBook(AdminApplication adminApplication) {
 		super(adminApplication);
 		
+		this.adminApplication = adminApplication;
+		
 		validation = new String[12];
 		
 		JPanel panel_1 = new JPanel();
@@ -52,7 +68,12 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		panel_1.setBounds(10, 120, 830, 400);
 		addProductPanel.add(panel_1);
 		
-		JLabel titlelbl = new JLabel("1. ADD BOOK");
+		if (adminApplication.isThem()) {
+			titlelbl = new JLabel("1. ADD BOOK");
+		}else if (adminApplication.isSua()) {
+			titlelbl = new JLabel("1. EDIT BOOK");
+		}
+		
 		titlelbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		titlelbl.setBounds(10, 10, 206, 30);
 		panel_1.add(titlelbl);
@@ -86,7 +107,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (adminApplication.isThem() == true) {
+				if (adminApplication.isThem() == true && !adminApplication.isSua()) {
 					adminApplication.setSua(false);
 					
 					setValidation();
@@ -102,7 +123,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 					
 					boolean check_media = adminApplication.adminController.createMedia(getValidation());
 					boolean check_insert = adminApplication.adminController.create_Book(getValidation());
-					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation()[11]);
 					
 					if (!check_media || !check_artists || !check_insert) {
 						JOptionPane.showMessageDialog(null, "Them khong thanh cong",
@@ -111,12 +132,37 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 					}
 					
 					adminApplication.switchPanel(adminApplication.physicalManagement);
-				} else {
-					JOptionPane.showMessageDialog(null, 
-							"He thong dang trong trang thai sua\n", 
-							"Trang thai", 
-							JOptionPane.ERROR_MESSAGE);
+				} else  if (adminApplication.isSua() && !adminApplication.isThem()) {
+					setValidation();
+					
+					boolean check = adminApplication.adminController.checkValidate(getValidation());
+					
+					if (check == false) {
+						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						adminApplication.adminController.setErrors("");
+						return;
+					}
+					
+					long price = Long.parseLong(pricetxt.getText());
+					int value = Integer.parseInt(valuetxt.getText());
+					if (price < value*0.3 || price > value*1.5) {
+						JOptionPane.showMessageDialog(null, 
+								"Gia ca phai nam trong 30%-150% gia tri", 
+								"Edit Message", 
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					adminApplication.adminController.update_book(getValidation(), id_media);
+					
 				}
+//				{
+//					JOptionPane.showMessageDialog(null, 
+//							"He thong dang trong trang thai sua\n", 
+//							"Trang thai", 
+//							JOptionPane.ERROR_MESSAGE);
+//				}
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -135,19 +181,19 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		authortxt.setBounds(146, 50, 256, 30);
 		panel_2.add(authortxt);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Paperback");
+		rdbtnNewRadioButton = new JRadioButton("Paperback");
 		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnNewRadioButton.setBackground(Color.WHITE);
 		rdbtnNewRadioButton.setBounds(146, 90, 118, 30);
 		panel_2.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnHardcover = new JRadioButton("Hardcover");
+		rdbtnHardcover = new JRadioButton("Hardcover");
 		rdbtnHardcover.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnHardcover.setBackground(Color.WHITE);
 		rdbtnHardcover.setBounds(284, 90, 118, 30);
 		panel_2.add(rdbtnHardcover);
 		
-		ButtonGroup group = new ButtonGroup();
+		group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnHardcover);
 		
@@ -220,30 +266,18 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		cancel_btn.setBounds(506, 273, 124, 30);
 		panel_2.add(cancel_btn);
 		
-		JComboBox combo_language = new JComboBox();
+		combo_language = new JComboBox();
 		
 		combo_language.setBackground(Color.WHITE);
 		combo_language.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		combo_language.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese"}));
 		combo_language.setBounds(423, 214, 128, 30);
 		panel_2.add(combo_language);
 		
 		combo_language.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String value = combo_language.getSelectedItem().toString();
-				switch (value) {
-					case "Vietnamese":
-						id_language = "1";
-						break;
-					case "English":
-						id_language = "2";
-						break;
-					case "Japanese":
-						id_language = "3";
-						break;
-					default:
-						break;
-				}
+				// lay key category
+				id_language = Integer.toString(languages.get(value)).trim();
 			}
 		});
 		
@@ -299,10 +333,9 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		imgButton.setBounds(506, 10, 117, 29);
 		panel_2.add(imgButton);
 		
-		JComboBox comboBox_theloai = new JComboBox();
+		comboBox_theloai = new JComboBox();
 		comboBox_theloai.setBackground(Color.WHITE);
 		comboBox_theloai.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_theloai.setModel(new DefaultComboBoxModel(new String[] {"Novel", "Short story", "Life skills", "Economic"}));
 		comboBox_theloai.setBounds(657, 214, 116, 27);
 		panel_2.add(comboBox_theloai);
 		
@@ -310,22 +343,8 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		comboBox_theloai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox_theloai.getSelectedItem().toString();
-				switch (value) {
-					case "Novel":
-						id_theloai = "1";
-						break;
-					case "Short story":
-						id_theloai = "2";
-						break;
-					case "Life skills":
-						id_theloai = "3";
-						break;
-					case "Economic":
-						id_theloai = "4";
-						break;
-					default:
-						break;
-				}
+				// lay key languages
+				id_theloai = Integer.toString(categorys.get(value)).trim();
 			}
 		});
 
@@ -334,20 +353,24 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (valuetxt.getText() != "") {
-			int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			pricetxt.setText(valueString);
+		} else if(pricetxt.getText() != "" && pricetxt.isEditable()) {
+			
 		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (valuetxt.getText() != "") {
-			int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			pricetxt.setText(valueString);
+		} else if(pricetxt.getText() != "" && pricetxt.isEditable()) {
+			
 		}
 	}
 
@@ -390,4 +413,82 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		}
 		
 	}
+	
+	public void setDisplay(HashMap<String, Integer> languageMap, HashMap<String, Integer> categoryMap) {
+		
+		languages = languageMap;
+		categorys = categoryMap;
+		
+		int i = 0;
+		String[] n_ngu = new String[languages.size()];
+		String[] t_loai = new String[categorys.size()];
+		
+		for (String string : languages.keySet()) {
+			n_ngu[i] = string;
+			i++;
+		}
+		i = 0;
+		for (String string : categorys.keySet()) {
+			t_loai[i] = string;
+			i++;
+		}
+		combo_language.setModel(new DefaultComboBoxModel(n_ngu));
+		comboBox_theloai.setModel(new DefaultComboBoxModel(t_loai));
+	}
+	
+	public void setDisplay_Edit(Book book) {
+		
+		id_media = book.getId();
+		
+		nametxt.setText(book.getNameString());
+		image = book.getImage();
+		valuetxt.setEditable(false);
+		pricetxt.setEditable(true);
+		valuetxt.setText(""+book.getValue());
+		valuetxt.setEditable(false);
+		pricetxt.setText(""+ book.getPriceFloat());
+		lable_img.setText(book.getImage());
+		authortxt.setText(book.getTacGiaString());
+		nxbtxt.setText(book.getNhaXBString());
+		datetxt.setText(book.getNgayXBString());
+		pagetxt.setText("" +book.getSotrang());
+		
+		if ("Paperback".equals(book.getBiaString())) {
+			this.id_bia = "1";
+			rdbtnNewRadioButton.setSelected(true);
+			rdbtnHardcover.setEnabled(false);
+		} else {
+			this.id_bia = "2";
+			rdbtnHardcover.setEnabled(true);
+			rdbtnNewRadioButton.setEnabled(false);
+			rdbtnHardcover.setSelected(true);
+		}
+		
+		setDisplay(
+				adminApplication.adminConnect.getLanguages()
+				, 
+				adminApplication.adminConnect.getTheLoais(1)
+		);
+		
+		combo_language.setSelectedItem(book.getNgonNguString());
+		comboBox_theloai.setSelectedItem(book.getTheloaiString());
+	}
+	
+	public void clear_display() {
+		nametxt.setText("");
+		image = "";
+		lable_img.setText("");
+		valuetxt.setText("");
+		valuetxt.setEditable(true);
+		pricetxt.setText("");
+		pricetxt.setEditable(false);
+		authortxt.setText("");
+		nxbtxt.setText("");
+		datetxt.setText("");
+		pagetxt.setText("");
+		rdbtnNewRadioButton.setSelected(true);
+		rdbtnHardcover.setEnabled(true);
+		rdbtnNewRadioButton.setEnabled(true);
+	}
+	
 }

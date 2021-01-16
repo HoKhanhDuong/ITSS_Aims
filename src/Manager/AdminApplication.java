@@ -48,7 +48,7 @@ public class AdminApplication extends JFrame {
 	public Connect connect;
 	public AdminConnect adminConnect;
 
-	ArrayList<JPanel> list;
+	public ArrayList<JPanel> list;
 	public AdminApplication() throws SQLException {
 		// TODO Auto-generated constructor stub
 		setBounds(100, 100, 1100, 600);

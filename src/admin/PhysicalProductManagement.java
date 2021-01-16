@@ -26,10 +26,14 @@ public class PhysicalProductManagement extends AddProduct {
 	private JTextArea infomation;
 	
 	private String[] validations;
+	private boolean status;
+	private int id_media;
+	private boolean check = true;
 	
 	public PhysicalProductManagement(AdminApplication adminApplication) {
 		super(adminApplication);
 		
+		this.status = true;
 		this.validations = new String[6];
 		
 		JPanel panel = new JPanel();
@@ -61,7 +65,7 @@ public class PhysicalProductManagement extends AddProduct {
 		infomation = new JTextArea();
 		infomation.setToolTipText("Nhap mo ta");
 		infomation.setBackground(SystemColor.control);
-		infomation.setForeground(SystemColor.desktop);
+		infomation.setForeground(Color.BLACK);
 		infomation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		infomation.setLineWrap(true);
 		infomation.setText("information");
@@ -98,16 +102,41 @@ public class PhysicalProductManagement extends AddProduct {
 				adminApplication.setID(-1);
 				
 				setValidations();
-				adminApplication.adminController.add_Physical(getValidations());
-				adminApplication.adminController.addHistory(-1, adminApplication.getID(), 1);
 				
-				adminApplication.productManagement.setItems(
-						adminApplication.connect.getList_Product_Physical()
-				);
-				adminApplication.productManagement.setTable();
-				adminApplication.setSua(true);
-				adminApplication.setThem(true);
-				adminApplication.switchPanel(adminApplication.productManagement);
+				if (status) {
+					check = adminApplication.adminController.add_Physical(getValidations(), status);
+					if (check) {
+						adminApplication.adminController.addHistory(-1, adminApplication.getID(), 1);
+						
+						JOptionPane.showMessageDialog(null, 
+								"Them san pham thanh cong", 
+								"Insert Media", 
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+				} else {
+					check = adminApplication.adminController.add_Physical(getValidations(), status);
+					if (check) {
+						adminApplication.adminController.addHistory(id_media, adminApplication.getID(), 2);
+						
+						JOptionPane.showMessageDialog(null, 
+								"Sua thong tin thanh cong", 
+								"Edit Media", 
+								JOptionPane.INFORMATION_MESSAGE);
+						status = true;
+						id_media = 0;
+					}
+				}
+				if (check) {
+					adminApplication.productManagement.setItems(
+							adminApplication.connect.getList_Product_Physical()
+					);
+					adminApplication.productManagement.getIdmediatxt().setText("");
+					adminApplication.productManagement.setTable();
+					adminApplication.setSua(true);
+					adminApplication.setThem(true);
+					adminApplication.switchPanel(adminApplication.productManagement);
+				}
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -115,11 +144,13 @@ public class PhysicalProductManagement extends AddProduct {
 		panel_1.add(btnAdd);
 		
 		barcode = new JTextField();
+		barcode.setForeground(Color.BLACK);
 		barcode.setBounds(160, 25, 251, 30);
 		panel_1.add(barcode);
 		barcode.setColumns(10);
 		
 		quantity = new JTextField();
+		quantity.setForeground(Color.BLACK);
 		quantity.setToolTipText("nhap gia");
 		quantity.setColumns(10);
 		quantity.setBounds(537, 24, 251, 30);
@@ -153,6 +184,22 @@ public class PhysicalProductManagement extends AddProduct {
 		return validations;
 	}
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public int getId_media() {
+		return id_media;
+	}
+
+	public void setId_media(int id_media) {
+		this.id_media = id_media;
+	}
+
 	public void setValidations() {
 		
 		this.validations[0] = barcode.getText().trim();
@@ -164,5 +211,26 @@ public class PhysicalProductManagement extends AddProduct {
 		
 	}
 	
+	public void display_edit(String[] value) {
+		this.validations = new String[7];
+		this.status = false;
+		this.id_media = Integer.parseInt(value[6]);
+		this.validations[6] = value[6];
+		barcode.setText(value[0]);
+		quantity.setText(value[1]);
+		infomation.setText(value[2]);
+		grdate.setText(value[3]);
+		size.setText(value[4]);
+		mass.setText(value[5]);
+	}
+	
+	public void clear_display() {
+		this.barcode.setText("");
+		this.grdate.setText("");
+		this.infomation.setText("");
+		this.mass.setText("");
+		this.size.setText("");
+		this.quantity.setText("");
+	}
 	
 }

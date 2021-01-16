@@ -57,6 +57,7 @@ public class MyAccount extends MenuProduct {
 		JButton btnNewButton_2 = new JButton("Order History");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.orderHisrory.setTable();
 				application.switchPanel(application.orderHisrory);
 			}
 		});

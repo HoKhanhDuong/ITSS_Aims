@@ -12,6 +12,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import Manager.AdminApplication;
+import Object.DVD;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -20,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class AddDVD extends AddProduct implements DocumentListener, ActionListener {
@@ -31,6 +33,18 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 	AdminApplication adminApplication;
 	private JTextField valuetxt;
 	private JTextField pricetxt;
+	private JLabel lblAddDvd;
+	private JLabel lblImg;
+	
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnHardcover;
+	private ButtonGroup group;
+	
+	private JComboBox comboBox;
+	private JComboBox comboBox_1;
+	
+	private HashMap<String, Integer> languages;
+	private HashMap<String, Integer> categorys;
 
 	private String[] validation;
 	private String image;
@@ -38,9 +52,12 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 	private String id_language = "";
 	private String id_dia = "";
 	
+	private int media_id;
+	
 	public AddDVD(AdminApplication adminApplication) {
 		
 		super(adminApplication);
+		this.adminApplication = adminApplication;
 		
 		validation = new String[12];
 		
@@ -49,7 +66,12 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		panel_1.setBounds(10, 120, 830, 369);
 		addProductPanel.add(panel_1);
 		
-		JLabel lblAddDvd = new JLabel("3. ADD DVD");
+		if (adminApplication.isThem()) {
+			lblAddDvd = new JLabel("3. ADD DVD");
+		}else if (adminApplication.isSua()) {
+			lblAddDvd = new JLabel("3. EDIT DVD");
+		}
+		
 		lblAddDvd.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAddDvd.setBounds(10, 10, 206, 30);
 		panel_1.add(lblAddDvd);
@@ -77,19 +99,19 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		dialbl.setBounds(446, 49, 110, 30);
 		panel_2.add(dialbl);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Blu-ray");
+		rdbtnNewRadioButton = new JRadioButton("Blu-ray");
 		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnNewRadioButton.setBackground(Color.WHITE);
 		rdbtnNewRadioButton.setBounds(545, 49, 118, 30);
 		panel_2.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnHardcover = new JRadioButton("HD-DVD");
+		rdbtnHardcover = new JRadioButton("HD-DVD");
 		rdbtnHardcover.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		rdbtnHardcover.setBackground(Color.WHITE);
 		rdbtnHardcover.setBounds(673, 49, 118, 30);
 		panel_2.add(rdbtnHardcover);
 		
-		ButtonGroup group = new ButtonGroup();
+		group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnHardcover);
 		
@@ -99,8 +121,7 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		JButton btnAdd = new JButton("Next");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (adminApplication.isThem() == true) {
-					adminApplication.setThem(true);
+				if (adminApplication.isThem() == true && !adminApplication.isSua()) {
 					adminApplication.setSua(false);
 					
 					setValidation();
@@ -115,7 +136,7 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 					
 					boolean check_media = adminApplication.adminController.createMedia(getValidation());
 					boolean check_insert = adminApplication.adminController.create_DVD(getValidation());
-					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation()[11]);
 					
 					if (!check_media || !check_artists || !check_insert) {
 						JOptionPane.showMessageDialog(null, "Them khong thanh cong",
@@ -124,12 +145,38 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 					}
 					
 					adminApplication.switchPanel(adminApplication.physicalManagement);
-				} else {
-					JOptionPane.showMessageDialog(null, 
-							"He thong dang trong trang thai sua\n", 
-							"Trang thai", 
-							JOptionPane.ERROR_MESSAGE);
+				} else if (adminApplication.isSua() && !adminApplication.isThem()) {
+					setValidation();
+					
+					boolean check = adminApplication.adminController.checkValidate(getValidation());
+					
+					if (check == false) {
+						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+								"Add Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					long price = Long.parseLong(pricetxt.getText());
+					int value = Integer.parseInt(valuetxt.getText());
+					if (price < value*0.3 || price > value*1.5) {
+						JOptionPane.showMessageDialog(null, 
+								"Gia ca phai nam trong 30%-150% gia tri", 
+								"Edit Message", 
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					adminApplication.adminController.update_dvd(getValidation(), media_id);
+		
+					
 				}
+				
+//				{
+//					JOptionPane.showMessageDialog(null, 
+//							"He thong dang trong trang thai sua\n", 
+//							"Trang thai", 
+//							JOptionPane.ERROR_MESSAGE);
+//				}
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -214,10 +261,10 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 				fileChooser.showOpenDialog(null);
 				String string = fileChooser.getSelectedFile().toString();
 				image = string.substring(string.indexOf("img"));
-				
+				lblImg.setText(image);
 			}
 		});
-		imgButton.setBounds(546, 13, 117, 29);
+		imgButton.setBounds(546, 13, 117, 30);
 		panel_2.add(imgButton);
 		
 		JLabel lblImage = new JLabel("Image");
@@ -225,48 +272,26 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		lblImage.setBounds(446, 11, 61, 20);
 		panel_2.add(lblImage);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Vietnamese", "English", "Japanese"}));
+		
 		comboBox.setBounds(99, 134, 198, 27);
 		panel_2.add(comboBox);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox.getSelectedItem().toString();
-				switch (value) {
-				case "Vietnamese":
-					id_language = "1";
-					break;
-				case "English":
-					id_language = "2";
-					break;
-				case "Japanese":
-					id_language = "3";
-					break;
-				default:
-					break;
-				}
+				id_language = Integer.toString(languages.get(value)).trim();
 			}
 		});
 		
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Phim le", "Phim bo"}));
 		comboBox_1.setBounds(99, 176, 198, 27);
 		panel_2.add(comboBox_1);
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox_1.getSelectedItem().toString();
-				switch (value) {
-					case "Phim le":
-						id_theloai = "12";
-						break;
-					case "Phim bo":
-						id_theloai = "13";
-						break;
-					default:
-						break;
-				}
+				id_theloai = Integer.toString(categorys.get(value)).trim();
 			}
 		});
 		
@@ -296,6 +321,10 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		pricetxt.setBounds(546, 215, 254, 30);
 		panel_2.add(pricetxt);
 		pricetxt.setEditable(false);
+		
+		lblImg = new JLabel("");
+		lblImg.setBounds(663, 11, 145, 30);
+		panel_2.add(lblImg);
 
 	}
 
@@ -334,18 +363,22 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		pricetxt.setText(valueString);
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			pricetxt.setText(valueString);
+		}
 	}
 
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valuetxt.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		pricetxt.setText(valueString);
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			pricetxt.setText(valueString);
+		}
 	}
 
 
@@ -353,5 +386,81 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 	public void changedUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void display(HashMap<String, Integer> languageMap, HashMap<String, Integer> categoryMap) {
+		languages = languageMap;
+		categorys = categoryMap;
+		
+		int i = 0;
+		String[] language_array = new String[languages.size()];
+		String[] category_array = new String[categorys.size()];
+		
+		for (String string : languages.keySet()) {
+			language_array[i] = string;
+			i++;
+		}
+		i = 0;
+		for (String string : categorys.keySet()) {
+			category_array[i] = string;
+			i++;
+		}
+		
+		
+		comboBox.setModel(new DefaultComboBoxModel(language_array));
+		comboBox_1.setModel(new DefaultComboBoxModel(category_array));
+	}
+	
+	public void display_edit(DVD dvd) {
+		
+		media_id = dvd.getId();
+		nametxt.setText(dvd.getNameString());
+		valuetxt.setEditable(false);
+		valuetxt.setText(""+ dvd.getValue());
+		pricetxt.setEditable(true);
+		pricetxt.setText(""+ dvd.getPriceFloat());
+		image = dvd.getImage();
+		lblImg.setText(image);
+		directortxt.setText(dvd.getDaoDienString());
+		runtimetxt.setText(""+ dvd.getThoiLuong());
+		studiotxt.setText(dvd.getStudioString());
+		subtitletxt.setText(dvd.getPhudeString());
+		
+		if ("Blu-ray".equals(dvd.getKieuDia())) {
+			this.id_dia = "1";
+			rdbtnNewRadioButton.setEnabled(true);
+			rdbtnNewRadioButton.setSelected(true);
+			rdbtnHardcover.setEnabled(false);
+		} else {
+			this.id_dia = "2";
+			rdbtnNewRadioButton.setEnabled(false);
+			rdbtnHardcover.setSelected(true);
+			rdbtnHardcover.setEnabled(true);
+		}
+		
+		display(
+				adminApplication.adminConnect.getLanguages()
+				, 
+				adminApplication.adminConnect.getTheLoais(2)
+		);
+		
+		comboBox.setSelectedItem(dvd.getNgonNguString());
+		comboBox_1.setSelectedItem(dvd.getTheLoaiString());
+		
+	}
+	
+	public void clear_display() {
+		media_id = 0;
+		nametxt.setText("");
+		valuetxt.setEditable(true);
+		valuetxt.setText("");
+		pricetxt.setEditable(false);
+		pricetxt.setText("");
+		image = "";
+		lblImg.setText(image);
+		directortxt.setText("");
+		runtimetxt.setText("");
+		studiotxt.setText("");
+		subtitletxt.setText("");
 	}
 }

@@ -205,6 +205,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					application.orderHisrory.setTable();
 					application.switchPanel(application.orderHisrory);
 				}
 			});

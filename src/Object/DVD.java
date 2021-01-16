@@ -8,6 +8,8 @@ public class DVD extends Media{
 	private String studioString;
 	private String ngonNguString;
 	private String phudeString;
+	private String kieuDia;
+	
 	public DVD() {
 		// TODO Auto-generated constructor stub
 	}
@@ -47,5 +49,13 @@ public class DVD extends Media{
 	public void setDaoDienString(String daoDienString) {
 		this.daoDienString = daoDienString;
 	}
+	public String getKieuDia() {
+		return kieuDia;
+	}
+	public void setKieuDia(String kieuDia) {
+		this.kieuDia = kieuDia;
+	}
+	
+	
 	
 }

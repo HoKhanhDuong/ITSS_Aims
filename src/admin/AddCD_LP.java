@@ -9,17 +9,18 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import java.awt.event.ItemListener;
+import java.util.HashMap;
 
 import Manager.AdminApplication;
+import Object.CD;
+import Object.LD;
+import Object.Media;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -31,9 +32,20 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 	private JTextField trackTXT;
 	private JTextField artistsTXT;
 	private JTextField nameTXT;
+	private JLabel lblAddCd;
+	private JLabel lblImg;
+	
+	private JComboBox comboBox;
+	private JRadioButton cdRadio;
+	private JRadioButton lpRadio;
+	private ButtonGroup group;
+	
+	private HashMap<String, Integer> categorys;
 	
 	private String theloai;
+	private String image;
 	public int id_theloai;
+	private int media_id;
 	
 	private String[] validation;
 	private JTextField valueTXT;
@@ -43,6 +55,8 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		
 		super(adminApplication);
 		
+		this.adminApplication = adminApplication;
+		
 		validation = new String[9];
 		
 		JPanel panel_1 = new JPanel();
@@ -50,7 +64,11 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		panel_1.setBounds(10, 120, 830, 400);
 		addProductPanel.add(panel_1);
 		
-		JLabel lblAddCd = new JLabel("2. ADD CD/LP");
+		if (adminApplication.isThem()) {
+			lblAddCd = new JLabel("2. ADD CD/LP");
+		}else if (adminApplication.isSua()) {
+			lblAddCd = new JLabel("2. EDIT CD/LP");
+		}
 		lblAddCd.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAddCd.setBounds(10, 10, 206, 30);
 		panel_1.add(lblAddCd);
@@ -114,15 +132,15 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		nameTXT.setBounds(142, 71, 250, 30);
 		panel_2.add(nameTXT);
 		
-		JRadioButton cdRadio = new JRadioButton("CD");
+		cdRadio = new JRadioButton("CD");
 		cdRadio.setBounds(142, 6, 61, 23);
 		panel_2.add(cdRadio);
 		
-		JRadioButton lpRadio = new JRadioButton("LP");
+		lpRadio = new JRadioButton("LP");
 		lpRadio.setBounds(248, 6, 61, 23);
 		panel_2.add(lpRadio);
 // cho vao 1 group
-		ButtonGroup group = new ButtonGroup();
+		group = new ButtonGroup();
 		group.add(cdRadio);
 		group.add(lpRadio);
 		
@@ -133,7 +151,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		JButton btnAdd = new JButton("Next");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (adminApplication.isThem() == true) {
+				if (adminApplication.isThem() && !adminApplication.isSua()) {
 					adminApplication.setSua(false);
 					
 					setValidation();
@@ -148,7 +166,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 					
 					boolean check_media = adminApplication.adminController.createMedia(getValidation());
 					boolean check_add = adminApplication.adminController.createCD_LP(getValidation());
-					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation());
+					boolean check_artists = adminApplication.adminController.create_artists_sangtac(getValidation()[5]);
 					boolean check_listtrack = adminApplication.adminController.create_listTrack(trackTXT.getText());
 					
 					if (!check_media || !check_artists || !check_add || !check_listtrack) {
@@ -158,12 +176,43 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 					}
 					
 					adminApplication.switchPanel(adminApplication.physicalManagement);
-				} else {
-					JOptionPane.showMessageDialog(null, 
-							"He thong dang trong trang thai sua\n", 
-							"Trang thai", 
-							JOptionPane.ERROR_MESSAGE);
+				} else if (adminApplication.isSua() && !adminApplication.isThem()) {
+					adminApplication.setThem(false);
+					setValidation();
+					
+					
+					
+					boolean check = adminApplication.adminController.checkValidate(getValidation());
+					
+					if (check == false) {
+						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
+								"Edit Product", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					long price = Long.parseLong(priceTXT.getText());
+					int value = Integer.parseInt(valueTXT.getText());
+					if (price < value*0.3 || price > value*1.5) {
+						JOptionPane.showMessageDialog(null, 
+								"Gia ca phai nam trong 30%-150% gia tri", 
+								"Edit Message", 
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					if (cdRadio.isEnabled()) {
+						adminApplication.adminController.update_cd(getValidation(), media_id);
+					} else if (lpRadio.isEnabled()) {
+						adminApplication.adminController.update_lp(getValidation(), media_id);
+					}
+					
 				}
+//				{
+//					JOptionPane.showMessageDialog(null, 
+//							"He thong dang trong trang thai sua\n", 
+//							"Trang thai", 
+//							JOptionPane.ERROR_MESSAGE);
+//				}
 				
 				
 			}
@@ -177,7 +226,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setThem(true);
 				adminApplication.setSua(true);
-				
+				adminApplication.productManagement.getIdmediatxt().setText("");
 				adminApplication.switchPanel(adminApplication.productManagement);
 			}
 		});
@@ -185,47 +234,17 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		cancelButton.setBounds(540, 254, 124, 30);
 		panel_2.add(cancelButton);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 	
 		comboBox.setBackground(Color.WHITE);
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Techno", "Pop", "Folk","R&B","Ballad","V-pop","Pre-war","Lyrical","Children Music"}));
-		comboBox.setBounds(550, 156, 128, 30);
+		comboBox.setBounds(550, 156, 170, 30);
 		panel_2.add(comboBox);
+		
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String value = comboBox.getSelectedItem().toString();
-				switch (value) {
-					case "Techno":
-						id_theloai = 7;
-						break;
-					case "Pop":
-						id_theloai = 8;
-						break;
-					case "Folk":
-						id_theloai = 9;
-						break;
-					case "R&B":
-						id_theloai = 10;
-						break;
-					case "Ballad":
-						id_theloai = 11;
-						break;
-					case "V-pop":
-						id_theloai = 12;
-						break;
-					case "Pre-war":
-						id_theloai = 13;
-						break;
-					case "Lyrical":
-						id_theloai = 14;
-						break;
-					case "Children Music":
-						id_theloai = 15;
-						break;
-					default:
-						break;
-				}
+				id_theloai = categorys.get(value);
 			}
 		});
 		JLabel lblImage = new JLabel("Image");
@@ -240,12 +259,13 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 				if (fileChooser.getSelectedFile() != null) {
 					String string = fileChooser.getSelectedFile().toString();
 					string = string.substring(string.indexOf("img"));
-					validation[4] = string;
+					lblImg.setText(string);
+					image = string;
 				}
 				
 			}
 		});
-		imgButton.setBounds(142, 41, 117, 29);
+		imgButton.setBounds(142, 41, 117, 30);
 		panel_2.add(imgButton);
 		
 		JLabel lblValue = new JLabel("Value");
@@ -280,6 +300,10 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		JLabel lblCho = new JLabel("Chosse");
 		lblCho.setBounds(6, 10, 61, 16);
 		panel_2.add(lblCho);
+		
+		lblImg = new JLabel("");
+		lblImg.setBounds(258, 41, 120, 30);
+		panel_2.add(lblImg);
 			
 	}
 
@@ -297,8 +321,12 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		
 		if ("CD".equals(e.getActionCommand())) {
 			this.theloai = "2";
+			categorys.clear();
+			display(adminApplication.adminConnect.getTheLoais(3));
 		} else {
 			this.theloai = "4";
+			categorys.clear();
+			display(adminApplication.adminConnect.getTheLoais(4));
 		}
 		
 	}
@@ -312,6 +340,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		this.validation[1] = valueTXT.getText();
 		this.validation[2] = priceTXT.getText();
 		this.validation[3] = getTheloai();
+		this.validation[4] = image;
 		this.validation[5] = artistsTXT.getText();
 		this.validation[6] = recordTXT.getText();
 		this.validation[7] = trackTXT.getText();
@@ -322,21 +351,110 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Float.parseFloat(valueTXT.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		priceTXT.setText(valueString);
+		if (valueTXT.isEditable() && !valueTXT.getText().isEmpty()) {
+			
+			int value_int = (int) (Float.parseFloat(valueTXT.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			priceTXT.setText(valueString);
+			
+		} 
+		
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		int value_int = (int) (Integer.parseInt(valueTXT.getText())*1.1);
-		String valueString = String.valueOf(value_int); 
-		priceTXT.setText(valueString);
+		System.out.println(priceTXT.getText());
+		if (valueTXT.isEditable() && !valueTXT.getText().isEmpty()) {
+			int value_int = (int) (Integer.parseInt(valueTXT.getText())*1.1);
+			String valueString = String.valueOf(value_int); 
+			priceTXT.setText(valueString);
+		}
+		
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
+		System.out.println(priceTXT.getText());
 	}
+	
+	public void display(HashMap<String, Integer> categoryMap) {
+		categorys = categoryMap;
+		int i = 0;
+		String[] category = new String[categorys.size()];
+		
+		for (String string : categorys.keySet()) {
+			category[i] = string;
+			i++;
+		}
+		
+		comboBox.setModel(new DefaultComboBoxModel(category));
+	}
+	
+	public void display_edit_cd(CD cd) {
+		theloai = "2";
+		cdRadio.setSelected(true);
+		lpRadio.setEnabled(false);
+		
+		media_id = cd.getId();
+		nameTXT.setText(cd.getNameString());
+		image = cd.getImage();
+		lblImg.setText(cd.getImage());
+		valueTXT.setEditable(false);
+		priceTXT.setEditable(true);
+		valueTXT.setText(""+cd.getValue());
+		priceTXT.setText(""+cd.getPriceFloat());
+		
+		artistsTXT.setText(cd.getTenNgheSyString());
+		recordTXT.setText(cd.getHangGhiAmString());
+		trackTXT.setText(cd.getBaihatString());
+		
+		display(adminApplication.adminConnect.getTheLoais(3));
+		comboBox.setSelectedItem(cd.getTheLoaiString());
+	}
+	
+	public void display_edit_lp(LD lp) {
+		theloai = "4";
+		lpRadio.setEnabled(true);
+		lpRadio.setSelected(true);
+		cdRadio.setEnabled(false);
+		
+		media_id = lp.getId();
+		nameTXT.setText(lp.getNameString());
+		image = lp.getImage();
+		lblImg.setText(lp.getImage());
+		valueTXT.setEditable(false);
+		priceTXT.setEditable(true);
+		valueTXT.setText(""+lp.getValue());
+		priceTXT.setText(""+lp.getPriceFloat());
+		
+		artistsTXT.setText(lp.getTenNgheSyString());
+		recordTXT.setText(lp.getHangGhiAmString());
+		trackTXT.setText(lp.getBaihatString());
+		
+		display(adminApplication.adminConnect.getTheLoais(4));
+		comboBox.setSelectedItem(lp.getTheLoaiString());
+	}
+	
+	
+	public void clear_display() {
+		lpRadio.setEnabled(true);
+		cdRadio.setSelected(true);
+		cdRadio.setEnabled(true);
+		
+		media_id = 0;
+		nameTXT.setText("");
+		image = "";
+		lblImg.setText("");
+		valueTXT.setEditable(true);
+		priceTXT.setEditable(false);
+		valueTXT.setText("");
+		priceTXT.setText("");
+		
+		artistsTXT.setText("");
+		recordTXT.setText("");
+		trackTXT.setText("");
+	}
+	
 }

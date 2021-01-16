@@ -141,6 +141,11 @@ public class AddminHome extends JPanel {
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				adminApplication.setID(-1);
+				adminApplication.productManagement.setItems(
+						adminApplication.connect.getList_Product_Physical()
+				);
+				adminApplication.productManagement.getIdmediatxt().setText("");
+				adminApplication.productManagement.setTable();
 				adminApplication.switchPanel(adminApplication.productManagement);
 			}
 		});

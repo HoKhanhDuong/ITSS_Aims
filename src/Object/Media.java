@@ -3,6 +3,7 @@ package Object;
 public class Media {
 	private String nameString;
 	private int priceFloat;
+	private long value;
 	private String category;
 	private String image;
 	private String date;
@@ -70,6 +71,16 @@ public class Media {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	public long getValue() {
+		return value;
+	}
+
+	public void setValue(long value) {
+		this.value = value;
+	}
+	
+	
 	
 	
 }

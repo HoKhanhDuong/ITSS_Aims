@@ -7,6 +7,7 @@ public class Media {
 	private String category;
 	private String image;
 	private String date;
+	private float sale = 0;
 
 	int soluong;
 	private int id;
@@ -20,6 +21,15 @@ public class Media {
 		this.category = category;
 		this.id = id;
 		this.image = img;
+	}
+	public Media(String name, int price, String category,String img, int id, float sale) {
+		// TODO Auto-generated constructor stub
+		this.nameString = name;
+		this.priceFloat = price;
+		this.category = category;
+		this.id = id;
+		this.image = img;
+		this.sale = sale;
 	}
 	public String getNameString() {
 		return nameString;
@@ -72,6 +82,7 @@ public class Media {
 		this.date = date;
 	}
 
+
 	public long getValue() {
 		return value;
 	}
@@ -81,6 +92,15 @@ public class Media {
 	}
 	
 	
+
+	public float getSale() {
+		return sale;
+	}
+
+	public void setSale(float sale) {
+		this.sale = sale;
+	}
+
 	
 	
 }

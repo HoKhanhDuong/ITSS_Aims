@@ -103,46 +103,76 @@ public class MenuProduct extends JPanel implements KeyListener{
 					return;
 				}
 				page = 0;
-				application.mediaControl.screen_ListProduct(listProduct);
+				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
 		
 		homePanel = new JPanel();
 		homePanel.setBackground(Color.WHITE);
-		homePanel.setBounds(480, 0, 620, 70);
+		homePanel.setBounds(478, 0, 612, 70);
 		add(homePanel);
-        homePanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 20));
+        homePanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
 		
 		JButton homeButton = new JButton("HOME");
+		homeButton.setForeground(Color.BLUE);
+		homeButton.setBackground(Color.WHITE);
+		homeButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		homeButton.setBorderPainted(false);
+		
+		
+		shoppingButton = new JButton("SHOPPING");
+		shoppingButton.setForeground(Color.BLACK);
+		shoppingButton.setBackground(Color.WHITE);
+		shoppingButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		shoppingButton.setBorderPainted(false);
+		
+		
+		JButton saleButton = new JButton("SALE");
+		saleButton.setForeground(Color.BLACK);
+		saleButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		saleButton.setBorderPainted(false);
+		saleButton.setBackground(Color.WHITE);
+		
+		
 		homeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				homeButton.setForeground(Color.BLUE);
+				shoppingButton.setForeground(Color.BLACK);
+				saleButton.setForeground(Color.BLACK);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
 				application.switchPanel(application.home);
 			}
 		});
-		homeButton.setForeground(Color.BLACK);
-		homeButton.setBackground(Color.WHITE);
-		homeButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		homeButton.setBorderPainted(false);
-		homePanel.add(homeButton);
-		
-		shoppingButton = new JButton("SHOPPING");
 		
 		shoppingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				shoppingButton.setForeground(Color.BLUE);
+				homeButton.setForeground(Color.BLACK);
+				saleButton.setForeground(Color.BLACK);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
-				setListProduct( application.mediaControl.get_ListProduct(0) );
 				page = 0;
-				application.mediaControl.screen_ListProduct(listProduct);
+				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
+				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
-		shoppingButton.setForeground(Color.BLACK);
-		shoppingButton.setBackground(Color.WHITE);
-		shoppingButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		shoppingButton.setBorderPainted(false);
+		
+		
+		saleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saleButton.setForeground(Color.BLUE);
+				shoppingButton.setForeground(Color.BLACK);
+				homeButton.setForeground(Color.BLACK);
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				page = 0;
+				setListProduct(application.mediaControl.get_ListProductSale(0, page*20) );	
+				application.mediaControl.screen_ListProductSale(listProduct,page);
+			}
+		});
+		homePanel.add(homeButton);
 		homePanel.add(shoppingButton);
+		homePanel.add(saleButton);
+		
 		
 		signInButton = new JButton("SIGN IN");
 		signInButton.setForeground(Color.ORANGE);
@@ -160,7 +190,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 		JButton cart = new JButton("CART");
 		cart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				cart.setForeground(Color.BLUE);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
 				application.cartController.getMediaInCart();
@@ -230,7 +260,10 @@ public class MenuProduct extends JPanel implements KeyListener{
 	}
 
 	public void setListProduct(List<ProductPanel> listProduct) {
-		this.listProduct = listProduct;
+		if(listProduct == null) {
+			JOptionPane.showMessageDialog(new JFrame(), "Khong co san pham");
+		} else
+			this.listProduct = listProduct;
 	}
   
 	public void switchStatus() {
@@ -266,7 +299,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 			
 			page = 0;
 			searchTextField.setText("");
-			application.mediaControl.screen_ListProduct(getListProduct());
+			application.mediaControl.screen_ListProduct(getListProduct(),page);
 			
 			break;
 		}

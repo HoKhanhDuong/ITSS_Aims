@@ -1,13 +1,16 @@
 package productframe;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 
 import javax.swing.JFrame;
 
+import Manager.AdminApplication;
 import admin.AddProduct;
+import admin.AddPromitions;
 import admin.InformationAddmin;
 import admin.ProductManagement;
 import admin.UserManagement;
@@ -22,9 +25,20 @@ import user.Pay;
 
 public class main {
 	public static void main(String[] args) {
-		JFrame mainFrame = new JFrame();
-		mainFrame.setBounds(100, 100, 1100, 600);
-		mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+//		JFrame mainFrame = new JFrame();
+//		mainFrame.setBounds(100, 100, 1100, 600);
+//		mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+//		mainFrame.setVisible(true);
+		
+		AdminApplication adminApplication;
+		try {
+			adminApplication = new AdminApplication();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		/*
 		Home home = new Home();

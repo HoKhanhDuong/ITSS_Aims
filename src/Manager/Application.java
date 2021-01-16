@@ -23,6 +23,7 @@ import productframe.DetailProduct;
 import productframe.Home;
 import productframe.MenuProduct;
 import productframe.Product;
+import productframe.SaleProduct;
 import user.CancelOrder;
 import user.ChangePassword;
 import user.Information;
@@ -39,6 +40,7 @@ public class Application extends JFrame {
 	public Cart cart;
 	public DetailProduct detailProduct;
 	public Product product;
+	public SaleProduct saleProduct;
 	public CancelOrder cancelOrder;
 	public ChangePassword changePassword;
 	public Information information;
@@ -73,6 +75,7 @@ public class Application extends JFrame {
 		cart = new Cart(this);
 		detailProduct = new DetailProduct(this);
 		product = new Product(this);
+		saleProduct = new SaleProduct(this);
 		cancelOrder = new CancelOrder(this);
 		changePassword = new ChangePassword(this);
 		information = new Information(this);
@@ -89,6 +92,7 @@ public class Application extends JFrame {
 		list.add(home);
 		list.add(cart);
 		list.add(product);
+		list.add(saleProduct);
 		list.add(detailProduct);
 		list.add(cancelOrder);
 		list.add(changePassword);

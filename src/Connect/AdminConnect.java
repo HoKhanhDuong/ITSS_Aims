@@ -13,7 +13,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import Object.Media;
 import Object.User;
+import admin.SaleMedia;
 
 public class AdminConnect {
 	private Connection conn;
@@ -25,7 +27,8 @@ public class AdminConnect {
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 	     String userName = "SA";
-	     String password = "do@1230.com";
+	     String password = "123456";
+//	     String password = "do@1230.com";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
 	 
@@ -288,5 +291,38 @@ public class AdminConnect {
 		return 0;
 	}
 	
+	public ArrayList<Media> getListMedia(int category){
+		ArrayList<Media> list = new ArrayList<Media>();
+		
+		try {
+			rSet = statement.executeQuery("SELECT Ten, IDMedia FROM Media WHERE IDLoai = "+category);
+			while(rSet.next()) {
+				Media media = new Media();
+				media.setId(rSet.getInt("IDMedia"));
+				media.setNameString(rSet.getString("Ten"));
+				list.add(media);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
+	public void saveSale(String name, String starttime, String endtime, ArrayList<SaleMedia> list) {
+		try {
+			statement.executeUpdate("INSERT INTO Sale VALUES('"+starttime+"','"+endtime+"','"+name+"')");
+			rSet = statement.executeQuery("SELECT MAX(IDSale) AS IDSale FROM Sale ");
+			rSet.next();
+			int id = rSet.getInt("IDSale");
+			for(int i=0; i<list.size(); i++) {
+				statement.executeUpdate("INSERT INTO MediaSale VALUES ("+id+", "+list.get(i).mediaid+", "
+						+(Float.parseFloat(list.get(i).sale.getText())/100)+")");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -42,6 +42,7 @@ public class DetailProduct extends MenuProduct {
 	JLabel imgLabel;
 	JPanel imgPanel;
 	int IDMedia;
+	public JLabel saleLabel;
 
 	/**
 	 * Create the panel.
@@ -82,6 +83,7 @@ public class DetailProduct extends MenuProduct {
         detailPanel.setLayout(null);
         
         nameLabel = new JLabel();
+        nameLabel.setText("name");
         nameLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
         nameLabel.setBounds(40, 23, 510, 30);
         detailPanel.add(nameLabel);
@@ -104,6 +106,7 @@ public class DetailProduct extends MenuProduct {
         quantityPanel.add(quantityLabel);
         
         textField = new JTextField();
+        textField.setText("1");
         textField.setHorizontalAlignment(SwingConstants.CENTER);
         textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
         textField.setBounds(102, 17, 62, 26);
@@ -178,6 +181,12 @@ public class DetailProduct extends MenuProduct {
         
         table = new JTable();
         panel.add(table);
+        
+        saleLabel = new JLabel("");
+        saleLabel.setForeground(Color.RED);
+        saleLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
+        saleLabel.setBounds(245, 64, 146, 60);
+        detailPanel.add(saleLabel);
         
 	}
 	public void setBookValue(Book book) {
@@ -284,6 +293,8 @@ public class DetailProduct extends MenuProduct {
 			BufferedImage image = ImageIO.read(new File(media.getImage()));
             ImageIcon icon = new ImageIcon(image.getScaledInstance(270, 340, image.SCALE_SMOOTH));
             imgLabel.setIcon(icon);
+            
+            if(media.getSale() > 0) saleLabel.setText(media.getSale()+"");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

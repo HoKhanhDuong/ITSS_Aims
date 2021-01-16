@@ -1,54 +1,25 @@
 package productframe;
 
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import Controller.MediaController;
-import Manager.Application;
-import Object.Media;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.ListIterator;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollBar;
+
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JInternalFrame;
-import javax.swing.BoxLayout;
-import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JList;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-import javax.swing.JInternalFrame;
-import javax.swing.BoxLayout;
-import java.awt.Component;
+import Manager.Application;
 
-public class Product extends MenuProduct {
-
-	/**
-	 * Create the panel.
-	 */
+public class SaleProduct extends MenuProduct {
 	public JScrollPane scrollPane;
 	JButton back = new JButton("<<");
 	JButton next = new JButton(">>");
@@ -59,7 +30,7 @@ public class Product extends MenuProduct {
 	private int type = 0;
 	private boolean flag = false;
 
-	public Product(Application application) {
+	public SaleProduct(Application application) {
 		super(application);
 		
 		setBorder(new EmptyBorder(3,3,3,3));
@@ -106,17 +77,17 @@ public class Product extends MenuProduct {
 		    	   if(value == "Price : Low to High") {
 		    		   	application.mediaControl.hiddenCurrentPanel(list, page);
 						page = 0;
-						setList(application.mediaControl.get_ListProductSort(type, 0));
+						setList(application.mediaControl.get_ListProductSaleSort(type, 0));
 						setListProduct(list);
-						application.mediaControl.screen_ListProduct(getList(),page); 
+						application.mediaControl.screen_ListProductSale(getList(),page); 
 		    	   }
 		    	   else if(value == "Price : High to Low") {
 		    		   type = -type;
 		    		   	application.mediaControl.hiddenCurrentPanel(list, page);
 						page = 0;
-						setList(application.mediaControl.get_ListProductSort(type, 0));
+						setList(application.mediaControl.get_ListProductSaleSort(type, 0));
 						setListProduct(list);
-						application.mediaControl.screen_ListProduct(getList(),page);
+						application.mediaControl.screen_ListProductSale(getList(),page);
 		    	   }
 		       }
 		});
@@ -162,14 +133,13 @@ public class Product extends MenuProduct {
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
 				page = 0;
-				setList(application.mediaControl.get_ListProduct(type, page*20));
+				setList(application.mediaControl.get_ListProductSale(type, page*20));
 				setListProduct(list);
-				application.mediaControl.screen_ListProduct(getList(),page);
+				application.mediaControl.screen_ListProductSale(getList(),page);
 				
 			}
 			
 		});
-		
 		
 //		sortComboBox.addActionListener (new ActionListener () {
 //		       public void actionPerformed(ActionEvent e) {
@@ -179,7 +149,7 @@ public class Product extends MenuProduct {
 //						page = 0;
 //						setList(application.mediaControl.get_ListProductSort(-2, 0));
 //						setListProduct(list);
-//						application.mediaControl.screen_ListProduct(getList(),page);
+//						application.mediaControl.screen_ListProductSale(getList(),page);
 //		    		   
 //		    	   }
 //		    	   else if(value=="Price : High to Low") {
@@ -187,7 +157,7 @@ public class Product extends MenuProduct {
 //						page = 0;
 //						setList(application.mediaControl.get_ListProductSort(2, 0));
 //						setListProduct(list);
-//						application.mediaControl.screen_ListProduct(getList(),page);
+//						application.mediaControl.screen_ListProductSale(getList(),page);
 //		    	   }
 //		       }
 //		});
@@ -203,9 +173,9 @@ public class Product extends MenuProduct {
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
 				page = 0;
-				setList(application.mediaControl.get_ListProduct(type, page*20));
+				setList(application.mediaControl.get_ListProductSale(type, page*20));
 				setListProduct(list);
-				application.mediaControl.screen_ListProduct(getList(),page);
+				application.mediaControl.screen_ListProductSale(getList(),page);
 			}
 		});
 		
@@ -221,9 +191,9 @@ public class Product extends MenuProduct {
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
 				page = 0;
-				setList(application.mediaControl.get_ListProduct(type, page*20));
+				setList(application.mediaControl.get_ListProductSale(type, page*20));
 				setListProduct(list);
-				application.mediaControl.screen_ListProduct(getList(),page);
+				application.mediaControl.screen_ListProductSale(getList(),page);
 			}
 		});
 		dvdButton.setBounds(0, 70, 200, 31);
@@ -240,13 +210,12 @@ public class Product extends MenuProduct {
 				sortComboBox.setSelectedIndex(0);
 				application.mediaControl.hiddenCurrentPanel(list, page);
 				page = 0;
-				setList(application.mediaControl.get_ListProduct(type, page*20));
+				setList(application.mediaControl.get_ListProductSale(type, page*20));
 				setListProduct(list);
-				application.mediaControl.screen_ListProduct(getList(),page);
+				application.mediaControl.screen_ListProductSale(getList(),page);
 				
 			}
 		});
-		
 		
 		JLabel sortLabel = new JLabel("Sort by :");
 		sortLabel.setBounds(647, 10, 67, 40);
@@ -264,15 +233,15 @@ public class Product extends MenuProduct {
 		next.setBackground(Color.LIGHT_GRAY);
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(application.mediaControl.get_ListProduct(type, (page+1)*20).size() > 0) {
+				if(application.mediaControl.get_ListProductSale(type, (page+1)*20).size() > 0) {
 					application.mediaControl.hiddenCurrentPanel(list, page);
 					page++;
 					if(flag=false)
-						setList(application.mediaControl.get_ListProduct(type, page*20));
+						setList(application.mediaControl.get_ListProductSale(type, page*20));
 					else
-						setList(application.mediaControl.get_ListProductSort(type, page*20));
+						setList(application.mediaControl.get_ListProductSaleSort(type, page*20));
 					setListProduct(list);
-					application.mediaControl.screen_ListProduct(getList(),page);
+					application.mediaControl.screen_ListProductSale(getList(),page);
 				}
 			}
 		});
@@ -282,11 +251,11 @@ public class Product extends MenuProduct {
 					application.mediaControl.hiddenCurrentPanel(list, page);
 					page--;
 					if(flag=false)
-						setList(application.mediaControl.get_ListProduct(type, page*20));
+						setList(application.mediaControl.get_ListProductSale(type, page*20));
 					else
-						setList(application.mediaControl.get_ListProductSort(type, page*20));
+						setList(application.mediaControl.get_ListProductSaleSort(type, page*20));
 					setListProduct(list);
-					application.mediaControl.screen_ListProduct(getList(),page);
+					application.mediaControl.screen_ListProductSale(getList(),page);
 				}
 			}
 		});

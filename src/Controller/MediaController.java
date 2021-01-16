@@ -26,16 +26,23 @@ public class MediaController {
 		this.application = application;
 	}
 	
-	public void screen_ListProduct(List<ProductPanel> listProduct) {
-		application.product.addListProduct(listProduct);
+	public void screen_ListProduct(List<ProductPanel> listProduct, int page) {
+		application.product.addListProduct(listProduct, page);
 		application.switchPanel(application.product);
+		System.out.println(listProduct.size());
 	}
 	
-	public List<ProductPanel> get_ListProduct(int type) {
+	public void screen_ListProductSale(List<ProductPanel> listProduct, int page) {
+		application.saleProduct.addListProduct(listProduct, page);
+		application.switchPanel(application.saleProduct);
+		System.out.println(listProduct.size());
+	}
+	
+	public List<ProductPanel> get_ListProduct(int type, int offset) {
 		
 		int x = 0, y = 0;
 		
-		listMedia = application.connect.getListMedia(type);
+		listMedia = application.connect.getListMedia(type, offset);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
@@ -55,12 +62,69 @@ public class MediaController {
 		return listProduct;
 	}
 	
-	public List<ProductPanel> get_ListProductSort(int type) {
+	
+	public List<ProductPanel> get_ListProductSort(int type, int offset) {
 		
 		int x = 0;
 		int y = 0;
 		
-		listMedia = application.connect.getListMediaSort(type);
+		listMedia = application.connect.getListMediaSort(type, offset);
+		listProduct = new ArrayList<ProductPanel>();
+		ListIterator<Media> itr = listMedia.listIterator();
+		
+		while (itr.hasNext()) {
+			if (x > 2) {
+				x = 0;
+				y++;
+				continue;
+			}
+			Media e = itr.next();
+			ProductPanel productPanel= new ProductPanel(e, x, y, this.application);
+			
+			listProduct.add(productPanel);
+			x++;
+		}
+		
+		return listProduct;
+	}
+	
+
+public List<ProductPanel> get_ListProductSale(int type, int offset) {
+		
+		int x = 0, y = 0;
+		
+		int idSale = application.connect.checkSale();
+		if(idSale == 0) return null;
+		
+		listMedia = application.connect.getListMediaSale(type, offset, idSale);
+		listProduct = new ArrayList<ProductPanel>();
+		ListIterator<Media> itr = listMedia.listIterator();
+		
+		while (itr.hasNext()) {
+			if (x > 2) {
+				x = 0;
+				y++;
+				continue;
+			}
+			Media e = itr.next();
+			ProductPanel productPanel= new ProductPanel(e, x, y, application);
+			listProduct.add(productPanel);
+			x++;
+		}
+		
+		return listProduct;
+	}
+	
+	
+	public List<ProductPanel> get_ListProductSaleSort(int type, int offset) {
+		
+		int x = 0;
+		int y = 0;
+		
+		int idSale = application.connect.checkSale();
+		if(idSale == 0) return null;
+		
+		listMedia = application.connect.getListMediaSaleSort(type, offset, idSale);
 		listProduct = new ArrayList<ProductPanel>();
 		ListIterator<Media> itr = listMedia.listIterator();
 		
@@ -88,10 +152,10 @@ public class MediaController {
 				list.remove(i);
 			}
 		}
-	}
 	
+	}
 	public void showMedia(int id, String categoryString) {
-
+		
 		if(categoryString.equals("Book")) {
 			
 			Book book = application.connect.getBook(id);

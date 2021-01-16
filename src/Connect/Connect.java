@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +39,11 @@ public class Connect {
 	     String database = "ITSS";
 
 
-// 	     String userName = "SA";
-// 	     String password = "123456";
-
  	     String userName = "SA";
- 	     String password = "do@1230.com";
+ 	     String password = "123456";
+
+// 	     String userName = "SA";
+// 	     String password = "do@1230.com";
 
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -132,6 +133,7 @@ public class Connect {
 		
 		int i = 0;
 		
+		System.out.println("sdzsdzs");
 		
 		try {
 			rSet = statement.executeQuery("SELECT O.IDDonHang, TT.SoLuong, M.Ten, O.TrangThai, TT.Gia\n"
@@ -174,44 +176,285 @@ public class Connect {
 			
 			return data_Order;
 	}
-	public List<Media> getListMedia(int type) {
+//	public List<Media> getListMedia(int type, int offset) {
+//		listMedia = new ArrayList<Media>();
+//		try {
+//			statement = conn.createStatement();
+//			switch (type) {
+//			case 1: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='Book'\r\n" + 
+//						"ORDER BY IDMedia\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 2: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='CD'\r\n" + 
+//						"ORDER BY IDMedia\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 3: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='DVD'\r\n" + 
+//						"ORDER BY IDMedia\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 4:{
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='LP'\r\n" + 
+//						"ORDER BY IDMedia\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			default:
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0\r\n" + 
+//						"ORDER BY IDMedia\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			
+//			while(rSet.next()) {
+//
+//
+//				media = new Media(rSet.getString("Ten"), 
+//						rSet.getInt("GiaCa"), 
+//						rSet.getString("TenLoai"), 
+//						rSet.getString("image"),
+//						rSet.getInt("IDMedia"));
+//				listMedia.add(media);
+//				
+//			}
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return listMedia;
+//	}
+//	public List<Media> getListMediaSort(int type, int offset) {
+//		listMedia = new ArrayList<Media>();
+//		try {
+//			statement = conn.createStatement();
+//			switch (type) {
+//			case -1: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='Book'\r\n" + 
+//						"ORDER BY GiaCa ASC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case -2: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='CD'\r\n" + 
+//						"ORDER BY GiaCa ASC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case -3: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='DVD'\r\n" + 
+//						"ORDER BY GiaCa ASC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case -4: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='LP'\r\n" + 
+//						"ORDER BY GiaCa ASC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 7: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0\r\n" + 
+//						"ORDER BY GiaCa ASC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 1: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='Book'\r\n" + 
+//						"ORDER BY GiaCa DESC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 2: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='CD'\r\n" + 
+//						"ORDER BY GiaCa DESC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 3: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='DVD'\r\n" + 
+//						"ORDER BY GiaCa DESC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			case 4: {
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0 AND Loai.TenLoai='LP'\r\n" + 
+//						"ORDER BY GiaCa DESC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			default:
+//
+//				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+//						"join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+//						"WHERE IDMedia > 0\r\n" + 
+//						"ORDER BY GiaCa DESC\r\n" + 
+//						"OFFSET "+offset+" ROWS\r\n" + 
+//						"FETCH NEXT 20 ROWS ONLY;");
+//				break;
+//			}
+//			
+//			while(rSet.next()) {
+//				media = new Media();
+//				media.setCategory(rSet.getString("TenLoai"));
+//				media.setNameString(rSet.getString("Ten"));
+//				media.setPriceFloat(rSet.getInt("GiaCa"));
+//				media.setId(rSet.getInt("IDMedia"));
+//
+//				media.setImage(rSet.getString("image"));
+//				listMedia.add(media);
+//			}
+//			
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return listMedia;
+//	}
+	
+	public int checkSale() {
+		
+		LocalDate date = LocalDate.now();
+		
+		try {
+			statement = conn.createStatement();
+			rSet = statement.executeQuery("SELECT IDSale FROM Sale WHERE StartTime <= '"+date+"' AND EndTime >= '"+date+"'");
+			if(rSet.next()) return rSet.getInt("IDSale");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+	
+	public List<Media> getListMediaSale(int type, int offset, int idsale) {
 		listMedia = new ArrayList<Media>();
 		try {
 			statement = conn.createStatement();
 			switch (type) {
 			case 1: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='Book' AND deleted = 0");
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			case 2: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='CD' AND deleted = 0");
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			case 3: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='DVD' AND deleted = 0");
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			case 4:{
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='LP' AND deleted = 0");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			default:
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai\n"
-						+ "WHERE deleted = 0");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			
@@ -222,7 +465,8 @@ public class Connect {
 						rSet.getInt("GiaCa"), 
 						rSet.getString("TenLoai"), 
 						rSet.getString("image"),
-						rSet.getInt("IDMedia"));
+						rSet.getInt("IDMedia"),
+						rSet.getFloat("sale"));
 				listMedia.add(media);
 				
 			}
@@ -233,89 +477,123 @@ public class Connect {
 		}
 		return listMedia;
 	}
-	public List<Media> getListMediaSort(int type) {
+	public List<Media> getListMediaSaleSort(int type, int offset, int idsale) {
 		listMedia = new ArrayList<Media>();
 		try {
 			statement = conn.createStatement();
 			switch (type) {
 			case -1: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='Book' AND deleted = 0\n"
-						+ "ORDER BY GiaCa ASC");
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			case -2: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='CD' AND deleted = 0\n"
-						+ "ORDER BY GiaCa ASC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			case -3: {
-
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='DVD' AND deleted = 0\n"
-						+ "ORDER BY GiaCa ASC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			case -4: {
-
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='LP' AND deleted = 0\n"
-						+ "ORDER BY GiaCa ASC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
-			case 0: {
+			case 7: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE deleted = 0 \n"
-						+ "ORDER BY GiaCa ASC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			case 1: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='Book' AND deleted = 0\n"
-						+ "ORDER BY GiaCa DESC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
 				break;
 			}
 			case 2: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='CD' AND deleted = 0\n"
-						+ "ORDER BY GiaCa DESC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			case 3: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='DVD' AND deleted = 0\n"
-						+ "ORDER BY GiaCa DESC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			case 4: {
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE Loai.TenLoai='LP' AND deleted = 0\n"
-						+ "ORDER BY GiaCa DESC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			default:
 
-				rSet = statement.executeQuery("SELECT * "
-						+ "FROM Media join Loai ON Media.IDLoai=Loai.IDLoai "
-						+ "WHERE deleted = 0 \n"
-						+ "ORDER BY GiaCa DESC");
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND MediaSale.IDSale = "+idsale+" \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+
 				break;
 			}
 			
@@ -325,8 +603,223 @@ public class Connect {
 				media.setNameString(rSet.getString("Ten"));
 				media.setPriceFloat(rSet.getInt("GiaCa"));
 				media.setId(rSet.getInt("IDMedia"));
-
 				media.setImage(rSet.getString("image"));
+				media.setSale(rSet.getFloat("sale"));
+				listMedia.add(media);
+			}
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listMedia;
+	}
+	
+	public List<Media> getListMedia(int type, int offset) {
+		listMedia = new ArrayList<Media>();
+		try {
+			statement = conn.createStatement();
+			switch (type) {
+			case 1: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 2: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 3: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 4:{
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' \r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			default:
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+			//			"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0\r\n" + 
+						"ORDER BY Media.IDMedia\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			
+			while(rSet.next()) {
+
+				
+				media = new Media(rSet.getString("Ten"), 
+						rSet.getInt("GiaCa"), 
+						rSet.getString("TenLoai"), 
+						rSet.getString("image"),
+						rSet.getInt("IDMedia"),
+						0);
+				listMedia.add(media);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listMedia;
+	}
+	public List<Media> getListMediaSort(int type, int offset) {
+		listMedia = new ArrayList<Media>();
+		try {
+			statement = conn.createStatement();
+			switch (type) {
+			case -1: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case -2: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case -3: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case -4: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 7: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  ASC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 1: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='Book' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 2: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='CD' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 3: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='DVD' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			case 4: {
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 AND Loai.TenLoai='LP' \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			default:
+
+				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
+						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
+						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 
+						"WHERE Media.IDMedia > 0 \r\n" + 
+						"ORDER BY Media.GiaCa*(1-MediaSale.sale)  DESC\r\n" + 
+						"OFFSET "+offset+"ROWS\r\n" + 
+						"FETCH NEXT 20 ROWS ONLY;");
+				break;
+			}
+			
+			while(rSet.next()) {
+				media = new Media();
+				media.setCategory(rSet.getString("TenLoai"));
+				media.setNameString(rSet.getString("Ten"));
+				media.setPriceFloat(rSet.getInt("GiaCa"));
+				media.setId(rSet.getInt("IDMedia"));
+				media.setImage(rSet.getString("image"));
+				media.setSale(rSet.getFloat("sale"));
 				listMedia.add(media);
 			}
 			
@@ -387,6 +880,14 @@ public class Connect {
 			}
 			if (!tacgiaString.isEmpty()) tacgiaString = tacgiaString.trim().substring(0, tacgiaString.length()-2);
 			book.setTacGiaString(tacgiaString);
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					book.setSale(book.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -460,6 +961,15 @@ public class Connect {
 			}
 			if (!baihatString.isEmpty()) baihatString = baihatString.trim().substring(0, baihatString.length()-2);
 			cd.setBaihatString(baihatString);
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					cd.setSale(cd.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -516,6 +1026,14 @@ public class Connect {
 			if (!baihatString.isEmpty()) baihatString = baihatString.trim().substring(0, baihatString.length()-2);
 			cd.setBaihatString(baihatString);
 			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					cd.setSale(cd.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -566,7 +1084,14 @@ public class Connect {
 			
 			if (rSet.next()) {
 				dvd.setKieuDia(rSet.getString("LoaiDia"));
-			}
+      }
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
+				if(rSet.next()) {
+					dvd.setSale(dvd.getPriceFloat()*(1-rSet.getFloat("sale")));
+				}
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -665,6 +1190,7 @@ public class Connect {
 	public ArrayList<ProductPaneInCart> getMediaInCart(int IDUser){
 		ArrayList<ProductPaneInCart> list = new ArrayList<ProductPaneInCart>();
 		try {
+			
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT * FROM Cart JOIN Media ON Cart.IDMedia = Media.IDMedia "
 					+ " WHERE IDUser = "+IDUser);
@@ -674,6 +1200,17 @@ public class Connect {
 				ProductPaneInCart media = new ProductPaneInCart(rSet.getString("Ten"), rSet.getString("image"), rSet.getInt("IDMedia"), rSet.getInt("GiaCa"), rSet.getInt("SoLuong"), i);
 				i++;
 				list.add(media);
+			}
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				for(int index=0; index< list.size(); index++) {
+					rSet = statement.executeQuery("SELECT sale, GiaCa FROM MediaSale JOIN Media ON MediaSale.IDMEdia = Media.IDMedia"
+							+" WHERE Media.IDMedia = "+list.get(index).id);
+					if(rSet.next()) {
+						list.get(index).priceLabel.setText(rSet.getFloat("GiaCa")*(1-rSet.getFloat("sale"))+"");
+					}
+				}
 			}
 
 		} catch (SQLException e) {
@@ -1162,12 +1699,14 @@ public class Connect {
 	public void saveOrder(OrderObject order, int IDUser, List<ProductPaneInCart> list) {
 		try {
 			statement.executeUpdate("INSERT INTO DonHang VALUES("+IDUser+","+order.address.getID()+",'Cho','',"+order.total+")");
+
 			rSet = statement.executeQuery("SELECT MAX(IDDonHang) AS IDDonHang FROM DonHang");
 			rSet.next();
 			int iddh = rSet.getInt("IDDonHang");
 			for(int i=0; i<= list.size() -1; i++) {
 				statement.executeUpdate("INSERT INTO ThongTinDonHang VALUES ("+iddh+","+list.get(i).id+","
 				   +Integer.parseInt(list.get(i).SoLuong.getText())+","+Integer.parseInt(list.get(i).priceLabel.getText())+")");
+
 			}
 			
 			statement.executeUpdate("DELETE FROM Cart WHERE IDUser = "+IDUser);

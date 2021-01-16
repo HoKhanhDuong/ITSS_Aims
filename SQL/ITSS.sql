@@ -149,6 +149,8 @@ CREATE TABLE History(
 	FOREIGN KEY (IDAction) REFERENCES Actions(IDAction)
 )
 
+
+
 CREATE TABLE Cart(
 	IDMedia INT,
 	IDUser INT,
@@ -191,8 +193,9 @@ CREATE TABLE ThongTinDonHang(
 	SoLuong INT,
 	Gia INT,
 	FOREIGN KEY (IDDonHang) REFERENCES DonHang(IDDonHang),
-	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia)
+	FOREIGN KEY (IDMedia) REFERENCES Media(IDMedia) ON DELETE NO ACTION
 )
+
 
 CREATE TABLE LichSuThanhToan(
 	ID INT IDENTITY PRIMARY KEY,
@@ -275,11 +278,6 @@ ON DELETE CASCADE
 ALTER TABLE History
 drop constraint fk_media_history
 
-ALTER TABLE History
-add constraint fk_media_history
-foreign key (IDMedia)
-REFERENCES Media
-ON DELETE set null
 
 -- Them truong de co the xoa
 alter table Media add deleted BIT default 0
@@ -356,6 +354,14 @@ on DELETE NO ACTION
 
 
 
+-- xoa
+ALTER TABLE History
+drop constraint fk_History_IDMedia
 
 
+-- update sale table
+ALTER TABLE Sale 
+DROP COLUMN Sale
 
+ALTER TABLE MediaSale
+ADD sale float

@@ -51,6 +51,7 @@ public class AddProduct extends AddminHome {
 		JButton btnNewButton = new JButton("BOOK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				adminApplication.adminController.display_media_for_category(1);
 				 adminApplication.switchPanel(adminApplication.addBook);
 			}
 		});
@@ -61,6 +62,7 @@ public class AddProduct extends AddminHome {
 		JButton btnCd = new JButton("CD/LP");
 		btnCd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				adminApplication.adminController.display_media_for_category(3);
 				 adminApplication.switchPanel(adminApplication.addCD_LP);
 			}
 		});
@@ -71,6 +73,7 @@ public class AddProduct extends AddminHome {
 		JButton btnDvd = new JButton("DVD");
 		btnDvd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				adminApplication.adminController.display_media_for_category(2);
 				 adminApplication.switchPanel(adminApplication.addDVD);
 			}
 		});

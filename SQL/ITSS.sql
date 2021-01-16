@@ -282,6 +282,11 @@ drop constraint fk_media_history
 -- Them truong de co the xoa
 alter table Media add deleted BIT default 0
 
+update Media 
+set deleted = 0
+where IDMedia > 0
+
+
 alter table DanhSachBaiHat
     add constraint fk_dsbh_media
 foreign key (IDMedia)

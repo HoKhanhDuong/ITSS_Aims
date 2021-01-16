@@ -18,7 +18,7 @@ public class AdminConnect {
 		String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
-	     String userName = "SA";
+	     String userName = "sa";
 	     String password = "123456";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;

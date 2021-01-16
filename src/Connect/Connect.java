@@ -31,10 +31,10 @@ public class Connect {
 		// TODO Auto-generated constructor stub
 		String hostName = "localhost";
 	     String sqlInstanceName = "SQLEXPRESS";
-	     String database = "ITSS_DB";
+	     String database = "ITSS";
 
 
- 	     String userName = "SA";
+ 	     String userName = "sa";
  	     String password = "123456";
 
 // 	     String userName = "SA";

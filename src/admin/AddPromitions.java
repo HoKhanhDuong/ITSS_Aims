@@ -41,6 +41,7 @@ public class AddPromitions extends AddminHome {
 	private JComboBox voucher2;
 	private JComboBox voucher3;
 	private JTextField textField;
+	private JTextField textField_1;
 	public AddPromitions(AdminApplication adminApplication) {
 		super(adminApplication);
 		this.adminApplication = adminApplication;
@@ -134,7 +135,7 @@ public class AddPromitions extends AddminHome {
 		btnNewButton_1_1.setBounds(594, 10, 224, 30);
 		panel_2.add(btnNewButton_1_1);
 //===============================================================HINH THUC KHUYEN MAI=============================================================================		
-	   /*
+	   
 		
 		JPanel promitionPanel = new JPanel();
 		promitionPanel.setBackground(SystemColor.inactiveCaptionBorder);
@@ -152,7 +153,7 @@ public class AddPromitions extends AddminHome {
 		promitionPanel.add(sortComboBox);
 		sortComboBox.setBackground(Color.WHITE);
 		sortComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox.setModel(new DefaultComboBoxModel(new String[] {"Bill", "Product"}));
+		sortComboBox.setModel(new DefaultComboBoxModel(new String[] {"Product"}));
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Form\r\n");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -161,7 +162,7 @@ public class AddPromitions extends AddminHome {
 		promitionPanel.add(lblNewLabel_2_1);
 		
 		JComboBox sortComboBox_1 = new JComboBox();
-		sortComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Give gift", "Discount"}));
+		sortComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Discount"}));
 		sortComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		sortComboBox_1.setBackground(Color.WHITE);
 		sortComboBox_1.setBounds(504, 9, 128, 30);
@@ -171,7 +172,7 @@ public class AddPromitions extends AddminHome {
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setBounds(0, 52, 804, 170);
 		promitionPanel.add(panel_3);
-		*/
+		
 //---------------------------------------------------------- giam gia theo hoa don---------------------------------------------------------
 		/*
 		panel_3.setLayout(null);
@@ -195,7 +196,7 @@ public class AddPromitions extends AddminHome {
 		panel_3.add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
+		JTextField textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		textField_1.setBounds(231, 45, 105, 30);
 		panel_3.add(textField_1);
@@ -273,8 +274,8 @@ public class AddPromitions extends AddminHome {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton_2.setBounds(594, 132, 189, 30);
 		panel_3.add(btnNewButton_2);
-		*/
 		
+		*/
 //----------------------------------------- Tang qua theo hoa don-----------------------------------------------------------
 		/*
 		panel_3.setLayout(null);
@@ -295,6 +296,11 @@ public class AddPromitions extends AddminHome {
 		from1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		from1.setBounds(10, 45, 45, 30);
 		panel_3.add(from1);
+		
+		textField = new JTextField();
+		textField.setBounds(60, 45, 147, 30);
+		panel_3.add(textField);
+		textField.setColumns(10);
 		
 		JComboBox sortComboBox_1_1;
 		voucher1 = new JComboBox();
@@ -351,14 +357,12 @@ public class AddPromitions extends AddminHome {
 		btnNewButton_2.setBounds(594, 132, 189, 30);
 		panel_3.add(btnNewButton_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(60, 45, 147, 30);
-		panel_3.add(textField);
 		
 		*/
+		
+		
 //------------------------------------------------------- giam gia theo san pham ----------------------------------------------------------------
-		/*
+		
 		panel_3.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Product Groups");
@@ -408,7 +412,7 @@ public class AddPromitions extends AddminHome {
 		sortComboBox_2_1.setBackground(Color.WHITE);
 		panel_3.add(sortComboBox_2_1);
 		
-		*/
+		
 		
 //-----------------------------------------------------------------tang qua theo san pham----------------------------------------------------------		
         /*
@@ -581,13 +585,14 @@ public class AddPromitions extends AddminHome {
 		sortComboBox_2_1_1_1_1_1.setBounds(613, 137, 74, 30);
 		timePanel.add(sortComboBox_2_1_1_1_1_1);
 		
-		*/
+	*/
 
 //====================================================THOI GIAN AP DUNG====================================================================================================
 
 		
 		
 //===================================================PHAM VI AP DUNG =====================================================================================================
+		/*
 		JPanel rangePanel = new JPanel();
 		rangePanel.setLayout(null);
 		rangePanel.setBackground(Color.WHITE);
@@ -613,14 +618,14 @@ public class AddPromitions extends AddminHome {
 		rangePanel.add(rdbtnNewRadioButton_1_1);
 		
 		// neu chon chi nhanh cua hang
-		/*
-		JComboBox sortComboBox_1 = new JComboBox();
-		sortComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Tran Phu, Ha Dong", "Hai Ba Trung", "Xa Dan", "Pham Ngoc Thach", "Truong Trinh"}));
-		sortComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox_1.setBackground(Color.WHITE);
-		sortComboBox_1.setBounds(237, 52, 192, 30);
-		rangePanel.add(sortComboBox_1);
-		*/
+		
+//		JComboBox sortComboBox_1 = new JComboBox();
+//		sortComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Tran Phu, Ha Dong", "Hai Ba Trung", "Xa Dan", "Pham Ngoc Thach", "Truong Trinh"}));
+//		sortComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		sortComboBox_1.setBackground(Color.WHITE);
+//		sortComboBox_1.setBounds(237, 52, 192, 30);
+//		rangePanel.add(sortComboBox_1);
+		
 		JRadioButton rdbtnNewRadioButton_1_2 = new JRadioButton("All customers");
 		rdbtnNewRadioButton_1_2.setForeground(Color.BLACK);
 		rdbtnNewRadioButton_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -634,15 +639,15 @@ public class AddPromitions extends AddminHome {
 		rdbtnNewRadioButton_1_1_1.setBounds(76, 164, 154, 30);
 		rangePanel.add(rdbtnNewRadioButton_1_1_1);
 		// Neu chon nhom khach hang
-		/*
-		JComboBox sortComboBox_1_1 = new JComboBox();
-		sortComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Tong san phm da mua tren 1tr", "Tong san phm da mua tren 5tr", "Tong san phm da mua tren 10tr"}));
-		sortComboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox_1_1.setBackground(Color.WHITE);
-		sortComboBox_1_1.setBounds(234, 163, 192, 30);
-		rangePanel.add(sortComboBox_1_1);
-		*/
 		
+//		JComboBox sortComboBox_1_1 = new JComboBox();
+//		sortComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Tong san phm da mua tren 1tr", "Tong san phm da mua tren 5tr", "Tong san phm da mua tren 10tr"}));
+//		sortComboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		sortComboBox_1_1.setBackground(Color.WHITE);
+//		sortComboBox_1_1.setBounds(234, 163, 192, 30);
+//		rangePanel.add(sortComboBox_1_1);
+//		
+		*/
 //===================================================PHAM VI AP DUNG ====================================================================================================
 		
 		

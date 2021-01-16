@@ -24,7 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class Cart extends MenuProduct {
+public class CartTest extends MenuProduct {
 
 	/**
 	 * Create the panel.
@@ -38,12 +38,11 @@ public class Cart extends MenuProduct {
 
 	JScrollPane scrollPane;
 	JPanel panel_1;
-	JPanel panel_2;
 	JPanel panel_4;
 	JButton orderButton;
 	public int total;
 	
-	public Cart(Application application) {
+	public CartTest(Application application) {
 		super(application);
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.control);
@@ -58,7 +57,7 @@ public class Cart extends MenuProduct {
 		panel_1.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 10, 900, 510);
+		panel_2.setBounds(0, 10, 900, 40);
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -69,14 +68,13 @@ public class Cart extends MenuProduct {
 		
 		panel_4 = new JPanel();
 		panel_4.setBackground(SystemColor.control);
-		panel_4.setBounds(575, 32, 325, 401);
-		panel_2.add(panel_4);
+		panel_4.setBounds(575, 49, 325, 384);
+		panel_1.add(panel_4);
 		panel_4.setLayout(null);
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(10, 10, 305, 107);
-		panel_4.add(panel_6);
+		panel_6.setBounds(10, 51, 305, 91);
 		panel_6.setLayout(null);
 		
 		JLabel totalLabel = new JLabel("Total");
@@ -103,12 +101,12 @@ public class Cart extends MenuProduct {
 		orderButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		orderButton.setBounds(10, 234, 305, 35);
 		panel_4.add(orderButton);
-	
+		panel_4.add(panel_6);
 		
 		//no product in cart
 		panel_3 = new JPanel();
-		panel_3.setBounds(10, 92, 880, 375);
-		panel_2.add(panel_3);
+		panel_3.setBounds(-564, -50, 880, 375);
+		panel_6.add(panel_3);
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setLayout(null);
 		
@@ -139,8 +137,7 @@ public class Cart extends MenuProduct {
 		continuebtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		continuebtn.setBounds(321, 218, 219, 36);
 		panel_3.add(continuebtn);
-		
-		panel_2.setVisible(false);
+		panel_4.setVisible(false);
 		scrollPane = new JScrollPane();
 		
 	}
@@ -148,9 +145,9 @@ public class Cart extends MenuProduct {
 	public void setList(List<ProductPaneInCart> list) {
 		listp = list;
 		if(application.getID() < 0) {
-			panel_2.setVisible(false);
+			panel_4.setVisible(false);
 		}else {
-			panel_2.setVisible(true);
+			panel_4.setVisible(true);
 		}
 		
 		if(list.size() == 0) {

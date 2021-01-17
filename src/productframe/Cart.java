@@ -67,6 +67,7 @@ public class Cart extends MenuProduct {
 		panel_2.add(lblNewLabel);
 		
 		//no product in cart
+	
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setBounds(10, 60, 880, 375);
@@ -96,20 +97,22 @@ public class Cart extends MenuProduct {
 //				application.mediaControl.screen_ListProduct(getList());
 			}
 		});
+		
 		continuebtn.setBackground(new Color(255, 153, 51));
 		continuebtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		continuebtn.setBounds(321, 218, 219, 36);
 		panel_3.add(continuebtn);
 		
 		panel_4 = new JPanel();
-		panel_4.setBackground(SystemColor.control);
-		panel_4.setBounds(575, 49, 325, 384);
+		panel_4.setBackground(Color.WHITE);
+		panel_4.setBounds(568, 58, 322, 450);
 		panel_1.add(panel_4);
 		panel_4.setLayout(null);
 		
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(10, 51, 305, 91);
+		panel_6.setBounds(10, 10, 305, 91);
+		panel_4.add(panel_6);
+		panel_6.setBackground(SystemColor.control);
 		panel_6.setLayout(null);
 		
 		JLabel totalLabel = new JLabel("Total");
@@ -125,6 +128,8 @@ public class Cart extends MenuProduct {
 		panel_6.add(moneylabel);
 		
 		orderButton = new JButton("ORDER");
+		orderButton.setBounds(10, 171, 305, 35);
+		panel_4.add(orderButton);
 		orderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				application.pay.changeAddress(application.payController.getNextAddress());
@@ -134,9 +139,8 @@ public class Cart extends MenuProduct {
 		orderButton.setForeground(Color.WHITE);
 		orderButton.setBackground(new Color(255, 0, 0));
 		orderButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		orderButton.setBounds(10, 234, 305, 35);
-		panel_4.add(orderButton);
-		panel_4.add(panel_6);
+		
+		
 		panel_4.setVisible(false);
 		scrollPane = new JScrollPane();
 		
@@ -146,15 +150,15 @@ public class Cart extends MenuProduct {
 		listp = list;
 		if(application.getID() < 0) {
 			panel_4.setVisible(false);
-		}else {
-			panel_4.setVisible(true);
 		}
 		
 		if(list.size() == 0) {
 			scrollPane.setVisible(false);
 			panel_3.setVisible(true);
-		}else {
+			panel_4.setVisible(false);
+		}else if(application.getID() > 0 && list.size() > 0) {
 			panel_3.setVisible(false);
+			panel_4.setVisible(true);
 			scrollPane.setVisible(true);
 			total = 0;
 			JPanel productJPanel = new JPanel();
@@ -166,9 +170,9 @@ public class Cart extends MenuProduct {
 				total+=  Float.parseFloat(paneInCart.priceLabel.getText()) * Integer.parseInt(paneInCart.SoLuong.getText());
 			}
 			productJPanel.setPreferredSize(new Dimension(560, list.size()*200));
-			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setViewportView(productJPanel);
-			scrollPane.setSize(new Dimension(560,400));
+			scrollPane.setSize(new Dimension(550,400));
 			scrollPane.setLocation(10, 70);
 			moneylabel.setText(total+" d");
 			productJPanel.setVisible(true);

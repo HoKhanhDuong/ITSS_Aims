@@ -39,7 +39,7 @@ public class Connect {
 	     String database = "ITSS";
 
 
- 	     String userName = "SA";
+ 	     String userName = "sa";
  	     String password = "123456";
 
 // 	     String userName = "SA";
@@ -1084,13 +1084,14 @@ public class Connect {
 			
 			if (rSet.next()) {
 				dvd.setKieuDia(rSet.getString("LoaiDia"));
-      }
+			}
 			int idsale = checkSale();
 			if(idsale > 0) {
 				rSet = statement.executeQuery("SELECT sale FROM MediaSale WHERE IDSale = "+idsale);
 				if(rSet.next()) {
 					dvd.setSale(dvd.getPriceFloat()*(1-rSet.getFloat("sale")));
 				}
+			}
 			
 			
 		} catch (SQLException e) {
@@ -1261,8 +1262,7 @@ public class Connect {
 				rSet = statement.executeQuery("SELECT * FROM DiaChi WHERE IDUser = "+IDUser);
 				while(rSet.next()) {
 					String diachi = rSet.getString("Diachi");
-					String[] city = diachi.split("<>");
-					
+					String[] city = diachi.split("-");
 					Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), city[2], city[1], city[0], IDUser);
 					address.setID(rSet.getInt("IDAddress"));
 					list.add(address);

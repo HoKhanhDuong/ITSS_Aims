@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import Manager.AdminApplication;
 import Manager.Application;
 import Object.User;
+import admin.MediaPanel;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -291,6 +293,15 @@ public class AdminController{
 			return;
 		}
 		adminApplication.adminConnect.remove_product(id_media, id_loai);
+	}
+	
+	public void getSale() {
+		adminApplication.promotions.setComBo(adminApplication.adminConnect.getListSale());
+	}
+	
+	public void getSaleMedia(String sale) {
+		String[] timeStrings = adminApplication.adminConnect.getSaleTime(sale);
+		adminApplication.promotions.setSale(adminApplication.adminConnect.getListMediaSale(sale),timeStrings[0], timeStrings[1]);
 	}
 	
 }

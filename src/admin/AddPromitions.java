@@ -685,9 +685,12 @@ public class AddPromitions extends AddminHome {
 		System.out.println("sale:'"+list.get(0).sale.getText()+"'");
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).mediaid == 0) return false;
-			if(!list.get(i).sale.getText().matches("(\\\\d+)?")) return false;
+			if(!list.get(i).sale.getText().matches("(\\d+)?")) return false;
+			System.out.println("ok");
 			if(list.get(i).sale.getText().equals("")) return false;
+			System.out.println("ok1");
 			if(Integer.parseInt(list.get(i).sale.getText()) > 70) return false;
+			System.out.println("ok2");
 		}
 		return true;
 	}

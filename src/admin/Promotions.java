@@ -17,11 +17,20 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class Promotions extends AddminHome {
-	private JTable table;
 	
 	AdminApplication adminApplication;
+	JComboBox saleCombo;
+	JLabel start;
+	JLabel end;
+	JPanel panel_3;
+	
 	public Promotions(AdminApplication adminApplication) {
 		super(adminApplication);
 		this.adminApplication = adminApplication;
@@ -32,6 +41,11 @@ public class Promotions extends AddminHome {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Add Promotions");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adminApplication.switchPanel(adminApplication.addPromitions);
+			}
+		});
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton.setBackground(SystemColor.control);
@@ -43,45 +57,26 @@ public class Promotions extends AddminHome {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setEnabled(false);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 10, 810, 398);
-		panel_1.add(scrollPane);
+		JLabel lblNewLabel = new JLabel("Start Time:");
+		lblNewLabel.setBounds(10, 11, 100, 26);
+		panel_1.add(lblNewLabel);
 		
-		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		table.setRowHeight(table.getRowHeight() + 20);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"1", "Don nha don tet ", "21-12-2020", "10-12-2020", "Giam gia", "Kich hoat"},
-				{null, null, null, null, null, null},
-				{null, "", "", null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, "", null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, "", null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"ID", "Name", "Start day", "End day", "Promotion form", "Status"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(66);
-		table.getColumnModel().getColumn(1).setPreferredWidth(152);
-		table.getColumnModel().getColumn(2).setPreferredWidth(74);
-		table.getColumnModel().getColumn(3).setPreferredWidth(74);
-		table.getColumnModel().getColumn(4).setPreferredWidth(190);
-		scrollPane.setViewportView(table);
+		JLabel lblNewLabel_1 = new JLabel("End Time :");
+		lblNewLabel_1.setBounds(10, 56, 100, 35);
+		panel_1.add(lblNewLabel_1);
+		
+		panel_3 = new JPanel();
+		panel_3.setBounds(10, 102, 810, 263);
+		panel_1.add(panel_3);
+		panel_3.setLayout(null);
+		
+		start = new JLabel("New label");
+		start.setBounds(136, 11, 157, 26);
+		panel_1.add(start);
+		
+		end = new JLabel("New label");
+		end.setBounds(136, 56, 157, 35);
+		panel_1.add(end);
 		
 		JLabel lblPromotions = new JLabel("Promotions");
 		lblPromotions.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -94,17 +89,45 @@ public class Promotions extends AddminHome {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JComboBox sortComboBox = new JComboBox();
-		sortComboBox.setBounds(670, 10, 128, 30);
-		panel_2.add(sortComboBox);
-		sortComboBox.setBackground(Color.WHITE);
-		sortComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox.setModel(new DefaultComboBoxModel(new String[] {"Fetured", "Price : Low to High", "Price : High to Low"}));
+		saleCombo = new JComboBox();
+		saleCombo.setBounds(244, 5, 434, 30);
+		panel_2.add(saleCombo);
+		saleCombo.setBackground(Color.WHITE);
+		saleCombo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		saleCombo.setModel(new DefaultComboBoxModel());
+		saleCombo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				adminApplication.adminController.getSaleMedia(saleCombo.getSelectedItem().toString());
+			}
+		});
 		
-		JLabel sortLabel = new JLabel("Sort by :");
-		sortLabel.setBounds(546, 6, 100, 40);
+		JLabel sortLabel = new JLabel("Choose promotions:");
+		sortLabel.setBounds(0, 0, 199, 40);
 		panel_2.add(sortLabel);
 		sortLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		sortLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 	}
+	
+	public void setComBo(ArrayList<String> list) {
+		saleCombo.removeAllItems();
+		for(int i=0; i<list.size(); i++) {
+			saleCombo.addItem(list.get(i));
+		}
+	}
+	
+	public void setSale(ArrayList<MediaPanel> list, String startString, String endString) {
+		start.setText(startString);
+		end.setText(endString);
+		panel_3.removeAll();
+		panel_3.setBounds(10, 123, 810, 242);
+		panel_3.setLayout(null);
+		
+		for(int i=0; i<list.size(); i++) {
+			panel_3.add(list.get(i));
+		}
+	}
+	
 }

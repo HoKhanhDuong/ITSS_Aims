@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import Object.Media;
 import Object.User;
+import admin.MediaPanel;
 import admin.SaleMedia;
 
 public class AdminConnect {
@@ -193,4 +194,54 @@ public class AdminConnect {
 			e.printStackTrace();
 		}
 	}
+	public ArrayList<String> getListSale(){
+		ArrayList<String> list = new ArrayList<String>();
+		
+		try {
+			rSet = statement.executeQuery("SELECT Title FROM Sale");
+			while(rSet.next()) {
+				list.add(rSet.getString("Title"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
+	public ArrayList<MediaPanel> getListMediaSale(String sale){
+		ArrayList<MediaPanel> list = new ArrayList<MediaPanel>();
+		try {
+			rSet = statement.executeQuery("SELECT image, Ten, sale FROM MediaSale"
+					+" JOIN Media ON Media.IDMedia = MediaSale.IDMedia"
+					+" JOIN Sale ON Sale.IDSale = MediaSale.IDSale "
+					+" WHERE Sale.Title = '"+sale+"'");
+			
+			while(rSet.next()) {
+				MediaPanel mediaPanel = new MediaPanel(rSet.getString("image"), rSet.getString("Ten"), rSet.getString("sale"), list.size());
+				list.add(mediaPanel);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public String[] getSaleTime(String sale) {
+		
+		try {
+			rSet = statement.executeQuery("SELECT StartTime, EndTime FROM Sale WHERE Title = '"+sale+"'");
+			if(rSet.next()) {
+				String[] noiStrings = {rSet.getString("StartTime"), rSet.getString("EndTime")};
+				return noiStrings;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

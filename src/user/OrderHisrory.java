@@ -80,9 +80,9 @@ public class OrderHisrory extends MyAccount {
 		
 		table = new JTable();
 		table.setEnabled(false);
-		table.setRowHeight(table.getRowHeight() + 20);
+		table.setRowHeight(35);
 		setTable();
-		table.getColumnModel().getColumn(1).setPreferredWidth(390);
+		table.getColumnModel().getColumn(1).setPreferredWidth(450);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(60);
@@ -112,6 +112,12 @@ public class OrderHisrory extends MyAccount {
 		JButton btnNewButton = new JButton("View");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!txt_id_order.getText().isEmpty()) {
+					int id_order = Integer.parseInt(txt_id_order.getText().trim());
+					
+					
+					
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));

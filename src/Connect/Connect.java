@@ -39,11 +39,11 @@ public class Connect {
 	     String database = "ITSS";
 
 
- 	     String userName = "sa";
- 	     String password = "123456";
+// 	     String userName = "sa";
+// 	     String password = "123456";
 
-// 	     String userName = "SA";
-// 	     String password = "do@1230.com";
+ 	     String userName = "SA";
+ 	     String password = "do@1230.com";
 
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -128,12 +128,9 @@ public class Connect {
 	public String[][] get_OrderDetail(int idUser) {
 	
 		String[][] data_Order = new String[SIZE][5];
-		
 		int id_order = 0;
-		
 		int i = 0;
-		
-		System.out.println("sdzsdzs");
+		float total = 0;
 		
 		try {
 			rSet = statement.executeQuery("SELECT O.IDDonHang, TT.SoLuong, M.Ten, O.TrangThai, TT.Gia\n"
@@ -145,12 +142,11 @@ public class Connect {
 			
 			if (rSet.next()) {
 				id_order = rSet.getInt("IDDonHang");
+				rSet.absolute(rSet.getRow()-1);
 			}
 			
-			rSet.absolute(rSet.getRow()-1);
-			
 			while(rSet.next()) {
-				float total = rSet.getInt("SoLuong")*Float.parseFloat(rSet.getString("Gia"));
+				total = rSet.getInt("SoLuong")*Float.parseFloat(rSet.getString("Gia"));
 				data_Order[i][0] = ""+ ((int)rSet.getInt("IDDonHang") + 100000);
 				data_Order[i][1] = rSet.getString("Ten");
 				data_Order[i][3] = rSet.getString("TrangThai");
@@ -161,14 +157,15 @@ public class Connect {
 						total += rSet.getInt("SoLuong")*Float.parseFloat(rSet.getString("Gia"));
 						data_Order[i][2] = "" + total;
 					} else {
-						
 						id_order = rSet.getInt("IDDonHang");
 						rSet.absolute(rSet.getRow()-1);
+						total = 0;
 						i++;
 						break;
 					}
 				}
 			}
+			data_Order[i][2] = "" + total;
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -1128,10 +1125,11 @@ public class Connect {
 				statement.execute("INSERT INTO Users(Email, Pass, isAdmin) VALUES ('"+username+"','"+password+"',0)");
 				
 				id = getUserId(username, password);
-				
-				statement.execute("insert into DiaChi (IDUser, Phone, Name, DiaChi) "
-						+ "VALUES ("+id+",'"+phone+"',"+"N'"+name+"',N'"+address+"')");
-				return id;
+				if (id > 0) {
+					statement.execute("insert into DiaChi (IDUser, Phone, Name, DiaChi) "
+							+ "VALUES ("+id+",'"+phone+"',"+"N'"+name+"',N'"+address+"')");
+					return id;
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1179,8 +1177,10 @@ public class Connect {
 		try {
 			statement = conn.createStatement();
 			rSet = statement.executeQuery("SELECT SoLuong FROM Physical WHERE IDMedia = "+IDMedia);
-			rSet.next();
-			return rSet.getInt("SoLuong");
+			
+			if (rSet.next()) {
+				return rSet.getInt("SoLuong");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -355,17 +355,13 @@ foreign key (IDDia)
 references LoaiDia
 on DELETE NO ACTION
 
-
-
-
-
 -- xoa
 ALTER TABLE History
 drop constraint fk_History_IDMedia
 
 
 -- update sale table
-ALTER TABLE Sale 
+ALTER TABLE Sale
 DROP COLUMN Sale
 
 ALTER TABLE MediaSale

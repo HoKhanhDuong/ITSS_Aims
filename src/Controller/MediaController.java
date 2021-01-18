@@ -29,7 +29,6 @@ public class MediaController {
 	public void screen_ListProduct(List<ProductPanel> listProduct, int page) {
 		application.product.addListProduct(listProduct, page);
 		application.switchPanel(application.product);
-		System.out.println(listProduct.size());
 	}
 	
 	public void screen_ListProductSale(List<ProductPanel> listProduct, int page) {
@@ -148,7 +147,6 @@ public List<ProductPanel> get_ListProductSale(int type, int offset) {
 		
 		if (list != null && list.size() != 0) {
 			for(int i = list.size() -1 ; i >= 0 ;i--) {
-				//application.product.scrollPane.remove(comp);
 				list.remove(i);
 			}
 		}

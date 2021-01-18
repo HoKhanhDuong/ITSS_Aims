@@ -35,6 +35,12 @@ public class CartController {
 				return 1;
 			}else {
 				soluong += sl;
+				for(int i=0 ; i< application.cart.listp.size(); i++) {
+					if(IDMedia == application.cart.listp.get(i).id) {
+						application.cart.listp.get(i).SoLuong.setText(soluong+"");
+						break;
+					}
+				}
 				application.connect.updateCart(application.getID(), IDMedia, soluong);
 				return 1;
 			}

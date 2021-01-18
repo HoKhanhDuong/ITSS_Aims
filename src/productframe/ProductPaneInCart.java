@@ -83,6 +83,5 @@ public class ProductPaneInCart extends JPanel implements ActionListener {
 		application.cart.listp.remove(this);
 		application.connect.removeInCart(application.getID(), id);
 		application.cart.setList(application.cart.listp);
-		
 	}
 }

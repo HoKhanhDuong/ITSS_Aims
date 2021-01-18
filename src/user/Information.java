@@ -155,6 +155,7 @@ public class Information extends MyAccount {
 		txtEmail.setText(user.getEmail());
 		txtName.setText(user.getName());
 		txtPhone.setText(user.getPhone());
-		txtAddress.setText(user.getAddress());
+		String addressString[] = user.getAddress().split("<>");
+		txtAddress.setText(addressString[0]+","+addressString[1]+","+addressString[2]);
 	}
 }

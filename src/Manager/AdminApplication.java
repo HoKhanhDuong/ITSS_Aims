@@ -22,6 +22,7 @@ import admin.AddminHome;
 import admin.InformationAddmin;
 import admin.PhysicalProductManagement;
 import admin.ProductManagement;
+import admin.Promotions;
 import admin.UserManagement;
 
 public class AdminApplication extends JFrame {
@@ -41,6 +42,7 @@ public class AdminApplication extends JFrame {
 	public ProductManagement productManagement;
 	public UserManagement userManagement;
 	public AddPromitions addPromitions;
+	public Promotions promotions;
 	
 	public SaleController saleController;
 	
@@ -70,6 +72,8 @@ public class AdminApplication extends JFrame {
 		productManagement = new ProductManagement(this);
 		userManagement = new UserManagement(this);
 		addPromitions = new AddPromitions(this);
+		promotions = new Promotions(this);
+		
 		saleController = new SaleController(this);
 		
 		try {
@@ -92,6 +96,7 @@ public class AdminApplication extends JFrame {
 		list.add(userManagement);
 		list.add(physicalManagement);
 		list.add(addPromitions);
+		list.add(promotions);
 
 		Iterator<JPanel> iterator = list.iterator();
 		while(iterator.hasNext()) {

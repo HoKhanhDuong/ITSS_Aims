@@ -157,7 +157,8 @@ public class AddminHome extends JPanel {
 		JButton btnNewButton_5_1 = new JButton("PROMOTIONS");
 		btnNewButton_5_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.switchPanel(adminApplication.addPromitions);
+				adminApplication.adminController.getSale();
+				adminApplication.switchPanel(adminApplication.promotions);
 			}
 		});
 		btnNewButton_5_1.setHorizontalAlignment(SwingConstants.LEADING);

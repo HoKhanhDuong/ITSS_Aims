@@ -8,16 +8,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Manager.Application;
+import Object.Address;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 
 public class Signin extends JFrame {
 
@@ -26,8 +30,11 @@ public class Signin extends JFrame {
 	private JTextField name;
 	private JTextField phone;
 	private JPasswordField password;
-	private JTextField address;
 	private JPasswordField confirm_password;
+	private JTextField address;
+	private JTextField district;
+	
+	String cityString = "Ha Noi";
 	/**
 	 * Launch the application.
 	 */
@@ -77,15 +84,6 @@ public class Signin extends JFrame {
 		password.setBounds(165, 150, 231, 26);
 		contentPane.add(password);
 		
-		JLabel lblAddress = new JLabel("Address: ");
-		lblAddress.setBounds(46, 252, 70, 15);
-		contentPane.add(lblAddress);
-		
-		address = new JTextField();
-		address.setColumns(10);
-		address.setBounds(165, 246, 231, 27);
-		contentPane.add(address);
-		
 		JLabel lblSignIn = new JLabel("Sign Up");
 		lblSignIn.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 20));
 		lblSignIn.setBounds(187, 24, 89, 27);
@@ -95,8 +93,10 @@ public class Signin extends JFrame {
 		btnSignIn.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				int iD = application.userController.Signup(email.getText(), password.getText(), 
-						name.getText(), phone.getText(), address.getText(), confirm_password.getText());
+				
+				Address add = new Address(name.getText(), phone.getText(), cityString, district.getText(), address.getText(), 0);
+				
+				int iD = application.userController.Signup(email.getText(), password.getText(), add, confirm_password.getText());
 				if( iD == -1) {
 					JOptionPane.showMessageDialog(new JFrame(), "Email or Password havent", "Inane error", JOptionPane.ERROR_MESSAGE);
 				} else if (iD == -2) {
@@ -115,7 +115,7 @@ public class Signin extends JFrame {
 				}
 			}
 		});
-		btnSignIn.setBounds(187, 321, 89, 25);
+		btnSignIn.setBounds(187, 363, 89, 25);
 		contentPane.add(btnSignIn);
 		
 		JLabel lblConfirmPassword = new JLabel("Confirm: ");
@@ -125,6 +125,41 @@ public class Signin extends JFrame {
 		confirm_password = new JPasswordField();
 		confirm_password.setBounds(165, 181, 231, 26);
 		contentPane.add(confirm_password);
+		
+		JLabel lblNewLabel_2 = new JLabel("City:");
+		lblNewLabel_2.setBounds(46, 255, 46, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("District:");
+		lblNewLabel_3.setBounds(46, 295, 46, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Address:");
+		lblNewLabel_4.setBounds(46, 334, 46, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		address = new JTextField();
+		address.setBounds(165, 331, 231, 20);
+		contentPane.add(address);
+		address.setColumns(10);
+		
+		district = new JTextField();
+		district.setBounds(165, 292, 231, 20);
+		contentPane.add(district);
+		district.setColumns(10);
+		
+		JComboBox city = new JComboBox();
+		city.setBounds(165, 251, 231, 22);
+		city.setModel(new DefaultComboBoxModel(new String[] {"Ha Noi", "Ho Chi Minh", "Other city"}));
+		city.addActionListener (new ActionListener () {
+		       public void actionPerformed(ActionEvent e) {
+		    	   cityString = city.getSelectedItem().toString();
+		    	   if(cityString == "Other city") {
+		    		   cityString = (String)JOptionPane.showInputDialog(new JFrame(), "Enter your city :", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, "");
+		    	   }
+		       }
+      });
+		contentPane.add(city);
 		setVisible(true);
 	}
 }

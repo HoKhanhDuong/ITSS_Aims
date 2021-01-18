@@ -679,7 +679,6 @@ public class Connect {
 			
 			while(rSet.next()) {
 
-				
 				media = new Media(rSet.getString("Ten"), 
 						rSet.getInt("GiaCa"), 
 						rSet.getString("TenLoai"), 
@@ -687,7 +686,20 @@ public class Connect {
 						rSet.getInt("IDMedia"),
 						0);
 				listMedia.add(media);
-				
+			}
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT IDMedia, sale FROM MediaSale WHERE IDSale = "+idsale);
+				while(rSet.next()) {
+					for(int i=0; i<listMedia.size(); i++) {
+						if(listMedia.get(i).getId() == rSet.getInt("IDMedia")) {
+							listMedia.get(i).setSale(rSet.getFloat("sale"));
+							break;
+						}
+						if(listMedia.get(i).getId() > rSet.getInt("IDMedia")) break;
+					}
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -823,6 +835,19 @@ public class Connect {
 				listMedia.add(media);
 			}
 			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT IDMedia, sale FROM MediaSale WHERE IDSale = "+idsale);
+				while(rSet.next()) {
+					for(int i=0; i<listMedia.size(); i++) {
+						if(listMedia.get(i).getId() == rSet.getInt("IDMedia")) {
+							listMedia.get(i).setSale(rSet.getFloat("sale"));
+							break;
+						}
+						if(listMedia.get(i).getId() > rSet.getInt("IDMedia")) break;
+					}
+				}
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1118,7 +1143,7 @@ public class Connect {
 		return -1;
 	}
 	
-	public int setUser(String username, String password, String name, String phone, String address) {
+	public int setUser(String username, String password, Address address) {
 		try {
 			int id = 0;
 			
@@ -1129,8 +1154,10 @@ public class Connect {
 				
 				id = getUserId(username, password);
 				
+				String addressString = address.getAddress()+"<>"+address.getDistrict()+"<>"+address.getCity();
+				
 				statement.execute("insert into DiaChi (IDUser, Phone, Name, DiaChi) "
-						+ "VALUES ("+id+",'"+phone+"',"+"N'"+name+"',N'"+address+"')");
+						+ "VALUES ("+id+",'"+address.getPhone()+"',"+"N'"+address.getName()+"',N'"+addressString+"')");
 				return id;
 			}
 		} catch (SQLException e) {

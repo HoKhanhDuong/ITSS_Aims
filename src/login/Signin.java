@@ -50,6 +50,7 @@ public class Signin extends JFrame {
 		contentPane.setLayout(null);
 		
 		email = new JTextField();
+		email.setToolTipText("abc@gmail.com");
 		email.setBounds(165, 84, 231, 27);
 		contentPane.add(email);
 		email.setColumns(10);
@@ -139,11 +140,13 @@ public class Signin extends JFrame {
 		contentPane.add(lblNewLabel_4);
 		
 		address = new JTextField();
+		address.setToolTipText("Dia chi chi tiet");
 		address.setBounds(165, 331, 231, 20);
 		contentPane.add(address);
 		address.setColumns(10);
 		
 		district = new JTextField();
+		district.setToolTipText("Quan/Huyen");
 		district.setBounds(165, 292, 231, 20);
 		contentPane.add(district);
 		district.setColumns(10);

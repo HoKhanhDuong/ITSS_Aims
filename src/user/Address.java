@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Address extends MyAccount {
 	private JTextField textField;
@@ -109,6 +111,10 @@ public class Address extends MyAccount {
 		panel_5.add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Ship to this address");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_5.setForeground(Color.WHITE);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_5.setBackground(new Color(51, 51, 204));

@@ -75,7 +75,7 @@ public class Login extends JFrame implements KeyListener{
 		contentPane.add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		JLabel lblUsername = new JLabel("Username:");
+		JLabel lblUsername = new JLabel("Email:");
 		lblUsername.setBounds(74, 86, 86, 30);
 		contentPane.add(lblUsername);
 		

@@ -114,8 +114,9 @@ public class Connect {
 	}
 	
 	public void changeInformation(int idUser, String address, String cardNumber) {
-		
+		String[] address_arr = address.split("[,-]");
 		try {
+			address = address_arr[2] +"<>"+ address_arr[1] +"<>"+ address_arr[0];
 			statement.executeUpdate("UPDATE DiaChi SET DiaChi = N'"+address+"' WHERE IDUser="+idUser);
 			statement.executeUpdate("UPDATE Users SET CardNumber ='"+cardNumber+"' WHERE IDUser="+idUser);
 		} catch (SQLException e) {
@@ -165,7 +166,10 @@ public class Connect {
 					}
 				}
 			}
-			data_Order[i][2] = "" + total;
+			if (total != 0.0) {
+				data_Order[i][2] = "" + total;
+			}
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -676,7 +680,6 @@ public class Connect {
 			
 			while(rSet.next()) {
 
-				
 				media = new Media(rSet.getString("Ten"), 
 						rSet.getInt("GiaCa"), 
 						rSet.getString("TenLoai"), 
@@ -684,7 +687,20 @@ public class Connect {
 						rSet.getInt("IDMedia"),
 						0);
 				listMedia.add(media);
-				
+			}
+			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT IDMedia, sale FROM MediaSale WHERE IDSale = "+idsale);
+				while(rSet.next()) {
+					for(int i=0; i<listMedia.size(); i++) {
+						if(listMedia.get(i).getId() == rSet.getInt("IDMedia")) {
+							listMedia.get(i).setSale(rSet.getFloat("sale"));
+							break;
+						}
+						if(listMedia.get(i).getId() > rSet.getInt("IDMedia")) break;
+					}
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -820,6 +836,19 @@ public class Connect {
 				listMedia.add(media);
 			}
 			
+			int idsale = checkSale();
+			if(idsale > 0) {
+				rSet = statement.executeQuery("SELECT IDMedia, sale FROM MediaSale WHERE IDSale = "+idsale);
+				while(rSet.next()) {
+					for(int i=0; i<listMedia.size(); i++) {
+						if(listMedia.get(i).getId() == rSet.getInt("IDMedia")) {
+							listMedia.get(i).setSale(rSet.getFloat("sale"));
+							break;
+						}
+						if(listMedia.get(i).getId() > rSet.getInt("IDMedia")) break;
+					}
+				}
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1115,7 +1144,7 @@ public class Connect {
 		return -1;
 	}
 	
-	public int setUser(String username, String password, String name, String phone, String address) {
+	public int setUser(String username, String password, Address address) {
 		try {
 			int id = 0;
 			
@@ -1125,9 +1154,17 @@ public class Connect {
 				statement.execute("INSERT INTO Users(Email, Pass, isAdmin) VALUES ('"+username+"','"+password+"',0)");
 				
 				id = getUserId(username, password);
+//<<<<<<< HEAD
+//				if (id > 0) {
+//					statement.execute("insert into DiaChi (IDUser, Phone, Name, DiaChi) "
+//							+ "VALUES ("+id+",'"+phone+"',"+"N'"+name+"',N'"+address+"')");
+//					return id;
+//				}
 				if (id > 0) {
-					statement.execute("insert into DiaChi (IDUser, Phone, Name, DiaChi) "
-							+ "VALUES ("+id+",'"+phone+"',"+"N'"+name+"',N'"+address+"')");
+					String addressString = address.getAddress()+"<>"+address.getDistrict()+"<>"+address.getCity();
+					
+					statement.execute("insert into DiaChi (IDUser, Phone, Name, DiaChi, isMain) "
+							+ "VALUES ("+id+",'"+address.getPhone()+"',"+"N'"+address.getName()+"',N'"+addressString+"', 1)");
 					return id;
 				}
 			}
@@ -1262,7 +1299,7 @@ public class Connect {
 				rSet = statement.executeQuery("SELECT * FROM DiaChi WHERE IDUser = "+IDUser);
 				while(rSet.next()) {
 					String diachi = rSet.getString("Diachi");
-					String[] city = diachi.split("-");
+					String[] city = diachi.split("<>");
 					Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), city[2], city[1], city[0], IDUser);
 					address.setID(rSet.getInt("IDAddress"));
 					list.add(address);

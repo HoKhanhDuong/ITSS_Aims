@@ -3,6 +3,7 @@ package Controller;
 import javax.swing.JOptionPane;
 
 import Manager.Application;
+import Object.Address;
 import Object.User;
 
 public class UserController {
@@ -20,7 +21,7 @@ public class UserController {
 	public int Signin(String username, String password) {
 		return application.connect.getUserId(username, password);
 	}
-	public int Signup(String username, String password, String name, String phone, String address, String confirmPass) {
+	public int Signup(String username, String password, Address address, String confirmPass) {
 		
 		String _phone = "0+\\d{9}";
 		String _email = "[a-zA-Z0-9]+\\@gmail\\.com";
@@ -36,15 +37,18 @@ public class UserController {
 		}else if (!password.matches(_password)) {
 			errors += "Password phai nhieu hon 8 ky tu";
 		}
-		if (name.isEmpty()) {
+		if (address.getName().isEmpty()) {
 			errors += "Name not null \n";
 		}
-		if (phone.isEmpty()) {
+		if (address.getPhone().isEmpty()) {
 			errors += "Phone not null \n";
-		} else if (!phone.matches(_phone)) {
+		} else if (!address.getPhone().matches(_phone)) {
 			errors += "Phone co dang 0xxxxxxxxx \n";
 		}
-		if(address.isEmpty()) {
+		if(address.getAddress().isEmpty()) {
+			errors += "Address not null \n";
+		}
+		if(address.getDistrict().isEmpty()) {
 			errors += "Address not null \n";
 		}
 		if (confirmPass.isEmpty()) {
@@ -61,7 +65,7 @@ public class UserController {
 			return -2;
 		}
 		
-		return application.connect.setUser(username, password, name, phone, address);
+		return application.connect.setUser(username, password, address);
 	}
 	
 	public void changePassword(int idUser, String currentPass, String newPass, String confirmPass) {

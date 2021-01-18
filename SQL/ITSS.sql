@@ -178,15 +178,6 @@ CREATE TABLE DonHang(
 	FOREIGN KEY (IDAddress) REFERENCES DiaChi(IDAddress)
 )
 
-ALTER TABLE DonHang
-ALTER COLUMN TrangThai NVARCHAR(50);
-ALTER TABLE DonHang
-ADD CONSTRAINT df_TrangThai DEFAULT(N'Chờ') FOR TrangThai;
-
-ALTER TABLE DonHang
-ALTER COLUMN GhiChu NVARCHAR(225) not null ;
-
-
 CREATE TABLE ThongTinDonHang(
 	IDDonHang INT,
 	IDMedia INT,
@@ -221,10 +212,13 @@ CREATE TABLE MediaSale (
 
 INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','12345678',1)
 
-ALTER TABLE Media ADD image VARCHAR(225)
+-- update media
+ALTER TABLE Media
+ADD image VARCHAR(225)
 
 -- update vao ngay 22/12/2020
-ALTER TABLE Media ADD ngay_nhap DATE
+ALTER TABLE Media
+ADD ngay_nhap DATE
 
 -- update vao ngay 23/12/2020;
 ALTER TABLE Media
@@ -280,7 +274,8 @@ drop constraint fk_media_history
 
 
 -- Them truong de co the xoa
-alter table Media add deleted BIT default 0
+alter table Media
+add deleted BIT default 0
 
 update Media 
 set deleted = 0
@@ -336,7 +331,8 @@ references TacGia
 on delete cascade
 
 -- Them truong de co the xoa trong DanhSachBaiHat
-alter table DanhSachBaiHat add deleted BIT DEFAULT 0
+alter table DanhSachBaiHat
+add deleted BIT DEFAULT 0
 
 -- Xoa date trong history sau do them lai
 alter table History
@@ -366,3 +362,15 @@ DROP COLUMN Sale
 
 ALTER TABLE MediaSale
 ADD sale float
+
+-- update don hang
+ALTER TABLE DonHang
+ALTER COLUMN TrangThai NVARCHAR(50);
+ALTER TABLE DonHang
+ADD CONSTRAINT df_TrangThai DEFAULT(N'Chờ') FOR TrangThai;
+
+ALTER TABLE DonHang
+ALTER COLUMN GhiChu NVARCHAR(225) not null ;
+
+
+

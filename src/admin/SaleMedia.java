@@ -23,7 +23,7 @@ public class SaleMedia extends JPanel {
 	JComboBox media;
 	private ArrayList<Media> list;
 	public int mediaid = 0;
-	public SaleMedia(AdminApplication adminApplication, int i, ArrayList<SaleMedia> listSale) {
+	public SaleMedia(AdminApplication adminApplication, int i) {
 
 		setBackground(SystemColor.inactiveCaptionBorder);
 		setBounds(10, 40 + 51*(i), 805, 51);

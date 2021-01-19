@@ -43,7 +43,7 @@ public class Connect {
 // 	     String password = "123456";
 
  	     String userName = "SA";
- 	     String password = "do@1230.com";
+ 	     String password = "123456";
 
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -1748,10 +1748,83 @@ public class Connect {
 			
 			statement.executeUpdate("DELETE FROM Cart WHERE IDUser = "+IDUser);
 			
+			statement.executeUpdate("INSERT INTO LichSuThanhToan VALUES ("+iddh+", 'Thanh toan hoa don')");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public void cancelOrder(OrderObject orderObject, String lydo) {
+		try {
+			statement.executeUpdate("UPDATE DonHang SET TrangThai = 'da huy' WHERE IDDonHang = "+orderObject.iddh);
+			statement.executeUpdate("INSERT INTO LichSuThanhToan VALUES ("+orderObject.iddh+", 'Huy hang vi : "+lydo+"')");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public float getprice(int iddh) {
+		float price = 0;
+		try {
+			rSet = statement.executeQuery("SELECT SoLuong, Gia FROM ThongTinDonHang WHERE IDDonHang = "+iddh);
+			while(rSet.next()) {
+				price += rSet.getFloat("Gia")*rSet.getInt("SoLuong");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return price;
+	}
+	
+	public OrderObject getOrder(int iddh) {
+		try {
+			rSet = statement.executeQuery("SELECT * FROM DonHang JOIN DiaChi ON DonHang.IDAddress = DiaChi.IDAddress "
+					+" WHERE IDDonHang = "+iddh);
+			if(rSet.next()) {
+				String[] dc = rSet.getString("DiaChi").split("<>");
+				Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), dc[2], dc[1], dc[0], 0);
+				OrderObject orderObject = new OrderObject(address, getprice(iddh), 0);
+				orderObject.iddh = iddh;
+				return orderObject;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String[][] getListMediaInOrder(int iddh){
+		try {
+			
+			rSet = statement.executeQuery("SELECT COUNT(*) AS count FROM ThongTinDonHang WHERE IDDonHang = "+iddh);
+			
+			int soluong = 0;
+			if(rSet.next()) {
+				soluong = rSet.getInt("count");
+			}
+			System.out.println(soluong);
+			
+			rSet = statement.executeQuery("SELECT Ten, Gia, SoLuong FROM ThongTinDonHang JOIN Media ON Media.IDMedia = ThongTinDonHang.IDMedia"
+					+" WHERE IDDonHang = "+iddh);
+			
+			String[][] list = new String[soluong][4];
+			
+			for(int i=0; i<soluong; i++) {
+				list[i][0] = rSet.getString("Ten");
+				list[i][1] = rSet.getString("Gia");
+				list[i][2] = rSet.getString("SoLuong");
+				list[i][3] = rSet.getInt("SoLuong")*rSet.getFloat("Gia") + "";
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

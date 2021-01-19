@@ -19,6 +19,25 @@ public class UserController {
 	}
   
 	public int Signin(String username, String password) {
+		
+		String _email = "[a-zA-Z0-9]+\\@gmail\\.com";
+		String _password = "[a-zA-Z0-9]{8,}";
+		
+		if (username.isEmpty()) {
+			errors += "Email not null \n";
+		} else if (!username.matches(_email)) {
+			errors += "Email co dang abc@gmail.com \n";
+		}
+		if (password.isEmpty()) {
+			errors += "Password not null \n";
+		}else if (!password.matches(_password)) {
+			errors += "Password phai nhieu hon 8 ky tu\n";
+		}
+		
+		if (!errors.isEmpty()) {
+			return -3;
+		}
+		
 		return application.connect.getUserId(username, password);
 	}
 	public int Signup(String username, String password, Address address, String confirmPass) {
@@ -35,7 +54,7 @@ public class UserController {
 		if (password.isEmpty()) {
 			errors += "Password not null \n";
 		}else if (!password.matches(_password)) {
-			errors += "Password phai nhieu hon 8 ky tu";
+			errors += "Password phai nhieu hon 8 ky tu\n";
 		}
 		if (address.getName().isEmpty()) {
 			errors += "Name not null \n";

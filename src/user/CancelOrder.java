@@ -234,7 +234,6 @@ public class CancelOrder extends MyAccount {
 		table.getColumnModel().getColumn(1).setMinWidth(70);
 		table.getColumnModel().getColumn(2).setPreferredWidth(71);
 		table.getColumnModel().getColumn(3).setPreferredWidth(84);
-		table.getColumnModel().getColumn(4).setPreferredWidth(125);
 		scrollPane.setViewportView(table);
 		
 		lydoTxt = new JTextField();

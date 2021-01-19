@@ -165,8 +165,12 @@ public class MenuProduct extends JPanel implements KeyListener{
 				homeButton.setForeground(Color.BLACK);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
-				setListProduct(application.mediaControl.get_ListProductSale(0, page*20) );	
-				application.mediaControl.screen_ListProductSale(listProduct,page);
+				setListProduct(application.mediaControl.get_ListProductSale(0, page*20) );
+				if (getListProduct().size() != 0) {
+					application.mediaControl.screen_ListProductSale(listProduct,page);
+				} else {
+					return;
+				}
 			}
 		});
 		homePanel.add(homeButton);
@@ -262,6 +266,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 	public void setListProduct(List<ProductPanel> listProduct) {
 		if(listProduct == null) {
 			JOptionPane.showMessageDialog(new JFrame(), "Khong co san pham");
+			application.switchPanel(application.home);
 		} else
 			this.listProduct = listProduct;
 	}

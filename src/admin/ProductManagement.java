@@ -121,9 +121,17 @@ public class ProductManagement extends AddminHome {
 		JButton btnRemove = new JButton("Remove Product");
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				String pattern = "(\\d+\\,\\d+)+";
 				//tùy chỉnh văn bản cho nút lệnh
 				Object[] options = {"Yes, please", "No, thanks"};
+				
+				if (!idmediatxt.getText().matches(pattern) && !idmediatxt.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, 
+							"Phai nhap dinh dang 1,2,3", 
+							"Remove", 
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				
 				
 				int n = JOptionPane.showOptionDialog(null, 
@@ -148,6 +156,10 @@ public class ProductManagement extends AddminHome {
 					adminApplication.productManagement.setTable();
 					
 					adminApplication.productManagement.idmediatxt.setText("");
+					
+					JOptionPane.showMessageDialog(null, 
+							"Xoa san pham thanh cong", "Remove", 
+							JOptionPane.INFORMATION_MESSAGE);
 					
 					adminApplication.switchPanel(adminApplication.productManagement);
 				}

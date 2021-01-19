@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.UserController;
 import Manager.Application;
+import Object.OrderObject;
 import Object.User;
 
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import java.awt.SystemColor;
@@ -114,9 +117,14 @@ public class OrderHisrory extends MyAccount {
 			public void actionPerformed(ActionEvent e) {
 				if (!txt_id_order.getText().isEmpty()) {
 					int id_order = Integer.parseInt(txt_id_order.getText().trim());
-					application.cancelOrder.setValue(application.connect.getOrder(id_order));
-					application.cancelOrder.setList(application.connect.getListMediaInOrder(id_order));
-					application.switchPanel(application.cancelOrder);
+					OrderObject object = application.connect.getOrder(id_order, application.getID());
+					if(object!=null) {
+						application.cancelOrder.setValue(object);
+						application.cancelOrder.setList(application.connect.getListMediaInOrder(id_order));
+						application.switchPanel(application.cancelOrder);
+					}else {
+						JOptionPane.showMessageDialog(new JFrame(), "You have cancel this order or haven't this order");
+					}
 				}
 			}
 		});
@@ -136,6 +144,14 @@ public class OrderHisrory extends MyAccount {
 		this.objects = objects;
 	}
 	
+	public JTextField getTxt_id_order() {
+		return txt_id_order;
+	}
+
+	public void setTxt_id_order(JTextField txt_id_order) {
+		this.txt_id_order = txt_id_order;
+	}
+
 	public void setTable() {
 		if (application.getID() != 0) {
 			objects = application.connect.get_OrderDetail(application.getID());

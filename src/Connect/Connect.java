@@ -43,7 +43,7 @@ public class Connect {
 // 	     String password = "123456";
 
  	     String userName = "SA";
- 	     String password = "123456";
+ 	     String password = "do@1230.com";
 
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
@@ -127,48 +127,44 @@ public class Connect {
 	}
 	
 	public String[][] get_OrderDetail(int idUser) {
-	
+		
 		String[][] data_Order = new String[SIZE][5];
 		int id_order = 0;
 		int i = 0;
 		float total = 0;
 		
 		try {
-			rSet = statement.executeQuery("SELECT O.IDDonHang, TT.SoLuong, M.Ten, O.TrangThai, TT.Gia\n"
+			statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rSet = statement.executeQuery("SELECT O.IDDonHang, M.Ten, O.TrangThai, O.total\n"
 					+ "FROM ThongTinDonHang AS TT JOIN DonHang AS O\n"
 					+ "ON O.IDDonHang = TT.IDDonHang JOIN Media AS M\n"
 					+ "ON M.IDMedia = TT.IDMedia\n"
 					+ "WHERE O.IDUser ="+idUser+ "\n"
-					+ "group by O.IDDonHang, M.Ten, O.TrangThai, TT.Gia, TT.SoLuong");
-			
-			if (rSet.next()) {
-				id_order = rSet.getInt("IDDonHang");
-				rSet.absolute(rSet.getRow()-1);
-			}
-			
+					+ "group by O.IDDonHang, M.Ten, O.TrangThai, O.total");
+
 			while(rSet.next()) {
-				total = rSet.getInt("SoLuong")*Float.parseFloat(rSet.getString("Gia"));
-				data_Order[i][0] = ""+ ((int)rSet.getInt("IDDonHang") + 100000);
+				id_order = rSet.getInt("IDDonHang");
+				total = rSet.getFloat("total");
+				data_Order[i][0] = ""+ rSet.getInt("IDDonHang");
+				data_Order[i][2] = "" + total;
 				data_Order[i][1] = rSet.getString("Ten");
 				data_Order[i][3] = rSet.getString("TrangThai");
 				while(rSet.next()) {
 					if(id_order == rSet.getInt("IDDonHang")) {
 						
-						data_Order[i][1] += ", " + rSet.getString("Ten");
-						total += rSet.getInt("SoLuong")*Float.parseFloat(rSet.getString("Gia"));
-						data_Order[i][2] = "" + total;
+						data_Order[i][1] = data_Order[i][1].concat(", "+rSet.getString("Ten"));
 					} else {
-						id_order = rSet.getInt("IDDonHang");
-						rSet.absolute(rSet.getRow()-1);
 						total = 0;
 						i++;
+						rSet.previous();
 						break;
 					}
 				}
+				
 			}
-			if (total != 0.0) {
-				data_Order[i][2] = "" + total;
-			}
+//			if (total != 0.0) {
+//				data_Order[i][2] = "" + total;
+//			}
 			
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -1735,7 +1731,8 @@ public class Connect {
 	}
 	public void saveOrder(OrderObject order, int IDUser, List<ProductPaneInCart> list) {
 		try {
-			statement.executeUpdate("INSERT INTO DonHang VALUES("+IDUser+","+order.address.getID()+",'Cho','',"+order.total+")");
+			statement.executeUpdate("INSERT INTO DonHang(IDUser, IDAddress, GhiChu, total)\n"
+					+ "VALUES("+IDUser+","+order.address.getID()+",'',"+order.total+")");
 
 			rSet = statement.executeQuery("SELECT MAX(IDDonHang) AS IDDonHang FROM DonHang");
 			rSet.next();
@@ -1780,10 +1777,10 @@ public class Connect {
 		return price;
 	}
 	
-	public OrderObject getOrder(int iddh) {
+	public OrderObject getOrder(int iddh, int IDUser) {
 		try {
 			rSet = statement.executeQuery("SELECT * FROM DonHang JOIN DiaChi ON DonHang.IDAddress = DiaChi.IDAddress "
-					+" WHERE IDDonHang = "+iddh);
+					+" WHERE IDDonHang = "+iddh+" AND TrangThai = N'Chờ' AND DonHang.IDUser = "+IDUser);
 			if(rSet.next()) {
 				String[] dc = rSet.getString("DiaChi").split("<>");
 				Address address = new Address(rSet.getString("Name"), rSet.getString("Phone"), dc[2], dc[1], dc[0], 0);
@@ -1815,6 +1812,7 @@ public class Connect {
 			String[][] list = new String[soluong][4];
 			
 			for(int i=0; i<soluong; i++) {
+				rSet.next();
 				list[i][0] = rSet.getString("Ten");
 				list[i][1] = rSet.getString("Gia");
 				list[i][2] = rSet.getString("SoLuong");
@@ -1826,5 +1824,20 @@ public class Connect {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public int getAdminID(String username, String password) {
+		int id = 0;
+		try {
+			rSet = statement.executeQuery("SELECT IDUser FROM Users \n"
+					+ "WHERE Email = '"+username+"' AND Pass = '"+password+"' AND isAdmin = 1");
+			if(rSet.next()) {
+				id = rSet.getInt("IDUser");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
 	}
 }

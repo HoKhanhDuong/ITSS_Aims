@@ -10,6 +10,7 @@ public class OrderController {
 	
 	private final int SIZE = 10000;
 	OrderObject orderObject;
+	String lydoString;
 	public OrderController(Application application) {
 		// TODO Auto-generated constructor stub
 		this.application = application;
@@ -26,10 +27,14 @@ public class OrderController {
 	}
 	
 	public void cancelOrder(OrderObject orderObject, String lydo) {
+		lydoString = lydo;
 		Payment payment = new Payment(application, orderObject.total, this, 2);
+		
 		this.orderObject = orderObject;
 	}
 	public void cancelOrder2() {
-		
+		application.connect.cancelOrder(orderObject, lydoString);
+		application.orderHisrory.getTxt_id_order().setText("");
+		application.switchPanel(application.home);
 	}
 }

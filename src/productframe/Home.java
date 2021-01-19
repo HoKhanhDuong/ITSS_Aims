@@ -102,12 +102,12 @@ public class Home extends MenuProduct {
 		JButton buyNowButton = new JButton("BUY NOW ");
 		buyNowButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				application.mediaControl.hiddenCurrentPanel(list, page);
+				shoppingButton.setForeground(Color.BLACK);
+				shoppingButton.setForeground(Color.BLUE);
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
-				setList(application.mediaControl.get_ListProductSort(0, 0));
-				setListProduct(list);
-				application.mediaControl.screen_ListProduct(getList(),page);
+				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
+				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
 		buyNowButton.setBackground(Color.WHITE);

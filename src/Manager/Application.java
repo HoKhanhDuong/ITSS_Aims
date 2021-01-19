@@ -128,6 +128,7 @@ public class Application extends JFrame {
 		AdminApplication adminApplication;
 		try {
 			adminApplication = new AdminApplication();
+			adminApplication.setID(ID);
 			adminApplication.setVisible(true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

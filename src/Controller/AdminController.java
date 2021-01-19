@@ -106,7 +106,7 @@ public class AdminController{
 		for (int i = 0; i < validation.length; i++) {
 			if (validation[i].isEmpty() || validation[i] == null) {
 
-				errors += "Ph蘯｣i nh蘯ｭp vﾃ� ch盻肱 ﾄ黛ｻｧ thﾃｴng tin s蘯｣n ph蘯ｩm\n";
+				errors += "Please enter the full field.\n";
 
 				return false;
 			}
@@ -114,9 +114,61 @@ public class AdminController{
 		
 		if ((!validation[1].matches(number) || !validation[2].matches(number))) {
 
-			errors += "Giﾃ｡ tr盻� ph蘯｣i nh蘯ｭp s盻曾n";
+			errors += "value and price must be numeric\n";
 
 			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean checkDate(String value) {
+		
+		errors = "";
+		String current = "";
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+		String pattern = "(\\d){4}[-/]{1}\\d{2}[-/]{1}\\d{2}";
+		Calendar calendar = Calendar.getInstance();
+		
+		String[] dateString = value.split("[-/]");
+		
+		if (!value.matches(pattern)) {
+			errors += "Date has the form yyyy-mm-dd or yyyy/mm/dd\n";
+			return false;
+		}
+		
+		current = dateString[0] +"-"+ dateString[1] +"-"+ dateString[2];
+		int yyyy = calendar.get(Calendar.YEAR);
+		
+		if (Integer.parseInt(dateString[0]) > yyyy || Integer.parseInt(dateString[0]) < 0) {
+			errors += "Enter the year must be less than the current year\n";
+		} else if (Integer.parseInt(dateString[1]) > 12 || Integer.parseInt(dateString[1]) < 0) {
+			errors += "Enter the month must be greater than 0 and less than 12\n";
+		} else if (Integer.parseInt(dateString[2]) > 31 || Integer.parseInt(dateString[2]) < 0) {
+			errors += "Enter the month must be greater than 0 and less than 31\n";
+		}
+		
+		if (!errors.isEmpty()) {
+			return false;
+		}
+		
+		try {
+			Date date = simple.parse(current);
+			Date date2 = calendar.getTime();
+			
+			current = simple.format(date2);
+			
+			calendar.setTime(date);
+			
+			date = calendar.getTime();
+			if (!date.before(date2)) {
+				errors += "The time must be before the current time.\n";
+				return false;
+			}
+	
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return true;
@@ -218,33 +270,14 @@ public class AdminController{
 		this.errors = errors;
 	}
 	
-	
-	public boolean checkTime(String time) {
-		
-		SimpleDateFormat simple = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-		Calendar calendar = Calendar.getInstance();
-		java.util.Date date = calendar.getTime();
-		try {
-			java.util.Date date_1 = simple.parse(time);
-			
-			long check = (date.getTime() - date_1.getTime())/(60*60*1000);
-			
-			if (check > 2) {
-				return false;
-			}
-			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return true;
-	}
-	
 	public boolean add_Physical(String[] value, boolean status) {
 		
-		String format_date = "\\d{4}-\\d{2}-\\d{2}";
+		errors = "";
+		String current = "";
+		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
+		
+		String format_date = "\\d{4}[-/]{1}\\d{2}[-/]{1}\\d{2}";
 		String format_bcode = "\\d{10,12}";
 		String format_qtyti = "\\d+";
 		String format_size = "\\d+\\*\\d+\\*\\d+";
@@ -270,6 +303,38 @@ public class AdminController{
 			JOptionPane.showMessageDialog(null, errors, "Physical information", JOptionPane.ERROR_MESSAGE);
 			errors = "";
 			return false;
+		}
+		
+		String[] dateString = value[3].split("[-/]");
+		
+		int yyyy = calendar.get(Calendar.YEAR);
+		current = dateString[0] +"-"+ dateString[1] +"-"+ dateString[2];
+		
+		if (Integer.parseInt(dateString[0]) > yyyy || Integer.parseInt(dateString[0]) < 0) {
+			errors += "Enter the year must be less than the current year\n";
+		} else if (Integer.parseInt(dateString[1]) > 12 || Integer.parseInt(dateString[1]) < 0) {
+			errors += "Enter the month must be greater than 0 and less than 12\n";
+		} else if (Integer.parseInt(dateString[2]) > 31 || Integer.parseInt(dateString[2]) < 0) {
+			errors += "Enter the month must be greater than 0 and less than 31\n";
+		}
+		
+		try {
+			Date date = simple.parse(current);
+			Date date2 = calendar.getTime();
+			
+			current = simple.format(date2);
+			
+			calendar.setTime(date);
+			
+			date = calendar.getTime();
+			if (!date.before(date2)) {
+				errors += "The time must be before the current time.\n";
+				return false;
+			}
+	
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		if (status == true) {

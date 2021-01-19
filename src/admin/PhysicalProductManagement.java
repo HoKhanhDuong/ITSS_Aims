@@ -11,6 +11,8 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -87,9 +89,11 @@ public class PhysicalProductManagement extends AddProduct {
 		JButton cancelbtn = new JButton("Cancel");
 		cancelbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminApplication.setThem(true);
-				adminApplication.setSua(true);
-				adminApplication.switchPanel(adminApplication.productManagement);
+				JOptionPane.showMessageDialog(new JFrame(), 
+						"Please add products to stock\n", 
+						"Add Media", 
+						JOptionPane.WARNING_MESSAGE);
+				return;
 			}
 		});
 		cancelbtn.setFont(new Font("Tahoma", Font.PLAIN, 20));

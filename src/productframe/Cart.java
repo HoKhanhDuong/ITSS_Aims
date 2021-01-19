@@ -90,11 +90,11 @@ public class Cart extends MenuProduct {
 		JButton continuebtn = new JButton("Shopping continue");
 		continuebtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				application.mediaControl.hiddenCurrentPanel(list, page);
-//				page = 0;
-//				setList(application.mediaControl.get_ListProductSort(0));
-//				setListProduct(list);
-//				application.mediaControl.screen_ListProduct(getList());
+				shoppingButton.setForeground(Color.BLUE);
+				application.mediaControl.hiddenCurrentPanel(listProduct, page);
+				page = 0;
+				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
+				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
 		

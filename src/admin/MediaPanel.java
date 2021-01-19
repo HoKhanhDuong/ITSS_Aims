@@ -36,7 +36,7 @@ public class MediaPanel extends JPanel {
 		add(nameLabel);
 		
 		JLabel saleLabel = new JLabel(sale);
-		saleLabel.setBounds(393, 18, 46, 14);
+		saleLabel.setBounds(393, 18, 114, 14);
 		add(saleLabel);
 		
 	}

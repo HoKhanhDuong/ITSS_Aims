@@ -53,14 +53,23 @@ public class Login extends JFrame implements KeyListener{
 				int iD = application.userController.Signin(txtUsername.getText(), txtPassword.getText());
 				if(iD == -1){
 					JOptionPane.showMessageDialog(new JFrame(), "Username or Password incorrected", "Inane error", JOptionPane.ERROR_MESSAGE);
-				}else {
+					return;
+				}else if (iD == -3) {
+					String errors = application.userController.getErrors();
+					
+					JOptionPane.showMessageDialog(new JPanel(), errors, "Error Login", JOptionPane.ERROR_MESSAGE);
+					application.userController.setErrors("");
+					return;
+				} else {
 					if(iD > 0) {
 						application.setID(iD);
 						setVisible(false);
 						dispose();
 						application.switchPanel(application.home);
 					}else if(iD == -2) {
-						application.setAdmin(iD);
+						application.setAdmin(
+								application.connect.getAdminID(txtUsername.getText().trim(), txtPassword.getText().trim())
+						);
 						dispose();
 					}
 					

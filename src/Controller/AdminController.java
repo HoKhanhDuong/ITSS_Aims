@@ -67,7 +67,7 @@ public class AdminController{
 			return;
 		}
 		
-		if (newPass.length() < 8) {
+		if (newPass.trim().length() < 8) {
 			JOptionPane.showMessageDialog(null, "Length new password > 8 character", 
 					"Change Password", 
 					JOptionPane.ERROR_MESSAGE);

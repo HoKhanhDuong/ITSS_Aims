@@ -10,7 +10,7 @@ import javax.swing.border.LineBorder;
 
 
 import Manager.Application;
-
+import Object.OrderObject;
 
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
@@ -28,8 +28,13 @@ import javax.swing.JSeparator;
 public class CancelOrder extends MyAccount {
 	
 	private JTable table;
-	private JTextField textField;
-
+	private JTextField lydoTxt;
+	public OrderObject orderObject;
+	JLabel nameLabel, AddressLabel, phoneLabel;
+	JLabel shipL, totalL, moneyL;
+	private String column[] = new String[] {
+			"Product", "Price", "Quantity", "Into Money"
+		};
 	/**
 	 * Create the panel.
 	 */
@@ -72,20 +77,20 @@ public class CancelOrder extends MyAccount {
 		panel_3.add(panel_5);
 		panel_5.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Nguyen Thi Thu Phuong");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 10, 290, 20);
-		panel_5.add(lblNewLabel_2);
+		nameLabel = new JLabel("Nguyen Thi Thu Phuong");
+		nameLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		nameLabel.setBounds(10, 10, 290, 20);
+		panel_5.add(nameLabel);
 		
-		JLabel lblNewLabel_3 = new JLabel("Address : Thanh Xuyen, Hoang Long, Phu Xuyen, Ha Noi");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_3.setBounds(10, 40, 290, 20);
-		panel_5.add(lblNewLabel_3);
+		AddressLabel = new JLabel("Address : Thanh Xuyen, Hoang Long, Phu Xuyen, Ha Noi");
+		AddressLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		AddressLabel.setBounds(10, 40, 290, 20);
+		panel_5.add(AddressLabel);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("Phone : 0382140588");
-		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_3_1.setBounds(10, 64, 290, 20);
-		panel_5.add(lblNewLabel_3_1);
+		phoneLabel = new JLabel("Phone : 0382140588");
+		phoneLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		phoneLabel.setBounds(10, 64, 290, 20);
+		panel_5.add(phoneLabel);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(330, 10, 320, 149);
@@ -126,23 +131,23 @@ public class CancelOrder extends MyAccount {
 		panel_9.add(panel_10);
 		panel_10.setLayout(null);
 		
-		JLabel lblNewLabel_9 = new JLabel("Into money");
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_9.setBounds(10, 10, 129, 20);
-		panel_10.add(lblNewLabel_9);
+		JLabel moneyLabel = new JLabel("Into money");
+		moneyLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		moneyLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		moneyLabel.setBounds(10, 10, 129, 20);
+		panel_10.add(moneyLabel);
 		
-		JLabel lblNewLabel_10 = new JLabel("67.000 d");
-		lblNewLabel_10.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_10.setBounds(204, 10, 138, 20);
-		panel_10.add(lblNewLabel_10);
+		moneyL = new JLabel("67.000 d");
+		moneyL.setHorizontalAlignment(SwingConstants.TRAILING);
+		moneyL.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		moneyL.setBounds(204, 10, 138, 20);
+		panel_10.add(moneyL);
 		
-		JLabel lblNewLabel_9_1 = new JLabel("Transport fee");
-		lblNewLabel_9_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_9_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_9_1.setBounds(10, 40, 129, 20);
-		panel_10.add(lblNewLabel_9_1);
+		JLabel shipLabel = new JLabel("Transport fee");
+		shipLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		shipLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		shipLabel.setBounds(10, 40, 129, 20);
+		panel_10.add(shipLabel);
 		
 		JLabel lblNewLabel_9_1_1 = new JLabel("Total");
 		lblNewLabel_9_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -150,21 +155,22 @@ public class CancelOrder extends MyAccount {
 		lblNewLabel_9_1_1.setBounds(10, 70, 129, 20);
 		panel_10.add(lblNewLabel_9_1_1);
 		
-		JLabel lblNewLabel_10_1 = new JLabel("0 d");
-		lblNewLabel_10_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_10_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_10_1.setBounds(204, 40, 138, 20);
-		panel_10.add(lblNewLabel_10_1);
+		shipL = new JLabel("0 d");
+		shipL.setHorizontalAlignment(SwingConstants.TRAILING);
+		shipL.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		shipL.setBounds(204, 40, 138, 20);
+		panel_10.add(shipL);
 		
-		JLabel lblNewLabel_10_1_1 = new JLabel("67.000 d");
-		lblNewLabel_10_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_10_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_10_1_1.setBounds(204, 70, 138, 20);
-		panel_10.add(lblNewLabel_10_1_1);
+		totalL = new JLabel("67.000 d");
+		totalL.setHorizontalAlignment(SwingConstants.TRAILING);
+		totalL.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		totalL.setBounds(204, 70, 138, 20);
+		panel_10.add(totalL);
 		
 		JButton btnNewButton = new JButton("Cancel order");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.orderController.cancelOrder(orderObject, lydoTxt.getText());
 			}
 		});
 		btnNewButton.setBackground(new Color(255, 204, 0));
@@ -217,13 +223,10 @@ public class CancelOrder extends MyAccount {
 
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Toi thay hoa vang tren co xanh", "65.000 d", "1", "0", "65.000 d"},
-				{"Co hai con meo ngoi ben cua so", "120.000 d", "1", "0", "120.000 d"},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+				
 			},
 			new String[] {
-				"Product", "Price", "Quantity", "Discount", "Into Money"
+				"Product", "Price", "Quantity", "Into Money"
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(212);
@@ -234,15 +237,30 @@ public class CancelOrder extends MyAccount {
 		table.getColumnModel().getColumn(4).setPreferredWidth(125);
 		scrollPane.setViewportView(table);
 		
-		textField = new JTextField();
-		textField.setBounds(103, 250, 379, 30);
-		panel_6.add(textField);
-		textField.setColumns(10);
+		lydoTxt = new JTextField();
+		lydoTxt.setBounds(103, 250, 379, 30);
+		panel_6.add(lydoTxt);
+		lydoTxt.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("REASON :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_4.setBounds(12, 250, 81, 30);
 		panel_6.add(lblNewLabel_4);
 
+	}
+	public void setValue(OrderObject orderObject) {
+		this.orderObject = orderObject;
+		moneyL.setText(orderObject.price+"");
+		shipL.setText(orderObject.ship+"");
+		totalL.setText(orderObject.total+"");
+		nameLabel.setText(orderObject.address.getName());
+		phoneLabel.setText(orderObject.address.getPhone());
+		AddressLabel.setText(orderObject.address.getAddress()+", "+orderObject.address.getDistrict()+", "+orderObject.address.getCity());
+	}
+	public void setList(String[][] list) {
+		table.setModel(new DefaultTableModel(
+				list,
+				column
+			));
 	}
 }

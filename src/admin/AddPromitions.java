@@ -183,11 +183,6 @@ public class AddPromitions extends AddminHome {
 		promitionPanel.setBounds(0, 10, 805, 244);
 		promitionPanel.setLayout(null);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("Discount");
-		lblNewLabel_3_1.setBounds(371, 11, 81, 30);
-		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		promitionPanel.add(lblNewLabel_3_1);
-		
 		panel_2.add(promitionPanel);
 		
 		ArrayList<SaleMedia> saleList = new ArrayList<SaleMedia>();
@@ -195,7 +190,7 @@ public class AddPromitions extends AddminHome {
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SaleMedia saleMedia = new SaleMedia(adminApplication, saleList.size(), saleList);
+				SaleMedia saleMedia = new SaleMedia(adminApplication, saleList.size());
 				promitionPanel.add(saleMedia);
 				saleList.add(saleMedia);
 				adminApplication.setBounds(100, 100, 1100, 600+saleList.size());
@@ -248,52 +243,14 @@ public class AddPromitions extends AddminHome {
 		saveButton.setBounds(418, 475, 189, 30);
 		panel.add(saveButton);
 		
-		
-		JLabel lblNewLabel_2 = new JLabel("Promotion according to ");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(10, 10, 179, 30);
-		promitionPanel.add(lblNewLabel_2);
-		
-		JComboBox sortComboBox = new JComboBox();
-		sortComboBox.setBounds(192, 9, 128, 30);
-		promitionPanel.add(sortComboBox);
-		sortComboBox.setBackground(Color.WHITE);
-		sortComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox.setModel(new DefaultComboBoxModel(new String[] {"Product"}));
-		
-		JLabel lblNewLabel_2_1 = new JLabel("Form\r\n");
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1.setBounds(397, 10, 92, 30);
-		promitionPanel.add(lblNewLabel_2_1);
-		
-		JComboBox sortComboBox_1 = new JComboBox();
-		sortComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Discount"}));
-		sortComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		sortComboBox_1.setBackground(Color.WHITE);
-		sortComboBox_1.setBounds(504, 9, 128, 30);
-		promitionPanel.add(sortComboBox_1);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(0, 52, 804, 170);
-		promitionPanel.add(panel_3);
-
-
-		
-		
-
-		
-		panel_3.setLayout(null);
-		
 		JLabel lblNewLabel_3 = new JLabel("Product Groups");
-		lblNewLabel_3.setBounds(10, 10, 134, 30);
-		panel_3.add(lblNewLabel_3);
+		lblNewLabel_3.setBounds(10, 11, 134, 30);
+		promitionPanel.add(lblNewLabel_3);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JLabel lblNewLabel_3_2 = new JLabel("Name Product");
-		lblNewLabel_3_2.setBounds(173, 10, 134, 30);
-		panel_3.add(lblNewLabel_3_2);
+		lblNewLabel_3_2.setBounds(188, 11, 134, 30);
+		promitionPanel.add(lblNewLabel_3_2);
 		lblNewLabel_3_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 	}
 		

@@ -114,9 +114,9 @@ public class OrderHisrory extends MyAccount {
 			public void actionPerformed(ActionEvent e) {
 				if (!txt_id_order.getText().isEmpty()) {
 					int id_order = Integer.parseInt(txt_id_order.getText().trim());
-					
-					
-					
+					application.cancelOrder.setValue(application.connect.getOrder(id_order));
+					application.cancelOrder.setList(application.connect.getListMediaInOrder(id_order));
+					application.switchPanel(application.cancelOrder);
 				}
 			}
 		});

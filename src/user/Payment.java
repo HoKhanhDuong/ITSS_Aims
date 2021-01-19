@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import Controller.OrderController;
 import Manager.Application;
 
 import javax.swing.JTextField;
@@ -17,7 +18,7 @@ import java.awt.event.ActionEvent;
 
 public class Payment extends JFrame {
 	private JTextField cardNumbertextField;
-	public Payment(Application application, float totalBill) {
+	public Payment(Application application, float totalBill, OrderController orderController, int i) {
 		setBounds(500, 200, 300, 400);
 		JPanel contentPane = new JPanel();
 		this.setContentPane(contentPane);
@@ -51,17 +52,31 @@ public class Payment extends JFrame {
 		JButton btnNewButton = new JButton("Pay");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int flag = application.paymentController.check(cardNumbertextField.getText(), totalBill);
-				if( flag == 1) {
-					JOptionPane.showMessageDialog(new JFrame(), "Thanh toan thanh cong");
-					dispose();
-				}else if(flag == 0) {
-					JOptionPane.showMessageDialog(new JFrame(), "Thanh toan khong thanh cong \nKhong ton tai tai khoan"
-							+cardNumbertextField.getText(),
-						    "error", JOptionPane.ERROR_MESSAGE);
-				}else if(flag == -1) {
-					JOptionPane.showMessageDialog(new JFrame(), "Thanh toan khong thanh cong \nKhong du tien trong tai khoan",
-							"error", JOptionPane.ERROR_MESSAGE);
+				if(i==1) {
+					int flag = application.paymentController.check(cardNumbertextField.getText(), totalBill);
+					if( flag == 1) {
+						JOptionPane.showMessageDialog(new JFrame(), "Thanh toan thanh cong");
+						dispose();
+						orderController.saveOrder2();
+					}else if(flag == 0) {
+						JOptionPane.showMessageDialog(new JFrame(), "Thanh toan khong thanh cong \nKhong ton tai tai khoan"
+								+cardNumbertextField.getText(),
+							    "error", JOptionPane.ERROR_MESSAGE);
+					}else if(flag == -1) {
+						JOptionPane.showMessageDialog(new JFrame(), "Thanh toan khong thanh cong \nKhong du tien trong tai khoan",
+								"error", JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					boolean flag = application.paymentController.refund(cardNumbertextField.getText(), totalBill);
+					if( flag == true) {
+						JOptionPane.showMessageDialog(new JFrame(), "Thanh toan thanh cong");
+						dispose();
+						orderController.cancelOrder2();
+					}else if(flag == false) {
+						JOptionPane.showMessageDialog(new JFrame(), "Thanh toan khong thanh cong \nKhong ton tai tai khoan"
+								+cardNumbertextField.getText(),
+							    "error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});

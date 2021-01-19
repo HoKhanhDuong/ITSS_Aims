@@ -15,8 +15,21 @@ public class OrderController {
 		this.application = application;
 	}
 	public void saveOrder(OrderObject orderObject) {
+		Payment payment = new Payment(application, orderObject.total, this, 1);
+		this.orderObject = orderObject;
+	}
+	public void saveOrder2() {
+		
 		application.connect.saveOrder(orderObject, application.getID(), application.cart.listp);
-		Payment payment = new Payment(application, orderObject.total);
+		
 		application.switchPanel(application.home);
+	}
+	
+	public void cancelOrder(OrderObject orderObject, String lydo) {
+		Payment payment = new Payment(application, orderObject.total, this, 2);
+		this.orderObject = orderObject;
+	}
+	public void cancelOrder2() {
+		
 	}
 }

@@ -5,6 +5,7 @@ public class OrderObject {
 	public float price;
 	public float ship;
 	public float total;
+	public int iddh;
 	
 	public OrderObject(Address address, float price, float ship) {
 		this.address = address;

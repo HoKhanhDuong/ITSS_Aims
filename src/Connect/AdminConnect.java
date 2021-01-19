@@ -28,8 +28,8 @@ public class AdminConnect {
 	     String sqlInstanceName = "SQLEXPRESS";
 	     String database = "ITSS";
 	     String userName = "sa";
-//	     String password = "123456";
-	     String password = "do@1230.com";
+	     String password = "123456";
+//	     String password = "do@1230.com";
 	     String connectionURL = "jdbc:sqlserver://" + hostName + ":1433"
 	             + ";instance=" + sqlInstanceName + ";databaseName=" + database;
 	 

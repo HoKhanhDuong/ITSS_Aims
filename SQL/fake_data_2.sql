@@ -153,15 +153,15 @@ INSERT INTO Media(Ten,IDLoai,GiaTri,GiaCa,image)
 VALUES ('Tha lam hat mua',3, 80000,80000,'img/CD/1.jpg'),
        ('Mai yeu', 3, 75000,80000,'img/CD/2.jpg'),
 	   ('Dau chi rieng em', 3, 75000,80000,'img/CD/3.jpg'),
-       ('Cafe sang', 3, 75000,80000,'img/CD/ctx1vdtt.jpg'),
-       ('Hoang hon thuc giac ', 3, 75000,80000,'img/CD/4.jpg'),
-       ('Love song', 3, 75000,80000,'img/CD/5.jpg'),
-       ('Nhu chua bat dau', 3, 75000,80000,'img/CD/6.jpg'),
-       ('Dem nam mo pho', 3, 75000,80000,'img/CD/7.jpg'),
-       ('Linh nghi gi', 3, 75000,80000,'img/CD/8.jpg'),
-       ('Ngay xua anh noi', 3, 75000,80000,'img/CD/9.jpg'),
-       ('Bien tinh', 3, 75000,80000,'img/CD/10.jpg'),
-	   ('Con co be be', 3, 75000,80000,'img/CD/11.jpg')
+       ('Cafe sang', 3, 75000,80000,'img/CD/4.jpg'),
+       ('Hoang hon thuc giac ', 3, 75000,80000,'img/CD/5.jpg'),
+       ('Love song', 3, 75000,80000,'img/CD/6.jpg'),
+       ('Nhu chua bat dau', 3, 75000,80000,'img/CD/7.jpg'),
+       ('Dem nam mo pho', 3, 75000,80000,'img/CD/8.jpg'),
+       ('Linh nghi gi', 3, 75000,80000,'img/CD/9.jpg'),
+       ('Ngay xua anh noi', 3, 75000,80000,'img/CD/10.jpg'),
+       ('Bien tinh', 3, 75000,80000,'img/CD/11.jpg'),
+	   ('Con co be be', 3, 75000,80000,'img/CD/12.jpg')
 
 INSERT INTO TheLoai
 VALUES ('Techno',3),
@@ -191,6 +191,7 @@ VALUES (39,'Ben thanh Audio & Video',7),
 INSERT INTO TacGia
 VALUES ('Thu Phuong'),
        ('My Tam'),
+
 	   ('Ha Anh Tuan'),
 	   ('Ho Ngoc Ha'),
 	   ('Che Linh'),
@@ -351,7 +352,7 @@ INSERT INTO Media(Ten,IDLoai,GiaTri,GiaCa,image)
 VALUES ('Loi cua giong song', 4, 75000,80000,'img/LP/1.jpg'),
        ('Tuoi da buon', 4, 75000,80000,'img/LP/2.jpg'),
        ('Mot thoi da xa', 4, 75000,80000,'img/LP/3.jpg'),
-       ('Mat thu', 4, 75000,80000,'img/LP/4.jpg'),
+       ('Mat thu', 4, 75000,80000,'img/LP/4.png'),
        ('A Thousand Suns', 4, 75000,80000,'img/LP/5.jpg'),
 	   ('Noi gap go tinh yeu', 4, 75000,80000,'img/LP/6.jpg'),
        ('Khuc tinh xua', 4, 75000,80000,'img/LP/7.jpg'),
@@ -371,7 +372,7 @@ VALUES ('Loi cua giong song', 4, 75000,80000,'img/LP/1.jpg'),
 	   ('Rieng mot goc troi', 4, 800000,1250000,'img/LP/21.jpg'),
 	   ('Mua nua dem', 4, 900000,1530000,'img/LP/22.jpg'),
 	   ('FOLKLORE TAYLOR SWIFT', 4, 75000,80000,'img/LP/23.jpg'),
-		('POST MALONE', 4, 75000,80000,'img/LP/24.jpg')
+		('POST MALONE', 4, 75000,80000,'img/LP/24.jpeg')
 
 INSERT INTO TheLoai
 VALUES ('Dia Than Nhac Viet Nam',4),

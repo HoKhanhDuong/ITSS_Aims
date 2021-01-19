@@ -57,6 +57,7 @@ public class MyAccount extends MenuProduct {
 		JButton btnNewButton_2 = new JButton("Order History");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				application.orderHisrory.setTable();
 				application.switchPanel(application.orderHisrory);
 			}
 		});
@@ -65,27 +66,16 @@ public class MyAccount extends MenuProduct {
 		btnNewButton_2.setBounds(10, 112, 200, 35);
 		accountPanel.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Address");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				application.switchPanel(application.address);
-			}
-			
-		});
-		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEADING);
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton_3.setBounds(10, 157, 200, 35);
-		accountPanel.add(btnNewButton_3);
-		
 		JButton btnNewButton_4 = new JButton("Log out");
 		btnNewButton_4.setHorizontalAlignment(SwingConstants.LEADING);
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				application.setID(0);
+				application.switchPanel(application.home);
 			}
 		});
-		btnNewButton_4.setBounds(10, 202, 200, 35);
+		btnNewButton_4.setBounds(13, 154, 200, 35);
 		accountPanel.add(btnNewButton_4);
 		
 		JPanel panel = new JPanel();

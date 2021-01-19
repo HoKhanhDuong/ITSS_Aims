@@ -178,15 +178,6 @@ CREATE TABLE DonHang(
 	FOREIGN KEY (IDAddress) REFERENCES DiaChi(IDAddress)
 )
 
-ALTER TABLE DonHang
-ALTER COLUMN TrangThai NVARCHAR(50);
-ALTER TABLE DonHang
-ADD CONSTRAINT df_TrangThai DEFAULT(N'Chờ') FOR TrangThai;
-
-ALTER TABLE DonHang
-ALTER COLUMN GhiChu NVARCHAR(225) not null ;
-
-
 CREATE TABLE ThongTinDonHang(
 	IDDonHang INT,
 	IDMedia INT,
@@ -221,10 +212,13 @@ CREATE TABLE MediaSale (
 
 INSERT INTO Users(Email, Pass, isAdmin) VALUES('admin@gmail.com','12345678',1)
 
-ALTER TABLE Media ADD image VARCHAR(225)
+-- update media
+ALTER TABLE Media
+ADD image VARCHAR(225)
 
 -- update vao ngay 22/12/2020
-ALTER TABLE Media ADD ngay_nhap DATE
+ALTER TABLE Media
+ADD ngay_nhap DATE
 
 -- update vao ngay 23/12/2020;
 ALTER TABLE Media
@@ -274,22 +268,109 @@ FOREIGN KEY (IDMedia)
 REFERENCES Media
 ON DELETE CASCADE
 
--- tao xong xoa
+-- xoa
 ALTER TABLE History
-add constraint fk_media_history1
+drop constraint fk_media_history
+
+
+-- Them truong de co the xoa
+alter table Media
+add deleted BIT default 0
+
+update Media 
+set deleted = 0
+where IDMedia > 0
+
+
+alter table DanhSachBaiHat
+    add constraint fk_dsbh_media
 foreign key (IDMedia)
-REFERENCES Media
-ON DELETE set null
+references Media
+on DELETE cascade
 
+alter table ThongTinDonHang
+add constraint fk_TTDH_Media
+foreign key (IDMedia)
+references Media
+on delete cascade
 
+alter table CD
+add constraint fk_cd_media
+foreign key (IDMedia)
+references Media
+on delete cascade
+
+alter table DVD
+add constraint fk_dvd_media
+foreign key (IDMedia)
+references Media
+on delete cascade
+
+alter table LD
+add constraint fk_lp_media
+foreign key (IDMedia)
+references Media
+on delete cascade
+
+alter table TheLoai
+add constraint fk_tl_loai
+foreign key (IDLoai)
+references Loai
+on delete cascade
+
+alter table History
+add constraint fk_his_media_1D
+foreign key (IDMedia)
+references Media
+on DELETE CASCADE
+
+alter TABLE BaiHat
+add constraint fk_tacgia_baihat
+foreign key (IDTacGia)
+references TacGia
+on delete cascade
+
+-- Them truong de co the xoa trong DanhSachBaiHat
+alter table DanhSachBaiHat
+add deleted BIT DEFAULT 0
+
+-- Xoa date trong history sau do them lai
+alter table History
+drop column date_action
+
+alter table History
+add date_action VARCHAR(50)
+
+-- update table dvd
+alter table DVD
+add IDDia INT
+
+alter table DVD
+add constraint fk_dvd_dia
+foreign key (IDDia)
+references LoaiDia
+on DELETE NO ACTION
 
 -- xoa
 ALTER TABLE History
 drop constraint fk_History_IDMedia
 
+
 -- update sale table
-ALTER TABLE Sale 
+ALTER TABLE Sale
 DROP COLUMN Sale
 
 ALTER TABLE MediaSale
 ADD sale float
+
+-- update don hang
+ALTER TABLE DonHang
+ALTER COLUMN TrangThai NVARCHAR(50);
+ALTER TABLE DonHang
+ADD CONSTRAINT df_TrangThai DEFAULT(N'Chờ') FOR TrangThai;
+
+ALTER TABLE DonHang
+ALTER COLUMN GhiChu NVARCHAR(225) not null ;
+
+
+

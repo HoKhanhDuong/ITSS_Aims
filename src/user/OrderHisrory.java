@@ -47,10 +47,6 @@ public class OrderHisrory extends MyAccount {
 	public OrderHisrory( Application application) {
 		super(application);
 		
-		if (application.getID() != 0) {
-			objects = application.connect.get_OrderDetail(application.getID());
-		}
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(320, 70, 780, 530);
@@ -84,12 +80,9 @@ public class OrderHisrory extends MyAccount {
 		
 		table = new JTable();
 		table.setEnabled(false);
-		table.setRowHeight(table.getRowHeight() + 20);
-		table.setModel(new DefaultTableModel(
-			objects,
-			column
-		));
-		table.getColumnModel().getColumn(1).setPreferredWidth(390);
+		table.setRowHeight(35);
+		setTable();
+		table.getColumnModel().getColumn(1).setPreferredWidth(450);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(60);
@@ -119,6 +112,12 @@ public class OrderHisrory extends MyAccount {
 		JButton btnNewButton = new JButton("View");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!txt_id_order.getText().isEmpty()) {
+					int id_order = Integer.parseInt(txt_id_order.getText().trim());
+					
+					
+					
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -137,7 +136,15 @@ public class OrderHisrory extends MyAccount {
 		this.objects = objects;
 	}
 	
-	
+	public void setTable() {
+		if (application.getID() != 0) {
+			objects = application.connect.get_OrderDetail(application.getID());
+		}
+		table.setModel(new DefaultTableModel(
+				objects,
+				column
+			));
+	}
 	
 	
 }

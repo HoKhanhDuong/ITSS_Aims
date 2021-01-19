@@ -98,6 +98,7 @@ public class Information extends MyAccount {
 		panel.add(lblCard);
 		
 		txtCard = new JTextField();
+		txtCard.setToolTipText("card co 16 ky tu. xxxx xxxx xxxx xxxx");
 		txtCard.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtCard.setColumns(10);
 		txtCard.setBounds(115, 137, 450, 35);
@@ -109,6 +110,7 @@ public class Information extends MyAccount {
 		panel.add(lblAddress);
 		
 		txtAddress = new JTextField();
+		txtAddress.setToolTipText("dia chi co dang: xa,huyen,thanh pho");
 		txtAddress.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtAddress.setColumns(10);
 		txtAddress.setBounds(115, 184, 450, 35);

@@ -14,10 +14,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import Manager.AdminApplication;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 public class ProductManagement extends AddminHome {
 	
@@ -55,6 +59,15 @@ public class ProductManagement extends AddminHome {
 		panel_1.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table.getSelectedRow();
+				TableModel model = table.getModel();
+				String id = model.getValueAt(index, 0).toString();
+				idmediatxt.setText(id);
+			}
+		});
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setRowHeight(table.getRowHeight() + 15);
 		setTable();
@@ -91,7 +104,14 @@ public class ProductManagement extends AddminHome {
 		JButton btnEdit = new JButton("Edit Product");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(adminApplication.getID());
+				if(!idmediatxt.getText().isEmpty() /*&& idmediatxt.getText().matches("\\d?")*/) {
+					adminApplication.setThem(false);
+					adminApplication.setSua(true);
+					
+					int id_media = Integer.parseInt(idmediatxt.getText().trim());
+					
+					adminApplication.adminController.display_edit_media(id_media);
+				}
 			}
 		});
 		btnEdit.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -115,10 +135,12 @@ public class ProductManagement extends AddminHome {
 						options[1]);
 				
 				if (n == JOptionPane.YES_OPTION) {
-					int id_media = Integer.parseInt(idmediatxt.getText().trim());
+					String[] list_remove = idmediatxt.getText().trim().split(",");
 					
-					adminApplication.adminController.addHistory(id_media, adminApplication.getID(), 3);
-					adminApplication.adminController.removeProduct(id_media);
+					for (int i = 0; i < list_remove.length; i++) {
+						int id_media = Integer.parseInt(list_remove[i].trim());		
+						adminApplication.adminController.addHistory(id_media, adminApplication.getID(), 3);
+					}
 					
 					adminApplication.productManagement.setItems(
 							adminApplication.connect.getList_Product_Physical()
@@ -154,7 +176,10 @@ public class ProductManagement extends AddminHome {
 		JButton btnNewButton = new JButton("BOOK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.addBook);
+				adminApplication.setThem(true);
+				adminApplication.setSua(false);
+				adminApplication.adminController.display_media_for_category(1);
+				adminApplication.switchPanel(adminApplication.addBook);
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -164,7 +189,10 @@ public class ProductManagement extends AddminHome {
 		JButton btnCd = new JButton("CD/LP");
 		btnCd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.addCD_LP);
+				adminApplication.setThem(true);
+				adminApplication.setSua(false);
+				adminApplication.adminController.display_media_for_category(3);
+				adminApplication.switchPanel(adminApplication.addCD_LP);
 			}
 		});
 		btnCd.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -174,7 +202,10 @@ public class ProductManagement extends AddminHome {
 		JButton btnDvd = new JButton("DVD");
 		btnDvd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 adminApplication.switchPanel(adminApplication.addDVD);
+				adminApplication.setThem(true);
+				adminApplication.setSua(false);
+				adminApplication.adminController.display_media_for_category(2);
+				adminApplication.switchPanel(adminApplication.addDVD);
 			}
 		});
 		btnDvd.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -191,6 +222,14 @@ public class ProductManagement extends AddminHome {
 		this.items = items;
 	}
 	
+	public JTextField getIdmediatxt() {
+		return idmediatxt;
+	}
+
+	public void setIdmediatxt(JTextField idmediatxt) {
+		this.idmediatxt = idmediatxt;
+	}
+
 	public void setTable() {
 		
 		table.setModel(new DefaultTableModel(

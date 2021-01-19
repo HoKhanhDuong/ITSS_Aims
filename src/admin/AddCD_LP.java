@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 public class AddCD_LP extends AddProduct implements ActionListener, DocumentListener{
 
@@ -351,21 +352,24 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (valueTXT.isEditable() && !valueTXT.getText().isEmpty()) {
+		String patern = "\\d+";
+		if (valueTXT.isEditable() && !valueTXT.getText().isEmpty() && valueTXT.getText().matches(patern)) {
 			
 			int value_int = (int) (Float.parseFloat(valueTXT.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			priceTXT.setText(valueString);
 			
-		} 
+		} else {
+			JOptionPane.showMessageDialog(new JFrame(), "Value is number\n");
+		}
 		
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(priceTXT.getText());
-		if (valueTXT.isEditable() && !valueTXT.getText().isEmpty()) {
+		String patern = "\\d+";
+		if (valueTXT.isEditable() && !valueTXT.getText().isEmpty() && valueTXT.getText().matches(patern)) {
 			int value_int = (int) (Integer.parseInt(valueTXT.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			priceTXT.setText(valueString);

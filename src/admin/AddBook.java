@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 public class AddBook extends AddProduct implements DocumentListener, ActionListener {
 	
@@ -114,6 +115,8 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 					
 					boolean check = adminApplication.adminController.checkValidate(getValidation());
 					
+					check = adminApplication.adminController.checkDate(getValidation()[7]);
+					
 					if (check == false) {
 						JOptionPane.showMessageDialog(null, adminApplication.adminController.getErrors(),
 								"Add Product", JOptionPane.ERROR_MESSAGE);
@@ -157,12 +160,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 					adminApplication.adminController.update_book(getValidation(), id_media);
 					
 				}
-//				{
-//					JOptionPane.showMessageDialog(null, 
-//							"He thong dang trong trang thai sua\n", 
-//							"Trang thai", 
-//							JOptionPane.ERROR_MESSAGE);
-//				}
+
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -259,6 +257,8 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 				adminApplication.setThem(true);
 				adminApplication.setSua(true);
 				
+				clear_display();
+				
 				adminApplication.switchPanel(adminApplication.productManagement);
 			}
 		});
@@ -353,25 +353,25 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+		String patern = "\\d+";
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable() && valuetxt.getText().matches(patern)) {
 			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			pricetxt.setText(valueString);
-		} else if(pricetxt.getText() != "" && pricetxt.isEditable()) {
-			
+		} else {
+			JOptionPane.showMessageDialog(new JFrame(), "Value is number\n");
 		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+		String patern = "\\d+";
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable() && valuetxt.getText().matches(patern)) {
 			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			pricetxt.setText(valueString);
-		} else if(pricetxt.getText() != "" && pricetxt.isEditable()) {
-			
-		}
+		} 
 	}
 
 	@Override

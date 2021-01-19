@@ -19,6 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -363,10 +364,13 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+		String patern = "\\d+";
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable() && valuetxt.getText().matches(patern)) {
 			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			pricetxt.setText(valueString);
+		} else {
+			JOptionPane.showMessageDialog(new JFrame(), "Value is number\n");
 		}
 	}
 
@@ -374,7 +378,8 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		// TODO Auto-generated method stub
-		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable()) {
+		String patern = "\\d+";
+		if (!valuetxt.getText().isEmpty() && valuetxt.isEditable() && valuetxt.getText().matches(patern)) {
 			long value_int = (long) (Integer.parseInt(valuetxt.getText())*1.1);
 			String valueString = String.valueOf(value_int); 
 			pricetxt.setText(valueString);

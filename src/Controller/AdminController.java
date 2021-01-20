@@ -620,7 +620,9 @@ public class AdminController{
 	
 	public void getSaleMedia(String sale) {
 		String[] timeStrings = adminApplication.adminConnect.getSaleTime(sale);
-		adminApplication.promotions.setSale(adminApplication.adminConnect.getListMediaSale(sale),timeStrings[0], timeStrings[1]);
+		adminApplication.promotions.setSale(
+				adminApplication.adminConnect.getListMediaSale(sale),
+				timeStrings[0], timeStrings[1]);
 	}
 	
 }

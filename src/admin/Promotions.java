@@ -30,6 +30,7 @@ public class Promotions extends AddminHome {
 	JLabel start;
 	JLabel end;
 	JPanel panel_3;
+	JPanel panel_1;
 	
 	public Promotions(AdminApplication adminApplication) {
 		super(adminApplication);
@@ -52,7 +53,7 @@ public class Promotions extends AddminHome {
 		btnNewButton.setBounds(556, 37, 269, 35);
 		panel.add(btnNewButton);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBounds(8, 134, 830, 376);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
@@ -70,11 +71,11 @@ public class Promotions extends AddminHome {
 		panel_1.add(panel_3);
 		panel_3.setLayout(null);
 		
-		start = new JLabel("New label");
+		start = new JLabel("");
 		start.setBounds(136, 11, 157, 26);
 		panel_1.add(start);
 		
-		end = new JLabel("New label");
+		end = new JLabel("");
 		end.setBounds(136, 56, 157, 35);
 		panel_1.add(end);
 		
@@ -100,7 +101,12 @@ public class Promotions extends AddminHome {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				adminApplication.adminController.getSaleMedia(saleCombo.getSelectedItem().toString());
+				if (saleCombo.getSelectedItem() != null) {
+					String selected = saleCombo.getSelectedItem().toString();
+					if (!selected.isEmpty()) {
+						adminApplication.adminController.getSaleMedia(selected);
+					}
+				}
 			}
 		});
 		
@@ -122,12 +128,14 @@ public class Promotions extends AddminHome {
 		start.setText(startString);
 		end.setText(endString);
 		panel_3.removeAll();
-		panel_3.setBounds(10, 123, 810, 242);
-		panel_3.setLayout(null);
 		
 		for(int i=0; i<list.size(); i++) {
+			
 			panel_3.add(list.get(i));
+			list.get(i).setVisible(true);
 		}
+		panel_3.revalidate();
+		panel_3.repaint();
 	}
 	
 }

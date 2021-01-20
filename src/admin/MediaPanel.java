@@ -15,14 +15,14 @@ public class MediaPanel extends JPanel {
 	public MediaPanel(String image, String name, String sale, int i) {
 		// TODO Auto-generated constructor stub
 		setBackground(SystemColor.inactiveCaptionBorder);
-		setBounds(10, 51*i, 805, 51);
+		setBounds(10, 51*i + 5*(i-1), 805, 51);
 		setLayout(null);
 		
-		JLabel imageLabel = new JLabel("New label");
+		JLabel imageLabel = new JLabel("");
 		BufferedImage image1;
 		try {
 			image1 = ImageIO.read(new File(image));
-			ImageIcon icon = new ImageIcon(image1.getScaledInstance(270, 340, image1.SCALE_SMOOTH));
+			ImageIcon icon = new ImageIcon(image1.getScaledInstance(69, 51, image1.SCALE_SMOOTH));
 			imageLabel.setIcon(icon);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -236,7 +236,7 @@ public class SaleProduct extends MenuProduct {
 				if(application.mediaControl.get_ListProductSale(type, (page+1)*20).size() > 0) {
 					application.mediaControl.hiddenCurrentPanel(list, page);
 					page++;
-					if(flag=false)
+					if(flag == false)
 						setList(application.mediaControl.get_ListProductSale(type, page*20));
 					else
 						setList(application.mediaControl.get_ListProductSaleSort(type, page*20));
@@ -250,7 +250,7 @@ public class SaleProduct extends MenuProduct {
 				if(page>0) {
 					application.mediaControl.hiddenCurrentPanel(list, page);
 					page--;
-					if(flag=false)
+					if(flag == false)
 						setList(application.mediaControl.get_ListProductSale(type, page*20));
 					else
 						setList(application.mediaControl.get_ListProductSaleSort(type, page*20));

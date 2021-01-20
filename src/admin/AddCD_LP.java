@@ -80,7 +80,7 @@ public class AddCD_LP extends AddProduct implements ActionListener, DocumentList
 		panel_2.setBounds(10, 35, 810, 301);
 		panel_1.add(panel_2);
 		
-		JLabel lblTheLoai = new JLabel("The loai");
+		JLabel lblTheLoai = new JLabel("Category");
 		lblTheLoai.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTheLoai.setBounds(477, 155, 61, 30);
 		panel_2.add(lblTheLoai);

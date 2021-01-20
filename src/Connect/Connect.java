@@ -395,8 +395,6 @@ public class Connect {
 			statement = conn.createStatement();
 			switch (type) {
 			case 1: {
-
-
 				rSet = statement.executeQuery("SELECT * FROM Media\r\n" + 
 						"inner join Loai on Media.IDLoai = Loai.IDLoai\r\n" + 
 						"inner join MediaSale on Media.IDMedia = MediaSale.IDMedia\r\n" + 

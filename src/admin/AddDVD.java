@@ -201,7 +201,7 @@ public class AddDVD extends AddProduct implements DocumentListener, ActionListen
 		directortxt.setBounds(99, 50, 324, 30);
 		panel_2.add(directortxt);
 		
-		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("The loai");
+		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Category");
 		lblNewLabel_2_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_1_1_1.setBounds(10, 172, 79, 30);
 		panel_2.add(lblNewLabel_2_1_1_1_1);

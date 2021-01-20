@@ -167,7 +167,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		btnAdd.setBounds(676, 273, 124, 30);
 		panel_2.add(btnAdd);
 		
-		JLabel bialbl = new JLabel("Loai bia");
+		JLabel bialbl = new JLabel("Disc type");
 		bialbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		bialbl.setBounds(10, 90, 110, 30);
 		panel_2.add(bialbl);
@@ -241,7 +241,7 @@ public class AddBook extends AddProduct implements DocumentListener, ActionListe
 		languagelbl.setBounds(340, 210, 86, 30);
 		panel_2.add(languagelbl);
 		
-		JLabel theloailbl = new JLabel("The Loai");
+		JLabel theloailbl = new JLabel("Category");
 		theloailbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		theloailbl.setBounds(576, 210, 69, 30);
 		panel_2.add(theloailbl);

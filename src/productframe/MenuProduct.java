@@ -67,8 +67,8 @@ public class MenuProduct extends JPanel implements KeyListener{
 			}
 		});
 		logoButton.setBackground(Color.WHITE);
-		logoButton.setFont(new Font("Harrington", Font.BOLD, 40));
-		logoButton.setBounds(0, 0, 80, 70);
+		logoButton.setFont(new Font("Savoye LET", Font.BOLD, 40));
+		logoButton.setBounds(0, 0, 102, 70);
 		logoButton.setBorderPainted(false);
 		logoPanel.add(logoButton);
 		
@@ -103,6 +103,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 					return;
 				}
 				page = 0;
+				application.product.setType(7);
 				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
 		});
@@ -141,6 +142,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 				saleButton.setForeground(Color.BLACK);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
+				application.product.setType(7);
 				application.switchPanel(application.home);
 			}
 		});
@@ -152,6 +154,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 				saleButton.setForeground(Color.BLACK);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
+				application.product.setType(7);
 				setListProduct( application.mediaControl.get_ListProduct(0, page*20) );
 				application.mediaControl.screen_ListProduct(listProduct,page);
 			}
@@ -165,6 +168,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 				homeButton.setForeground(Color.BLACK);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
+				application.product.setType(7);
 				setListProduct(application.mediaControl.get_ListProductSale(0, page*20) );
 				if (getListProduct().size() != 0) {
 					application.mediaControl.screen_ListProductSale(listProduct,page);
@@ -197,6 +201,7 @@ public class MenuProduct extends JPanel implements KeyListener{
 				cart.setForeground(Color.BLUE);
 				application.mediaControl.hiddenCurrentPanel(listProduct, page);
 				page = 0;
+				application.product.setType(7);
 				application.cartController.getMediaInCart();
 				application.switchPanel(application.cart);
 			}

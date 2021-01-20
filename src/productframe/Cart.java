@@ -77,7 +77,7 @@ public class Cart extends MenuProduct {
 		JLabel cart_image = new JLabel("img");
 		cart_image.setHorizontalAlignment(SwingConstants.CENTER);
 		cart_image.setLayout(null);
-		cart_image.setIcon(new ImageIcon("img\\cart.jpg"));
+		cart_image.setIcon(new ImageIcon("img/cart.jpg"));
 		cart_image.setBounds(311, 27, 229, 144);
 		panel_3.add(cart_image);
 		
@@ -136,7 +136,7 @@ public class Cart extends MenuProduct {
 				application.switchPanel(application.pay);
 			}
 		});
-		orderButton.setForeground(Color.WHITE);
+		orderButton.setForeground(Color.RED);
 		orderButton.setBackground(new Color(255, 0, 0));
 		orderButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

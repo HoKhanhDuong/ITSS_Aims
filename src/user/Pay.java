@@ -108,7 +108,7 @@ public class Pay extends MenuProduct {
         		
         	}
         });
-        ship1Button.setForeground(Color.WHITE);
+        ship1Button.setForeground(Color.BLUE);
         ship1Button.setBackground(new Color(51, 51, 204));
         ship1Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
         ship1Button.setBounds(10, 129, 219, 30);
@@ -226,7 +226,7 @@ public class Pay extends MenuProduct {
         panel_5.add(cancelButton);
         
         JButton ship2Button = new JButton("Ship to this address");
-        ship2Button.setForeground(Color.WHITE);
+        ship2Button.setForeground(Color.BLUE);
         ship2Button.setBackground(new Color(51, 51, 204));
         ship2Button.setFont(new Font("Tahoma", Font.PLAIN, 16));
         ship2Button.setBounds(407, 313, 243, 30);

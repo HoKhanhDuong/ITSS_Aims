@@ -55,7 +55,7 @@ public class ProductPaneInCart extends JPanel implements ActionListener {
 		
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.addActionListener(this);
-		deleteButton.setBounds(451, 69, 76, 19);
+		deleteButton.setBounds(451, 69, 94, 19);
 		deleteButton.setHorizontalAlignment(SwingConstants.LEADING);
 		deleteButton.setBackground(Color.WHITE);
 		deleteButton.setForeground(new Color(255, 0, 0));

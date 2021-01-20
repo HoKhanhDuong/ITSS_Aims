@@ -9,12 +9,13 @@ import javax.swing.JPanel;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class MediaPanel extends JPanel {
 
 	public MediaPanel(String image, String name, String sale, int i) {
 		// TODO Auto-generated constructor stub
-		setBackground(SystemColor.inactiveCaptionBorder);
+		setBackground(Color.LIGHT_GRAY);
 		setBounds(10, 51*i + 5*(i-1), 805, 51);
 		setLayout(null);
 		

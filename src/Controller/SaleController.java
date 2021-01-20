@@ -39,6 +39,8 @@ public class SaleController {
 						,"",JOptionPane.ERROR_MESSAGE);
 			}else {
 				adminApplication.adminConnect.saveSale(name, starttime.toString(), endtime.toString(), list);
+				adminApplication.adminController.getSale();
+				adminApplication.switchPanel(adminApplication.promotions);
 			}
 		}
        

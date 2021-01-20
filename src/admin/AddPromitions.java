@@ -125,7 +125,7 @@ public class AddPromitions extends AddminHome {
 				lblNewLabel_2_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				
 				startYear = new JComboBox();
-				startYear.setBounds(669, 51, 74, 30);
+				startYear.setBounds(669, 51, 88, 30);
 				panel_1.add(startYear);
 				startYear.setModel(new DefaultComboBoxModel(new String[] {"2020", "2021", "2022", "2023", "2024", "2025", "2026"}));
 				startYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -166,7 +166,7 @@ public class AddPromitions extends AddminHome {
 				lblNewLabel_2_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 				
 				endYear = new JComboBox();
-				endYear.setBounds(669, 90, 74, 30);
+				endYear.setBounds(669, 90, 88, 30);
 				panel_1.add(endYear);
 				endYear.setModel(new DefaultComboBoxModel(new String[] {"2020", "2021", "2022", "2023", "2024", "2025", "2026"}));
 				endYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -179,7 +179,7 @@ public class AddPromitions extends AddminHome {
 		panel_2.setLayout(null);
 		
 		promitionPanel = new JPanel();
-		promitionPanel.setBackground(SystemColor.inactiveCaptionBorder);
+		promitionPanel.setBackground(Color.WHITE);
 		promitionPanel.setBounds(0, 10, 805, 244);
 		promitionPanel.setLayout(null);
 		
@@ -199,13 +199,16 @@ public class AddPromitions extends AddminHome {
 		addButton.setBounds(281, 472, 112, 33);
 		panel.add(addButton);
 		
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton("Reset");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for(int i= saleList.size()-1; i>= 0; i--) {
-					promitionPanel.remove(i+3);
+					promitionPanel.remove(i+2);
 					saleList.remove(i);
 				}
+				nameTxt.setText("");
+				promitionPanel.revalidate();
+				promitionPanel.repaint();
 			}
 		});
 		

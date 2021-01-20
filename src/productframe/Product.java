@@ -56,7 +56,7 @@ public class Product extends MenuProduct {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	JPanel productPanel;
-	private int type = 0;
+	private int type = 7;
 	private boolean flag = false;
 
 	public Product(Application application) {
@@ -101,23 +101,22 @@ public class Product extends MenuProduct {
 		       public void actionPerformed(ActionEvent e) {
 		    	   flag = true;
 		    	   String value = sortComboBox.getSelectedItem().toString();
-		    	   if(type == 0)
-	    		    	type = 7;
+		    	   
 		    	   if(value == "Price : Low to High") {
+		    		   if (type >= 0) type = -type;
 		    		   	application.mediaControl.hiddenCurrentPanel(list, page);
 						page = 0;
 						setList(application.mediaControl.get_ListProductSort(type, 0));
 						setListProduct(list);
 						application.mediaControl.screen_ListProduct(getList(),page); 
-		    	   }
-		    	   else if(value == "Price : High to Low") {
-		    		   type = -type;
+		    	   } else if(value == "Price : High to Low") {
+		    		   	if (type < 0) type = -type;
 		    		   	application.mediaControl.hiddenCurrentPanel(list, page);
 						page = 0;
 						setList(application.mediaControl.get_ListProductSort(type, 0));
 						setListProduct(list);
 						application.mediaControl.screen_ListProduct(getList(),page);
-		    	   }
+		    	   } 
 		       }
 		});
 		
@@ -300,15 +299,24 @@ public class Product extends MenuProduct {
 		scrollPane.add(productPanel);
 		scrollPane.setViewportView(productPanel);
 		panel_2.add(scrollPane);
-		System.out.println(page);
 	}
 	
 
-		public List<ProductPanel> getList() {
-			return list;
-		}
+	public List<ProductPanel> getList() {
+		return list;
+	}
 
-		public void setList(List<ProductPanel> list) {
-			this.list = list;
-		}
+	public void setList(List<ProductPanel> list) {
+		this.list = list;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+	
+		
 }

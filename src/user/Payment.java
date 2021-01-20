@@ -41,7 +41,7 @@ public class Payment extends JFrame {
 		contentPane.add(totalLabel);
 		
 		JLabel lblNewLabel_2 = new JLabel("Card Number : ");
-		lblNewLabel_2.setBounds(25, 157, 76, 30);
+		lblNewLabel_2.setBounds(6, 157, 95, 30);
 		contentPane.add(lblNewLabel_2);
 		
 		cardNumbertextField = new JTextField();

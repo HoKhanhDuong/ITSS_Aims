@@ -25,7 +25,7 @@ public class SaleMedia extends JPanel {
 	public int mediaid = 0;
 	public SaleMedia(AdminApplication adminApplication, int i) {
 
-		setBackground(SystemColor.inactiveCaptionBorder);
+		setBackground(Color.LIGHT_GRAY);
 		setBounds(10, 40 + 51*(i), 805, 51);
 		setLayout(null);
 		
@@ -84,11 +84,13 @@ public class SaleMedia extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				mediaid = list.get(media.getSelectedIndex()).getId();
+				if(media.getSelectedIndex() >= 0)
+					mediaid = list.get(media.getSelectedIndex()).getId();
 			}
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void update(ArrayList<Media> list) {
 		
 		media.removeAllItems();
